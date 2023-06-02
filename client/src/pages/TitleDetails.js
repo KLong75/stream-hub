@@ -387,7 +387,7 @@ const TitleDetails = () => {
     <h2>Title: {selectedTitleDetails.title}</h2>
     <span>Type: {selectedTitleDetails.type}</span>
     <p>Released in: {selectedTitleDetails.year}</p>
-    <img src={selectedTitleDetails.backdrop} alt='show backdrop'/>
+    {selectedTitleDetails.backdrop && <img src={selectedTitleDetails.backdrop} alt='show backdrop'/>}
     <p>Critic Score: {selectedTitleDetails.critic_score}</p>
     <p>Genres: {selectedTitleDetails.genre_names}</p>
     <p>Network: {selectedTitleDetails.network_names}</p>
@@ -578,8 +578,8 @@ const TitleDetails = () => {
     )}
 
 
-    <p>Trailer:</p>
-    <a href={selectedTitleDetails.trailer} target='_blank' rel='noreferrer'><img src={selectedTitleDetails.trailer_thumbnail} alt='trailer thumbnail'/></a>
+    
+    {selectedTitleDetails.trailer && <><p>Trailer:</p> <a href={selectedTitleDetails.trailer} target='_blank' rel='noreferrer'><img src={selectedTitleDetails.trailer_thumbnail} alt='trailer thumbnail'/></a></>}
     
     <p>Rating:{selectedTitleDetails.us_rating}</p>
     <p>User Score: {selectedTitleDetails.user_rating}</p>

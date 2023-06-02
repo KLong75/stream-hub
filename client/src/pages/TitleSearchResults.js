@@ -102,7 +102,7 @@ const TitleSearchResults = () => {
    
     <h3>Title Search Results Page</h3>
 
-    <div>
+    {/* <div>
       {titleSearchResults.map((result) => (
         <div key = {result.id}>
           <p>{(`${result.title}`)}</p>
@@ -115,7 +115,26 @@ const TitleSearchResults = () => {
           <Button variant='contained' value={result.id}>Save To Watchlist</Button>
         </div>
       ))}
-    </div>
+    </div> */}
+    <div>
+        {titleSearchResults
+          .filter((result) => result.image_url !== 'https://cdn.watchmode.com/profiles/') // Filter out titles with null year
+          
+          .map((result) => (
+          <div key={result.id}>
+            {result.title && <p>{result.title}</p>}
+            {result.type && <p>{result.type}</p>}
+            {result.year && <p>{result.year}</p>}
+            {result.image_url && <img src={result.image_url} alt={result.title} />}
+            <Button variant="contained" value={result.id} onClick={handleTitleSelected}>
+              More Details
+            </Button>
+            <Button variant="contained" value={result.id}>
+              Save To Watchlist
+            </Button>
+          </div>
+        ))}
+      </div>
     </>
   )
   
