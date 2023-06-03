@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMoreTitleDetailsMovie, fetchTitleDetails } from '../utils/apiCalls';
+import { fetchMoreTitleDetailsMovie, fetchTitleDetails, searchByName } from '../utils/apiCalls';
 
 import Button from '@mui/material/Button';
 
@@ -11,6 +11,8 @@ const TitleDetails = () => {
   const [selectedTitle, setSelectedTitle] = useState('');
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+
+  const [moreDetails, setMoreDetails] = useState({});
 
   const [similarTitlesDetails, setSimilarTitlesDetails] = useState([]);
 
@@ -65,6 +67,8 @@ const TitleDetails = () => {
   const [cbsAllAccessUrl, setCbsAllAccessUrl] = useState('');
 
   const [notAvailable, setNotAvailable] = useState('');
+
+  const [selectedActorName, setSelectedActorName] = useState('');
 
 
 
@@ -235,10 +239,13 @@ const TitleDetails = () => {
           throw new Error('Something went wrong')
         }
   
-        const moreDetails = await response.json();
+        // const moreDetails = await response.json();
+
+        const moreDetailsFetched  = await response.json();
+        setMoreDetails(moreDetailsFetched)
   
-        console.log(moreDetails)
-  
+        console.log(moreDetailsFetched)
+        // setSelectedTitleDetails(prevState => ({...prevState, ...moreDetails}));
       } catch (err) {
         console.error(err);
       }
@@ -378,6 +385,44 @@ const TitleDetails = () => {
       }
     };
 
+    const handleActorNameClicked = async (actorName) => {
+      console.log(actorName);
+      setSelectedActorName(actorName);
+      const selectedActorName = actorName;
+      console.log(selectedActorName)
+
+      try {
+
+        const response = await searchByName(selectedActorName);
+
+        console.log(searchByName(selectedActorName));
+
+        if (!response.ok) {
+          throw new Error('Something went wrong')
+        }
+
+        const results = await response.json();
+        console.log(results);
+
+        const actorSearchResults = results.results.map((actor) => ({
+          id: actor.id,
+          name: actor.name,
+          known_for: actor.known_for,
+          poster_url: 'https://image.tmdb.org/t/p/w500/' + actor.known_for[0].poster_path,
+          image_url: 'https://image.tmdb.org/t/p/w200' + actor.profile_path,
+        }));
+
+        console.log(actorSearchResults);
+
+        window.location.href = '/actor_search_results?actors=' + encodeURIComponent(JSON.stringify(actorSearchResults));
+      }
+      catch (err) {
+        console.log(err.message);
+      }
+};
+
+
+
 
   
   return (
@@ -392,6 +437,21 @@ const TitleDetails = () => {
     <p>Genres: {selectedTitleDetails.genre_names}</p>
     <p>Network: {selectedTitleDetails.network_names}</p>
     <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
+    <div>
+      {moreDetails && moreDetails.cast && moreDetails.cast.length > 0 && moreDetails.cast.slice(0, Math.min(5, moreDetails.cast.length)).map(castMember => (
+        <p key={castMember.cast_id}>
+          <button onClick={() => handleActorNameClicked(castMember.name)}>
+            {castMember.name}
+          </button> as {castMember.character}
+        </p>
+      ))}
+    </div>
+    <div>
+      {moreDetails && moreDetails.crew && moreDetails.crew.find(crewMember => crewMember.job === 'Director') && moreDetails.crew.find(crewMember => crewMember.job === 'Director').name && (
+        <p>Director: {moreDetails.crew.find(crewMember => crewMember.job === 'Director').name}</p>
+      )}
+    </div>
+
     <img src={selectedTitleDetails.poster} alt='show poster'/>
     <p>Release Date: {selectedTitleDetails.release_date}</p>
     <p>Runtime: {selectedTitleDetails.runtime}</p>
@@ -595,10 +655,8 @@ const TitleDetails = () => {
         <Button variant='contained' value={similarTitle.id}>Save to Watchlist</Button>
       </React.Fragment>
       ))}
-    
     </>
   )
-  
 };
 
 export default TitleDetails;

@@ -13,6 +13,7 @@ const TitleSearchResults = () => {
 
   const [selectedTitle, setSelectedTitle] = useState('');
 
+  // eslint-disable-next-line no-unused-vars
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
 
