@@ -124,7 +124,20 @@ const TitleSearchResults = () => {
           .map((result) => (
           <div key={result.id}>
             {result.title && <p>{result.title}</p>}
-            {result.type && <p>{result.type}</p>}
+            
+            {result.type && (
+        <p>
+          {result.type === "movie"
+            ? "Movie"
+            : result.type === "tv_series"
+            ? "TV Series"
+            : result.type === "tv_miniseries"
+            ? "TV Miniseries"
+            : result.type === 'short_film'
+            ? 'Short Film'
+            : "Unknown Type"}
+        </p>
+      )}
             {result.year && <p>{result.year}</p>}
             {result.image_url && <img src={result.image_url} alt={result.title} />}
             <Button variant="contained" value={result.id} onClick={handleTitleSelected}>

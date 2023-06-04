@@ -196,11 +196,11 @@ const GenreSearch = () => {
     const selectedGenreCode = event.target.value;
 
     const cachedGenreSearchResults = (localStorage.getItem(`genreSearchResults_${selectedGenreCode}`));
-    console.log('Cached Genre Search Results:',cachedGenreSearchResults)
+    // console.log('Cached Genre Search Results Retrieved:',cachedGenreSearchResults)
     
     if(cachedGenreSearchResults) {
       const { data, timestamp } = JSON.parse(cachedGenreSearchResults);
-      console.log('Stored Data:', data);
+      console.log('Stored Data Retrieved:', data);
       console.log('Stored Timestamp:', timestamp);
       console.log('Current Time:', Date.now());
       const now = Date.now();
@@ -216,7 +216,7 @@ const GenreSearch = () => {
     }
 
 
-    
+    if (!cachedGenreSearchResults) {
     try {
 
     const response = await searchByGenre(selectedGenreCode);
@@ -250,10 +250,11 @@ const GenreSearch = () => {
     localStorage.setItem(`genreSearchResults_${selectedGenreCode}`, JSON.stringify(cacheData));
 
     window.location.href = '/search_results?titles=' + encodeURIComponent(JSON.stringify(titleData));
-    
+
   } catch (err) {
     console.error(err);
   }
+ }
 };
 
 

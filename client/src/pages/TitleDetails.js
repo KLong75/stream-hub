@@ -78,6 +78,7 @@ const TitleDetails = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const titleDetailsParam = urlParams.get("titleDetails");
+    console.log(titleDetailsParam)
 
     if (titleDetailsParam) {
       const parsedTitleDetails = JSON.parse(decodeURIComponent(titleDetailsParam));
@@ -459,6 +460,8 @@ const TitleDetails = () => {
             ? "Movie"
             : selectedTitleDetails.type === "tv_series"
             ? "TV Series"
+            : selectedTitleDetails.type === "tv_miniseries"
+            ? "TV Miniseries"
             : "Unknown Type"}
         </p>
       )}
