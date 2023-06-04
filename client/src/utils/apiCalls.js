@@ -28,6 +28,42 @@ export const fetchSources = () => {
 }
 
 
+export const fetchBad = () => {
+  fetch(`https://api.themoviedb.org/3/tv/1396/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data)
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+  
+}
+
+// export const fetchFind = () => {
+//   fetch(`https://api.themoviedb.org/3/search/tv?query=Silo&inclue_adult=false&language=en-US&page=1&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`)
+//   .then((response) => response.json())
+//   .then((data) => {
+//     console.log(data)
+//   })
+//   .catch((err) => {
+//     console.log(err.message);
+//   });
+// }
+
+// export const fetchTvTitle = (query) => {
+//   fetch(`https://api.themoviedb.org/3/search/tv?query=${query}&inclue_adult=false&language=en-US&page=1&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`)
+//   .then((response) => response.json())
+//   .then((data) => {
+//     // console.log(data)
+//   })
+//   .catch((err) => {
+//     console.log(err.message);
+//   });
+// }
+
+
+
 // fetch titles by genre
 // export const searchByGenre = (query) => { return fetch(`https://api.watchmode.com/v1/list-titles?genres=${query}&limit=2&apiKey=tXhIgERECp3PJeQTYJPZ9qIr92ZDFabiX08XJrIK`);
 // }
@@ -54,13 +90,21 @@ export const fetchTitleDetails = (query) => { return fetch(`https://api.watchmod
 export const searchByName = (query) => { return fetch(`https://api.themoviedb.org/3/search/person?query=${query}&api_key=${process.env.REACT_APP_TMDB_API_KEY}&include_adult=false&language=en-US&page=1`);
 }
 
-// fetch motre title details by IMBD id from TMDB API
+// fetch more movie title details by IMBD id from TMDB API
 export const fetchMoreTitleDetailsMovie = (query) => { return fetch(`https://api.themoviedb.org/3/movie/${query}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`);
 } 
 
-// fetch more title details for tv shows by IMBD id from TMDB API
+// fetch tv titles by name from TMDB API to get TMDB id
+export const fetchTvTitle = (query) => { return fetch(`https://api.themoviedb.org/3/search/tv?query=${query}&inclue_adult=false&language=en-US&page=1&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`);
+}
+
+// fetch more title details for tv shows by TMDB id from TMDB API
 export const fetchMoreTitleDetailsTV = (query) => { return fetch(`https://api.themoviedb.org/3/tv/${query}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`);
 } 
+
+// export const fetchMoreTitleDetailsTV = (query) => { return fetch(`https://api.themoviedb.org/3/find/${query}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`);
+// } 
+
 
 // fetch top movies
 export const fetchTopMoviesPageOne = () => { return fetch (`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);

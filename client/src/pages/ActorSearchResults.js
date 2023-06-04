@@ -3,6 +3,8 @@ import { searchTitlesByImdbId, fetchTitleDetails } from "../utils/apiCalls";
 
 import Button from "@mui/material/Button";
 
+import imageNotAvailable from "../assets/no_image_available.jpg";
+
 const ActorSearchResults = () => {
   const [actorSearchResults, setActorSearchResults] = useState([]);
 
@@ -58,7 +60,7 @@ const ActorSearchResults = () => {
         poster: titleDetails.poster,
         release_date: titleDetails.release_date,
         runtime: titleDetails.runtime,
-        similar_titles: titleDetails.similar_titles.slice(0, 5),
+        similar_titles: titleDetails.similar_titles ? titleDetails.similar_titles.slice(0, 5) : [],
         sources: titleDetails.sources.filter((source) => source.type === "sub"),
         trailer: titleDetails.trailer,
         trailer_thumbnail: titleDetails.trailer_thumbnail,
@@ -84,10 +86,33 @@ const ActorSearchResults = () => {
     <>
       <h3>Actor Search Results</h3>
       <div className="search-results-container">
-        {actorSearchResults.map((result) => (
+        {actorSearchResults
+          .filter((result) => result.known_for.length > 0)
+        .map((result) => (
           <div key={result.id}>
             <p>{`${result.name}`}</p>
+            <p>{`${result.job}`}</p>
+            {/* {result.image_url ? (
             <img src={result.image_url} alt={result.name} />
+            ) : (
+            <p>No image available</p>
+            )} */}
+
+            {result.image_url ? (
+              <img
+                src={result.image_url}
+                alt={result.name}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
+            ) : (
+              <div>
+                <p>No image available</p>
+                <img src={imageNotAvailable} alt="Unavailable" />
+              </div>
+            )}
+
             <p>Known For: </p>
             {/* Iterate through known_for array */}
             {result.known_for.map((knownForItem) => (

@@ -36,8 +36,11 @@ const ActorSearch = () => {
     const actorSearchResults = results.results.map((actor) => ({
       id: actor.id,
       name: actor.name,
+      job: actor.known_for_department,
       known_for: actor.known_for,
-      poster_url: 'https://image.tmdb.org/t/p/w500/' + actor.known_for[0].poster_path,
+      poster_url: actor.known_for.length > 0 ? 'https://image.tmdb.org/t/p/w500/' + actor.known_for[0].poster_path : '',
+
+      // poster_url: 'https://image.tmdb.org/t/p/w500/' + actor.known_for[0].poster_path,
       image_url: 'https://image.tmdb.org/t/p/w200' + actor.profile_path,
     }));
 
