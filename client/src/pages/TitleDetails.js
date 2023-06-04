@@ -9,6 +9,8 @@ import {
 
 import Button from "@mui/material/Button";
 
+const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
+
 // fetchFind();
 
 const TitleDetails = () => {
@@ -74,14 +76,18 @@ const TitleDetails = () => {
 
   const [selectedActorName, setSelectedActorName] = useState("");
 
+  // const [similarTitles, setSimilarTitles] = useState([]);
+
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const titleDetailsParam = urlParams.get("titleDetails");
-    console.log(titleDetailsParam)
+    console.log(titleDetailsParam);
 
     if (titleDetailsParam) {
-      const parsedTitleDetails = JSON.parse(decodeURIComponent(titleDetailsParam));
+      const parsedTitleDetails = JSON.parse(
+        decodeURIComponent(titleDetailsParam)
+      );
       setSelectedTitleDetails(parsedTitleDetails);
 
       const sources = parsedTitleDetails.sources || [];
@@ -237,23 +243,52 @@ const TitleDetails = () => {
       const imdbId = selectedTitleDetails.imdb_id;
       console.log(imdbId);
 
-      try {
-        const response = await fetchMoreTitleDetailsMovie(imdbId);
-        console.log(response);
+      const cachedMoreDetailsMovie = localStorage.getItem(
+        `moreDetailsMovie-${imdbId}`
+      );
+      console.log("cached data retrieved", cachedMoreDetailsMovie);
 
-        if (!response.ok) {
-          throw new Error("Something went wrong");
+      if (cachedMoreDetailsMovie) {
+        const { data, timestamp } = JSON.parse(cachedMoreDetailsMovie);
+
+        const now = Date.now();
+
+        if (now - timestamp < 86400000) {
+          setMoreDetails(data);
+          console.log("cached data retrieved, parsed, time checked", data);
+          return;
+        } else {
+          localStorage.removeItem(`moreDetailsMovie-${imdbId}`);
+          console.log("Cached Data Expired and Removed");
         }
+      }
 
-        // const moreDetails = await response.json();
+      if (!cachedMoreDetailsMovie) {
+        console.log("no cached data found");
+        try {
+          const response = await fetchMoreTitleDetailsMovie(imdbId);
+          console.log(response);
 
-        const moreDetailsFetched = await response.json();
-        setMoreDetails(moreDetailsFetched);
+          if (!response.ok) {
+            throw new Error("Something went wrong");
+          }
 
-        console.log(moreDetailsFetched);
-        // setSelectedTitleDetails(prevState => ({...prevState, ...moreDetails}));
-      } catch (err) {
-        console.error(err);
+          const moreDetailsFetched = await response.json();
+          setMoreDetails(moreDetailsFetched);
+
+          console.log(moreDetailsFetched);
+
+          const cacheData = {
+            data: moreDetailsFetched,
+            timestamp: Date.now(),
+          };
+          localStorage.setItem(
+            `moreDetailsMovie-${imdbId}`,
+            JSON.stringify(cacheData)
+          );
+        } catch (err) {
+          console.error(err);
+        }
       }
     };
 
@@ -261,37 +296,63 @@ const TitleDetails = () => {
       const tvShowTitle = selectedTitleDetails.title;
       console.log(tvShowTitle);
 
-      try {
-        const response = await fetchTvTitle(tvShowTitle);
-        console.log(response);
+      const cachedMoreDetailsTV = localStorage.getItem(
+        `moreDetailsTV-${tvShowTitle}`
+      );
+      console.log("cached data retrieved", cachedMoreDetailsTV);
 
-        if (!response.ok) {
-          throw new Error("Something went wrong");
+      if (cachedMoreDetailsTV) {
+        const { data, timestamp } = JSON.parse(cachedMoreDetailsTV);
+
+        const now = Date.now();
+
+        if (now - timestamp < CACHE_DURATION) {
+          setMoreDetails(data);
+          console.log("cached data retrieved, parsed, time checked", data);
+          return;
+        } else {
+          localStorage.removeItem(`moreDetailsTV-${tvShowTitle}`);
+          console.log("Cached Data Expired and Removed");
         }
+      }
 
-        // const moreDetails = await response.json();
+      if (!cachedMoreDetailsTV) {
+        console.log("no cached data found");
+        try {
+          const response = await fetchTvTitle(tvShowTitle);
+          console.log(response);
 
-        const moreTitleData = await response.json();
-        // setMoreDetails(moreDetailsFetched);
+          if (!response.ok) {
+            throw new Error("Something went wrong");
+          }
 
-        const titleTmdbId = moreTitleData.results[0].id;
-        console.log(titleTmdbId);
+          const moreTitleData = await response.json();
 
-        const response2 = await fetchMoreTitleDetailsTV(titleTmdbId);
-        console.log(response2);
+          const titleTmdbId = moreTitleData.results[0].id;
+          console.log(titleTmdbId);
 
-        if (!response2.ok) {
-          throw new Error("Something went wrong");
+          const response2 = await fetchMoreTitleDetailsTV(titleTmdbId);
+          console.log(response2);
+
+          if (!response2.ok) {
+            throw new Error("Something went wrong");
+          }
+
+          const moreTvDetailsFetched = await response2.json();
+          console.log(moreTvDetailsFetched);
+          setMoreDetails(moreTvDetailsFetched);
+
+          const cacheData = {
+            data: moreTvDetailsFetched,
+            timestamp: Date.now(),
+          };
+          localStorage.setItem(
+            `moreDetailsTV-${tvShowTitle}`,
+            JSON.stringify(cacheData)
+          );
+        } catch (err) {
+          console.error(err);
         }
-
-        const moreTvDetailsFetched = await response2.json();
-        setMoreDetails(moreTvDetailsFetched);
-
-        console.log(moreTvDetailsFetched);
-
-        // setSelectedTitleDetails(prevState => ({...prevState, ...moreDetails}));
-      } catch (err) {
-        console.error(err);
       }
     };
 
@@ -309,48 +370,84 @@ const TitleDetails = () => {
 
   useEffect(() => {
     const getSimilarTitles = async () => {
+      const cachedSimilarTitles = localStorage.getItem(
+        `similarTitles-${similarTitlesDetails.id}`
+      );
+      console.log("cached data retrieved", cachedSimilarTitles);
+
+      if (cachedSimilarTitles) {
+        const { data, timestamp } = JSON.parse(cachedSimilarTitles);
+
+        const now = Date.now();
+
+        if (now - timestamp < CACHE_DURATION) {
+          setSimilarTitlesDetails(data);
+          console.log("cached data retrieved, parsed, time checked", data);
+          // return;
+        } else {
+          localStorage.removeItem(`similarTitles-${similarTitlesDetails.id}`);
+          console.log("Cached Data Expired and Removed");
+        }
+      }
+
       if (
+        // !cachedSimilarTitles &&
         !selectedTitleDetails.similar_titles ||
         selectedTitleDetails.similar_titles.length === 0
       ) {
         return; // Don't proceed if there are no similar titles
-      }
+      } else if (!cachedSimilarTitles) {
+        console.log("no cached data found");
 
-      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 1); // Get the first three similar titles
-      const fetchedSimilarTitles = [];
-
-      for (const similarTitleId of similarTitles) {
         try {
-          const response = await fetchTitleDetails(similarTitleId);
+          const similarTitles = selectedTitleDetails.similar_titles.slice(0, 1); // Adjust # of similar titles to fetch here
+          const fetchedSimilarTitles = [];
 
-          if (!response.ok) {
-            throw new Error("Something went wrong");
+          for (const similarTitleId of similarTitles) {
+            try {
+              const response = await fetchTitleDetails(similarTitleId);
+
+              if (!response.ok) {
+                throw new Error("Something went wrong");
+              }
+
+              const similarTitleData = await response.json();
+
+              const similarTitleDetails = {
+                id: similarTitleData.id,
+                title: similarTitleData.title,
+                type: similarTitleData.type,
+                plot_overview: similarTitleData.plot_overview,
+                poster: similarTitleData.poster,
+                trailer: similarTitleData.trailer,
+              };
+
+              fetchedSimilarTitles.push(similarTitleDetails);
+
+              console.log(similarTitleDetails);
+            } catch (err) {
+              console.error(err);
+            }
           }
 
-          const similarTitleData = await response.json();
+          setSimilarTitlesDetails(fetchedSimilarTitles);
 
-          const similarTitleDetails = {
-            id: similarTitleData.id,
-            title: similarTitleData.title,
-            type: similarTitleData.type,
-            plot_overview: similarTitleData.plot_overview,
-            poster: similarTitleData.poster,
-            trailer: similarTitleData.trailer,
+          const cacheData = {
+            data: fetchedSimilarTitles,
+            timestamp: Date.now(),
           };
-
-          fetchedSimilarTitles.push(similarTitleDetails);
-
-          console.log(similarTitleDetails);
+          localStorage.setItem(
+            `similarTitles-${similarTitlesDetails.id}`,
+            JSON.stringify(cacheData)
+          );
         } catch (err) {
           console.error(err);
         }
       }
-
-      setSimilarTitlesDetails(fetchedSimilarTitles);
     };
 
     getSimilarTitles();
-  }, [selectedTitleDetails]);
+  }, [selectedTitleDetails, similarTitlesDetails.id]);
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
@@ -360,8 +457,6 @@ const TitleDetails = () => {
     console.log(selectedTitle);
 
     try {
-      // const response = await fetch('https://api.watchmode.com/v1/list-titles?genres=' + selectedGenreCode + '&limit=2&apiKey=SPq4jFg1pgbWR6mP6rZGPrBrNGisLbdUeu2P0TKp')
-
       const response = await fetchTitleDetails(selectedTitleId);
 
       console.log(fetchTitleDetails(selectedTitleId));
@@ -399,8 +494,7 @@ const TitleDetails = () => {
       console.log(titleDetailsData);
 
       setSelectedTitleDetails(titleDetailsData);
-      // setSelectedTitle('');
-      // window.location.href = '/title_details';
+
       window.location.href =
         "/title_details?titleDetails=" +
         encodeURIComponent(JSON.stringify(titleDetailsData));
@@ -528,17 +622,22 @@ const TitleDetails = () => {
           )}
       </div>
 
-
       <div>
         {moreDetails &&
           moreDetails.crew &&
           moreDetails.crew.some(
-            (crewMember) => crewMember.job === "Producer" || crewMember.job === "Executive Producer"
+            (crewMember) =>
+              crewMember.job === "Producer" ||
+              crewMember.job === "Executive Producer"
           ) && (
             <>
               <p>Produced by:</p>
               {moreDetails.crew
-                .filter((crewMember) => crewMember.job === "Producer" || crewMember.job === "Executive Producer")
+                .filter(
+                  (crewMember) =>
+                    crewMember.job === "Producer" ||
+                    crewMember.job === "Executive Producer"
+                )
                 .map((crewMember) => (
                   <p key={crewMember.id}>{crewMember.name}</p>
                 ))}

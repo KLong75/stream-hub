@@ -24,6 +24,7 @@ const GenreSearchResults = () => {
     if (titles) {
       const parsedTitles = JSON.parse(decodeURIComponent(titles));
       setGenreSearchResults(parsedTitles);
+      console.log(parsedTitles)
     }
   }, []);
 
@@ -53,61 +54,62 @@ const GenreSearchResults = () => {
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
+        console.log('Cached Data Expired and Removed');
       }
     }
 
-    // if (!cachedTitleDetails) {
-    //   try {
-    //     const response = await fetchTitleDetails(selectedTitleId);
+    if (!cachedTitleDetails) {
+      try {
+        const response = await fetchTitleDetails(selectedTitleId);
 
-    //     console.log(fetchTitleDetails(selectedTitleId));
+        console.log(response);
 
-    //     if (!response.ok) {
-    //       throw new Error("Something went wrong");
-    //     }
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
 
-    //     const  titleDetails  = await response.json();
+        const  titleDetails  = await response.json();
 
-    //     console.log("New Data Retrieved:", titleDetails);
+        console.log("New Data Retrieved:", titleDetails);
 
-    //     const titleDetailsData = {
-    //       id: titleDetails.id,
-    //       title: titleDetails.title,
-    //       type: titleDetails.type,
-    //       year: titleDetails.year,
-    //       backdrop: titleDetails.backdrop,
-    //       critic_score: titleDetails.critic_score,
-    //       genre_names: titleDetails.genre_names,
-    //       network_names: titleDetails.network_names,
-    //       plot_overview: titleDetails.plot_overview,
-    //       poster: titleDetails.poster,
-    //       release_date: titleDetails.release_date,
-    //       runtime: titleDetails.runtime,
-    //       similar_titles: titleDetails.similar_titles,
-    //       sources: titleDetails.sources.filter(
-    //         (source) => source.type === "sub"
-    //       ),
-    //       trailer: titleDetails.trailer,
-    //       trailer_thumbnail: titleDetails.trailer_thumbnail,
-    //       us_rating: titleDetails.us_rating,
-    //       user_rating: titleDetails.user_rating,
-    //       imdb_id: titleDetails.imdb_id,
-    //     };
+        const titleDetailsData = {
+          id: titleDetails.id,
+          title: titleDetails.title,
+          type: titleDetails.type,
+          year: titleDetails.year,
+          backdrop: titleDetails.backdrop,
+          critic_score: titleDetails.critic_score,
+          genre_names: titleDetails.genre_names,
+          network_names: titleDetails.network_names,
+          plot_overview: titleDetails.plot_overview,
+          poster: titleDetails.poster,
+          release_date: titleDetails.release_date,
+          runtime: titleDetails.runtime,
+          similar_titles: titleDetails.similar_titles,
+          sources: titleDetails.sources.filter(
+            (source) => source.type === "sub"
+          ),
+          trailer: titleDetails.trailer,
+          trailer_thumbnail: titleDetails.trailer_thumbnail,
+          us_rating: titleDetails.us_rating,
+          user_rating: titleDetails.user_rating,
+          imdb_id: titleDetails.imdb_id,
+        };
 
-    //     console.log(titleDetailsData);
+        console.log(titleDetailsData);
 
-    //     setSelectedTitleDetails(titleDetailsData);
+        setSelectedTitleDetails(titleDetailsData);
 
-    //     const cacheData = {
-    //       data: titleDetailsData,
-    //       timestamp: Date.now(),
-    //     };
-    //     localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
-    //     // window.location.href ="/title_details?titleDetails=" + encodeURIComponent(JSON.stringify(titleDetailsData));
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+        const cacheData = {
+          data: titleDetailsData,
+          timestamp: Date.now(),
+        };
+        localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
+        window.location.href ="/title_details?titleDetails=" + encodeURIComponent(JSON.stringify(titleDetailsData));
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (

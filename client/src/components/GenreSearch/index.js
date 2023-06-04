@@ -184,7 +184,7 @@ const GenreSearch = () => {
   //       console.log('Cached Data Expired');
   //     }
   //   }
-  // }, []);
+  // }, [selectedGenreCode]);
 
 
 
@@ -211,7 +211,7 @@ const GenreSearch = () => {
         return;
       } else {
         localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);
-        console.log('Cached Data Expired');
+        console.log('Cached Data Expired and Removed');
       }
     }
 
