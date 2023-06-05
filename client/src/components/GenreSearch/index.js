@@ -206,7 +206,7 @@ const GenreSearch = () => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setGenreSearchResults(data);
-        console.log('Using Cached Data');
+        console.log('Using Cached Data:', data);
         window.location.href = '/search_results?titles=' + encodeURIComponent(JSON.stringify(data));
         return;
       } else {

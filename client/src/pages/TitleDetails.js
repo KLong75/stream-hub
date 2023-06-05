@@ -82,7 +82,7 @@ const TitleDetails = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const titleDetailsParam = urlParams.get("titleDetails");
-    console.log(titleDetailsParam);
+    // console.log(titleDetailsParam);
 
     if (titleDetailsParam) {
       const parsedTitleDetails = JSON.parse(
@@ -299,7 +299,7 @@ const TitleDetails = () => {
       const cachedMoreDetailsTV = localStorage.getItem(
         `moreDetailsTV-${tvShowTitle}`
       );
-      console.log("cached data retrieved", cachedMoreDetailsTV);
+      console.log("cached data retrieved: cachedMoreDetailsTV");
 
       if (cachedMoreDetailsTV) {
         const { data, timestamp } = JSON.parse(cachedMoreDetailsTV);
@@ -370,84 +370,77 @@ const TitleDetails = () => {
 
   useEffect(() => {
     const getSimilarTitles = async () => {
-      const cachedSimilarTitles = localStorage.getItem(
-        `similarTitles-${similarTitlesDetails.id}`
-      );
-      console.log("cached data retrieved", cachedSimilarTitles);
-
-      if (cachedSimilarTitles) {
-        const { data, timestamp } = JSON.parse(cachedSimilarTitles);
-
-        const now = Date.now();
-
-        if (now - timestamp < CACHE_DURATION) {
-          setSimilarTitlesDetails(data);
-          console.log("cached data retrieved, parsed, time checked", data);
-          // return;
-        } else {
-          localStorage.removeItem(`similarTitles-${similarTitlesDetails.id}`);
-          console.log("Cached Data Expired and Removed");
-        }
-      }
-
       if (
-        // !cachedSimilarTitles &&
         !selectedTitleDetails.similar_titles ||
         selectedTitleDetails.similar_titles.length === 0
       ) {
         return; // Don't proceed if there are no similar titles
-      } else if (!cachedSimilarTitles) {
-        console.log("no cached data found");
+      }
+
+      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 1); // Adjust # of similar titles to fetch here
+      const fetchedSimilarTitles = [];
+
+      for (const similarTitleId of similarTitles) {
+        const cachedSimilarTitles = localStorage.getItem(
+          `similarTitles-${similarTitleId}`
+        );
+        console.log("cached data retrieved: cachedSimilarTitles");
+
+        if (cachedSimilarTitles) {
+          const { data, timestamp } = JSON.parse(cachedSimilarTitles);
+          const now = Date.now();
+
+          if (now - timestamp < CACHE_DURATION) {
+            setSimilarTitlesDetails(data);
+            console.log("cached data retrieved, parsed, time checked", data);
+            return;
+          } else {
+            localStorage.removeItem(`similarTitles-${similarTitleId}`);
+            console.log("Cached Data Expired and Removed");
+          }
+        } else {
+          console.log("no cached data found");
+        }
 
         try {
-          const similarTitles = selectedTitleDetails.similar_titles.slice(0, 1); // Adjust # of similar titles to fetch here
-          const fetchedSimilarTitles = [];
+          const response = await fetchTitleDetails(similarTitleId);
 
-          for (const similarTitleId of similarTitles) {
-            try {
-              const response = await fetchTitleDetails(similarTitleId);
-
-              if (!response.ok) {
-                throw new Error("Something went wrong");
-              }
-
-              const similarTitleData = await response.json();
-
-              const similarTitleDetails = {
-                id: similarTitleData.id,
-                title: similarTitleData.title,
-                type: similarTitleData.type,
-                plot_overview: similarTitleData.plot_overview,
-                poster: similarTitleData.poster,
-                trailer: similarTitleData.trailer,
-              };
-
-              fetchedSimilarTitles.push(similarTitleDetails);
-
-              console.log(similarTitleDetails);
-            } catch (err) {
-              console.error(err);
-            }
+          if (!response.ok) {
+            throw new Error("Something went wrong");
           }
 
-          setSimilarTitlesDetails(fetchedSimilarTitles);
+          const similarTitleData = await response.json();
+
+          const similarTitleDetails = {
+            id: similarTitleData.id,
+            title: similarTitleData.title,
+            type: similarTitleData.type,
+            plot_overview: similarTitleData.plot_overview,
+            poster: similarTitleData.poster,
+            trailer: similarTitleData.trailer,
+          };
+
+          fetchedSimilarTitles.push(similarTitleDetails);
+          console.log(similarTitleDetails);
 
           const cacheData = {
             data: fetchedSimilarTitles,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            `similarTitles-${similarTitlesDetails.id}`,
+            `similarTitles-${similarTitleId}`,
             JSON.stringify(cacheData)
           );
         } catch (err) {
           console.error(err);
         }
       }
+      console.log("Fetched similar titles:", fetchedSimilarTitles);
+      setSimilarTitlesDetails(fetchedSimilarTitles);
     };
 
     getSimilarTitles();
-  }, [selectedTitleDetails, similarTitlesDetails.id]);
+  }, [selectedTitleDetails]);
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
@@ -456,50 +449,90 @@ const TitleDetails = () => {
     const selectedTitleId = event.target.value;
     console.log(selectedTitle);
 
-    try {
-      const response = await fetchTitleDetails(selectedTitleId);
+    const cachedTitleDetails = localStorage.getItem(
+      `titleDetails_${selectedTitleId}`
+    );
+    console.log(
+      "Cached Data Retrieved: cachedTitleDetails",
+      cachedTitleDetails
+    );
+    if (cachedTitleDetails) {
+      const { data, timestamp } = JSON.parse(cachedTitleDetails);
 
-      console.log(fetchTitleDetails(selectedTitleId));
+      console.log(CACHE_DURATION);
 
-      if (!response.ok) {
-        throw new Error("Something went wrong");
+      const now = Date.now();
+      console.log(now - timestamp);
+      if (now - timestamp < CACHE_DURATION) {
+        setSelectedTitleDetails(data);
+        console.log("cached data retrieved, parsed, time checked", data);
+        window.location.href =
+          "/title_details?titleDetails=" +
+          encodeURIComponent(JSON.stringify(data));
+        return;
+      } else {
+        localStorage.removeItem(`titleDetails_${selectedTitleId}`);
+        console.log("Cached Data Expired and Removed");
       }
+    }
 
-      const titleDetails = await response.json();
+    if (!cachedTitleDetails) {
+      try {
+        const response = await fetchTitleDetails(selectedTitleId);
 
-      console.log(titleDetails);
+        // console.log(fetchTitleDetails(selectedTitleId));
 
-      const titleDetailsData = {
-        id: titleDetails.id,
-        title: titleDetails.title,
-        type: titleDetails.type,
-        year: titleDetails.year,
-        backdrop: titleDetails.backdrop,
-        critic_score: titleDetails.critic_score,
-        genre_names: titleDetails.genre_names,
-        network_names: titleDetails.network_names,
-        plot_overview: titleDetails.plot_overview,
-        poster: titleDetails.poster,
-        release_date: titleDetails.release_date,
-        runtime: titleDetails.runtime,
-        similar_titles: titleDetails.similar_titles.slice(0, 5),
-        sources: titleDetails.sources.filter((source) => source.type === "sub"),
-        trailer: titleDetails.trailer,
-        trailer_thumbnail: titleDetails.trailer_thumbnail,
-        us_rating: titleDetails.us_rating,
-        user_rating: titleDetails.user_rating,
-        imdb_id: titleDetails.imdb_id,
-      };
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
 
-      console.log(titleDetailsData);
+        const titleDetails = await response.json();
 
-      setSelectedTitleDetails(titleDetailsData);
+        console.log("New Data Retrieved:", titleDetails);
 
-      window.location.href =
-        "/title_details?titleDetails=" +
-        encodeURIComponent(JSON.stringify(titleDetailsData));
-    } catch (err) {
-      console.error(err);
+        const titleDetailsData = {
+          id: titleDetails.id,
+          title: titleDetails.title,
+          type: titleDetails.type,
+          year: titleDetails.year,
+          backdrop: titleDetails.backdrop,
+          critic_score: titleDetails.critic_score,
+          genre_names: titleDetails.genre_names,
+          network_names: titleDetails.network_names,
+          plot_overview: titleDetails.plot_overview,
+          poster: titleDetails.poster,
+          release_date: titleDetails.release_date,
+          runtime: titleDetails.runtime,
+          similar_titles: titleDetails.similar_titles.slice(0, 5) ?? [],
+          sources: titleDetails.sources.filter(
+            (source) => source.type === "sub"
+          ),
+          trailer: titleDetails.trailer,
+          trailer_thumbnail: titleDetails.trailer_thumbnail,
+          us_rating: titleDetails.us_rating,
+          user_rating: titleDetails.user_rating,
+          imdb_id: titleDetails.imdb_id,
+        };
+
+        console.log(titleDetailsData);
+
+        setSelectedTitleDetails(titleDetailsData);
+
+        const cacheData = {
+          data: titleDetailsData,
+          timestamp: Date.now(),
+        };
+        localStorage.setItem(
+          `titleDetails_${selectedTitleId}`,
+          JSON.stringify(cacheData)
+        );
+
+        window.location.href =
+          "/title_details?titleDetails=" +
+          encodeURIComponent(JSON.stringify(titleDetailsData));
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -509,38 +542,70 @@ const TitleDetails = () => {
     const selectedActorName = actorName;
     console.log(selectedActorName);
 
-    try {
-      const response = await searchByName(selectedActorName);
+    const cachedActorSearchResults = localStorage.getItem(
+      `actorSearchResults_${selectedActorName}`
+    );
+    console.log("cached data retrieved: cachedActorSearchResults");
 
-      console.log(searchByName(selectedActorName));
-
-      if (!response.ok) {
-        throw new Error("Something went wrong");
+    if (cachedActorSearchResults) {
+      const { data, timestamp } = JSON.parse(cachedActorSearchResults);
+      const now = Date.now();
+      if (now - timestamp < CACHE_DURATION) {
+        setSelectedActorName(data);
+        console.log("cached data retrieved, parsed, time checked", data);
+        window.location.href =
+          "/actor_search_results?actors=" +
+          encodeURIComponent(JSON.stringify(data));
+      } else {
+        localStorage.removeItem(`actorSearchResults_${selectedActorName}`);
+        console.log("Cached Data Expired and Removed");
       }
+    }
 
-      const results = await response.json();
-      console.log(results);
+    if (!cachedActorSearchResults) {
+      try {
+        const response = await searchByName(selectedActorName);
 
-      const actorSearchResults = results.results.map((actor) => ({
-        id: actor.id,
-        name: actor.name,
-        job: actor.known_for_department,
-        known_for: actor.known_for,
-        poster_url:
-          actor.known_for.length > 0
-            ? "https://image.tmdb.org/t/p/w500/" +
-              actor.known_for[0].poster_path
-            : "",
-        image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
-      }));
+        console.log(searchByName(selectedActorName));
 
-      console.log(actorSearchResults);
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
 
-      window.location.href =
-        "/actor_search_results?actors=" +
-        encodeURIComponent(JSON.stringify(actorSearchResults));
-    } catch (err) {
-      console.log(err.message);
+        const results = await response.json();
+        console.log(results);
+
+        const actorSearchResults = results.results.map((actor) => ({
+          id: actor.id,
+          name: actor.name,
+          job: actor.known_for_department,
+          known_for: actor.known_for,
+          poster_url:
+            actor.known_for.length > 0
+              ? "https://image.tmdb.org/t/p/w500/" +
+                actor.known_for[0].poster_path
+              : "",
+          image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
+        }));
+
+        console.log(actorSearchResults);
+
+        const cacheData = {
+          data: actorSearchResults,
+          timestamp: Date.now(),
+        };
+        localStorage.setItem(
+          `actorSearchResults_${selectedActorName}`,
+          JSON.stringify(cacheData)
+        );
+
+        window.location.href =
+          "/actor_search_results?actors=" +
+          encodeURIComponent(JSON.stringify(actorSearchResults));
+        return;
+      } catch (err) {
+        console.log(err.message);
+      }
     }
   };
 

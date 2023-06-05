@@ -62,7 +62,7 @@ const GenreSearchResults = () => {
       try {
         const response = await fetchTitleDetails(selectedTitleId);
 
-        console.log(response);
+        // console.log(response);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -85,7 +85,7 @@ const GenreSearchResults = () => {
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
           runtime: titleDetails.runtime,
-          similar_titles: titleDetails.similar_titles,
+          similar_titles: titleDetails.similar_titles.slice(0, 5) ?? [],
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
@@ -109,7 +109,7 @@ const GenreSearchResults = () => {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
   };
 
   return (
