@@ -377,62 +377,66 @@ const TitleSearch = () => {
     const userInput = value.title;
     setValue(userInput);
 
-    const cachedTitleSearchResults = localStorage.getItem(`titleSearchResults_${userInput}`);
+    const cachedTitleSearchResults = localStorage.getItem(
+      `titleSearchResults_${userInput}`
+    );
 
     if (cachedTitleSearchResults) {
-      console.log('found cached title search results');
+      console.log("found cached title search results");
       const { data, timestamp } = JSON.parse(cachedTitleSearchResults);
-      console.log(data)
+      console.log(data);
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         // setValue(data);
-        console.log('Using Cached Data:', data);
+        console.log("Using Cached Data:", data);
         window.location.href =
-        "/title_search_results?titles=" +
-        encodeURIComponent(JSON.stringify(data));
-      return;
-    } else {
-      localStorage.removeItem(`titleSearchResults_${userInput}`);
-      console.log('Cached Data Expired and Removed');
+          "/title_search_results?titles=" +
+          encodeURIComponent(JSON.stringify(data));
+        return;
+      } else {
+        localStorage.removeItem(`titleSearchResults_${userInput}`);
+        console.log("Cached Data Expired and Removed");
+      }
     }
-  }
 
     if (!cachedTitleSearchResults) {
+      try {
+        const response = await searchByTitle(userInput);
+        console.log(response);
 
-    try {
-      const response = await searchByTitle(userInput);
-      console.log(response);
+        if (!response.ok) {
+          throw new Error("something went wrong!");
+        }
 
-      if (!response.ok) {
-        throw new Error("something went wrong!");
+        const data = await response.json();
+        console.log(data);
+
+        const titleSearchResults = data.results.map((titles) => ({
+          id: titles.id,
+          title: titles.name,
+          year: titles.year,
+          type: titles.type,
+          image_url: titles.image_url,
+        }));
+
+        console.log(titleSearchResults);
+
+        const cacheData = {
+          data: titleSearchResults,
+          timestamp: Date.now(),
+        };
+        localStorage.setItem(
+          `titleSearchResults_${userInput}`,
+          JSON.stringify(cacheData)
+        );
+
+        window.location.href =
+          "/title_search_results?titles=" +
+          encodeURIComponent(JSON.stringify(titleSearchResults));
+      } catch (err) {
+        console.log(err);
       }
-
-      const data = await response.json();
-      console.log(data);
-
-      const titleSearchResults = data.results.map((titles) => ({
-        id: titles.id,
-        title: titles.name,
-        year: titles.year,
-        type: titles.type,
-        image_url: titles.image_url,
-      }));
-
-      console.log(titleSearchResults);
-
-      const cacheData = {
-        data: titleSearchResults,
-        timestamp: Date.now(),
-      };
-      localStorage.setItem(`titleSearchResults_${userInput}`, JSON.stringify(cacheData));
-
-      window.location.href =
-        "/title_search_results?titles=" +
-        encodeURIComponent(JSON.stringify(titleSearchResults));
-    } catch (err) {
-      console.log(err);
     }
-  }
   };
 
   return (
