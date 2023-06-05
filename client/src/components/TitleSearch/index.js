@@ -6,48 +6,50 @@ import Button from '@mui/material/Button';
 // import FormLabel from '@mui/material/FormLabel';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
-import { searchByTitle, fetchTopMoviesPageOne, fetchTopMoviesPageTwo } from "../../utils/apiCalls";
+import { searchByTitle, fetchTopMoviesPageOne, fetchTopMoviesPageTwo, fetchTopTvPageOne, fetchTopTvPageTwo } from "../../utils/apiCalls";
 
-// const topMovieTitles = [];
+const topTitlesMovieAndTv = [];
 
-// const getTopMovieTitlesPageOne = async () => {
-//   try {
-//     const response = await fetchTopMoviesPageOne();
-//     const data = await response.json();
-//     console.log(data);
-//     // add data to topMovieTitles array
-//     data.results.forEach((movie) => {
+const getTopMovieTitlesPageOne = async () => {
+  try {
+    const response = await fetchTopMoviesPageOne();
+    const data = await response.json();
+    console.log(data);
+    // add data to topMovieTitles array
+    data.results.forEach((movie) => {
 
-//       // topMovieTitles.push(movie.title);
-//       topMovieTitles.push({title: movie.title, year: movie.release_date});
-//     });
-//     console.log(topMovieTitles);
-//     return data;
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// }
+      // topMovieTitles.push(movie.title);
+      topTitlesMovieAndTv.push({title: movie.title});
+    });
+    console.log(topTitlesMovieAndTv);
+    return data;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
 
-// const getTopMovieTitlesPageTwo = async () => {
-//   try {
-//     const response = await fetchTopMoviesPageTwo();
-//     const data = await response.json();
-//     console.log(data);
-//     // add data to topMovieTitles array
-//     data.results.forEach((movie) => {
-//       topMovieTitles.push({title: movie.title, year: movie.release_date});
-//     });
-//     console.log(topMovieTitles);
-//     return data;
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// }
+const getTopMovieTitlesPageTwo = async () => {
+  try {
+    const response = await fetchTopMoviesPageTwo();
+    const data = await response.json();
+    console.log(data);
+    // add data to topMovieTitles array
+    data.results.forEach((movie) => {
+      topTitlesMovieAndTv.push({title: movie.title});
+    });
+    console.log(topTitlesMovieAndTv);
+    return data;
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
 
-// getTopMovieTitlesPageOne();
-// getTopMovieTitlesPageTwo();
+
+
+getTopMovieTitlesPageOne();
+getTopMovieTitlesPageTwo();
 
 const filter = createFilterOptions();
 

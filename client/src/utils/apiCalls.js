@@ -113,6 +113,13 @@ export const fetchTopMoviesPageOne = () => { return fetch (`https://api.themovie
 export const fetchTopMoviesPageTwo = () => { return fetch (`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=2`);
 }
 
+// fetch top tv shows
+export const fetchTopTvPageOne = () => { return fetch (`https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
+}
+
+export const fetchTopTvPageTwo = () => { return fetch (`https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=2`);
+}
+
 // fetch top people
 export const fetchTopPeoplePageOne = () => { return fetch (`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
 }

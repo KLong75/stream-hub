@@ -24,12 +24,16 @@ const ActorSearch = () => {
 
   const [searchTerm, setSearchTerm] = useState(null);
 
+  const [sortedActors, setSortedActors] = useState([]);
+
   const searchByEnteredName = async (event) => {
     event.preventDefault();
     console.log(searchTerm.name);
     const searchedName = searchTerm.name;
 
-    const cachedActorSearchResults = (localStorage.getItem(`actorSearchResults_${searchedName}`));
+    const cachedActorSearchResults = localStorage.getItem(
+      `actorSearchResults_${searchedName}`
+    );
 
     if (cachedActorSearchResults) {
       const { data, timestamp } = JSON.parse(cachedActorSearchResults);
@@ -44,7 +48,7 @@ const ActorSearch = () => {
           encodeURIComponent(JSON.stringify(data));
         return;
       } else {
-        localStorage.removeItem(`actorSearchResults_${searchedName}`)
+        localStorage.removeItem(`actorSearchResults_${searchedName}`);
         console.log("Cached Data Expired and Removed");
       }
     }
@@ -83,10 +87,12 @@ const ActorSearch = () => {
           data: actorSearchResults,
           timestamp: Date.now(),
         };
-        localStorage.setItem(`actorSearchResults_${searchedName}`, JSON.stringify(cacheData));
+        localStorage.setItem(
+          `actorSearchResults_${searchedName}`,
+          JSON.stringify(cacheData)
+        );
         console.log(searchedName);
 
-       
         window.location.href =
           "/actor_search_results?actors=" +
           encodeURIComponent(JSON.stringify(actorSearchResults));
@@ -96,16 +102,36 @@ const ActorSearch = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("ActorSearch rendered", Date.now());
-  //   const fetchData = async () => {
-  //     await topPeopleNamesPageOne();
-  //     await topPeopleNamesPageTwo();
-  //     await topPeopleNamesPageThree();
-  //   };
+  useEffect(() => {
+    console.log("ActorSearch rendered", Date.now());
 
-  //   fetchData();
-  // }, []);
+    const cachedSortedActors = localStorage.getItem("sortedActorList");
+
+    if (cachedSortedActors) {
+      const { data, timestamp } = JSON.parse(cachedSortedActors);
+      console.log("Stored Data Retrieved:", data);
+
+      const now = Date.now();
+      if (now - timestamp < CACHE_DURATION) {
+        setTopActors(data);
+        console.log("Using Cached Data:", data);
+        return;
+      } else {
+        localStorage.removeItem("sortedActorList");
+        console.log("Cached sortedActorList Expired and Removed");
+      }
+    }
+
+    const fetchData = async () => {
+      await topPeopleNamesPageOne();
+      await topPeopleNamesPageTwo();
+      await topPeopleNamesPageThree();
+      await topPeopleNamesPageFour();
+      await topPeopleNamesPageFive();
+    };
+
+    fetchData();
+  }, []);
 
   const topPeopleNamesPageOne = async () => {
     try {
@@ -164,13 +190,59 @@ const ActorSearch = () => {
     // console.log(topActors);
   };
 
-  useEffect(() => {
-    console.log(topActors);
-  }, [topActors]);
+  const topPeopleNamesPageFour = async () => {
+    try {
+      const response = await fetchTopPeoplePageFour();
+      const data = await response.json();
+      console.log(data);
 
-  const sortedActors = [...topActors].sort((a, b) =>
-    a.name.localeCompare(b.name)
-  );
+      const newActors = data.results.map((person) => ({
+        name: person.name,
+        id: person.id,
+      }));
+
+      setTopActors((prevActors) => [...prevActors, ...newActors]);
+      // console.log(topActors);
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(topActors);
+  };
+
+  const topPeopleNamesPageFive = async () => {
+    try {
+      const response = await fetchTopPeoplePageFive();
+      const data = await response.json();
+      console.log(data);
+
+      const newActors = data.results.map((person) => ({
+        name: person.name,
+        id: person.id,
+      }));
+
+      setTopActors((prevActors) => [...prevActors, ...newActors]);
+      // console.log(topActors);
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(topActors);
+  };
+
+
+
+  useEffect(() => {
+    const sorted = [...topActors].sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+    setSortedActors(sorted);
+
+    const cacheData = {
+      data: sorted,
+      timestamp: Date.now(),
+    };
+
+    localStorage.setItem("sortedActorList", JSON.stringify(cacheData));
+  }, [topActors]);
 
   return (
     <div>
