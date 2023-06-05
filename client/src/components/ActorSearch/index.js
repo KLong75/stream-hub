@@ -65,7 +65,7 @@ const ActorSearch = () => {
         const results = await response.json();
         console.log(results);
 
-        const actorSearchResults = results.results.map((actor) => ({
+        const actorSearchResults = results.results.slice(0,5).map((actor) => ({
           id: actor.id,
           name: actor.name,
           job: actor.known_for_department,
