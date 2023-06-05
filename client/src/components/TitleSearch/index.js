@@ -1,202 +1,410 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import Button from '@mui/material/Button';
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
 // import FormLabel from '@mui/material/FormLabel';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 
-import { searchByTitle, fetchTopMoviesPageOne, fetchTopMoviesPageTwo, fetchTopTvPageOne, fetchTopTvPageTwo } from "../../utils/apiCalls";
+import {
+  searchByTitle,
+  fetchTopMoviesPageOne,
+  fetchTopMoviesPageTwo,
+  fetchTopMoviesPageThree,
+  fetchTopMoviesPageFour,
+  fetchTopMoviesPageFive,
+  fetchTopTvPageOne,
+  fetchTopTvPageTwo,
+  fetchTopTvPageThree,
+  fetchTopTvPageFour,
+  fetchTopTvPageFive,
+  fetchTrendingMoviesPageOne,
+  fetchTrendingMoviesPageTwo,
+  fetchTrendingMoviesPageThree,
+  fetchTrendingMoviesPageFour,
+  fetchTrendingMoviesPageFive,
+  fetchTrendingTvPageOne,
+  fetchTrendingTvPageTwo,
+  fetchTrendingTvPageThree,
+  fetchTrendingTvPageFour,
+  fetchTrendingTvPageFive,
+} from "../../utils/apiCalls";
 
-const topTitlesMovieAndTv = [];
-
-const getTopMovieTitlesPageOne = async () => {
-  try {
-    const response = await fetchTopMoviesPageOne();
-    const data = await response.json();
-    console.log(data);
-    // add data to topMovieTitles array
-    data.results.forEach((movie) => {
-
-      // topMovieTitles.push(movie.title);
-      topTitlesMovieAndTv.push({title: movie.title});
-    });
-    console.log(topTitlesMovieAndTv);
-    return data;
-  }
-  catch (error) {
-    console.log(error);
-  }
-}
-
-const getTopMovieTitlesPageTwo = async () => {
-  try {
-    const response = await fetchTopMoviesPageTwo();
-    const data = await response.json();
-    console.log(data);
-    // add data to topMovieTitles array
-    data.results.forEach((movie) => {
-      topTitlesMovieAndTv.push({title: movie.title});
-    });
-    console.log(topTitlesMovieAndTv);
-    return data;
-  }
-  catch (error) {
-    console.log(error);
-  }
-}
-
-
-
-getTopMovieTitlesPageOne();
-getTopMovieTitlesPageTwo();
-
+import { CACHE_DURATION } from "../../utils/utils";
+const TITLE_LIST_CACHE_DURATION = 1000 * 60 * 60 * 24 * 1; // 1 day
 const filter = createFilterOptions();
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-  {
-    title: 'The Lord of the Rings: The Return of the King',
-    year: 2003,
-  },
-  { title: 'The Good, the Bad and the Ugly', year: 1966 },
-  { title: 'Fight Club', year: 1999 },
-  {
-    title: 'The Lord of the Rings: The Fellowship of the Ring',
-    year: 2001,
-  },
-  {
-    title: 'Star Wars: Episode V - The Empire Strikes Back',
-    year: 1980,
-  },
-  { title: 'Forrest Gump', year: 1994 },
-  { title: 'Inception', year: 2010 },
-  {
-    title: 'The Lord of the Rings: The Two Towers',
-    year: 2002,
-  },
-  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-  { title: 'Goodfellas', year: 1990 },
-  { title: 'The Matrix', year: 1999 },
-  { title: 'Seven Samurai', year: 1954 },
-  {
-    title: 'Star Wars: Episode IV - A New Hope',
-    year: 1977,
-  },
-  { title: 'City of God', year: 2002 },
-  { title: 'Se7en', year: 1995 },
-  { title: 'The Silence of the Lambs', year: 1991 },
-  { title: "It's a Wonderful Life", year: 1946 },
-  { title: 'Life Is Beautiful', year: 1997 },
-  { title: 'The Usual Suspects', year: 1995 },
-  { title: 'Léon: The Professional', year: 1994 },
-  { title: 'Spirited Away', year: 2001 },
-  { title: 'Saving Private Ryan', year: 1998 },
-  { title: 'Once Upon a Time in the West', year: 1968 },
-  { title: 'American History X', year: 1998 },
-  { title: 'Interstellar', year: 2014 },
-  { title: 'Casablanca', year: 1942 },
-  { title: 'City Lights', year: 1931 },
-  { title: 'Psycho', year: 1960 },
-  { title: 'The Green Mile', year: 1999 },
-  { title: 'The Intouchables', year: 2011 },
-  { title: 'Modern Times', year: 1936 },
-  { title: 'Raiders of the Lost Ark', year: 1981 },
-  { title: 'Rear Window', year: 1954 },
-  { title: 'The Pianist', year: 2002 },
-  { title: 'The Departed', year: 2006 },
-  { title: 'Terminator 2: Judgment Day', year: 1991 },
-  { title: 'Back to the Future', year: 1985 },
-  { title: 'Whiplash', year: 2014 },
-  { title: 'Gladiator', year: 2000 },
-  { title: 'Memento', year: 2000 },
-  { title: 'The Prestige', year: 2006 },
-  { title: 'The Lion King', year: 1994 },
-  { title: 'Apocalypse Now', year: 1979 },
-  { title: 'Alien', year: 1979 },
-  { title: 'Sunset Boulevard', year: 1950 },
-  {
-    title: 'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
-    year: 1964,
-  },
-  { title: 'The Great Dictator', year: 1940 },
-  { title: 'Cinema Paradiso', year: 1988 },
-  { title: 'The Lives of Others', year: 2006 },
-  { title: 'Grave of the Fireflies', year: 1988 },
-  { title: 'Paths of Glory', year: 1957 },
-  { title: 'Django Unchained', year: 2012 },
-  { title: 'The Shining', year: 1980 },
-  { title: 'WALL·E', year: 2008 },
-  { title: 'American Beauty', year: 1999 },
-  { title: 'The Dark Knight Rises', year: 2012 },
-  { title: 'Princess Mononoke', year: 1997 },
-  { title: 'Aliens', year: 1986 },
-  { title: 'Oldboy', year: 2003 },
-  { title: 'Once Upon a Time in America', year: 1984 },
-  { title: 'Witness for the Prosecution', year: 1957 },
-  { title: 'Das Boot', year: 1981 },
-  { title: 'Citizen Kane', year: 1941 },
-  { title: 'North by Northwest', year: 1959 },
-  { title: 'Vertigo', year: 1958 },
-  {
-    title: 'Star Wars: Episode VI - Return of the Jedi',
-    year: 1983,
-  },
-  { title: 'Reservoir Dogs', year: 1992 },
-  { title: 'Braveheart', year: 1995 },
-  { title: 'M', year: 1931 },
-  { title: 'Requiem for a Dream', year: 2000 },
-  { title: 'Amélie', year: 2001 },
-  { title: 'A Clockwork Orange', year: 1971 },
-  { title: 'Like Stars on Earth', year: 2007 },
-  { title: 'Taxi Driver', year: 1976 },
-  { title: 'Lawrence of Arabia', year: 1962 },
-  { title: 'Double Indemnity', year: 1944 },
-  {
-    title: 'Eternal Sunshine of the Spotless Mind',
-    year: 2004,
-  },
-  { title: 'Amadeus', year: 1984 },
-  { title: 'To Kill a Mockingbird', year: 1962 },
-  { title: 'Toy Story 3', year: 2010 },
-  { title: 'Logan', year: 2017 },
-  { title: 'Full Metal Jacket', year: 1987 },
-  { title: 'Dangal', year: 2016 },
-  { title: 'The Sting', year: 1973 },
-  { title: '2001: A Space Odyssey', year: 1968 },
-  { title: "Singin' in the Rain", year: 1952 },
-  { title: 'Toy Story', year: 1995 },
-  { title: 'Bicycle Thieves', year: 1948 },
-  { title: 'The Kid', year: 1921 },
-  { title: 'Inglourious Basterds', year: 2009 },
-  { title: 'Snatch', year: 2000 },
-  { title: '3 Idiots', year: 2009 },
-  { title: 'Monty Python and the Holy Grail', year: 1975 },
-];
-  
-
 
 const TitleSearch = () => {
   const [value, setValue] = useState(null);
+  const [topTitlesMovieAndTv, setTopTitlesMovieAndTv] = useState([]);
+
+  useEffect(() => {
+    const cachedTopTitlesMovieAndTv =
+      localStorage.getItem(`topTitlesMovieAndTv`);
+
+    if (cachedTopTitlesMovieAndTv) {
+      const { data, timestamp } = JSON.parse(cachedTopTitlesMovieAndTv);
+      console.log("Stored data found in cache", data);
+
+      const now = Date.now();
+      if (now - timestamp < TITLE_LIST_CACHE_DURATION) {
+        setTopTitlesMovieAndTv(data);
+        console.log("Using data from cache", data);
+        return;
+      } else {
+        localStorage.removeItem(`topTitlesMovieAndTv`);
+        console.log("Cached topTitlesMovieAndTv Expired and Removed");
+      }
+    }
+
+    const fetchData = async () => {
+      const pageOneMovies = await getTopMovieTitlesPageOne();
+      const pageTwoMovies = await getTopMovieTitlesPageTwo();
+      const pageThreeMovies = await getTopMovieTitlesPageThree();
+      const pageFourMovies = await getTopMovieTitlesPageFour();
+      const pageFiveMovies = await getTopMovieTitlesPageFive();
+      const pageOneTv = await getTopTvTitlesPageOne();
+      const pageTwoTv = await getTopTvTitlesPageTwo();
+      const pageThreeTv = await getTopTvTitlesPageThree();
+      const pageFourTv = await getTopTvTitlesPageFour();
+      const pageFiveTv = await getTopTvTitlesPageFive();
+      const trendingMoviesPageOne = await getTrendingMoviesPageOne();
+      const trendingMoviesPageTwo = await getTrendingMoviesPageTwo();
+      const trendingMoviesPageThree = await getTrendingMoviesPageThree();
+      const trendingMoviesPageFour = await getTrendingMoviesPageFour();
+      const trendingMoviesPageFive = await getTrendingMoviesPageFive();
+      const trendingTvPageOne = await getTrendingTvPageOne();
+      const trendingTvPageTwo = await getTrendingTvPageTwo();
+      const trendingTvPageThree = await getTrendingTvPageThree();
+      const trendingTvPageFour = await getTrendingTvPageFour();
+      const trendingTvPageFive = await getTrendingTvPageFive();
+
+      const allFetchedData = [
+        pageOneMovies,
+        pageTwoMovies,
+        pageThreeMovies,
+        pageFourMovies,
+        pageFiveMovies,
+        pageOneTv,
+        pageTwoTv,
+        pageThreeTv,
+        pageFourTv,
+        pageFiveTv,
+        trendingMoviesPageOne,
+        trendingMoviesPageTwo,
+        trendingMoviesPageThree,
+        trendingMoviesPageFour,
+        trendingMoviesPageFive,
+        trendingTvPageOne,
+        trendingTvPageTwo,
+        trendingTvPageThree,
+        trendingTvPageFour,
+        trendingTvPageFive,
+      ];
+
+      if (allFetchedData.every((page) => page)) {
+        const allTitles = [
+          ...pageOneMovies,
+          ...pageTwoMovies,
+          ...pageThreeMovies,
+          ...pageFourMovies,
+          ...pageFiveMovies,
+          ...pageOneTv,
+          ...pageTwoTv,
+          ...pageThreeTv,
+          ...pageFourTv,
+          ...pageFiveTv,
+          ...trendingMoviesPageOne,
+          ...trendingMoviesPageTwo,
+          ...trendingMoviesPageThree,
+          ...trendingMoviesPageFour,
+          ...trendingMoviesPageFour,
+          ...trendingTvPageOne,
+          ...trendingTvPageTwo,
+          ...trendingTvPageThree,
+          ...trendingTvPageFour,
+          ...trendingTvPageFive,
+        ];
+
+        if (allTitles.every((title) => title)) {
+          let uniqueTitles = Array.from(
+            new Set(allTitles.map((title) => title.title))
+          ).map((title) => {
+            return allTitles.find((t) => t.title === title);
+          });
+
+          uniqueTitles = uniqueTitles.filter((title) => {
+            let filteredOutTitles = [];
+            if (title && title.title) {
+              return true;
+            } else {
+              filteredOutTitles.push(title);
+              console.log(filteredOutTitles);
+              return false;
+            }
+          });
+
+          uniqueTitles = uniqueTitles.sort((a, b) =>
+            a.title.localeCompare(b.title)
+          );
+
+          setTopTitlesMovieAndTv(uniqueTitles);
+          console.log("titles retrieved:", uniqueTitles);
+          const cacheData = {
+            data: uniqueTitles,
+            timestamp: Date.now(),
+          };
+
+          localStorage.setItem(
+            `topTitlesMovieAndTv`,
+            JSON.stringify(cacheData)
+          );
+
+          console.log(topTitlesMovieAndTv);
+        }
+      }
+    };
+    fetchData();
+  }, []);
+
+  const getTopMovieTitlesPageOne = async () => {
+    try {
+      const response = await fetchTopMoviesPageOne();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopMovieTitlesPageTwo = async () => {
+    try {
+      const response = await fetchTopMoviesPageTwo();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopMovieTitlesPageThree = async () => {
+    try {
+      const response = await fetchTopMoviesPageThree();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopMovieTitlesPageFour = async () => {
+    try {
+      const response = await fetchTopMoviesPageFour();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopMovieTitlesPageFive = async () => {
+    try {
+      const response = await fetchTopMoviesPageFive();
+      const data = await response.json();
+      console.log(data);
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopTvTitlesPageOne = async () => {
+    try {
+      const response = await fetchTopTvPageOne();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopTvTitlesPageTwo = async () => {
+    try {
+      const response = await fetchTopTvPageTwo();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopTvTitlesPageThree = async () => {
+    try {
+      const response = await fetchTopTvPageThree();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopTvTitlesPageFour = async () => {
+    try {
+      const response = await fetchTopTvPageFour();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTopTvTitlesPageFive = async () => {
+    try {
+      const response = await fetchTopTvPageFive();
+      const data = await response.json();
+      console.log(data);
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingMoviesPageOne = async () => {
+    try {
+      const response = await fetchTrendingMoviesPageOne();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingMoviesPageTwo = async () => {
+    try {
+      const response = await fetchTrendingMoviesPageTwo();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingMoviesPageThree = async () => {
+    try {
+      const response = await fetchTrendingMoviesPageThree();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingMoviesPageFour = async () => {
+    try {
+      const response = await fetchTrendingMoviesPageFour();
+      const data = await response.json();
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingMoviesPageFive = async () => {
+    try {
+      const response = await fetchTrendingMoviesPageFive();
+      const data = await response.json();
+      console.log(data);
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingTvPageOne = async () => {
+    try {
+      const response = await fetchTrendingTvPageOne();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingTvPageTwo = async () => {
+    try {
+      const response = await fetchTrendingTvPageTwo();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingTvPageThree = async () => {
+    try {
+      const response = await fetchTrendingTvPageThree();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingTvPageFour = async () => {
+    try {
+      const response = await fetchTrendingTvPageFour();
+      const data = await response.json();
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getTrendingTvPageFive = async () => {
+    try {
+      const response = await fetchTrendingTvPageFive();
+      const data = await response.json();
+      console.log(data);
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const searchByUserInput = async (event) => {
     event.preventDefault();
     console.log(value.title);
     const userInput = value.title;
+    setValue(userInput);
+
+    const cachedTitleSearchResults = localStorage.getItem(`titleSearchResults_${userInput}`);
+
+    if (cachedTitleSearchResults) {
+      console.log('found cached title search results');
+      const { data, timestamp } = JSON.parse(cachedTitleSearchResults);
+      console.log(data)
+      const now = Date.now();
+      if (now - timestamp < CACHE_DURATION) {
+        // setValue(data);
+        console.log('Using Cached Data:', data);
+        window.location.href =
+        "/title_search_results?titles=" +
+        encodeURIComponent(JSON.stringify(data));
+      return;
+    } else {
+      localStorage.removeItem(`titleSearchResults_${userInput}`);
+      console.log('Cached Data Expired and Removed');
+    }
+  }
+
+    if (!cachedTitleSearchResults) {
 
     try {
       const response = await searchByTitle(userInput);
       console.log(response);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const data = await response.json();
@@ -212,84 +420,91 @@ const TitleSearch = () => {
 
       console.log(titleSearchResults);
 
-      setValue('')
-      window.location.href = '/title_search_results?titles=' + encodeURIComponent(JSON.stringify(titleSearchResults));
+      const cacheData = {
+        data: titleSearchResults,
+        timestamp: Date.now(),
+      };
+      localStorage.setItem(`titleSearchResults_${userInput}`, JSON.stringify(cacheData));
 
+      window.location.href =
+        "/title_search_results?titles=" +
+        encodeURIComponent(JSON.stringify(titleSearchResults));
     } catch (err) {
       console.log(err);
     }
+  }
   };
-
- 
-
 
   return (
     <div>
       <h3>Title Search</h3>
       <form onSubmit={searchByUserInput}>
-      <FormControl >
-      <Autocomplete
-        size="small"
-        value={value}
-        onChange={(event, newValue) => {
-          if (typeof newValue === 'string') {
-            setValue({
-              title: newValue,
-            });
-          } else if (newValue && newValue.inputValue) {
-          // Create a new value from the user input
-            setValue({
-              title: newValue.inputValue,
-            });
-          } else {
-            setValue(newValue);
-          }
-        }}
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
+        <FormControl>
+          <Autocomplete
+            size="small"
+            value={value}
+            onChange={(event, newValue) => {
+              if (typeof newValue === "string") {
+                setValue({
+                  title: newValue,
+                });
+              } else if (newValue && newValue.inputValue) {
+                // Create a new value from the user input
+                setValue({
+                  title: newValue.inputValue,
+                });
+              } else {
+                setValue(newValue);
+              }
+            }}
+            filterOptions={(options, params) => {
+              const filtered = filter(options, params);
 
-          const { inputValue } = params;
-          // Suggest the creation of a new value
-          const isExisting = options.some((option) => inputValue === option.title);
-          if (inputValue !== '' && !isExisting) {
-            filtered.push({
-              inputValue,
-              title: `Add "${inputValue}"`,
-            });
-          }  
-          // console.log(filtered)
-          return filtered;
-        }}
-        selectOnFocus
-        clearOnBlur
-        handleHomeEndKeys
-        id=""
-        options={top100Films}
-        getOptionLabel={(option) => {
-          // Value selected with enter, right from the input
-          if (typeof option === 'string') {
-            return option;
-          }
-          // Add "xxx" option created dynamically
-          if (option.inputValue) {
-            return option.inputValue;
-          }
-          // Regular option
-          return option.title;
-        }}
-        renderOption={(props, option) => <li {...props}>{option.title}</li>}
-        sx={{ width: 300 }}
-        freeSolo
-        renderInput={(params) => (
-          <TextField {...params} label="Enter Title" />
-        )}
-      />
-        <Button type='submit' style= {{width: '60%'}} variant='contained'>Search By Title</Button>
-      </FormControl>
+              const { inputValue } = params;
+              // Suggest the creation of a new value
+              const isExisting = options.some(
+                (option) => inputValue === option.title
+              );
+              if (inputValue !== "" && !isExisting) {
+                filtered.push({
+                  inputValue,
+                  title: `Add "${inputValue}"`,
+                });
+              }
+              // console.log(filtered)
+              return filtered;
+            }}
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
+            id=""
+            options={topTitlesMovieAndTv}
+            getOptionLabel={(option) => {
+              // Value selected with enter, right from the input
+              if (typeof option === "string") {
+                return option;
+              }
+              // Add "xxx" option created dynamically
+              if (option.inputValue) {
+                return option.inputValue;
+              }
+              // Regular option
+              return option.title;
+            }}
+            renderOption={(props, option) => <li {...props}>{option.title}</li>}
+            sx={{ width: 300 }}
+            freeSolo
+            renderInput={(params) => (
+              <TextField {...params} label="Enter Title" />
+            )}
+          />
+          <Button type="submit" style={{ width: "60%" }} variant="contained">
+            Search By Title
+          </Button>
+        </FormControl>
       </form>
-      </div>
+    </div>
   );
 };
-  
-export default TitleSearch;
 
+export default TitleSearch;
