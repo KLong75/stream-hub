@@ -13,21 +13,31 @@ import {
   fetchTopMoviesPageThree,
   fetchTopMoviesPageFour,
   fetchTopMoviesPageFive,
-  fetchTopTvPageOne,
-  fetchTopTvPageTwo,
-  fetchTopTvPageThree,
-  fetchTopTvPageFour,
-  fetchTopTvPageFive,
   fetchTrendingMoviesPageOne,
   fetchTrendingMoviesPageTwo,
   fetchTrendingMoviesPageThree,
   fetchTrendingMoviesPageFour,
   fetchTrendingMoviesPageFive,
+  fetchPopularMoviesPageOne,
+  fetchPopularMoviesPageTwo,
+  fetchPopularMoviesPageThree,
+  fetchPopularMoviesPageFour,
+  fetchPopularMoviesPageFive,
+  fetchTopTvPageOne,
+  fetchTopTvPageTwo,
+  fetchTopTvPageThree,
+  fetchTopTvPageFour,
+  fetchTopTvPageFive,
   fetchTrendingTvPageOne,
   fetchTrendingTvPageTwo,
   fetchTrendingTvPageThree,
   fetchTrendingTvPageFour,
   fetchTrendingTvPageFive,
+  fetchPopularTvPageOne,
+  fetchPopularTvPageTwo,
+  fetchPopularTvPageThree,
+  fetchPopularTvPageFour,
+  fetchPopularTvPageFive,
 } from "../../utils/apiCalls";
 
 import { CACHE_DURATION } from "../../utils/utils";
@@ -57,6 +67,8 @@ const TitleSearch = () => {
       }
     }
 
+    // do i need an (!cachedTopTitlesMovieAndTv) here?
+
     const fetchData = async () => {
       const pageOneMovies = await getTopMovieTitlesPageOne();
       const pageTwoMovies = await getTopMovieTitlesPageTwo();
@@ -73,11 +85,21 @@ const TitleSearch = () => {
       const trendingMoviesPageThree = await getTrendingMoviesPageThree();
       const trendingMoviesPageFour = await getTrendingMoviesPageFour();
       const trendingMoviesPageFive = await getTrendingMoviesPageFive();
+      const popularMoviesPageOne = await getPopularMoviesPageOne();
+      const popularMoviesPageTwo = await getPopularMoviesPageTwo();
+      const popularMoviesPageThree = await getPopularMoviesPageThree();
+      const popularMoviesPageFour = await getPopularMoviesPageFour();
+      const popularMoviesPageFive = await getPopularMoviesPageFive();
       const trendingTvPageOne = await getTrendingTvPageOne();
       const trendingTvPageTwo = await getTrendingTvPageTwo();
       const trendingTvPageThree = await getTrendingTvPageThree();
       const trendingTvPageFour = await getTrendingTvPageFour();
       const trendingTvPageFive = await getTrendingTvPageFive();
+      const popularTvPageOne = await getPopularTvPageOne();
+      const popularTvPageTwo = await getPopularTvPageTwo();
+      const popularTvPageThree = await getPopularTvPageThree();
+      const popularTvPageFour = await getPopularTvPageFour();
+      const popularTvPageFive = await getPopularTvPageFive();
 
       const allFetchedData = [
         pageOneMovies,
@@ -95,11 +117,17 @@ const TitleSearch = () => {
         trendingMoviesPageThree,
         trendingMoviesPageFour,
         trendingMoviesPageFive,
+        popularMoviesPageOne,
+        popularMoviesPageTwo,
+        popularMoviesPageThree,
+        popularMoviesPageFour,
+        popularMoviesPageFive,
         trendingTvPageOne,
         trendingTvPageTwo,
         trendingTvPageThree,
         trendingTvPageFour,
         trendingTvPageFive,
+        popularTvPageOne,
       ];
 
       if (allFetchedData.every((page) => page)) {
@@ -119,11 +147,21 @@ const TitleSearch = () => {
           ...trendingMoviesPageThree,
           ...trendingMoviesPageFour,
           ...trendingMoviesPageFour,
+          ...popularMoviesPageOne,
+          ...popularMoviesPageTwo,
+          ...popularMoviesPageThree,
+          ...popularMoviesPageFour,
+          ...popularMoviesPageFive,
           ...trendingTvPageOne,
           ...trendingTvPageTwo,
           ...trendingTvPageThree,
           ...trendingTvPageFour,
           ...trendingTvPageFive,
+          ...popularTvPageOne,
+          ...popularTvPageTwo,
+          ...popularTvPageThree,
+          ...popularTvPageFour,
+          ...popularTvPageFive,
         ];
 
         if (allTitles.every((title) => title)) {
@@ -142,6 +180,7 @@ const TitleSearch = () => {
               console.log(filteredOutTitles);
               return false;
             }
+            
           });
 
           uniqueTitles = uniqueTitles.sort((a, b) =>
@@ -320,6 +359,61 @@ const TitleSearch = () => {
     }
   };
 
+  const getPopularMoviesPageOne = async () => {
+    try {
+      const response = await fetchPopularMoviesPageOne();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularMoviesPageTwo = async () => {
+    try {
+      const response = await fetchPopularMoviesPageTwo();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularMoviesPageThree = async () => {
+    try {
+      const response = await fetchPopularMoviesPageThree();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularMoviesPageFour = async () => {
+    try {
+      const response = await fetchPopularMoviesPageFour();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularMoviesPageFive = async () => {
+    try {
+      const response = await fetchPopularMoviesPageFive();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((movie) => ({ title: movie.title }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getTrendingTvPageOne = async () => {
     try {
       const response = await fetchTrendingTvPageOne();
@@ -365,6 +459,61 @@ const TitleSearch = () => {
       const response = await fetchTrendingTvPageFive();
       const data = await response.json();
       console.log(data);
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularTvPageOne = async () => {
+    try {
+      const response = await fetchPopularTvPageOne();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularTvPageTwo = async () => {
+    try {
+      const response = await fetchPopularTvPageTwo();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularTvPageThree = async () => {
+    try {
+      const response = await fetchPopularTvPageThree();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularTvPageFour = async () => {
+    try {
+      const response = await fetchPopularTvPageFour();
+      const data = await response.json();
+      console.log(data)
+      return data.results.map((tvShow) => ({ title: tvShow.name }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPopularTvPageFive = async () => {
+    try {
+      const response = await fetchPopularTvPageFive();
+      const data = await response.json();
+      console.log(data)
       return data.results.map((tvShow) => ({ title: tvShow.name }));
     } catch (error) {
       console.log(error);

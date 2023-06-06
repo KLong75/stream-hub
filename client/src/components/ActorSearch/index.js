@@ -46,6 +46,7 @@ const ActorSearch = () => {
         window.location.href =
           "/actor_search_results?actors=" +
           encodeURIComponent(JSON.stringify(data));
+        setSearchTerm("");
         return;
       } else {
         localStorage.removeItem(`actorSearchResults_${searchedName}`);
@@ -65,7 +66,10 @@ const ActorSearch = () => {
         const results = await response.json();
         console.log(results);
 
-        const actorSearchResults = results.results.slice(0,5).map((actor) => ({
+        const actorSearchResults = results.results
+          .filter((actor) => actor.known_for_department === "Acting")
+          .slice(0,8)
+          .map((actor) => ({
           id: actor.id,
           name: actor.name,
           job: actor.known_for_department,
@@ -75,8 +79,6 @@ const ActorSearch = () => {
               ? "https://image.tmdb.org/t/p/w500/" +
                 actor.known_for[0].poster_path
               : "",
-
-          // poster_url: 'https://image.tmdb.org/t/p/w500/' + actor.known_for[0].poster_path,
           image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
         }));
 

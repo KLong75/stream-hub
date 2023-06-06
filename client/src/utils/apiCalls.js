@@ -77,7 +77,7 @@ export const searchByTitle = (query) => { return fetch(`https://api.watchmode.co
 }
 
 // fetch titles by IMDB id
-export const searchTitlesByImdbId = (query) => { return fetch(`https://api.watchmode.com/v1/title/${query}/details?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&append_to_response=sources`);
+export const searchTitlesByTMDBId = (query) => { return fetch(`https://api.watchmode.com/v1/title/${query}/details?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&append_to_response=sources`);
 }
 
 // fetch details by title id
@@ -138,6 +138,73 @@ export const fetchTopTvPageFour = () => { return fetch (`https://api.themoviedb.
 export const fetchTopTvPageFive = () => { return fetch (`https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=5`);
 }
 
+
+
+// fetch trending movies
+export const fetchTrendingMoviesPageOne = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
+}
+
+export const fetchTrendingMoviesPageTwo = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=2`);
+}
+
+export const fetchTrendingMoviesPageThree = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=3`);
+}
+
+export const fetchTrendingMoviesPageFour = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=4`);
+}
+
+export const fetchTrendingMoviesPageFive = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=5`);
+}
+
+// fetch trending tv shows
+export const fetchTrendingTvPageOne = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
+}
+
+export const fetchTrendingTvPageTwo = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=2`);
+}
+
+export const fetchTrendingTvPageThree = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=3`);
+}
+
+export const fetchTrendingTvPageFour = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=4`);
+}
+
+export const fetchTrendingTvPageFive = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=5`);
+}
+
+// fetch popular movies
+export const fetchPopularMoviesPageOne = () => { return fetch (`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
+}
+
+export const fetchPopularMoviesPageTwo = () => { return fetch (`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=2`);
+}
+
+export const fetchPopularMoviesPageThree = () => { return fetch (`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=3`);
+}
+
+export const fetchPopularMoviesPageFour = () => { return fetch (`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=4`);
+}
+
+export const fetchPopularMoviesPageFive = () => { return fetch (`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=5`);
+}
+
+// add fetch popular tv shows
+export const fetchPopularTvPageOne = () => { return fetch (`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
+}
+
+export const fetchPopularTvPageTwo = () => { return fetch (`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=2`);
+}
+
+export const fetchPopularTvPageThree = () => { return fetch (`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=3`);
+}
+
+export const fetchPopularTvPageFour = () => { return fetch (`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=4`);
+}
+
+export const fetchPopularTvPageFive = () => { return fetch (`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=5`);
+}
+
+
 // fetch top people
 export const fetchTopPeoplePageOne = () => { return fetch (`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1`);
 }
@@ -154,48 +221,89 @@ export const fetchTopPeoplePageFour = () => { return fetch (`https://api.themovi
 export const fetchTopPeoplePageFive = () => { return fetch (`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=5`);
 }
 
-// fetch trending movies
-export const fetchTrendingMoviesPageOne = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+
+// fetch trending titles by genre
+export const fetchTrendingActionMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&genre=28`);
 }
 
-export const fetchTrendingMoviesPageTwo = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=2`);
+export const fetchTrendingActionTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=10759&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 }
 
-export const fetchTrendingMoviesPageThree = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=3`);
+export const fetchTrendingAnimationMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=16&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 }
 
-export const fetchTrendingMoviesPageFour = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=4`);
+export const fetchTrendingAnimationTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=16&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 }
 
-export const fetchTrendingMoviesPageFive = () => { return fetch (`https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=5`);
+export const fetchTrendingComedyMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=35&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 }
 
-// fetch trending tv shows
-export const fetchTrendingTvPageOne = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+export const fetchTrendingComedyTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=35&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 }
 
-export const fetchTrendingTvPageTwo = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=2`);
+export const fetchTrendingCrimeMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=80&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 }
-
-export const fetchTrendingTvPageThree = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=3`);
-}
-
-export const fetchTrendingTvPageFour = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=4`);
-}
-
-export const fetchTrendingTvPageFive = () => { return fetch (`https://api.themoviedb.org/3/trending/tv/day?api_key=${process.env.REACT_APP_TMDB_API_KEY}&page=5`);
+ 
+export const fetchTrendingCrimeTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=80&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
 }
 
 
+export const fetchTrendingDocumentaryMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=99&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingDocTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=99&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingDramaMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=18&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingDramaTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=18&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingFantasyMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=14&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingFantasyTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=10765&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingHorrorMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=27&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingScienceFictionMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=878&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingSciFiTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=10765&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+export const fetchTrendingThrillerMovies = () => { return fetch (`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=53&api_key=${process.env.REACT_APP_TMDB_API_KEY}`);
+}
+
+// test action fetch
+export const discoverTrendingActionMovies = () => {
+  fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=14&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data)
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
+
+export const trendingTvTest = () => {
+  fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=10759&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('trending tv test', data)
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
 
 
-
-
-
-
-
-
-
+export const fetchActionTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&genre=10759watch_region=us`);
+}
 
 
 

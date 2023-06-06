@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { searchTitlesByImdbId, fetchTitleDetails } from "../utils/apiCalls";
+import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
 
 import Button from "@mui/material/Button";
 
 import imageNotAvailable from "../assets/no_image_available.jpg";
+
+import { CACHE_DURATION } from "../utils/utils";
 
 const ActorSearchResults = () => {
   const [actorSearchResults, setActorSearchResults] = useState([]);
@@ -34,8 +36,32 @@ const ActorSearchResults = () => {
     const selectedTitleId = event.target.value;
     console.log(selectedTitle);
 
+    const cachedTitleDetails = localStorage.getItem(
+      `titleDetails_${selectedTitleId}`
+    );
+    console.log("Cached Data Retrieved: cachedTitleDetails", cachedTitleDetails);
+    if (cachedTitleDetails) {
+      const { data, timestamp } = JSON.parse(cachedTitleDetails);
+
+      console.log(CACHE_DURATION);
+
+      const now = Date.now();
+      console.log(now - timestamp);
+      if (now - timestamp < CACHE_DURATION) {
+        setSelectedTitleDetails(data);
+        console.log('cached data retrieved, parsed, time checked',data)
+        window.location.href ='/title_details?titleDetails=' + encodeURIComponent(JSON.stringify(data));
+        return;
+      } else {
+        localStorage.removeItem(`titleDetails_${selectedTitleId}`);
+        console.log('Cached Data Expired and Removed');
+      }
+    }
+
+    if (!cachedTitleDetails) {
+
     try {
-      const response = await searchTitlesByImdbId(selectedTitleId);
+      const response = await searchTitlesByTMDBId(selectedTitleId);
 
       console.log(fetchTitleDetails(selectedTitleId));
 
@@ -72,15 +98,22 @@ const ActorSearchResults = () => {
       console.log(titleDetailsData);
 
       setSelectedTitleDetails(titleDetailsData);
-      // setSelectedTitle('');
-
+      const cacheData = {
+        data: titleDetailsData,
+        timestamp: Date.now(),
+      };
+      localStorage.setItem(
+        `titleDetails_${selectedTitleId}`,
+        JSON.stringify(cacheData)
+      );
       window.location.href =
         "/title_details?titleDetails=" +
         encodeURIComponent(JSON.stringify(titleDetailsData));
     } catch (err) {
       console.error(err);
     }
-  };
+  }
+};
 
   return (
     <>
