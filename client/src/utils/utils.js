@@ -2,6 +2,26 @@ export const CACHE_DURATION = 30*24*60*60*1000; // 30 days
 
 export const CACHE_DURATION_ONE_WEEK = 7*24*60*60*1000; // 7 days
 
+export function formatDate(release_date) {
+  let date = new Date(release_date);
+
+  let monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  let day = date.getDate();
+  let monthIndex = date.getMonth();
+  let year = date.getFullYear();
+
+  return `${monthNames[monthIndex]}, ${day}, ${year}`;
+}
+
+
+
+
+
+
 // {
 //   "genres": [
 //     {

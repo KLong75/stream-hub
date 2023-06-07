@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingDocumentaryMovies,
+  fetchTrendingDramaMovies,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -14,36 +14,36 @@ import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
 
-const TrendingDocumentary = () => {
-  const [trendingDocumentaryMovies, setTrendingDocumentaryMovies] = useState([]);
-  console.log(trendingDocumentaryMovies);
+const TrendingDramaMovies = () => {
+  const [trendingDramaMovies, setTrendingDramaMovies] = useState([]);
+  console.log(trendingDramaMovies);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingDocumentaryMovies = async () => {
-      const cachedTrendingDocumentaryMovies = localStorage.getItem(
-        "trendingDocumentaryMovies"
+    const getTrendingDramaMovies = async () => {
+      const cachedTrendingDramaMovies = localStorage.getItem(
+        "trendingDramaMovies"
       );
 
-      if (cachedTrendingDocumentaryMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingDocumentaryMovies);
-        console.log("Cached Data Retrieved: cachedTrendingDocumentaryMovies", data);
+      if (cachedTrendingDramaMovies) {
+        const { data, timestamp } = JSON.parse(cachedTrendingDramaMovies);
+        console.log("Cached Data Retrieved: cachedTrendingDramaMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingDocumentaryMovies(data);
+          setTrendingDramaMovies(data);
           return;
         } else {
-          localStorage.removeItem("trendingDocumentaryMovies");
+          localStorage.removeItem("trendingDramaMovies");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingDocumentaryMovies) {
+      if (!cachedTrendingDramaMovies) {
         try {
-          const response = await fetchTrendingDocumentaryMovies();
+          const response = await fetchTrendingDramaMovies();
           const data = await response.json();
           console.log(data);
           const allMovies = data.results.map((movie) => ({
@@ -56,12 +56,12 @@ const TrendingDocumentary = () => {
             genre: movie.genre_ids,
           }));
 
-          const filteredTrendingDocumentaryMovies = allMovies.filter((movie) =>
-            movie.genre.includes(99)
+          const filteredTrendingDramaMovies = allMovies.filter((movie) =>
+            movie.genre.includes(18)
           );
 
           const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(99)
+            (movie) => !movie.genre.includes(18)
           );
           console.log(
             "Filtered out movies: ",
@@ -71,14 +71,14 @@ const TrendingDocumentary = () => {
             }))
           );
 
-          setTrendingDocumentaryMovies(filteredTrendingDocumentaryMovies);
+          setTrendingDramaMovies(filteredTrendingDramaMovies);
 
           const cacheData = {
-            data: filteredTrendingDocumentaryMovies,
+            data: filteredTrendingDramaMovies,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingDocumentaryMovies",
+            "trendingDramaMovies",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -87,7 +87,7 @@ const TrendingDocumentary = () => {
       }
     };
 
-    getTrendingDocumentaryMovies();
+    getTrendingDramaMovies();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -184,9 +184,9 @@ const TrendingDocumentary = () => {
 
   return (
     <>
-      <h3>Trending Documentary Movies</h3>
+      <h3>Trending Drama Movies</h3>
       <div>
-        {trendingDocumentaryMovies.map((movie) => (
+        {trendingDramaMovies.map((movie) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -209,4 +209,4 @@ const TrendingDocumentary = () => {
   );
 };
 
-export default TrendingDocumentary;
+export default TrendingDramaMovies;

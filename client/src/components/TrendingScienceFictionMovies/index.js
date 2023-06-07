@@ -1,9 +1,8 @@
-// import from react
 import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingComedyMovies,
+  fetchTrendingScienceFictionMovies,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -15,36 +14,36 @@ import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
 
-const TrendingComedy = () => {
-  const [trendingComedyMovies, setTrendingComedyMovies] = useState([]);
-  console.log(trendingComedyMovies);
+const TrendingScienceFictionMovies = () => {
+  const [trendingScienceFictionMovies, setTrendingScienceFictionMovies] = useState([]);
+  console.log(trendingScienceFictionMovies);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingComedyMovies = async () => {
-      const cachedTrendingComedyMovies = localStorage.getItem(
-        "trendingComedyMovies"
+    const getTrendingScienceFictionMovies = async () => {
+      const cachedTrendingScienceFictionMovies = localStorage.getItem(
+        "trendingScienceFictionMovies"
       );
 
-      if (cachedTrendingComedyMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingComedyMovies);
-        console.log("Cached Data Retrieved: cachedTrendingComedyMovies", data);
+      if (cachedTrendingScienceFictionMovies) {
+        const { data, timestamp } = JSON.parse(cachedTrendingScienceFictionMovies);
+        console.log("Cached Data Retrieved: cachedTrendingScienceFictionMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingComedyMovies(data);
+          setTrendingScienceFictionMovies(data);
           return;
         } else {
-          localStorage.removeItem("trendingComedyMovies");
+          localStorage.removeItem("trendingScienceFictionMovies");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingComedyMovies) {
+      if (!cachedTrendingScienceFictionMovies) {
         try {
-          const response = await fetchTrendingComedyMovies();
+          const response = await fetchTrendingScienceFictionMovies();
           const data = await response.json();
           console.log(data);
           const allMovies = data.results.map((movie) => ({
@@ -57,12 +56,12 @@ const TrendingComedy = () => {
             genre: movie.genre_ids,
           }));
 
-          const filteredTrendingComedyMovies = allMovies.filter((movie) =>
-            movie.genre.includes(35)
+          const filteredTrendingScienceFictionMovies = allMovies.filter((movie) =>
+            movie.genre.includes(878)
           );
 
           const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(35)
+            (movie) => !movie.genre.includes(878)
           );
           console.log(
             "Filtered out movies: ",
@@ -72,14 +71,14 @@ const TrendingComedy = () => {
             }))
           );
 
-          setTrendingComedyMovies(filteredTrendingComedyMovies);
+          setTrendingScienceFictionMovies(filteredTrendingScienceFictionMovies);
 
           const cacheData = {
-            data: filteredTrendingComedyMovies,
+            data: filteredTrendingScienceFictionMovies,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingAnimationMovies",
+            "trendingScienceFictionMovies",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -88,7 +87,7 @@ const TrendingComedy = () => {
       }
     };
 
-    getTrendingComedyMovies();
+    getTrendingScienceFictionMovies();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -185,9 +184,9 @@ const TrendingComedy = () => {
 
   return (
     <>
-      <h3>Trending Comedy Movies</h3>
+      <h3>Trending Science Fiction Movies</h3>
       <div>
-        {trendingComedyMovies.map((movie) => (
+        {trendingScienceFictionMovies.map((movie) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -210,4 +209,4 @@ const TrendingComedy = () => {
   );
 };
 
-export default TrendingComedy;
+export default TrendingScienceFictionMovies;

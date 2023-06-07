@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingActionMovies,
+  fetchTrendingComedyMovies,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -15,36 +15,36 @@ import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
 
-const TrendingAction = () => {
-  const [trendingActionMovies, setTrendingActionMovies] = useState([]);
-  console.log(trendingActionMovies);
+const TrendingComedyMovies = () => {
+  const [trendingComedyMovies, setTrendingComedyMovies] = useState([]);
+  console.log(trendingComedyMovies);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingActionMovies = async () => {
-      const cachedTrendingActionMovies = localStorage.getItem(
-        "trendingActionMovies"
+    const getTrendingComedyMovies = async () => {
+      const cachedTrendingComedyMovies = localStorage.getItem(
+        "trendingComedyMovies"
       );
 
-      if (cachedTrendingActionMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingActionMovies);
-        console.log("Cached Data Retrieved: cachedTrendingActionMovies", data);
+      if (cachedTrendingComedyMovies) {
+        const { data, timestamp } = JSON.parse(cachedTrendingComedyMovies);
+        console.log("Cached Data Retrieved: cachedTrendingComedyMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingActionMovies(data);
+          setTrendingComedyMovies(data);
           return;
         } else {
-          localStorage.removeItem("trendingActionMovies");
+          localStorage.removeItem("trendingComedyMovies");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingActionMovies) {
+      if (!cachedTrendingComedyMovies) {
         try {
-          const response = await fetchTrendingActionMovies();
+          const response = await fetchTrendingComedyMovies();
           const data = await response.json();
           console.log(data);
           const allMovies = data.results.map((movie) => ({
@@ -57,12 +57,12 @@ const TrendingAction = () => {
             genre: movie.genre_ids,
           }));
 
-          const filteredTrendingActionMovies = allMovies.filter((movie) =>
-            movie.genre.includes(28)
+          const filteredTrendingComedyMovies = allMovies.filter((movie) =>
+            movie.genre.includes(35)
           );
 
           const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(28)
+            (movie) => !movie.genre.includes(35)
           );
           console.log(
             "Filtered out movies: ",
@@ -72,14 +72,14 @@ const TrendingAction = () => {
             }))
           );
 
-          setTrendingActionMovies(filteredTrendingActionMovies);
+          setTrendingComedyMovies(filteredTrendingComedyMovies);
 
           const cacheData = {
-            data: filteredTrendingActionMovies,
+            data: filteredTrendingComedyMovies,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingActionMovies",
+            "trendingAnimationMovies",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -88,7 +88,7 @@ const TrendingAction = () => {
       }
     };
 
-    getTrendingActionMovies();
+    getTrendingComedyMovies();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -185,9 +185,9 @@ const TrendingAction = () => {
 
   return (
     <>
-      <h3>Trending Action Movies</h3>
+      <h3>Trending Comedy Movies</h3>
       <div>
-        {trendingActionMovies.map((movie) => (
+        {trendingComedyMovies.map((movie) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -210,4 +210,4 @@ const TrendingAction = () => {
   );
 };
 
-export default TrendingAction;
+export default TrendingComedyMovies;

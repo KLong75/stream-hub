@@ -6,46 +6,46 @@ import GenreSearch from '../components/GenreSearch';
 import TitleSearch from '../components/TitleSearch';
 import ActorSearch from '../components/ActorSearch';
 import SavedTitleList from '../components/SavedTitleList';
-import TrendingAction from '../components/TrendingAction';
-import TrendingAnimation from '../components/TrendingAnimation';
-import TrendingComedy from '../components/TrendingComedy';
-import TrendingCrime from '../components/TrendingCrime';
-import TrendingDocumentary from '../components/TrendingDocumentary';
-import TrendingDrama from '../components/TrendingDrama';
-import TrendingFantasy from '../components/TrendingFantasy';
-import TrendingHorror from '../components/TrendingHorror';
-import TrendingScienceFiction from '../components/TrendingScienceFiction';
-import TrendingThriller from '../components/TrendingThriller';
+import TrendingActionMovies from '../components/TrendingActionMovies';
+import TrendingAnimationMovies from '../components/TrendingAnimationMovies';
+import TrendingComedyMovies from '../components/TrendingComedyMovies';
+import TrendingCrimeMovies from '../components/TrendingCrimeMovies';
+import TrendingDocumentaryMovies from '../components/TrendingDocumentaryMovies';
+import TrendingDramaMovies from '../components/TrendingDramaMovies';
+import TrendingFantasyMovies from '../components/TrendingFantasyMovies';
+import TrendingHorrorMovies from '../components/TrendingHorrorMovies';
+import TrendingScienceFictionMovies from '../components/TrendingScienceFictionMovies';
+import TrendingThrillerMovies from '../components/TrendingThrillerMovies';
 import TrendingMovies from '../components/TrendingMovies';
 import TrendingTV from '../components/TrendingTV';
 
-import { discoverTrendingActionMovies, trendingTvTest } from '../utils/apiCalls';
+// import { fetchSources, discoverTrendingActionMovies, trendingTvTest } from '../utils/apiCalls';
 
 // discoverTrendingActionMovies();
-trendingTvTest();
+// trendingTvTest();
 
 const HomePage = () => {
 
   return (
     <>
-    
-    <div>Home Page
+    <h2>Home Page</h2>
+    <div>
       <GenreSearch/>
       <TitleSearch/>
       <ActorSearch/>
       <SavedTitleList/>
-      {/* <TrendingAction/> */}
-      {/* <TrendingAnimation/> */}
-      {/* <TrendingComedy/>  */}
-      {/* <TrendingCrime/> */}
-      {/* <TrendingDocumentary/> */}
-      {/* <TrendingDrama/> */}
-      {/* <TrendingFantasy/> */}
-      {/* <TrendingHorror/> */}
-      {/* <TrendingScienceFiction/> */}
-      {/* <TrendingThriller/> */}
-      {/* <TrendingMovies/> */}
-      {/* <TrendingTV/> */}
+      {/* <TrendingActionMovies/> */}
+      {/* <TrendingAnimationMovies/> */}
+      {/* <TrendingComedyMovies/>  */}
+      {/* <TrendingCrimeMovies/> */}
+      {/* <TrendingDocumentaryMovies/> */}
+      {/* <TrendingDramaMovies/> */}
+      {/* <TrendingFantasyMovies/> */}
+      {/* <TrendingHorrorMovies/> */}
+      {/* <TrendingScienceFictionMovies/> */}
+      {/* <TrendingThrillerMovies/> */}
+      <TrendingMovies/>
+      <TrendingTV/>
       
     </div>
     </>

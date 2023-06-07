@@ -9,7 +9,7 @@ import {
 
 import Button from "@mui/material/Button";
 
-const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
+import { CACHE_DURATION, formatDate} from "../utils/utils";
 
 // fetchFind();
 
@@ -624,7 +624,7 @@ const TitleDetails = () => {
             : "Unknown Type"}
         </p>
       )}
-      {selectedTitleDetails.year && <p>{selectedTitleDetails.year}</p>}
+      {selectedTitleDetails.release_date && <p>Released on {formatDate(selectedTitleDetails.release_date)}</p>}
       {selectedTitleDetails.backdrop && (
         <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
       )}
@@ -687,7 +687,7 @@ const TitleDetails = () => {
           )}
       </div>
 
-      <div>
+      {/* <div>
         {moreDetails &&
           moreDetails.crew &&
           moreDetails.crew.some(
@@ -703,23 +703,6 @@ const TitleDetails = () => {
                     crewMember.job === "Producer" ||
                     crewMember.job === "Executive Producer"
                 )
-                .map((crewMember) => (
-                  <p key={crewMember.id}>{crewMember.name}</p>
-                ))}
-            </>
-          )}
-      </div>
-
-      {/* <div>
-        {moreDetails &&
-          moreDetails.crew &&
-          moreDetails.crew.some(
-            (crewMember) => crewMember.job === "Executive Producer"
-          ) && (
-            <>
-          
-              {moreDetails.crew
-                .filter((crewMember) => crewMember.job === "Executive Producer")
                 .map((crewMember) => (
                   <p key={crewMember.id}>{crewMember.name}</p>
                 ))}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingAnimationMovies,
+  fetchTrendingMoviesPageOne,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -12,73 +12,73 @@ import Button from "@mui/material/Button";
 
 // import imageNotAvailable from "../assets/no_image_available.jpg";
 
-import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
+import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 
-const TrendingAnimation = () => {
-  const [trendingAnimationMovies, setTrendingAnimationMovies] = useState([]);
-  console.log(trendingAnimationMovies);
+const TrendingMovies = () => {
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  console.log(trendingMovies);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingAnimationMovies = async () => {
-      const cachedTrendingAnimationMovies = localStorage.getItem(
-        "trendingAnimationMovies"
+    const getTrendingMovies = async () => {
+      const cachedTrendingMovies = localStorage.getItem(
+        "trendingMovies"
       );
 
-      if (cachedTrendingAnimationMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingAnimationMovies);
-        console.log("Cached Data Retrieved: cachedTrendingAnimationMovies", data);
+      if (cachedTrendingMovies) {
+        const { data, timestamp } = JSON.parse(cachedTrendingMovies);
+        console.log("Cached Data Retrieved: cachedTrendingMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingAnimationMovies(data);
+          setTrendingMovies(data);
           return;
         } else {
-          localStorage.removeItem("trendingAnimationMovies");
+          localStorage.removeItem("trendingMovies");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingAnimationMovies) {
+      if (!cachedTrendingMovies) {
         try {
-          const response = await fetchTrendingAnimationMovies();
+          const response = await fetchTrendingMoviesPageOne();
           const data = await response.json();
           console.log(data);
-          const allMovies = data.results.map((movie) => ({
+          const topMovies = data.results.map((movie) => ({
             id: movie.id,
             title: movie.title,
             poster_path: movie.poster_path,
             backdrop_path: movie.backdrop_path,
             overview: movie.overview,
-            release_date: movie.release_date,
+            release_date: formatDate(movie.release_date),
             genre: movie.genre_ids,
           }));
 
-          const filteredTrendingAnimationMovies = allMovies.filter((movie) =>
-            movie.genre.includes(16)
-          );
+          // const filteredTrendingMovies = allMovies.filter((movie) =>
+          //   movie.genre.includes(16)
+          // );
 
-          const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(16)
-          );
-          console.log(
-            "Filtered out movies: ",
-            filteredOutMovies.map((movie) => ({
-              title: movie.title,
-              genre: movie.genre,
-            }))
-          );
+          // const filteredOutMovies = allMovies.filter(
+          //   (movie) => !movie.genre.includes(16)
+          // );
+          // console.log(
+          //   "Filtered out movies: ",
+          //   filteredOutMovies.map((movie) => ({
+          //     title: movie.title,
+          //     genre: movie.genre,
+          //   }))
+          // );
 
-          setTrendingAnimationMovies(filteredTrendingAnimationMovies);
+          setTrendingMovies(topMovies);
 
           const cacheData = {
-            data: filteredTrendingAnimationMovies,
+            data: topMovies,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingAnimationMovies",
+            "trendingMovies",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -87,7 +87,7 @@ const TrendingAnimation = () => {
       }
     };
 
-    getTrendingAnimationMovies();
+    getTrendingMovies();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -184,16 +184,16 @@ const TrendingAnimation = () => {
 
   return (
     <>
-      <h3>Trending Animation Movies</h3>
+      <h3>Trending Movies</h3>
       <div>
-        {trendingAnimationMovies.map((movie) => (
+        {trendingMovies.map((movie) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
               alt={movie.title}
             />
             <p>{movie.title}</p>
-            <p>{movie.release_date}</p>
+            <p>Released on {movie.release_date}</p>
             <p>{movie.overview}</p>
             <Button
               variant="contained"
@@ -209,4 +209,4 @@ const TrendingAnimation = () => {
   );
 };
 
-export default TrendingAnimation;
+export default TrendingMovies;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingScienceFictionMovies,
+  fetchTrendingHorrorMovies,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -14,36 +14,36 @@ import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
 
-const TrendingScienceFiction = () => {
-  const [trendingScienceFictionMovies, setTrendingScienceFictionMovies] = useState([]);
-  console.log(trendingScienceFictionMovies);
+const TrendingHorrorMovies = () => {
+  const [trendingHorrorMovies, setTrendingHorrorMovies] = useState([]);
+  console.log(trendingHorrorMovies);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingScienceFictionMovies = async () => {
-      const cachedTrendingScienceFictionMovies = localStorage.getItem(
-        "trendingScienceFictionMovies"
+    const getTrendingHorrorMovies = async () => {
+      const cachedTrendingHorrorMovies = localStorage.getItem(
+        "trendingHorrorMovies"
       );
 
-      if (cachedTrendingScienceFictionMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingScienceFictionMovies);
-        console.log("Cached Data Retrieved: cachedTrendingScienceFictionMovies", data);
+      if (cachedTrendingHorrorMovies) {
+        const { data, timestamp } = JSON.parse(cachedTrendingHorrorMovies);
+        console.log("Cached Data Retrieved: cachedTrendingHorrorMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingScienceFictionMovies(data);
+          setTrendingHorrorMovies(data);
           return;
         } else {
-          localStorage.removeItem("trendingScienceFictionMovies");
+          localStorage.removeItem("trendingHorrorMovies");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingScienceFictionMovies) {
+      if (!cachedTrendingHorrorMovies) {
         try {
-          const response = await fetchTrendingScienceFictionMovies();
+          const response = await fetchTrendingHorrorMovies();
           const data = await response.json();
           console.log(data);
           const allMovies = data.results.map((movie) => ({
@@ -56,12 +56,12 @@ const TrendingScienceFiction = () => {
             genre: movie.genre_ids,
           }));
 
-          const filteredTrendingScienceFictionMovies = allMovies.filter((movie) =>
-            movie.genre.includes(878)
+          const filteredTrendingHorrorMovies = allMovies.filter((movie) =>
+            movie.genre.includes(27)
           );
 
           const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(878)
+            (movie) => !movie.genre.includes(27)
           );
           console.log(
             "Filtered out movies: ",
@@ -71,14 +71,14 @@ const TrendingScienceFiction = () => {
             }))
           );
 
-          setTrendingScienceFictionMovies(filteredTrendingScienceFictionMovies);
+          setTrendingHorrorMovies(filteredTrendingHorrorMovies);
 
           const cacheData = {
-            data: filteredTrendingScienceFictionMovies,
+            data: filteredTrendingHorrorMovies,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingScienceFictionMovies",
+            "trendingHorrorMovies",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -87,7 +87,7 @@ const TrendingScienceFiction = () => {
       }
     };
 
-    getTrendingScienceFictionMovies();
+    getTrendingHorrorMovies();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -184,9 +184,9 @@ const TrendingScienceFiction = () => {
 
   return (
     <>
-      <h3>Trending Science Fiction Movies</h3>
+      <h3>Trending Horror Movies</h3>
       <div>
-        {trendingScienceFictionMovies.map((movie) => (
+        {trendingHorrorMovies.map((movie) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -209,4 +209,4 @@ const TrendingScienceFiction = () => {
   );
 };
 
-export default TrendingScienceFiction;
+export default TrendingHorrorMovies;

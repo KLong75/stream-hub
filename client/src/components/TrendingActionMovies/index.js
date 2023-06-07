@@ -1,8 +1,9 @@
+// import from react
 import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingHorrorMovies,
+  fetchTrendingActionMovies,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -14,36 +15,36 @@ import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
 
-const TrendingHorror = () => {
-  const [trendingHorrorMovies, setTrendingHorrorMovies] = useState([]);
-  console.log(trendingHorrorMovies);
+const TrendingActionMovies = () => {
+  const [trendingActionMovies, setTrendingActionMovies] = useState([]);
+  console.log(trendingActionMovies);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingHorrorMovies = async () => {
-      const cachedTrendingHorrorMovies = localStorage.getItem(
-        "trendingHorrorMovies"
+    const getTrendingActionMovies = async () => {
+      const cachedTrendingActionMovies = localStorage.getItem(
+        "trendingActionMovies"
       );
 
-      if (cachedTrendingHorrorMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingHorrorMovies);
-        console.log("Cached Data Retrieved: cachedTrendingHorrorMovies", data);
+      if (cachedTrendingActionMovies) {
+        const { data, timestamp } = JSON.parse(cachedTrendingActionMovies);
+        console.log("Cached Data Retrieved: cachedTrendingActionMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingHorrorMovies(data);
+          setTrendingActionMovies(data);
           return;
         } else {
-          localStorage.removeItem("trendingHorrorMovies");
+          localStorage.removeItem("trendingActionMovies");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingHorrorMovies) {
+      if (!cachedTrendingActionMovies) {
         try {
-          const response = await fetchTrendingHorrorMovies();
+          const response = await fetchTrendingActionMovies();
           const data = await response.json();
           console.log(data);
           const allMovies = data.results.map((movie) => ({
@@ -56,12 +57,12 @@ const TrendingHorror = () => {
             genre: movie.genre_ids,
           }));
 
-          const filteredTrendingHorrorMovies = allMovies.filter((movie) =>
-            movie.genre.includes(27)
+          const filteredTrendingActionMovies = allMovies.filter((movie) =>
+            movie.genre.includes(28)
           );
 
           const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(27)
+            (movie) => !movie.genre.includes(28)
           );
           console.log(
             "Filtered out movies: ",
@@ -71,14 +72,14 @@ const TrendingHorror = () => {
             }))
           );
 
-          setTrendingHorrorMovies(filteredTrendingHorrorMovies);
+          setTrendingActionMovies(filteredTrendingActionMovies);
 
           const cacheData = {
-            data: filteredTrendingHorrorMovies,
+            data: filteredTrendingActionMovies,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingHorrorMovies",
+            "trendingActionMovies",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -87,7 +88,7 @@ const TrendingHorror = () => {
       }
     };
 
-    getTrendingHorrorMovies();
+    getTrendingActionMovies();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -184,9 +185,9 @@ const TrendingHorror = () => {
 
   return (
     <>
-      <h3>Trending Horror Movies</h3>
+      <h3>Trending Action Movies</h3>
       <div>
-        {trendingHorrorMovies.map((movie) => (
+        {trendingActionMovies.map((movie) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -209,4 +210,4 @@ const TrendingHorror = () => {
   );
 };
 
-export default TrendingHorror;
+export default TrendingActionMovies;
