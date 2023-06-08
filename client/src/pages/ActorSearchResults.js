@@ -3,7 +3,7 @@ import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
 
 import Button from "@mui/material/Button";
 
-import imageNotAvailable from "../assets/no_image_available.jpg";
+import imageNotAvailable from "../assets/images/no_image_available.jpg";
 
 import { CACHE_DURATION } from "../utils/utils";
 

@@ -11,6 +11,7 @@ const Nav= () => {
         <Link to='/login'><li>Login</li></Link>
         <Link to='/signup'><li>Sign Up</li></Link>
         <Link to='/search'><li>Search</li></Link>
+        <Link to='/now_trending'><li>Now Trending</li></Link>
         <a href='/'><li>Sign Out</li></a>
       </ul>
     </nav> 

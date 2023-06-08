@@ -18,6 +18,8 @@ import TrendingScienceFictionMovies from '../components/TrendingScienceFictionMo
 import TrendingThrillerMovies from '../components/TrendingThrillerMovies';
 import TrendingMovies from '../components/TrendingMovies';
 import TrendingTV from '../components/TrendingTV';
+import TrendingActAdvTv from '../components/TrendingActAdvTv';
+import TrendingDocTv from '../components/TrendingDocTv';
 
 // import { fetchSources, discoverTrendingActionMovies, trendingTvTest } from '../utils/apiCalls';
 
@@ -34,19 +36,8 @@ const HomePage = () => {
       <TitleSearch/>
       <ActorSearch/>
       <SavedTitleList/>
-      {/* <TrendingActionMovies/> */}
-      {/* <TrendingAnimationMovies/> */}
-      {/* <TrendingComedyMovies/>  */}
-      {/* <TrendingCrimeMovies/> */}
-      {/* <TrendingDocumentaryMovies/> */}
-      {/* <TrendingDramaMovies/> */}
-      {/* <TrendingFantasyMovies/> */}
-      {/* <TrendingHorrorMovies/> */}
-      {/* <TrendingScienceFictionMovies/> */}
-      {/* <TrendingThrillerMovies/> */}
-      <TrendingMovies/>
-      <TrendingTV/>
-      
+      {/* <TrendingMovies/> */}
+      {/* <TrendingTV/> */}
     </div>
     </>
   )

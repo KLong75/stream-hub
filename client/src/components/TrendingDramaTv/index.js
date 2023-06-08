@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingTvPageOne,
+  fetchTrendingDramaTv,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
-
 
 
 // import from material-ui
@@ -17,36 +16,36 @@ import Button from "@mui/material/Button";
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 
 
-const TrendingTv = () => {
-  const [trendingTv, setTrendingTv] = useState([]);
-  console.log(trendingTv);
+const TrendingDramaTv = () => {
+  const [trendingDramaTv, setTrendingDramaTv] = useState([]);
+  console.log(trendingDramaTv);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingTv = async () => {
-      const cachedTrendingTv = localStorage.getItem(
-        "trendingTv"
+    const getTrendingDramaTv = async () => {
+      const cachedTrendingDramaTv = localStorage.getItem(
+        "trendingDramaTv"
       );
 
-      if (cachedTrendingTv) {
-        const { data, timestamp } = JSON.parse(cachedTrendingTv);
-        console.log("Cached Data Retrieved: cachedTrendingTv", data);
+      if (cachedTrendingDramaTv) {
+        const { data, timestamp } = JSON.parse(cachedTrendingDramaTv);
+        console.log("Cached Data Retrieved: cachedTrendingDramaTv", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingTv(data);
+          setTrendingDramaTv(data);
           return;
         } else {
-          localStorage.removeItem("trendingTv");
+          localStorage.removeItem("trendingDramaTv");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingTv) {
+      if (!cachedTrendingDramaTv) {
         try {
-          const response = await fetchTrendingTvPageOne();
+          const response = await fetchTrendingDramaTv();
           const data = await response.json();
           console.log(data);
           const topTvShows = data.results.map((tvShow) => ({
@@ -60,14 +59,14 @@ const TrendingTv = () => {
           }));
 
           
-          setTrendingTv(topTvShows);
+          setTrendingDramaTv(topTvShows);
 
           const cacheData = {
             data: topTvShows,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingTv",
+            "trendingDramaTv",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -76,7 +75,7 @@ const TrendingTv = () => {
       }
     };
 
-    getTrendingTv();
+    getTrendingDramaTv();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -173,9 +172,9 @@ const TrendingTv = () => {
 
   return (
     <>
-      <h3>Trending TV Shows</h3>
+      <h3>Trending Science Fiction and Fantasy TV Shows</h3>
       <div>
-        {trendingTv.map((tvShow) => (
+        {trendingDramaTv.map((tvShow) => (
           <div key={tvShow.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${tvShow.poster_path}`}
@@ -198,4 +197,4 @@ const TrendingTv = () => {
   );
 };
 
-export default TrendingTv;
+export default TrendingDramaTv;

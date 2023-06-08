@@ -10,6 +10,7 @@ import TitleSearchResults from './pages/TitleSearchResults';
 import ActorSearchResults from './pages/ActorSearchResults';
 import SignUp from './pages/SignUp';
 import TitleDetails from './pages/TitleDetails';
+import NowTrending from './pages/NowTrending';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -43,6 +44,10 @@ const App = () => {
         <Route
           path='/search'
           element={<Search />}
+        />
+        <Route
+          path='/now_trending'
+          element={<NowTrending/>}
         />
         <Route
           path='/search_results'
