@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 
-
+import Clapboard from '../components/LoadingClapBoard';
 import GenreSearch from '../components/GenreSearch';
 import TitleSearch from '../components/TitleSearch';
 import ActorSearch from '../components/ActorSearch';
@@ -35,6 +35,7 @@ const HomePage = () => {
     <>
     <h2>Home Page</h2>
     <div>
+    <Clapboard/>
       <GenreSearch/>
       <TitleSearch/>
       <ActorSearch/>
