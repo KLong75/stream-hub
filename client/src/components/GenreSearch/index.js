@@ -56,10 +56,10 @@ const genreOptions = [
     value: '9',
     label: 'Fantasy'
   },
-  {
-    value: '34',
-    label: 'Food'
-  },
+  // {
+  //   value: '34',
+  //   label: 'Food'
+  // },
   {
     value: '28',
     label: 'Game Show'
@@ -88,10 +88,10 @@ const genreOptions = [
     value: '13',
     label: 'Mystery'
   },
-  {
-    value: '36',
-    label: 'Nature'
-  },
+  // {
+  //   value: '36',
+  //   label: 'Nature'
+  // },
   {
     value: '22',
     label: 'News'
@@ -120,10 +120,10 @@ const genreOptions = [
     value: '29',
     label: 'Sports'
   },
-  {
-    value: '37',
-    label: 'Supernatural'
-  },
+  // {
+  //   value: '37',
+  //   label: 'Supernatural'
+  // },
   {
     value: '26',
     label: 'Talk'
@@ -132,14 +132,14 @@ const genreOptions = [
     value: '17',
     label: 'Thriller'
   },
-  {
-    value: '35',
-    label: 'Travel'
-  },
-  {
-    value: '38',
-    label: 'TV Movie'
-  },
+  // {
+  //   value: '35',
+  //   label: 'Travel'
+  // },
+  // {
+  //   value: '38',
+  //   label: 'TV Movie'
+  // },
   {
     value: '18',
     label: 'War'
@@ -162,31 +162,6 @@ const GenreSearch = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
 
   const [selectedGenreCode, setSelectedGenreCode] = useState('');
-
-
-  // useEffect(() => {
-
-  //   const cachedGenreSearchResults = (localStorage.getItem(`genreSearchResults_${selectedGenreCode}`));
-  //   console.log('Cached Genre Search Results:',cachedGenreSearchResults)
-    
-  //   if(cachedGenreSearchResults) {
-  //     const { data, timestamp } = JSON.parse(cachedGenreSearchResults);
-  //     console.log('Stored Data:', data);
-  //     console.log('Stored Timestamp:', timestamp);
-  //     console.log('Current Time:', Date.now());
-  //     const now = Date.now();
-  //     if (now - timestamp < CACHE_DURATION) {
-  //       setGenreSearchResults(data);
-  //       console.log('Using Cached Data');
-  //       return;
-  //     } else {
-  //       localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);
-  //       console.log('Cached Data Expired');
-  //     }
-  //   }
-  // }, [selectedGenreCode]);
-
-
 
   const handleChange = async (event) => {
     event.preventDefault();
@@ -269,7 +244,7 @@ const GenreSearch = () => {
         autoComplete='off'
       >
         <div>
-          <h3>Genre Search</h3>
+          <h3>Browse Titles by Genre From All Available Sources</h3>
           <TextField
             id='genre-select'
             select

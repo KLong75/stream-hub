@@ -20,11 +20,14 @@ import TrendingMovies from '../components/TrendingMovies';
 import TrendingTV from '../components/TrendingTV';
 import TrendingActAdvTv from '../components/TrendingActAdvTv';
 import TrendingDocTv from '../components/TrendingDocTv';
+import { fetchSources, fetchTitlesBySource } from '../utils/apiCalls';
 
 // import { fetchSources, discoverTrendingActionMovies, trendingTvTest } from '../utils/apiCalls';
 
 // discoverTrendingActionMovies();
 // trendingTvTest();
+fetchSources();
+// fetchTitlesBySource();
 
 const HomePage = () => {
 

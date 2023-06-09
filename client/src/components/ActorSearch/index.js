@@ -249,6 +249,7 @@ const ActorSearch = () => {
   return (
     <div>
       <h3>Actor Search</h3>
+      <h4>Don't see the name you are looking for in the menu? Enter it anyway! We'll find them.</h4>
       <form onSubmit={searchByEnteredName}>
         <FormControl>
           <Autocomplete

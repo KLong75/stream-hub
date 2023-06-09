@@ -55,7 +55,7 @@ const NowTrending = () => {
       {/* <TrendingCrimeTv /> */}
       {/* <TrendingDocTv /> */}
       {/* <TrendingSciFiFantasyTv /> */}
-      {/* <TrendingDramaTv /> */}
+      <TrendingDramaTv />
       {/* <TrendingFamilyTv /> */}
       {/* <TrendingKidsTv /> */}
       {/* <TrendindingNewsTv /> */}

@@ -590,7 +590,8 @@ const TitleSearch = () => {
 
   return (
     <div>
-      <h3>Title Search</h3>
+      <h3>Search Movies and TV Shows by Title</h3>
+      <h4>Don't see your title in the menu? Enter it anyway! If it exists we'll find it.</h4>
       <form onSubmit={searchByUserInput}>
         <FormControl>
           <Autocomplete
@@ -621,7 +622,7 @@ const TitleSearch = () => {
               if (inputValue !== "" && !isExisting) {
                 filtered.push({
                   inputValue,
-                  title: `Add "${inputValue}"`,
+                  title: `Search for "${inputValue}"`,
                 });
               }
               // console.log(filtered)
@@ -648,7 +649,7 @@ const TitleSearch = () => {
             sx={{ width: 300 }}
             freeSolo
             renderInput={(params) => (
-              <TextField {...params} label="Enter Title" />
+              <TextField {...params} label="Enter Title of Movie or TV Show" />
             )}
           />
           <Button type="submit" style={{ width: "60%" }} variant="contained">

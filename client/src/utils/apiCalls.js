@@ -1,7 +1,7 @@
 // Watchmode API Calls
 // fetch genre categories
 export const fetchGenres = () => {
-    fetch('https://api.watchmode.com/v1/genres/?apiKey=WIu3mU2xnsXe9BTf7WlTqfAmFnw3uwR5kTG1RtbB')
+    fetch(`https://api.watchmode.com/v1/genres/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data)
@@ -14,7 +14,7 @@ export const fetchGenres = () => {
 
 // fetch sources
 export const fetchSources = () => {
-    fetch('https://api.watchmode.com/v1/sources/?apiKey=WIu3mU2xnsXe9BTf7WlTqfAmFnw3uwR5kTG1RtbB')
+    fetch(`https://api.watchmode.com/v1/sources/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data)
@@ -24,6 +24,19 @@ export const fetchSources = () => {
     .catch((err) => {
       console.log(err.message);
     });
+}
+
+
+export const fetchTitlesBySource= () => {
+  fetch(`https://api.watchmode.com/v1/list-titles/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&source_ids=203&genre=15&types=movie&sort_by=popularity_desc`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data)
+    
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 }
 
 
@@ -64,10 +77,11 @@ export const fetchBad = () => {
 
 
 // fetch titles by genre
-// export const searchByGenre = (query) => { return fetch(`https://api.watchmode.com/v1/list-titles?genres=${query}&limit=2&apiKey=tXhIgERECp3PJeQTYJPZ9qIr92ZDFabiX08XJrIK`);
-// }
-
 export const searchByGenre = (query) => { return fetch(`https://api.watchmode.com/v1/list-titles?genres=${query}&limit=2&apiKey=${process.env.REACT_APP_WMODE_API_KEY}`);
+}
+
+// fetch titles by genre, type, and source
+export const fetchTitlesByGenreSourceType = (sources, genres, types) => { return fetch(`https://api.watchmode.com/v1/list-titles/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&source_ids=${sources}&genre=${genres}&types=${types}&sort_by=popularity_desc&limit=10`);
 }
 
 

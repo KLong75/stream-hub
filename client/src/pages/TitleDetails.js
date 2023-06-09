@@ -70,8 +70,6 @@ const TitleDetails = () => {
 
   const [showtimeAmazonPrimeUrl, setShowtimeAmazonPrimeUrl] = useState("");
 
-  const [cbsAllAccessUrl, setCbsAllAccessUrl] = useState("");
-
   const [notAvailable, setNotAvailable] = useState("");
 
   const [selectedActorName, setSelectedActorName] = useState("");
@@ -125,7 +123,6 @@ const TitleDetails = () => {
       const showtimeAmazonPrime = sources.filter(
         (source) => source.source_id === 249
       );
-      const cbsAllAccess = sources.filter((source) => source.source_id === 51);
 
       if (sources.length === 0) {
         const notAvailable = "Not Available on Subscription Streaming Services";
@@ -229,10 +226,7 @@ const TitleDetails = () => {
         const showtimeAmazonPrimeUrl = showtimeAmazonPrime[0].web_url;
         setShowtimeAmazonPrimeUrl(showtimeAmazonPrimeUrl);
       }
-      if (cbsAllAccess.length >= 1) {
-        const cbsAllAccessUrl = cbsAllAccess[0].web_url;
-        setCbsAllAccessUrl(cbsAllAccessUrl);
-      }
+     
     }
   }, []);
 
@@ -1027,19 +1021,6 @@ const TitleDetails = () => {
           rel="noopener noreferrer"
         >
           Watch on Showtime via Amazon Prime
-        </Button>
-      )}
-
-      {/* CBS All Access Button */}
-      {cbsAllAccessUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={cbsAllAccessUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on CBS All Access
         </Button>
       )}
 

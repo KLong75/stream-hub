@@ -5,6 +5,7 @@ import React from 'react';
 import GenreSearch from '../components/GenreSearch';
 import TitleSearch from '../components/TitleSearch';
 import ActorSearch from '../components/ActorSearch';
+import SearchByGenreSourceType from '../components/SearchByGenreSourceType';
 
 
 
@@ -14,15 +15,15 @@ console.log("SearchPage rendered")
     <>
     
     <div>Search Page
-      <div>
+      
         <GenreSearch />
-      </div>
-      <div>
+
         <TitleSearch/>
-      </div>
-      <div>
+     
         <ActorSearch/>
-      </div>
+        
+        <SearchByGenreSourceType/>
+      
     </div>
    
     </>

@@ -172,7 +172,7 @@ const TrendingDramaTv = () => {
 
   return (
     <>
-      <h3>Trending Science Fiction and Fantasy TV Shows</h3>
+      <h3>Trending Drama TV Shows</h3>
       <div>
         {trendingDramaTv.map((tvShow) => (
           <div key={tvShow.id}>
