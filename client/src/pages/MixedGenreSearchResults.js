@@ -6,8 +6,6 @@ import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
 
 import { CACHE_DURATION } from "../utils/utils";
 
-
-
 const MixedGenreSearchResults = () => {
   const [mixedGenreSearchResults, setMixedGenreSearchResults] = useState([]);
 

@@ -94,13 +94,17 @@ const MixedGenreMovieSearch = () => {
           id: movie.id,
           title: movie.title,
           year: movie.release_date.slice(0, 4),
-          type: 'movie',
+          type: "movie",
           poster_url: "https://image.tmdb.org/t/p/w300/" + movie.poster_path,
-          backdrop_url: "https://image.tmdb.org/t/p/w500/" + movie.backdrop_path,
+          backdrop_url:
+            "https://image.tmdb.org/t/p/w500/" + movie.backdrop_path,
           genres: movie.genre_ids,
         }));
 
-        console.log("Mixed Genre Movie Search Title Data: ",searchResultsTitleData);
+        console.log(
+          "Mixed Genre Movie Search Title Data: ",
+          searchResultsTitleData
+        );
 
         const cacheData = {
           data: searchResultsTitleData,
@@ -116,11 +120,10 @@ const MixedGenreMovieSearch = () => {
         //   "/mixed_genre_search_results?titles=" +
         //   encodeURIComponent(JSON.stringify(searchResultsTitleData));
         window.location.href =
-  "/mixed_genre_search_results?titles=" +
-  encodeURIComponent(JSON.stringify(searchResultsTitleData)) +
-  "&genres=" +
-  encodeURIComponent(JSON.stringify(userInput.genres));
-
+          "/mixed_genre_search_results?titles=" +
+          encodeURIComponent(JSON.stringify(searchResultsTitleData)) +
+          "&genres=" +
+          encodeURIComponent(JSON.stringify(userInput.genres));
       } catch (error) {
         console.log(error);
       }
@@ -146,9 +149,13 @@ const MixedGenreMovieSearch = () => {
               <h4>Select any combination</h4>
               <p>
                 <em>
-                  Looking for an extra-terrestrial romance? A crime thriller? A hilarious horror movie? We've got you covered. Select any combination of genres to find the perfect movie for your mood.
+                  Looking for an extra-terrestrial romance? A crime thriller? A
+                  hilarious horror movie? We've got you covered. Select any
+                  combination of genres to find the perfect movie for your mood.
                   <br />
-                  <strong>Note: The more genres you select, the fewer results you will get.
+                  <strong>
+                    Note: The more genres you select, the fewer results you will
+                    get.
                   </strong>
                 </em>
               </p>
@@ -162,7 +169,7 @@ const MixedGenreMovieSearch = () => {
                 value="28"
                 label="Action"
               />
-         
+
               <FormControlLabel
                 value="12"
                 control={
@@ -263,7 +270,7 @@ const MixedGenreMovieSearch = () => {
                 }
                 label="Horror"
               />
-              
+
               <FormControlLabel
                 value="10402"
                 control={
@@ -274,7 +281,7 @@ const MixedGenreMovieSearch = () => {
                 }
                 label="Music"
               />
-            
+
               <FormControlLabel
                 value="9648"
                 control={

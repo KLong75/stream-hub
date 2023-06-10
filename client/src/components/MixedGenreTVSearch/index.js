@@ -114,7 +114,8 @@ const MixedGenreTVSearch = () => {
         setMixedGenreTvSearchResults(searchResultsTitleData);
         window.location.href =
           "/mixed_genre_search_results?titles=" +
-          encodeURIComponent(JSON.stringify(searchResultsTitleData));
+          encodeURIComponent(JSON.stringify(searchResultsTitleData))
+          + "&genres=" + encodeURIComponent(JSON.stringify(userInput.genres));
       } catch (error) {
         console.log(error);
       }
