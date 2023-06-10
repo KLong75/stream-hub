@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { ReactComponent as ClapboardSVG } from '../../assets/images/Clapperboard.svg';
+import { ReactComponent as LedTvSvg } from '../../assets/images/ledTv.svg';
 
-const Clapboard = () => {
+const TvLoader = () => {
   return (
     <>
     <motion.div animate={{ x:100, opacity: 1}} transition={{ ease: "easeOut", duration: 2 }}
@@ -9,12 +9,12 @@ const Clapboard = () => {
       
       exit={{ opacity: 0 }}
     
-    
-    
-    ><ClapboardSVG width='300' height='300'>
-    </ClapboardSVG> </motion.div>
+    ><LedTvSvg 
+       width='300' height='300'>Get the popcorn ready!
+    </LedTvSvg> 
+    </motion.div>
     </>
   );
 };
 
-export default Clapboard;
+export default TvLoader;

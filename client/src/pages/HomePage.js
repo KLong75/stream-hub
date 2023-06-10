@@ -1,6 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 
+import TvLoader from '../components/TvLoader';
 import Clapboard from '../components/LoadingClapBoard';
 import GenreSearch from '../components/GenreSearch';
 import TitleSearch from '../components/TitleSearch';
@@ -26,7 +27,7 @@ import { fetchSources, fetchTitlesBySource } from '../utils/apiCalls';
 
 // discoverTrendingActionMovies();
 // trendingTvTest();
-fetchSources();
+// fetchSources();
 // fetchTitlesBySource();
 
 const HomePage = () => {
@@ -35,7 +36,8 @@ const HomePage = () => {
     <>
     <h2>Home Page</h2>
     <div>
-    <Clapboard/>
+      {/* <Clapboard/> */}
+      {/* <TvLoader/> */}
       <GenreSearch/>
       <TitleSearch/>
       <ActorSearch/>

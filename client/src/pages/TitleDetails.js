@@ -1024,7 +1024,7 @@ const TitleDetails = () => {
         </Button>
       )}
 
-      {selectedTitleDetails.trailer && (
+      {/* {selectedTitleDetails.trailer && (
         <>
           <p>Trailer:</p>{" "}
           <a
@@ -1037,9 +1037,49 @@ const TitleDetails = () => {
               alt="trailer thumbnail"
             />
           </a>
+          <br/>
+          <iframe 
+            style={{border: "3px", borderStyle: "solid", borderColor: "black"}}
+            width="560" 
+            height="315" 
+            src={selectedTitleDetails.trailer} 
+            title="YouTube video player" 
+            allowfullscreen='true'>
+          </iframe>
         </>
-      )}
+      )} */}
 
+
+      {selectedTitleDetails.trailer && (
+  <>
+    <p>Trailer:</p>{" "}
+    {selectedTitleDetails.trailer.includes('youtube') ? (
+      <iframe 
+        width="560" 
+        height="315" 
+        src={selectedTitleDetails.trailer} 
+        title="YouTube video player" 
+        frameborder="2" 
+        allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    ) : (
+      <a
+        href={selectedTitleDetails.trailer}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          src={selectedTitleDetails.trailer_thumbnail}
+          alt="trailer thumbnail"
+        />
+      </a>
+    )}
+  </>
+)}
+
+
+      
       <p>Rated {selectedTitleDetails.us_rating}</p>
       {/* <p>User Score: {selectedTitleDetails.user_rating}</p> */}
       <Button value={selectedTitleDetails.id} variant="contained">

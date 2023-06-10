@@ -89,7 +89,9 @@ const GenreSearchResults = () => {
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
-          trailer: titleDetails.trailer,
+          // trailer: titleDetails.trailer,
+          // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
+          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
