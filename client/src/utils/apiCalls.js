@@ -99,6 +99,12 @@ export const fetchTitleDetails = (query) => { return fetch(`https://api.watchmod
 
 
 // The Movie Database API Calls
+// fetch mixed genre movies from TMDB
+export const fetchMixedGenreMovies = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
+
+// fetch mixed genre tv shows from TMDB
+export const fetchMixedGenreTV = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
+
 // search actors by name
 export const searchByName = (query) => { return fetch(`https://api.themoviedb.org/3/search/person?query=${query}&api_key=${process.env.REACT_APP_TMDB_API_KEY}&include_adult=false&language=en-US&page=1`);
 }
@@ -354,6 +360,17 @@ export const fetchActionTv = () => { return fetch (`https://api.themoviedb.org/3
 }
 
 
+
+export const searchTmdbMoviesByGenre = () => {
+  fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=28,878&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data)
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
 
 
 

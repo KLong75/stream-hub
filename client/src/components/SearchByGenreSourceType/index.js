@@ -172,10 +172,10 @@ const SearchByGenreSourceType = () => {
 
   return (
     <>
-      <h3>Search By Any Combination of Genres, Sources, and Types</h3>
+      <h3>Search By Combination of Genre, Source, and Type</h3>
       <form onSubmit={handleSubmit}>
         <FormGroup>
-          <FormLabel>Select Genre(s)</FormLabel>
+          <FormLabel>Select Genre</FormLabel>
 
           <Accordion>
             <AccordionSummary
@@ -186,7 +186,7 @@ const SearchByGenreSourceType = () => {
               <Typography>What are you in the mood for?</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <h4>Select any combination</h4>
+              <h4>For Best Results Select One Genre</h4>
               <p><em>Please note that searching for Sci-Fi and Romance won't give you a list of alien love stories. It will give you a list of titles mixed with both Science Fiction AND Romance.</em></p>
               <FormControlLabel
                 control={
@@ -558,7 +558,7 @@ const SearchByGenreSourceType = () => {
             </AccordionDetails>
           </Accordion>
           {/* Sources  */}
-          <FormLabel>Select Source(s)</FormLabel>
+          <FormLabel>Select Streaming Service(s)</FormLabel>
 
           <Accordion>
             <AccordionSummary
@@ -566,7 +566,7 @@ const SearchByGenreSourceType = () => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>Select streaming services to search</Typography>
+              <Typography>Search all major (and some minor) streaming platforms</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <h4>Select any combination</h4>

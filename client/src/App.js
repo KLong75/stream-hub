@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Search from './pages/SearchPage';
 import GenreSearchResults from './pages/GenreSearchResults';
+import MixedGenreSearchSearchResults from './pages/MixedGenreSearchResults';
 import TitleSearchResults from './pages/TitleSearchResults';
 import ActorSearchResults from './pages/ActorSearchResults';
 import SignUp from './pages/SignUp';
@@ -51,6 +52,10 @@ const App = () => {
         <Route
           path='/search_results'
           element={<GenreSearchResults />}
+        />
+        <Route
+          path='/mixed_genre_search_results'
+          element={<MixedGenreSearchSearchResults />}
         />
         <Route
           path='/title_search_results'

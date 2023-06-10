@@ -501,7 +501,9 @@ const TitleDetails = () => {
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
-          trailer: titleDetails.trailer,
+          // trailer: titleDetails.trailer,
+          // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
+          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
@@ -1049,20 +1051,27 @@ const TitleDetails = () => {
         </>
       )} */}
 
+      
+
 
       {selectedTitleDetails.trailer && (
-  <>
+    <>
     <p>Trailer:</p>{" "}
+
+    
     {selectedTitleDetails.trailer.includes('youtube') ? (
       <iframe 
-        width="560" 
-        height="315" 
+        width="560rem" 
+        height="315rem" 
+        // width="400rem"
+        // height="200rem"
         src={selectedTitleDetails.trailer} 
         title="YouTube video player" 
-        frameborder="2" 
-        allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowfullscreen>
+        style={{border: "2px", borderStyle: "solid", borderColor: "black"}} 
+        // allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen='true'>
       </iframe>
+      
     ) : (
       <a
         href={selectedTitleDetails.trailer}
@@ -1070,16 +1079,20 @@ const TitleDetails = () => {
         rel="noreferrer"
       >
         <img
+          width='560'
+          height='315'  
+          // width="400rem"
+          // height="200rem"
           src={selectedTitleDetails.trailer_thumbnail}
           alt="trailer thumbnail"
         />
       </a>
+      
     )}
   </>
 )}
 
 
-      
       <p>Rated {selectedTitleDetails.us_rating}</p>
       {/* <p>User Score: {selectedTitleDetails.user_rating}</p> */}
       <Button value={selectedTitleDetails.id} variant="contained">

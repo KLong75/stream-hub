@@ -6,6 +6,8 @@ import GenreSearch from '../components/GenreSearch';
 import TitleSearch from '../components/TitleSearch';
 import ActorSearch from '../components/ActorSearch';
 import SearchByGenreSourceType from '../components/SearchByGenreSourceType';
+import MixedGenreMovieSearch from '../components/MixedGenreMovieSearch';
+import MixedGenreTVSearch from '../components/MixedGenreTVSearch';
 
 
 
@@ -21,6 +23,10 @@ console.log("SearchPage rendered")
         <TitleSearch/>
      
         <ActorSearch/>
+
+        <MixedGenreMovieSearch />
+
+        <MixedGenreTVSearch />
         
         <SearchByGenreSourceType/>
       

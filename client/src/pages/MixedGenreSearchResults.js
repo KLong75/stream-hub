@@ -1,34 +1,79 @@
 import React, { useEffect, useState } from "react";
-import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
 
 import Button from "@mui/material/Button";
 
-import imageNotAvailable from "../assets/images/no_image_available.jpg";
+import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
 
 import { CACHE_DURATION } from "../utils/utils";
 
-const ActorSearchResults = () => {
-  const [actorSearchResults, setActorSearchResults] = useState([]);
+
+
+const MixedGenreSearchResults = () => {
+  const [mixedGenreSearchResults, setMixedGenreSearchResults] = useState([]);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+  const [searchedGenres, setSearchedGenres] = useState([]);
+  
+  const genreList = {
+    28: "Action",
+    12: "Adventure",
+    16: "Animation",
+    35: "Comedy",
+    80: "Crime",
+    99: "Documentary",
+    18: "Drama",
+    10751: "Family",
+    14: "Fantasy",
+    36: "History",
+    27: "Horror",
+    10402: "Music",
+    9648: "Mystery",
+    10749: "Romance",
+    878: "Science Fiction",
+    53: "Thriller",
+    10752: "War",
+    37: "Western",
+    10759: "Action & Adventure",
+    10762: "Kids",
+    10763: "News",
+    10764: "Reality",
+    10765: "Sci-Fi & Fantasy",
+    10766: "Soap",
+    10767: "Talk",
+    10768: "War & Politics",
+  };
+  
+  
 
-  console.log(selectedTitleDetails);
+
+  
+
+  // eslint-disable-next-line no-unused-vars
+  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const actors = urlParams.get("actors");
+    const titles = urlParams.get("titles");
 
-    if (actors) {
-      const parsedActors = JSON.parse(decodeURIComponent(actors));
-      setActorSearchResults(parsedActors);
+    if (titles) {
+      const parsedTitles = JSON.parse(decodeURIComponent(titles));
+      setMixedGenreSearchResults(parsedTitles);
+    }
+
+    const genres = urlParams.get("genres");
+
+    if (genres) {
+      const parsedGenres = JSON.parse(decodeURIComponent(genres));
+      setSearchedGenres(parsedGenres);
     }
   }, []);
 
-  console.log(actorSearchResults);
+  
 
+  console.log(mixedGenreSearchResults);
+  
   const handleTitleSelected = async (event) => {
     event.preventDefault();
     setSelectedTitle(event.target.value);
@@ -119,62 +164,37 @@ const ActorSearchResults = () => {
 
   return (
     <>
-      <h3>Actor Search Results</h3>
-      <div className="search-results-container">
-        {actorSearchResults
-          .filter((result) => result.known_for.length > 0)
-        .map((result) => (
-          <div key={result.id}>
-            <p>{`${result.name}`}</p>
-            <p>{`${result.job}`}</p>
-            {/* {result.image_url ? (
-            <img src={result.image_url} alt={result.name} />
-            ) : (
-            <p>No image available</p>
-            )} */}
-
-            {result.image_url ? (
-              <img
-                src={result.image_url}
-                alt={result.name}
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
-              />
-            ) : (
-              <div>
-                <p>No image available</p>
-                <img src={imageNotAvailable} alt="Unavailable" />
-              </div>
-            )}
-
-            <p>Known For: </p>
-            {/* Iterate through known_for array */}
-            {result.known_for.map((knownForItem) => (
-              <div key={knownForItem.id}>
-                <p>{knownForItem.title}</p>
-                <img
-                  src={
-                    "https://image.tmdb.org/t/p/w200/" +
-                    knownForItem.poster_path
-                  }
-                  alt={knownForItem.title}
-                />
-                <p>{knownForItem.overview}</p>
-                <Button
-                  variant="contained"
-                  value={knownForItem.media_type + "-" + knownForItem.id}
-                  onClick={handleTitleSelected}
-                >
-                  More Details
-                </Button>
-              </div>
-            ))}
-          </div>
-        ))}
+      <h3>Mixed Genre Search Results</h3>
+      <h4>You Searched For: {searchedGenres.map(id => genreList[id]).filter(Boolean).join(', ')}</h4>
+      <div>
+        {mixedGenreSearchResults
+          .map((title) => (
+            <div key={title.id}>
+              {title.title && <p>{title.title}</p>}
+              {title.genres && <p>{title.genres.map(id => genreList[id]).filter(Boolean).join(', ')}</p>}
+              {title.type && (<p>{title.type.charAt(0).toUpperCase() + title.type.slice(1)}</p>)}
+              {title.year && <p>{title.year}</p>}
+              {title.poster_url && (
+                <img src={title.poster_url} alt={title.title} />
+              )}
+              {title.backdrop_url && ( 
+                <img src={title.backdrop_url} alt={title.title} />
+              )}
+              <Button
+                variant="contained"
+                value={title.type + '-' + title.id}
+                onClick={handleTitleSelected}
+              >
+                More Details
+              </Button>
+              <Button variant="contained" value={title.id}>
+                Save To Watchlist
+              </Button>
+            </div>
+          ))}
       </div>
     </>
   );
-};
+}
 
-export default ActorSearchResults;
+export default MixedGenreSearchResults;

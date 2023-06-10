@@ -123,11 +123,15 @@ const GenreSearchResults = () => {
             <p>{`${result.title}`}</p>
             {result.type && (
               <p>
-                {result.type === "movie"
-                  ? "Movie"
-                  : result.type === "tv_series"
-                  ? "TV Series"
-                  : "Unknown Type"}
+                  {result.type === "movie"
+                    ? "Movie"
+                    : result.type === "tv_series"
+                    ? "TV Series"
+                    : result.type === "tv_miniseries"
+                    ? "TV Miniseries"
+                    : result.type === "short_film"
+                    ? "Short Film"
+                    : "Unknown Type"}
               </p>
             )}
             <p>{`${result.year}`}</p>

@@ -578,6 +578,7 @@ const TitleSearch = () => {
           `titleSearchResults_${userInput}`,
           JSON.stringify(cacheData)
         );
+        setValue('');
 
         window.location.href =
           "/title_search_results?titles=" +
