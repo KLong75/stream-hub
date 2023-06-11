@@ -14,7 +14,12 @@ const GenreSearchResults = () => {
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
-  console.log(selectedTitleDetails);
+  
+
+
+
+
+  // console.log(selectedTitleDetails);
 
   useEffect(() => {
     const queryString = window.location.search;

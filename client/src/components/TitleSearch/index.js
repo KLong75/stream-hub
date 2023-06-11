@@ -650,7 +650,9 @@ const TitleSearch = () => {
             sx={{ width: 300 }}
             freeSolo
             renderInput={(params) => (
-              <TextField {...params} label="Enter Title of Movie or TV Show" />
+              <TextField {...params} 
+                required
+                label="Enter Title of Movie or TV Show" />
             )}
           />
           <Button type="submit" style={{ width: "60%" }} variant="contained">

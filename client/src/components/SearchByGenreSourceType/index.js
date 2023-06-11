@@ -133,6 +133,15 @@ const SearchByGenreSourceType = () => {
 
         console.log(titles);
 
+        if (titles.length === 0) {
+          alert("No results found. Please try again.");
+          return;
+        }
+        if (titles === undefined) {
+          alert("No results found. Please try again.");
+          return;
+        }
+
  
 
         const titleData = titles.map((titles) => ({
@@ -161,9 +170,12 @@ const SearchByGenreSourceType = () => {
           source: [],
           type: [],
         });
+        // window.location.href =
+        //   "/search_results?titles=" +
+        //   encodeURIComponent(JSON.stringify(titleData));
         window.location.href =
-          "/search_results?titles=" +
-          encodeURIComponent(JSON.stringify(titleData));
+          "/genre_source_type_search_results?titles=" +
+          encodeURIComponent(JSON.stringify(titleData)) + "&genres=" + encodeURIComponent(JSON.stringify(genres)) + "&sources=" + encodeURIComponent(JSON.stringify(sources)) + "&types=" + encodeURIComponent(JSON.stringify(types));
       } catch (err) {
         console.error(err);
       }

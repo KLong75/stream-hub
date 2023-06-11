@@ -15,6 +15,7 @@ import NowTrending from './pages/NowTrending';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import GenreSourceTypeResults from './pages/GenreSourceTypeResults';
 
 
 const App = () => {
@@ -56,6 +57,10 @@ const App = () => {
         <Route
           path='/mixed_genre_search_results'
           element={<MixedGenreSearchSearchResults />}
+        />
+        <Route 
+          path='/genre_source_type_search_results'
+          element={<GenreSourceTypeResults/>}
         />
         <Route
           path='/title_search_results'

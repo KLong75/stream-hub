@@ -246,6 +246,7 @@ const GenreSearch = () => {
         <div>
           <h3>Browse Titles by Genre From All Available Sources</h3>
           <TextField
+            required
             id='genre-select'
             select
             size='small'

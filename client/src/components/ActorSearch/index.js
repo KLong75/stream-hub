@@ -28,9 +28,9 @@ const ActorSearch = () => {
 
   const searchByEnteredName = async (event) => {
     event.preventDefault();
-    console.log(searchTerm.name);
+    // console.log(searchTerm.name);
     const searchedName = searchTerm.name;
-
+    
     const cachedActorSearchResults = localStorage.getItem(
       `actorSearchResults_${searchedName}`
     );
@@ -255,7 +255,7 @@ const ActorSearch = () => {
           <Autocomplete
             size="small"
             value={searchTerm}
-            onChange={(event, newValue) => {
+            onChange={(event, newValue) => { 
               if (typeof newValue === "string") {
                 setSearchTerm({
                   name: newValue,

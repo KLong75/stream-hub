@@ -6,8 +6,9 @@ import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
 
 import { CACHE_DURATION } from "../utils/utils";
 
-const MixedGenreSearchResults = () => {
-  const [mixedGenreSearchResults, setMixedGenreSearchResults] = useState([]);
+const GenreSourceTypeResults = () => {
+
+  const [genreSourceTypeSearchResults, setGenreSourceTypeSearchResults] = useState([]);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
@@ -15,35 +16,47 @@ const MixedGenreSearchResults = () => {
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   const [searchedGenres, setSearchedGenres] = useState([]);
-  
-  const genreList = {
-    28: "Action",
-    12: "Adventure",
-    16: "Animation",
-    35: "Comedy",
-    80: "Crime",
-    99: "Documentary",
-    18: "Drama",
-    10751: "Family",
-    14: "Fantasy",
-    36: "History",
-    27: "Horror",
-    10402: "Music",
-    9648: "Mystery",
-    10749: "Romance",
-    878: "Science Fiction",
-    53: "Thriller",
-    10752: "War",
-    37: "Western",
-    10759: "Action & Adventure",
-    10762: "Kids",
-    10763: "News",
-    10764: "Reality",
-    10765: "Sci-Fi & Fantasy",
-    10766: "Soap",
-    10767: "Talk",
-    10768: "War & Politics",
+
+  const [searchedTypes, setSearchedTypes] = useState([]);
+
+  const [searchedSources, setSearchedSources] = useState([]);
+
+  const watchModeGenreList = {
+    1: "Action",
+    39: "Action & Adventure",
+    2: "Adventure",
+    3: "Animation",
+    33: "Anime",
+    31: "Biography",
+    4: "Comedy",
+    5: "Crime",
+    6: "Documentary",
+    7: "Drama",
+    8: "Family",
+    9: "Fantasy",
+    28: "Game Show",
+    10: "History",
+    11: "Horror",
+    21: "Kids",
+    12: "Music",
+    32: "Musical",
+    13: "Mystery",
+    22: "News",
+    23: "Reality",
+    14: "Romance",
+    40: "Sci-Fi & Fantasy",
+    15: "Science Fiction",
+    25: "Soap",
+    29: "Sports",
+    26: "Talk",
+    17: "Thriller",
+    18: "War",
+    41: "War & Politics",
+    19: "Western",
   };
+
+  
+
 
   
 
@@ -54,20 +67,38 @@ const MixedGenreSearchResults = () => {
 
     if (titles) {
       const parsedTitles = JSON.parse(decodeURIComponent(titles));
-      setMixedGenreSearchResults(parsedTitles);
+      setGenreSourceTypeSearchResults(parsedTitles);
     }
 
     const genres = urlParams.get("genres");
-
-    if (genres) {
-      const parsedGenres = JSON.parse(decodeURIComponent(genres));
-      setSearchedGenres(parsedGenres);
+  if (genres) {
+    let parsedGenres = JSON.parse(decodeURIComponent(genres));
+    if (!Array.isArray(parsedGenres)) {
+      parsedGenres = [parsedGenres];
     }
+    setSearchedGenres(parsedGenres);
+  }
+
+  const types = urlParams.get("types");
+  if (types) {
+    let parsedTypes = JSON.parse(decodeURIComponent(types));
+    if (!Array.isArray(parsedTypes)) {
+      parsedTypes = [parsedTypes];
+    }
+    setSearchedTypes(parsedTypes);
+  }
+
+  const sources = urlParams.get("sources");
+  if (sources) {
+    let parsedSources = JSON.parse(decodeURIComponent(sources));
+    if (!Array.isArray(parsedSources)) {
+      parsedSources = [parsedSources];
+    }
+    setSearchedSources(parsedSources);
+  }
   }, []);
 
-  
-
-  console.log(mixedGenreSearchResults);
+  console.log(genreSourceTypeSearchResults);
   
   const handleTitleSelected = async (event) => {
     event.preventDefault();
@@ -159,22 +190,19 @@ const MixedGenreSearchResults = () => {
 
   return (
     <>
-      <h3>Mixed Genre Search Results</h3>
-      <h4>You Searched For: {searchedGenres.map(id => genreList[id]).filter(Boolean).join(', ')}</h4>
+      <h3>Genre Source Type Search Results</h3>
+      <h4>You Searched For: </h4>
+      <h5>{searchedGenres.map(id => watchModeGenreList[id]).filter(Boolean).join(', ')}</h5>
+      <h5>{searchedTypes.filter(Boolean).join(', ')}</h5>
+      <h5>{searchedSources.filter(Boolean).join(', ')}</h5>
       <div>
-        {mixedGenreSearchResults
+        {genreSourceTypeSearchResults
           .map((title) => (
             <div key={title.id}>
               {title.title && <p>{title.title}</p>}
-              {title.genres && <p>{title.genres.map(id => genreList[id]).filter(Boolean).join(', ')}</p>}
+              {title.genres && <p>{title.genres.map(id => watchModeGenreList[id]).filter(Boolean).join(', ')}</p>}
               {title.type && (<p>{title.type.charAt(0).toUpperCase() + title.type.slice(1)}</p>)}
               {title.year && <p>{title.year}</p>}
-              {title.poster_url && (
-                <img src={title.poster_url} alt={title.title} />
-              )}
-              {title.backdrop_url && ( 
-                <img src={title.backdrop_url} alt={title.title} />
-              )}
               <Button
                 variant="contained"
                 value={title.type + '-' + title.id}
@@ -192,4 +220,4 @@ const MixedGenreSearchResults = () => {
   );
 }
 
-export default MixedGenreSearchResults;
+export default GenreSourceTypeResults;
