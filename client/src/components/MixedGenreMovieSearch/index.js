@@ -70,6 +70,11 @@ const MixedGenreMovieSearch = () => {
       if (now - timestamp < CACHE_DURATION) {
         setMixedGenreMovieSearchResults(data);
         console.log("Using cached mixed genre movie search results", data);
+        window.location.href =
+          "/mixed_genre_search_results?titles=" +
+          encodeURIComponent(JSON.stringify(data)) +
+          "&genres=" +
+          encodeURIComponent(JSON.stringify(userInput.genres));
         return;
       } else {
         localStorage.removeItem(

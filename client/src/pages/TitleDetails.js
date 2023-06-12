@@ -827,7 +827,7 @@ const TitleDetails = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Watch on Paramount Plus
+          Watch on Paramount+
         </Button>
       )}
 
@@ -957,7 +957,7 @@ const TitleDetails = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Watch on Binge
+          Watch on BINGE
         </Button>
       )}
 

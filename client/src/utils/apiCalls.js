@@ -12,6 +12,23 @@ export const fetchGenres = () => {
     });
 }
 
+
+
+// export const fetchActors = () => {
+//   fetch(`https://api.watchmode.com/v1/autocomplete-search/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&search_value=sydney&search_type=5`)
+//   .then((response) => response.json())
+//   .then((data) => {
+//     console.log(data)
+    
+//   })
+//   .catch((err) => {
+//     console.log(err.message);
+//   });
+// }
+
+
+
+
 // fetch sources
 export const fetchSources = () => {
     fetch(`https://api.watchmode.com/v1/sources/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}`)
@@ -20,6 +37,10 @@ export const fetchSources = () => {
       console.log(data)
       const subSources = data.filter((source => source.type === 'sub'))
       console.log(subSources)
+      const purchaseSources = data.filter((source => source.type === 'purchase'))
+      console.log(purchaseSources)
+      const freeSources = data.filter((source => source.type === 'free'))
+      console.log(freeSources)
     })
     .catch((err) => {
       console.log(err.message);
@@ -40,17 +61,6 @@ export const fetchTitlesBySource= () => {
 }
 
 
-export const fetchBad = () => {
-  fetch(`https://api.themoviedb.org/3/tv/1396/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`)
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data)
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-  
-}
 
 // export const fetchFind = () => {
 //   fetch(`https://api.themoviedb.org/3/search/tv?query=Silo&inclue_adult=false&language=en-US&page=1&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`)
@@ -81,19 +91,23 @@ export const searchByGenre = (query) => { return fetch(`https://api.watchmode.co
 }
 
 // fetch titles by genre, type, and source
-export const fetchTitlesByGenreSourceType = (sources, genres, types) => { return fetch(`https://api.watchmode.com/v1/list-titles/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&source_ids=${sources}&genre=${genres}&types=${types}&sort_by=popularity_desc&limit=10`);
+export const fetchTitlesByGenreSourceType = (sources, genres, types) => { return fetch(`https://api.watchmode.com/v1/list-titles/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&source_ids=${sources}&genres=${genres}&types=${types}&sort_by=popularity_desc&limit=10`);
 }
 
 
 // fetch titles by title
-export const searchByTitle = (query) => { return fetch(`https://api.watchmode.com/v1/autocomplete-search/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&search_value=${query}`);
+export const searchByTitle = (query) => { return fetch(`https://api.watchmode.com/v1/autocomplete-search/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&search_value=${query}&search_type=2`);
 }
 
-// fetch titles by IMDB id
+// search watchmode by name (people)
+export const searchWatchmodeByPersonName= (query) => { return fetch(`https://api.watchmode.com/v1/autocomplete-search/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&search_value=${query}&search_type=5`);
+}
+
+// fetch titles by TMDB id from watchmode
 export const searchTitlesByTMDBId = (query) => { return fetch(`https://api.watchmode.com/v1/title/${query}/details?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&append_to_response=sources`);
 }
 
-// fetch details by title id
+// fetch details by title id from watchmode
 export const fetchTitleDetails = (query) => { return fetch(`https://api.watchmode.com/v1/title/${query}/details/?append_to_response=sources&apiKey=${process.env.REACT_APP_WMODE_API_KEY}`);
 } 
 

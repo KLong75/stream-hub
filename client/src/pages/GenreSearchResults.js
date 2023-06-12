@@ -14,11 +14,6 @@ const GenreSearchResults = () => {
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
-  
-
-
-
-
   // console.log(selectedTitleDetails);
 
   useEffect(() => {
@@ -94,6 +89,9 @@ const GenreSearchResults = () => {
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
+          purchase_sources: titleDetails.sources.filter(
+            (source) => source.type === "purchase"
+          ),
           // trailer: titleDetails.trailer,
           // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
           trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
@@ -112,7 +110,7 @@ const GenreSearchResults = () => {
           timestamp: Date.now(),
         };
         localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
-        window.location.href ="/title_details?titleDetails=" + encodeURIComponent(JSON.stringify(titleDetailsData));
+        // window.location.href ="/title_details?titleDetails=" + encodeURIComponent(JSON.stringify(titleDetailsData));
       } catch (error) {
         console.log(error);
       }

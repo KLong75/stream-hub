@@ -244,7 +244,7 @@ const GenreSearch = () => {
         autoComplete='off'
       >
         <div>
-          <h3>Browse Titles by Genre From All Available Sources</h3>
+          <h3>Browse Movies and TV Shows by Genre From All Available Sources</h3>
           <TextField
             required
             id='genre-select'

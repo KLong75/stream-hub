@@ -74,6 +74,8 @@ const TitleSearchResults = () => {
         const titleDetails = await response.json();
 
         console.log(titleDetails);
+        
+        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play' ]
 
         const titleDetailsData = {
           id: titleDetails.id,
@@ -95,6 +97,12 @@ const TitleSearchResults = () => {
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
+          buy_sources: titleDetails.sources.filter(
+            (source) => source.type === "buy" && rentBuySourceNamesToInclude.some(name => name === source.name)
+          ),
+          rent_sources: titleDetails.sources.filter(
+            (source) => source.type === "rent" && rentBuySourceNamesToInclude.some(name => name === source.name))
+,
           // trailer: titleDetails.trailer,
           trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
