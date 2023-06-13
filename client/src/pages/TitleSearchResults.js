@@ -77,6 +77,36 @@ const TitleSearchResults = () => {
         
         const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
 
+        const uniqueBuySources = [];
+        const buySourceNames = new Set();
+
+        titleDetails.sources.filter((source) => {
+          if (
+            source.type === "buy" &&
+            rentBuySourceNamesToInclude.some((name) => name === source.name)
+          ) {
+            if (!buySourceNames.has(source.name)) {
+              buySourceNames.add(source.name);
+              uniqueBuySources.push(source);
+            }
+          }
+        });
+
+        const uniqueRentSources = [];
+        const rentSourceNames = new Set();
+
+        titleDetails.sources.filter((source) => {
+          if (
+            source.type === "rent" &&
+            rentBuySourceNamesToInclude.some((name) => name === source.name)
+          ) {
+            if (!rentSourceNames.has(source.name)) {
+              rentSourceNames.add(source.name);
+              uniqueRentSources.push(source);
+            }
+          }
+        });
+
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -97,12 +127,13 @@ const TitleSearchResults = () => {
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
-          buy_sources: titleDetails.sources.filter(
-            (source) => source.type === "buy" && rentBuySourceNamesToInclude.some(name => name === source.name)
-          ),
-          rent_sources: titleDetails.sources.filter(
-            (source) => source.type === "rent" && rentBuySourceNamesToInclude.some(name => name === source.name))
-,
+          // buy_sources: titleDetails.sources.filter(
+          //   (source) => source.type === "buy" && rentBuySourceNamesToInclude.some(name => name === source.name)
+          // ),
+          buy_sources: uniqueBuySources,
+          rent_sources: uniqueRentSources,
+          // rent_sources: titleDetails.sources.filter(
+          //   (source) => source.type === "rent" && rentBuySourceNamesToInclude.some(name => name === source.name)),
           // trailer: titleDetails.trailer,
           trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,

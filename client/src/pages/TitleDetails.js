@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  fetchMoreTitleDetailsMovie,
-  fetchTitleDetails,
-  searchByName,
-  fetchMoreTitleDetailsTV,
-  fetchTvTitle,
-} from "../utils/apiCalls";
+import { fetchMoreTitleDetailsMovie, fetchTitleDetails, searchByName, fetchMoreTitleDetailsTV, fetchTvTitle} from "../utils/apiCalls";
 
 import Button from "@mui/material/Button";
 
@@ -72,6 +66,26 @@ const TitleDetails = () => {
 
   const [notAvailable, setNotAvailable] = useState("");
 
+  const [buyAmazonUrl, setBuyAmazonUrl] = useState("");
+
+  const [buyItunesUrl, setBuyItunesUrl] = useState("");
+
+  const [buyGooglePlayUrl, setBuyGooglePlayUrl] = useState("");
+
+  const [buyYouTubeUrl, setBuyYouTubeUrl] = useState("");
+
+  const [buyNotAvailable, setBuyNotAvailable] = useState("");
+
+  // const [rentAmazonUrl, setRentAmazonUrl] = useState("");
+
+  // const [rentItunesUrl, setRentItunesUrl] = useState("");
+
+  // const [rentGooglePlayUrl, setRentGooglePlayUrl] = useState("");
+
+  // const [rentYouTubeUrl, setRentYouTubeUrl] = useState("");
+
+  // const [rentNotAvailable, setRentNotAvailable] = useState("");
+
   const [selectedActorName, setSelectedActorName] = useState("");
 
   // const [similarTitles, setSimilarTitles] = useState([]);
@@ -114,20 +128,38 @@ const TitleDetails = () => {
       const binge = sources.filter((source) => source.source_id === 423);
       const britbox = sources.filter((source) => source.source_id === 419);
       const kanopy = sources.filter((source) => source.source_id === 367);
-      const huluWithShowtime = sources.filter(
-        (source) => source.source_id === 159
-      );
-      const youTubePremium = sources.filter(
-        (source) => source.source_id === 368
-      );
-      const showtimeAmazonPrime = sources.filter(
-        (source) => source.source_id === 249
-      );
+      const huluWithShowtime = sources.filter((source) => source.source_id === 159);
+      const youTubePremium = sources.filter((source) => source.source_id === 368);
+      const showtimeAmazonPrime = sources.filter((source) => source.source_id === 249);
 
+      const buy_sources = parsedTitleDetails.buy_sources || [];
+      console.log(buy_sources);
+      const buyAmazon = buy_sources.filter((source) => source.source_id === 24);
+      const buyItunes = buy_sources.filter((source) => source.source_id === 349);
+      const buyGooglePlay = buy_sources.filter((source) => source.source_id === 140);
+      const buyYouTube = buy_sources.filter((source) => source.source_id === 344);
+
+      // const rent_sources = parsedTitleDetails.rent_sources || [];
+      // console.log(rent_sources);
+      // const rentAmazon = rent_sources.filter((source) => source.source_id === 24);
+      // const rentItunes = rent_sources.filter((source) => source.source_id === 349);
+      // const rentGooglePlay = rent_sources.filter((source) => source.source_id === 140);
+      // const rentYouTube = rent_sources.filter((source) => source.source_id === 344);
+      
       if (sources.length === 0) {
         const notAvailable = "Not Available on Subscription Streaming Services";
         setNotAvailable(notAvailable);
       }
+
+      if (buy_sources.length === 0) {
+        const buyNotAvailable = "Not Available for Purchase or Rent";
+        setBuyNotAvailable(buyNotAvailable);
+      }
+
+      // if (rent_sources.length === 0) {
+      //   const rentNotAvailable = "Not Available for Rent";
+      //   setRentNotAvailable(rentNotAvailable);
+      // }
 
       if (appleTv.length >= 1) {
         const appleTvUrl = appleTv[0].web_url;
@@ -226,7 +258,40 @@ const TitleDetails = () => {
         const showtimeAmazonPrimeUrl = showtimeAmazonPrime[0].web_url;
         setShowtimeAmazonPrimeUrl(showtimeAmazonPrimeUrl);
       }
-     
+      // purchase sources
+      if (buyAmazon.length >= 1) {
+        const buyAmazonUrl = buyAmazon[0].web_url;
+        setBuyAmazonUrl(buyAmazonUrl);
+      }
+      if (buyItunes.length >= 1) {
+        const buyItunesUrl = buyItunes[0].web_url;
+        setBuyItunesUrl(buyItunesUrl);
+      }
+      if (buyGooglePlay.length >= 1) {
+        const buyGooglePlayUrl = buyGooglePlay[0].web_url;
+        setBuyGooglePlayUrl(buyGooglePlayUrl);
+      }
+      if (buyYouTube.length >= 1) {
+        const buyYouTubeUrl = buyYouTube[0].web_url;
+        setBuyYouTubeUrl(buyYouTubeUrl);
+      }
+      // rent sources
+      // if (rentAmazon.length >= 1) {
+      //   const rentAmazonUrl = rentAmazon[0].web_url;
+      //   setRentAmazonUrl(rentAmazonUrl);
+      // }
+      // if (rentItunes.length >= 1) {
+      //   const rentItunesUrl = rentItunes[0].web_url;
+      //   setRentItunesUrl(rentItunesUrl);
+      // }
+      // if (rentGooglePlay.length >= 1) {
+      //   const rentGooglePlayUrl = rentGooglePlay[0].web_url;
+      //   setRentGooglePlayUrl(rentGooglePlayUrl);
+      // }
+      // if (rentYouTube.length >= 1) {
+      //   const rentYouTubeUrl = rentYouTube[0].web_url;
+      //   setRentYouTubeUrl(rentYouTubeUrl);
+      // }
     }
   }, []);
 
@@ -606,10 +671,19 @@ const TitleDetails = () => {
     }
   };
 
+  // const titleDetailsStyles = {
+  //   backgroundImage: `url(${selectedTitleDetails.backdrop})`,
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center",
+  //   backgroundRepeat: "no-repeat",
+  // };
+
   return (
     <>
       <div>Title Details Page</div>
       <h2>{selectedTitleDetails.title}</h2>
+      {selectedTitleDetails.poster && (<img src={selectedTitleDetails.poster} alt="show poster" />)}
+     
       {selectedTitleDetails.type && (
         <p>
           {selectedTitleDetails.type === "movie"
@@ -618,13 +692,13 @@ const TitleDetails = () => {
             ? "TV Series"
             : selectedTitleDetails.type === "tv_miniseries"
             ? "TV Miniseries"
+            : selectedTitleDetails.type === "short_film"
+            ? "Short Film"
             : "Unknown Type"}
         </p>
       )}
       {selectedTitleDetails.release_date && <p>Released on {formatDate(selectedTitleDetails.release_date)}</p>}
-      {selectedTitleDetails.backdrop && (
-        <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
-      )}
+      
       {/* {selectedTitleDetails.critic_score && <p>Critic Score: {selectedTitleDetails.critic_score}</p>} */}
       {selectedTitleDetails.genre_names &&
         selectedTitleDetails.genre_names.length > 0 && (
@@ -638,7 +712,12 @@ const TitleDetails = () => {
       {selectedTitleDetails.network_names &&
         selectedTitleDetails.network_names.length > 0 && (
           <p>Network: {selectedTitleDetails.network_names}</p>
-        )}
+      )}
+
+      {selectedTitleDetails.backdrop && (
+        <img width='50%' src={selectedTitleDetails.backdrop} alt="show backdrop" />
+      )}
+
       {selectedTitleDetails.plot_overview && (
         <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
       )}
@@ -707,9 +786,10 @@ const TitleDetails = () => {
           )}
       </div> */}
 
-      <img src={selectedTitleDetails.poster} alt="show poster" />
+      
       {/* <p>Release Date: {selectedTitleDetails.release_date}</p> */}
       {/* <p>Runtime: {selectedTitleDetails.runtime}</p> */}
+
       {selectedTitleDetails.sources && <p>Subscription Streaming:</p>}
 
       {/* Not Available} */}
@@ -717,95 +797,46 @@ const TitleDetails = () => {
 
       {/* Netflix button */}
       {netflixUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={netflixUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button variant="contained" color="primary" href={netflixUrl} target="_blank" rel="noopener noreferrer">
           Watch on Netflix
         </Button>
       )}
-
       {/* Amazon Prime button */}
       {amazonPrimeUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={amazonPrimeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button variant="contained" color="primary" href={amazonPrimeUrl} target="_blank" rel="noopener noreferrer">
           Watch on Amazon Prime
         </Button>
       )}
-
       {/* Hulu button */}
       {huluUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={huluUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button variant="contained" color="primary" href={huluUrl} target="_blank" rel="noopener noreferrer">
           Watch on Hulu
         </Button>
       )}
-
       {/* Max button */}
       {maxUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={maxUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button variant="contained" color="primary" href={maxUrl} target="_blank" rel="noopener noreferrer">
           Watch on Max
         </Button>
       )}
-
       {/* Disney Plus button */}
       {disneyPlusUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={disneyPlusUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button variant="contained" color="primary" href={disneyPlusUrl} target="_blank" rel="noopener noreferrer">
           Watch on Disney Plus
         </Button>
       )}
-
       {/* Apple TV button */}
       {appleTvUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={appleTvUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button variant="contained" color="primary" href={appleTvUrl} target="_blank" rel="noopener noreferrer">
           Watch on Apple TV
         </Button>
       )}
-
       {/* Peacock Button */}
       {peacockUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={peacockUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button variant="contained" color="primary" href={peacockUrl} target="_blank" rel="noopener noreferrer">
           Watch on Peacock
         </Button>
       )}
-
       {/* Hayu Button */}
       {hayuUrl && (
         <Button
@@ -1027,39 +1058,63 @@ const TitleDetails = () => {
         </Button>
       )}
 
-      {/* {selectedTitleDetails.trailer && (
-        <>
-          <p>Trailer:</p>{" "}
-          <a
-            href={selectedTitleDetails.trailer}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              src={selectedTitleDetails.trailer_thumbnail}
-              alt="trailer thumbnail"
-            />
-          </a>
-          <br/>
-          <iframe 
-            style={{border: "3px", borderStyle: "solid", borderColor: "black"}}
-            width="560" 
-            height="315" 
-            src={selectedTitleDetails.trailer} 
-            title="YouTube video player" 
-            allowfullscreen='true'>
-          </iframe>
-        </>
-      )} */}
+    {/*purchase buttons*/}
+    {selectedTitleDetails.buy_sources && <p>Available to Rent or Buy on:</p>}
 
-      
+      {/* Not Available} */}
+      {buyNotAvailable && <span>{buyNotAvailable}</span>}
+      {/* Buy on Amazon Button */}
+      {buyAmazonUrl && (  
+        <Button
+          variant="contained"
+          color="primary"
+          href={buyAmazonUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Amazon
+        </Button>
+      )}
 
-
-      {selectedTitleDetails.trailer && (
+      {/* Buy on iTunes Button */}
+      {buyItunesUrl && (
+        <Button
+          variant="contained"
+          color="primary"
+          href={buyItunesUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          iTunes
+        </Button>
+      )}
+      {/* buy on google play button */}
+      {buyGooglePlayUrl && (
+        <Button
+          variant="contained"
+          color="primary"
+          href={buyGooglePlayUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google Play
+        </Button>
+      )}
+      {/* buy on youtube button */}
+      {buyYouTubeUrl && (
+        <Button
+          variant="contained"
+          color="primary"
+          href={buyYouTubeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Youtube
+        </Button>
+      )}
+    {selectedTitleDetails.trailer && (
     <>
     <p>Trailer:</p>{" "}
-
-    
     {selectedTitleDetails.trailer.includes('youtube') ? (
       <iframe 
         width="560rem" 
@@ -1071,29 +1126,16 @@ const TitleDetails = () => {
         style={{border: "2px", borderStyle: "solid", borderColor: "black"}} 
         // allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
         allowfullscreen='true'>
-      </iframe>
-      
-    ) : (
-      <a
-        href={selectedTitleDetails.trailer}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          width='560'
-          height='315'  
-          // width="400rem"
-          // height="200rem"
-          src={selectedTitleDetails.trailer_thumbnail}
-          alt="trailer thumbnail"
-        />
-      </a>
-      
+      </iframe> 
+      ) : (
+        <a href={selectedTitleDetails.trailer} target="_blank" rel="noreferrer">
+          <img width='560' height='315' src={selectedTitleDetails.trailer_thumbnail} alt="trailer thumbnail"/>
+        </a>
+        // width="400rem"
+        // height="200rem"
+      )}
+    </>
     )}
-  </>
-)}
-
-
       <p>Rated {selectedTitleDetails.us_rating}</p>
       {/* <p>User Score: {selectedTitleDetails.user_rating}</p> */}
       <Button value={selectedTitleDetails.id} variant="contained">
