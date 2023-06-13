@@ -41,6 +41,8 @@ export const fetchSources = () => {
       console.log(purchaseSources)
       const freeSources = data.filter((source => source.type === 'free'))
       console.log(freeSources)
+      const rentalSources = data.filter((source => source.type === 'rental'))
+      console.log(rentalSources)
     })
     .catch((err) => {
       console.log(err.message);

@@ -411,7 +411,8 @@ const TitleDetails = () => {
             type: similarTitleData.type,
             plot_overview: similarTitleData.plot_overview,
             poster: similarTitleData.poster,
-            trailer: similarTitleData.trailer,
+            // trailer: similarTitleData.trailer,
+            trailer: similarTitleData.trailer && similarTitleData.trailer.includes('youtube') ? similarTitleData.trailer.replace(/watch\?v=/, 'embed/') : similarTitleData.trailer,
           };
 
           fetchedSimilarTitles.push(similarTitleDetails);
@@ -1104,9 +1105,30 @@ const TitleDetails = () => {
           <p>{similarTitle.title}</p>
           <img src={similarTitle.poster} alt="similar title poster" />
           <p>{similarTitle.plot_overview}</p>
-          <a href={similarTitle.trailer} target="_blank" rel="noreferrer">
+          {/* <a href={similarTitle.trailer} target="_blank" rel="noreferrer">
             Watch Trailer
-          </a>
+          </a> */}
+          {similarTitle.trailer.includes('youtube') ? (
+            <iframe 
+              width="560rem" 
+              height="315rem" 
+              // width="400rem"
+              // height="200rem"
+              src={similarTitle.trailer} 
+              title="YouTube video player" 
+              style={{border: "2px", borderStyle: "solid", borderColor: "black"}} 
+              // allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen='true'>
+            </iframe>
+          ) : (
+            <a
+              href={similarTitle.trailer}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Watch Trailer
+            </a>
+    )};
           <Button
             variant="contained"
             value={similarTitle.id}

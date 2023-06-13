@@ -75,7 +75,7 @@ const TitleSearchResults = () => {
 
         console.log(titleDetails);
         
-        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play' ]
+        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
 
         const titleDetailsData = {
           id: titleDetails.id,
