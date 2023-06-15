@@ -66,21 +66,52 @@ const ActorSearch = () => {
         const results = await response.json();
         console.log(results);
 
+        // const actorSearchResults = results.results
+        //   .filter((actor) => actor.known_for_department === "Acting")
+        //   .slice(0,8)
+        //   .map((actor) => ({
+        //   id: actor.id,
+        //   name: actor.name,
+        //   job: actor.known_for_department,
+        //   known_for: actor.known_for,
+        //   poster_url:
+        //     actor.known_for.length > 0
+        //       ? "https://image.tmdb.org/t/p/w500/" +
+        //         actor.known_for[0].poster_path
+        //       : "",
+        //   image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
+        // }));
+
+
         const actorSearchResults = results.results
-          .filter((actor) => actor.known_for_department === "Acting")
-          .slice(0,8)
-          .map((actor) => ({
-          id: actor.id,
-          name: actor.name,
-          job: actor.known_for_department,
-          known_for: actor.known_for,
-          poster_url:
-            actor.known_for.length > 0
-              ? "https://image.tmdb.org/t/p/w500/" +
-                actor.known_for[0].poster_path
-              : "",
-          image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
-        }));
+    .filter((actor) => {
+        if (actor.known_for_department !== "Acting") {
+            return false;
+        }
+
+        // Check the 'known_for' array for any object where 'adult' is true
+        for (let i = 0; i < actor.known_for.length; i++) {
+            if (actor.known_for[i].adult === true) {
+                return false;
+            }
+        }
+
+        // If the actor passed the previous checks, include them in the results
+        return true;
+    })
+    .slice(0, 8)
+    .map((actor) => ({
+        id: actor.id,
+        name: actor.name,
+        job: actor.known_for_department,
+        known_for: actor.known_for,
+        poster_url: actor.known_for.length > 0 ? "https://image.tmdb.org/t/p/w500/" + actor.known_for[0].poster_path : "",
+        image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
+    }));
+
+
+
+
 
         console.log(actorSearchResults);
         // setSearchTerm("");
