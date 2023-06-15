@@ -119,7 +119,7 @@ const TitleSearchResults = () => {
           plot_overview: titleDetails.plot_overview,
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
-          runtime: titleDetails.runtime,
+          runtime: titleDetails.runtime_minutes,
           // similar_titles: titleDetails.similar_titles.slice(0, 5),
           similar_titles: titleDetails.similar_titles
             ? titleDetails.similar_titles.slice(0, 5)

@@ -64,6 +64,8 @@ const TitleDetails = () => {
 
   const [showtimeAmazonPrimeUrl, setShowtimeAmazonPrimeUrl] = useState("");
 
+  const [fuboTvUrl, setFuboTvUrl] = useState("");
+
   const [notAvailable, setNotAvailable] = useState("");
 
   const [buyAmazonUrl, setBuyAmazonUrl] = useState("");
@@ -131,6 +133,7 @@ const TitleDetails = () => {
       const huluWithShowtime = sources.filter((source) => source.source_id === 159);
       const youTubePremium = sources.filter((source) => source.source_id === 368);
       const showtimeAmazonPrime = sources.filter((source) => source.source_id === 249);
+      const fuboTv = sources.filter((source) => source.source_id === 373);
 
       const buy_sources = parsedTitleDetails.buy_sources || [];
       console.log(buy_sources);
@@ -257,6 +260,10 @@ const TitleDetails = () => {
       if (showtimeAmazonPrime.length >= 1) {
         const showtimeAmazonPrimeUrl = showtimeAmazonPrime[0].web_url;
         setShowtimeAmazonPrimeUrl(showtimeAmazonPrimeUrl);
+      }
+      if (fuboTv.length >= 1) {
+        const fuboTvUrl = fuboTv[0].web_url;
+        setFuboTvUrl(fuboTvUrl);
       }
       // purchase sources
       if (buyAmazon.length >= 1) {
@@ -637,7 +644,10 @@ const TitleDetails = () => {
         const results = await response.json();
         console.log(results);
 
-        const actorSearchResults = results.results.map((actor) => ({
+        const actorSearchResults = results.results
+          .filter((actor) => actor.known_for_department === "Acting")
+          .slice(0,8)
+          .map((actor) => ({
           id: actor.id,
           name: actor.name,
           job: actor.known_for_department,
@@ -671,16 +681,16 @@ const TitleDetails = () => {
     }
   };
 
-  // const titleDetailsStyles = {
-  //   backgroundImage: `url(${selectedTitleDetails.backdrop})`,
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "center",
-  //   backgroundRepeat: "no-repeat",
-  // };
+  const titleDetailsStyles = {
+    backgroundImage: `url(${selectedTitleDetails.backdrop})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  };
 
   return (
     <>
-      <div>Title Details Page</div>
+      <div>
       <h2>{selectedTitleDetails.title}</h2>
       {selectedTitleDetails.poster && (<img src={selectedTitleDetails.poster} alt="show poster" />)}
      
@@ -698,6 +708,10 @@ const TitleDetails = () => {
         </p>
       )}
       {selectedTitleDetails.release_date && <p>Released on {formatDate(selectedTitleDetails.release_date)}</p>}
+      {selectedTitleDetails.runtime &&<p>Runtime: {selectedTitleDetails.runtime} minutes</p>}
+      {selectedTitleDetails.us_rating && (<p>Rated {selectedTitleDetails.us_rating}</p>)}
+      {/* <p>User Score: {selectedTitleDetails.user_rating}</p> */}
+      
       
       {/* {selectedTitleDetails.critic_score && <p>Critic Score: {selectedTitleDetails.critic_score}</p>} */}
       {selectedTitleDetails.genre_names &&
@@ -715,7 +729,7 @@ const TitleDetails = () => {
       )}
 
       {selectedTitleDetails.backdrop && (
-        <img width='50%' src={selectedTitleDetails.backdrop} alt="show backdrop" />
+        <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
       )}
 
       {selectedTitleDetails.plot_overview && (
@@ -785,10 +799,6 @@ const TitleDetails = () => {
             </>
           )}
       </div> */}
-
-      
-      {/* <p>Release Date: {selectedTitleDetails.release_date}</p> */}
-      {/* <p>Runtime: {selectedTitleDetails.runtime}</p> */}
 
       {selectedTitleDetails.sources && <p>Subscription Streaming:</p>}
 
@@ -1058,6 +1068,20 @@ const TitleDetails = () => {
         </Button>
       )}
 
+      {/* fuboTV Button */}
+      {fuboTvUrl && (
+        <Button
+          variant="contained"
+          color="primary"
+          href={fuboTvUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Watch on fuboTV
+        </Button>
+      )}
+  
+
     {/*purchase buttons*/}
     {selectedTitleDetails.buy_sources && <p>Available to Rent or Buy on:</p>}
 
@@ -1136,8 +1160,6 @@ const TitleDetails = () => {
       )}
     </>
     )}
-      <p>Rated {selectedTitleDetails.us_rating}</p>
-      {/* <p>User Score: {selectedTitleDetails.user_rating}</p> */}
       <Button value={selectedTitleDetails.id} variant="contained">
         Save to Watchlist
       </Button>
@@ -1183,6 +1205,7 @@ const TitleDetails = () => {
           </Button>
         </React.Fragment>
       ))}
+      </div>
     </>
   );
 };
