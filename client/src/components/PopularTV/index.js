@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingAnimationMovies,
+  fetchPopularTvPageOne,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -15,71 +15,58 @@ import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
 
-const TrendingAnimation = () => {
-  const [trendingAnimationMovies, setTrendingAnimationMovies] = useState([]);
-  console.log(trendingAnimationMovies);
+const PopularTV = () => {
+  const [popularTV, setPopularTV] = useState([]);
+  console.log(popularTV);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingAnimationMovies = async () => {
-      const cachedTrendingAnimationMovies = localStorage.getItem(
-        "trendingAnimationMovies"
+    const getPopularTV = async () => {
+      const cachedPopularTV = localStorage.getItem(
+        "popularTV"
       );
 
-      if (cachedTrendingAnimationMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingAnimationMovies);
-        console.log("Cached Data Retrieved: cachedTrendingAnimationMovies", data);
+      if (cachedPopularTV) {
+        const { data, timestamp } = JSON.parse(cachedPopularTV);
+        console.log("Cached Data Retrieved: cachedPopularTV", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingAnimationMovies(data);
+          setPopularTV(data);
           return;
         } else {
-          localStorage.removeItem("trendingAnimationMovies");
+          localStorage.removeItem("popularTV");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingAnimationMovies) {
+      if (!cachedPopularTV) {
         try {
-          const response = await fetchTrendingAnimationMovies();
+          const response = await fetchPopularTvPageOne();
           const data = await response.json();
-          console.log(data);
-          const allMovies = data.results.map((movie) => ({
-            id: movie.id,
-            title: movie.title,
-            poster_path: movie.poster_path,
-            backdrop_path: movie.backdrop_path,
-            overview: movie.overview,
-            release_date: movie.release_date,
-            genre: movie.genre_ids,
+          // console.log(data);
+          const popTV = data.results.map((tvShow) => ({
+            id: tvShow.id,
+            title: tvShow.title,
+            poster_path: tvShow.poster_path,
+            backdrop_path: tvShow.backdrop_path,
+            overview: tvShow.overview,
+            release_date: tvShow.release_date,
+            genre: tvShow.genre_ids,
           }));
 
-          const filteredTrendingAnimationMovies = allMovies.filter((movie) =>
-            movie.genre.includes(16)
-          );
+          console.log('popTV: ', popTV);
 
-          const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(16)
-          );
-          console.log(
-            "Filtered out movies: ",
-            filteredOutMovies.map((movie) => ({
-              title: movie.title,
-              genre: movie.genre,
-            }))
-          );
-
-          setTrendingAnimationMovies(filteredTrendingAnimationMovies);
+          setPopularTV(popTV);
 
           const cacheData = {
-            data: filteredTrendingAnimationMovies,
+            data: popTV,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingAnimationMovies",
+            "popularTV",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -88,7 +75,7 @@ const TrendingAnimation = () => {
       }
     };
 
-    getTrendingAnimationMovies();
+    getPopularTV();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -185,20 +172,20 @@ const TrendingAnimation = () => {
 
   return (
     <>
-      <h3>Trending Animation Movies</h3>
+      <h3>Popular TV</h3>
       <div>
-        {trendingAnimationMovies.map((movie) => (
-          <div key={movie.id}>
+        {popularTV.map((tvShow) => (
+          <div key={tvShow.id}>
             <img
-              src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-              alt={movie.title}
+              src={`https://image.tmdb.org/t/p/w200/${tvShow.poster_path}`}
+              alt={tvShow.title}
             />
-            <p>{movie.title}</p>
-            <p>{movie.release_date}</p>
-            <p>{movie.overview}</p>
+            <p>{tvShow.title}</p>
+            <p>Released on {tvShow.first_air_date}</p>
+            <p>{tvShow.overview}</p>
             <Button
               variant="contained"
-              value={`movie-${movie.id}`}
+              value={`tv-${tvShow.id}`}
               onClick={handleTitleSelected}
             >
               More Details
@@ -210,4 +197,4 @@ const TrendingAnimation = () => {
   );
 };
 
-export default TrendingAnimation;
+export default PopularTV;

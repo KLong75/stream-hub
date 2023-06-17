@@ -2,9 +2,12 @@ import React from 'react';
 
 
 
-// import { Link } from 'react-router-dom';
-
-
+import TrendingMovies from '../components/TrendingMovies';
+import PopularMovies from '../components/PopularMovies';
+import TopRatedMovies from '../components/TopRatedMovies';
+import PopularTV from '../components/PopularTV';
+import TrendingTV from '../components/TrendingTV';
+import TopRatedTV from '../components/TopRatedTV';
 
 
 
@@ -13,33 +16,14 @@ const NowTrending = () => {
   return (
     <>
     <h2>Currently Trending</h2>
-      {/* <TrendingMovies/> 
-      <TrendingActionMovies/>
-      <TrendingAnimationMovies/>
-      <TrendingComedyMovies/> 
-      <TrendingCrimeMovies/>
-      <TrendingDocumentaryMovies/>
-      <TrendingDramaMovies/>
-      <TrendingFantasyMovies/>
-      <TrendingHorrorMovies/>
-      <TrendingScienceFictionMovies/>
-      <TrendingThrillerMovies/>
-     
+      <TrendingMovies/> 
+      <PopularMovies/>
+      <TopRatedMovies/>
       <TrendingTV/>
-      <TrendingActAdvTv/> */}
-      {/* <TrendingAnimationTv/> */}
-      {/* <TrendingComedyTv />  */}
-      {/* <TrendingCrimeTv /> */}
-      {/* <TrendingDocTv /> */}
-      {/* <TrendingSciFiFantasyTv /> */}
-      
-      {/* <TrendingFamilyTv /> */}
-      {/* <TrendingKidsTv /> */}
-      {/* <TrendindingNewsTv /> */}
-      {/* <TrendingdRealityTv /> */}
+      <PopularTV/>
+      <TopRatedTV />
     </>
-  )
-  
+  );
 };
 
 export default NowTrending;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 // import fetch calls
 import {
-  fetchTrendingActionMovies,
+  fetchTopMoviesPageOne,
   searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
@@ -13,73 +13,59 @@ import Button from "@mui/material/Button";
 
 // import imageNotAvailable from "../assets/no_image_available.jpg";
 
-import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
+import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 
-const TrendingActionMovies = () => {
-  const [trendingActionMovies, setTrendingActionMovies] = useState([]);
-  console.log(trendingActionMovies);
+const TopRatedMovies = () => {
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  console.log(topRatedMovies);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   useEffect(() => {
-    const getTrendingActionMovies = async () => {
-      const cachedTrendingActionMovies = localStorage.getItem(
-        "trendingActionMovies"
+    const getTopRatedMovies = async () => {
+      const cachedTopRatedMovies = localStorage.getItem(
+        "topRatedMovies"
       );
 
-      if (cachedTrendingActionMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingActionMovies);
-        console.log("Cached Data Retrieved: cachedTrendingActionMovies", data);
+      if (cachedTopRatedMovies) {
+        const { data, timestamp } = JSON.parse(cachedTopRatedMovies);
+        console.log("Cached Data Retrieved: cachedTopRatedMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingActionMovies(data);
+          setTopRatedMovies(data);
           return;
         } else {
-          localStorage.removeItem("trendingActionMovies");
+          localStorage.removeItem("topRatedMovies");
           console.log("Cached Data Expired and Removed");
         }
       }
 
-      if (!cachedTrendingActionMovies) {
+      if (!cachedTopRatedMovies) {
         try {
-          const response = await fetchTrendingActionMovies();
+          const response = await fetchTopMoviesPageOne();
           const data = await response.json();
           console.log(data);
-          const allMovies = data.results.map((movie) => ({
+          const topMovies = data.results.map((movie) => ({
             id: movie.id,
             title: movie.title,
             poster_path: movie.poster_path,
             backdrop_path: movie.backdrop_path,
             overview: movie.overview,
-            release_date: movie.release_date,
+            release_date: formatDate(movie.release_date),
             genre: movie.genre_ids,
           }));
 
-          const filteredTrendingActionMovies = allMovies.filter((movie) =>
-            movie.genre.includes(28)
-          );
 
-          const filteredOutMovies = allMovies.filter(
-            (movie) => !movie.genre.includes(28)
-          );
-          console.log(
-            "Filtered out movies: ",
-            filteredOutMovies.map((movie) => ({
-              title: movie.title,
-              genre: movie.genre,
-            }))
-          );
-
-          setTrendingActionMovies(filteredTrendingActionMovies);
+          setTopRatedMovies(topMovies);
 
           const cacheData = {
-            data: filteredTrendingActionMovies,
+            data: topMovies,
             timestamp: Date.now(),
           };
           localStorage.setItem(
-            "trendingActionMovies",
+            "topRatedMovies",
             JSON.stringify(cacheData)
           );
         } catch (error) {
@@ -88,7 +74,7 @@ const TrendingActionMovies = () => {
       }
     };
 
-    getTrendingActionMovies();
+    getTopRatedMovies();
   }, []);
 
   const handleTitleSelected = async (event) => {
@@ -185,9 +171,9 @@ const TrendingActionMovies = () => {
 
   return (
     <>
-      <h3>Trending Action Movies</h3>
+      <h3>Top Rated Movies</h3>
       <div>
-        {trendingActionMovies.map((movie) => (
+        {topRatedMovies.map((movie) => (
           <div key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
@@ -210,4 +196,4 @@ const TrendingActionMovies = () => {
   );
 };
 
-export default TrendingActionMovies;
+export default TopRatedMovies;

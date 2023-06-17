@@ -110,7 +110,7 @@ const GenreSearchResults = () => {
           timestamp: Date.now(),
         };
         localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
-        // window.location.href ="/title_details?titleDetails=" + encodeURIComponent(JSON.stringify(titleDetailsData));
+        window.location.href ="/title_details?titleDetails=" + encodeURIComponent(JSON.stringify(titleDetailsData));
       } catch (error) {
         console.log(error);
       }
