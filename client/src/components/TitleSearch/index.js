@@ -1,14 +1,16 @@
+// import from react
 import React, { useState, useEffect, useContext } from "react";
+// import from react-router-dom
 import { useNavigate } from "react-router-dom";
-
+// import context
 import { SearchResultsContext } from "../../context/SearchResultsContext"; // <- import the context
-
+// import from material-ui
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 // import FormLabel from '@mui/material/FormLabel';
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-
+// import from utils
 import {
   searchByTitle,
   fetchTopMoviesPageOne,
@@ -43,8 +45,8 @@ import {
   fetchPopularTvPageFive,
 } from "../../utils/apiCalls";
 
-import { CACHE_DURATION } from "../../utils/utils";
-const TITLE_LIST_CACHE_DURATION = 1000 * 60 * 60 * 24 * 1; // 1 day
+import { CACHE_DURATION, CACHE_DURATION_ONE_DAY } from "../../utils/utils";
+
 const filter = createFilterOptions();
 
 const TitleSearch = () => {
@@ -62,7 +64,7 @@ const TitleSearch = () => {
       console.log("Stored data found in cache", data);
 
       const now = Date.now();
-      if (now - timestamp < TITLE_LIST_CACHE_DURATION) {
+      if (now - timestamp < CACHE_DURATION_ONE_DAY) {
         setTopTitlesMovieAndTv(data);
         console.log("Using data from cache", data);
         return;
@@ -530,7 +532,6 @@ const TitleSearch = () => {
     );
 
     if (cachedTitleSearchResults) {
-      console.log("found cached title search results");
       const { data, timestamp } = JSON.parse(cachedTitleSearchResults);
       console.log(data);
       const now = Date.now();
@@ -538,9 +539,6 @@ const TitleSearch = () => {
         setTitleSearchResults(data);
         console.log("Using Cached Data:", data);
         navigate("/title_search_results", { state: { data },});
-        // window.location.href =
-        //   "/title_search_results?titles=" +
-        //   encodeURIComponent(JSON.stringify(data));
         return;
       } else {
         localStorage.removeItem(`titleSearchResults_${userInput}`);
@@ -581,9 +579,6 @@ const TitleSearch = () => {
         );
         // setValue('');
         navigate("/title_search_results", { state: { data: titleSearchData},});
-        // window.location.href =
-        //   "/title_search_results?titles=" +
-        //   encodeURIComponent(JSON.stringify(titleSearchResults));
       } catch (err) {
         console.log(err);
       }

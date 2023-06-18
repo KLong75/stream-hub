@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from "react";
-
+// import from react
+import React, { useEffect, useState, useContext } from "react";
+// import from react-router
+import { useNavigate } from "react-router-dom";
+// import context
+import { SearchResultsContext } from "../context/SearchResultsContext";
+import { TitleDetailsContext } from "../context/TitleDetailsContext";
+// import from mui
 import Button from "@mui/material/Button";
-
+// import from utils
 import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
-
 import { CACHE_DURATION } from "../utils/utils";
 
 const GenreSourceTypeResults = () => {
+  const navigate = useNavigate();
+  const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
+  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
-  const [genreSourceTypeSearchResults, setGenreSourceTypeSearchResults] = useState([]);
+  // const [genreSourceTypeSearchResults, setGenreSourceTypeSearchResults] = useState([]);
 
   const [selectedTitle, setSelectedTitle] = useState("");
 
   // eslint-disable-next-line no-unused-vars
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   const [searchedGenres, setSearchedGenres] = useState([]);
 
@@ -89,43 +97,7 @@ const GenreSourceTypeResults = () => {
     "short_film": "Short Film",
   }
 
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const titles = urlParams.get("titles");
-
-    if (titles) {
-      const parsedTitles = JSON.parse(decodeURIComponent(titles));
-      setGenreSourceTypeSearchResults(parsedTitles);
-    }
-
-    const genres = urlParams.get("genres");
-  if (genres) {
-    let parsedGenres = JSON.parse(decodeURIComponent(genres));
-    if (!Array.isArray(parsedGenres)) {
-      parsedGenres = [parsedGenres];
-    }
-    setSearchedGenres(parsedGenres);
-  }
-
-  const types = urlParams.get("types");
-  if (types) {
-    let parsedTypes = JSON.parse(decodeURIComponent(types));
-    if (!Array.isArray(parsedTypes)) {
-      parsedTypes = [parsedTypes];
-    }
-    setSearchedTypes(parsedTypes);
-  }
-
-  const sources = urlParams.get("sources");
-  if (sources) {
-    let parsedSources = JSON.parse(decodeURIComponent(sources));
-    if (!Array.isArray(parsedSources)) {
-      parsedSources = [parsedSources];
-    }
-    setSearchedSources(parsedSources);
-  }
-  }, []);
+  useEffect(() => {}, [genreSourceTypeSearchResults]);
 
   console.log(genreSourceTypeSearchResults);
   
@@ -142,15 +114,11 @@ const GenreSourceTypeResults = () => {
     console.log("Cached Data Retrieved: cachedTitleDetails", cachedTitleDetails);
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
-
-      console.log(CACHE_DURATION);
-
       const now = Date.now();
-      console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log('cached data retrieved, parsed, time checked',data)
-        window.location.href ='/title_details?titleDetails=' + encodeURIComponent(JSON.stringify(data));
+        navigate('/title-details')
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -188,8 +156,6 @@ const GenreSourceTypeResults = () => {
         runtime: titleDetails.runtime,
         similar_titles: titleDetails.similar_titles ? titleDetails.similar_titles.slice(0, 5) : [],
         sources: titleDetails.sources.filter((source) => source.type === "sub"),
-        // trailer: titleDetails.trailer,
-        // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
         trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
         trailer_thumbnail: titleDetails.trailer_thumbnail,
         us_rating: titleDetails.us_rating,
@@ -208,9 +174,7 @@ const GenreSourceTypeResults = () => {
         `titleDetails_${selectedTitleId}`,
         JSON.stringify(cacheData)
       );
-      window.location.href =
-        "/title_details?titleDetails=" +
-        encodeURIComponent(JSON.stringify(titleDetailsData));
+      navigate('/title_details')
     } catch (err) {
       console.error(err);
     }
@@ -230,7 +194,6 @@ const GenreSourceTypeResults = () => {
             <div key={title.id}>
               {title.title && <p>{title.title}</p>}
               {title.genres && <p>{title.genres.map(id => watchModeGenreList[id]).filter(Boolean).join(', ')}</p>}
-              {/* {title.type && (<p>{title.type.charAt(0).toUpperCase() + title.type.slice(1)}</p>)} */}
               {title.type && (
                 <p>
                     {title.type === "movie"

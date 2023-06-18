@@ -1,37 +1,22 @@
+// import from react
 import React, { useEffect, useState, useContext } from "react";
-
+// import from react-router
 import { useNavigate } from "react-router-dom";
-
-
-// import { Link } from 'react-router-dom';
-
-import Button from "@mui/material/Button";
-
-import { fetchTitleDetails } from "../utils/apiCalls";
-
+// import context
 import { SearchResultsContext } from '../context/SearchResultsContext'; 
 import { TitleDetailsContext } from '../context/TitleDetailsContext';
-
+// import from mui
+import Button from "@mui/material/Button";
+// import from utils
+import { fetchTitleDetails } from "../utils/apiCalls";
 import { CACHE_DURATION } from '../utils/utils';
 
 const GenreSearchResults = () => {
-  
+  const navigate = useNavigate();
   const { genreSearchResults } = useContext(SearchResultsContext); // Get the data from context
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
-  const navigate = useNavigate();
-
-  // const [genreSearchResults, setGenreSearchResults] = useState([]);
-
-  // const [selectedTitle, setSelectedTitle] = useState("");
-
-  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
-
-  // console.log(selectedTitleDetails);
-
-  useEffect(() => {
-   
-  }, [genreSearchResults]);
+  useEffect(() => {}, [genreSearchResults]);
 
   console.log(genreSearchResults);
 

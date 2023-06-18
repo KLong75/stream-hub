@@ -1,14 +1,14 @@
+// import from react
 import React, { useEffect, useContext } from "react";
-
+// import from react-router-dom
 import { useNavigate } from "react-router-dom";
-
+// import from mui
 import Button from "@mui/material/Button";
-
-import { fetchTitleDetails } from "../utils/apiCalls";
-
+// import context
 import { SearchResultsContext } from '../context/SearchResultsContext'; 
 import { TitleDetailsContext } from '../context/TitleDetailsContext';
-
+// import from utils
+import { fetchTitleDetails } from "../utils/apiCalls";
 import { CACHE_DURATION } from '../utils/utils';
 
 const TitleSearchResults = () => {
@@ -18,9 +18,7 @@ const TitleSearchResults = () => {
 
   console.log(titleSearchResults);
   
-  useEffect(() => {
-
-  }, [titleSearchResults]);
+  useEffect(() => {}, [titleSearchResults]);
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
@@ -128,7 +126,6 @@ const TitleSearchResults = () => {
   return (
     <>
       <h3>Title Search Results Page</h3>
-
       <div>
         {titleSearchResults
           .filter(

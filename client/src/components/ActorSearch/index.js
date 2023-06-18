@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
-
+// import from react
+import React, { useState, useEffect, useContext } from "react";
+// import from react-router
+import { useNavigate } from "react-router-dom";
+// import context
+import { SearchResultsContext } from "../../context/SearchResultsContext"; // <- import the context
+// import from mui
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 // import FormLabel from '@mui/material/FormLabel';
-
+// import from utils
 import {
   searchByName,
   fetchTopPeoplePageOne,
@@ -20,114 +25,13 @@ import { CACHE_DURATION } from "../../utils/utils";
 const filter = createFilterOptions();
 
 const ActorSearch = () => {
+  const navigate = useNavigate();
+  const { setActorSearchResults } = useContext(SearchResultsContext); // <- get the function from context
   const [topActors, setTopActors] = useState([]);
-
   const [searchTerm, setSearchTerm] = useState(null);
-
   const [sortedActors, setSortedActors] = useState([]);
 
-  const searchByEnteredName = async (event) => {
-    event.preventDefault();
-    // console.log(searchTerm.name);
-    const searchedName = searchTerm.name;
-    
-    const cachedActorSearchResults = localStorage.getItem(
-      `actorSearchResults_${searchedName}`
-    );
-
-    if (cachedActorSearchResults) {
-      const { data, timestamp } = JSON.parse(cachedActorSearchResults);
-      console.log("Stored Data Retrieved:", data);
-
-      const now = Date.now();
-      if (now - timestamp < CACHE_DURATION) {
-        setSearchTerm(data);
-        console.log("Using Cached Data:", data);
-        window.location.href =
-          "/actor_search_results?actors=" +
-          encodeURIComponent(JSON.stringify(data));
-        setSearchTerm("");
-        return;
-      } else {
-        localStorage.removeItem(`actorSearchResults_${searchedName}`);
-        console.log("Cached Data Expired and Removed");
-      }
-    }
-
-    if (!cachedActorSearchResults) {
-      try {
-        const response = await searchByName(searchedName);
-        console.log(response);
-
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-
-        const results = await response.json();
-        console.log(results);
-
-        // const actorSearchResults = results.results
-        //   .filter((actor) => actor.known_for_department === "Acting")
-        //   .slice(0,8)
-        //   .map((actor) => ({
-        //   id: actor.id,
-        //   name: actor.name,
-        //   job: actor.known_for_department,
-        //   known_for: actor.known_for,
-        //   poster_url:
-        //     actor.known_for.length > 0
-        //       ? "https://image.tmdb.org/t/p/w500/" +
-        //         actor.known_for[0].poster_path
-        //       : "",
-        //   image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
-        // }));
-
-        const actorSearchResults = results.results.filter((actor) => {
-          if (actor.known_for_department !== "Acting") {
-            return false;
-          }
-          // Check the 'known_for' array for any object where 'adult' is true
-          for (let i = 0; i < actor.known_for.length; i++) {
-            if (actor.known_for[i].adult === true) {
-                return false;
-            }
-          }
-          // If the actor passed the previous checks, include them in the results
-          return true;
-        })
-        .slice(0, 8)
-        .map((actor) => ({
-          id: actor.id,
-          name: actor.name,
-          job: actor.known_for_department,
-          known_for: actor.known_for,
-          poster_url: actor.known_for.length > 0 ? "https://image.tmdb.org/t/p/w500/" + actor.known_for[0].poster_path : "",
-          image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
-        }));
-        console.log(actorSearchResults);
-        // setSearchTerm("");
-        const cacheData = {
-          data: actorSearchResults,
-          timestamp: Date.now(),
-        };
-        localStorage.setItem(
-          `actorSearchResults_${searchedName}`,
-          JSON.stringify(cacheData)
-        );
-        console.log(searchedName);
-
-        window.location.href =
-          "/actor_search_results?actors=" +
-          encodeURIComponent(JSON.stringify(actorSearchResults));
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
-  };
-
   useEffect(() => {
-    console.log("ActorSearch rendered", Date.now());
-
     const cachedSortedActors = localStorage.getItem("sortedActorList");
 
     if (cachedSortedActors) {
@@ -161,15 +65,12 @@ const ActorSearch = () => {
       const response = await fetchTopPeoplePageOne();
       const data = await response.json();
       console.log(data);
-
       const actors = data.results.map((person) => ({
         name: person.name,
         id: person.id,
       }));
-
       setTopActors(actors);
       // console.log(actors);
-      // return data;
     } catch (error) {
       console.log(error);
     }
@@ -180,14 +81,11 @@ const ActorSearch = () => {
       const response = await fetchTopPeoplePageTwo();
       const data = await response.json();
       console.log(data);
-
       const newActors = data.results.map((person) => ({
         name: person.name,
         id: person.id,
       }));
-
       setTopActors((prevActors) => [...prevActors, ...newActors]);
-      // console.log(topActors);
     } catch (error) {
       console.log(error);
     }
@@ -199,14 +97,11 @@ const ActorSearch = () => {
       const response = await fetchTopPeoplePageThree();
       const data = await response.json();
       console.log(data);
-
       const newActors = data.results.map((person) => ({
         name: person.name,
         id: person.id,
       }));
-
       setTopActors((prevActors) => [...prevActors, ...newActors]);
-      // console.log(topActors);
     } catch (error) {
       console.log(error);
     }
@@ -218,14 +113,11 @@ const ActorSearch = () => {
       const response = await fetchTopPeoplePageFour();
       const data = await response.json();
       console.log(data);
-
       const newActors = data.results.map((person) => ({
         name: person.name,
         id: person.id,
       }));
-
       setTopActors((prevActors) => [...prevActors, ...newActors]);
-      // console.log(topActors);
     } catch (error) {
       console.log(error);
     }
@@ -237,21 +129,16 @@ const ActorSearch = () => {
       const response = await fetchTopPeoplePageFive();
       const data = await response.json();
       console.log(data);
-
       const newActors = data.results.map((person) => ({
         name: person.name,
         id: person.id,
       }));
-
       setTopActors((prevActors) => [...prevActors, ...newActors]);
-      // console.log(topActors);
     } catch (error) {
       console.log(error);
     }
     // console.log(topActors);
   };
-
-
 
   useEffect(() => {
     const sorted = [...topActors].sort((a, b) =>
@@ -266,6 +153,87 @@ const ActorSearch = () => {
 
     localStorage.setItem("sortedActorList", JSON.stringify(cacheData));
   }, [topActors]);
+
+  const searchByEnteredName = async (event) => {
+    event.preventDefault();
+    // console.log(searchTerm.name);
+    const searchedName = searchTerm.name;
+    // check on this line below 'setSearchTerm(searchedName)'. it might not be needed and might cause an issue
+    setSearchTerm(searchedName)
+    const cachedActorSearchResults = localStorage.getItem(
+      `actorSearchResults_${searchedName}`
+    );
+
+    if (cachedActorSearchResults) {
+      const { data, timestamp } = JSON.parse(cachedActorSearchResults);
+      console.log("Stored Data Retrieved:", data);
+      const now = Date.now();
+      if (now - timestamp < CACHE_DURATION) {
+        setActorSearchResults(data);
+        console.log("Using Cached Data:", data);
+        navigate('/actor-search-results', { state: { data },});
+        // setSearchTerm("");
+        return;
+      } else {
+        localStorage.removeItem(`actorSearchResults_${searchedName}`);
+        console.log("Cached Data Expired and Removed");
+      }
+    }
+
+    if (!cachedActorSearchResults) {
+      try {
+        const response = await searchByName(searchedName);
+        console.log(response);
+
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const results = await response.json();
+        console.log(results);
+
+        const actorSearchData = results.results.filter((actor) => {
+          if (actor.known_for_department !== "Acting") {
+            return false;
+          }
+          // Check the 'known_for' array for any object where 'adult' is true
+          for (let i = 0; i < actor.known_for.length; i++) {
+            if (actor.known_for[i].adult === true) {
+                return false;
+            }
+          }
+          // If the actor passed the previous checks, include them in the results
+          return true;
+        })
+        .slice(0, 8)
+        .map((actor) => ({
+          id: actor.id,
+          name: actor.name,
+          job: actor.known_for_department,
+          known_for: actor.known_for,
+          poster_url: actor.known_for.length > 0 ? "https://image.tmdb.org/t/p/w500/" + actor.known_for[0].poster_path : "",
+          image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
+        }));
+        console.log(actorSearchData);
+        // setSearchTerm("");
+        setActorSearchResults(actorSearchData);
+        const cacheData = {
+          data: actorSearchData,
+          timestamp: Date.now(),
+        };
+        localStorage.setItem(
+          `actorSearchResults_${searchedName}`,
+          JSON.stringify(cacheData)
+        );
+        console.log(searchedName);
+        navigate('/actor_search_results', {state: {data: actorSearchData},});
+
+        
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+  };
 
   return (
     <div>

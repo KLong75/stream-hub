@@ -1,9 +1,12 @@
 // import from React
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
+// import from react-router
+import { useNavigate } from "react-router-dom";
+// import context
+import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from Material UI
 import FormGroup from "@mui/material/FormGroup";
-// import FormControl from "@mui/material/FormControl";
+import { FormLabel } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 // import MenuItem from "@mui/material";
@@ -15,20 +18,22 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
+// import from utils
 import { fetchTitlesByGenreSourceType } from "../../utils/apiCalls";
-
 import { CACHE_DURATION } from "../../utils/utils";
-import { FormLabel } from "@mui/material";
+
 
 const SearchByGenreSourceType = () => {
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     genres: [],
     source: [],
     type: [],
   });
 
-  const [genreSourceTypeResults, setGenreSourceTypeResults] = useState([]);
+  const { genreSourceTypeSearchResults, setGenreSourceTypeSearchResults } = useContext(SearchResultsContext);
+
+  // const [genreSourceTypeResults, setGenreSourceTypeResults] = useState([]);
 
   useEffect(() => {
     console.log("State has changed: ", userInput);
@@ -91,19 +96,19 @@ const SearchByGenreSourceType = () => {
     const sources = userInput.source.join(",");
     const types = userInput.type.join(",");
 
-    const cachedGenreSourceTypeResults = localStorage.getItem(
+    const cachedGenreSourceTypeSearchResults = localStorage.getItem(
       `genreSourceType_${genres}_${sources}_${types}`
     );
 
-    if (cachedGenreSourceTypeResults) {
-      const { data, timestamp } = JSON.parse(cachedGenreSourceTypeResults);
+    if (cachedGenreSourceTypeSearchResults) {
+      const { data, timestamp } = JSON.parse(cachedGenreSourceTypeSearchResults);
 
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
-        setGenreSourceTypeResults(data);
+        setGenreSourceTypeSearchResults(data);
         console.log("Using cached data", data);
-        window.location.href =
-          "/search_results?titles=" + encodeURIComponent(JSON.stringify(data));
+        navigate("/genre_source_type_search_results", { state: { titles: data, genres: genres, sources: sources, types: types  
+        },});
         return;
       } else {
         localStorage.removeItem(
@@ -113,12 +118,8 @@ const SearchByGenreSourceType = () => {
       }
     }
 
-    if (!cachedGenreSourceTypeResults) {
+    if (!cachedGenreSourceTypeSearchResults) {
       try {
-        console.log(
-          `Making API request with - Genres: ${genres}, Sources: ${sources}, Types: ${types}`
-        );
-
         const response = await fetchTitlesByGenreSourceType(
           sources,
           genres,
@@ -142,8 +143,6 @@ const SearchByGenreSourceType = () => {
           return;
         }
 
- 
-
         const titleData = titles.map((titles) => ({
           id: titles.id,
           title: titles.title,
@@ -151,7 +150,7 @@ const SearchByGenreSourceType = () => {
           year: titles.year,
         }));
 
-        setGenreSourceTypeResults(titleData);
+        setGenreSourceTypeSearchResults(titleData);
 
         console.log(titleData);
         console.log(`genres: ${genres}, sources: ${sources}, types: ${types}`);
@@ -165,17 +164,14 @@ const SearchByGenreSourceType = () => {
           JSON.stringify(cacheData)
         );
 
-        setUserInput({
-          genres: [],
-          source: [],
-          type: [],
-        });
-        // window.location.href =
-        //   "/search_results?titles=" +
-        //   encodeURIComponent(JSON.stringify(titleData));
-        window.location.href =
-          "/genre_source_type_search_results?titles=" +
-          encodeURIComponent(JSON.stringify(titleData)) + "&genres=" + encodeURIComponent(JSON.stringify(genres)) + "&sources=" + encodeURIComponent(JSON.stringify(sources)) + "&types=" + encodeURIComponent(JSON.stringify(types));
+        // setUserInput({
+        //   genres: [],
+        //   source: [],
+        //   type: [],
+        // });
+        navigate("/genre_source_type_search_results", { state: { titles: titleData, genres: genres, sources: sources, types: types
+          },})
+        
       } catch (err) {
         console.error(err);
       }

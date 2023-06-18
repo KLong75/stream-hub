@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
-
+// import from react
+import React, { useEffect, useState, useContext } from "react";
+// import from react-router
+import { useNavigate } from "react-router-dom";
+// import context
+import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from Material UI
 import FormGroup from "@mui/material/FormGroup";
 // import FormControl from "@mui/material/FormControl";
@@ -15,18 +19,16 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FormLabel } from "@mui/material";
-
+// import from utils
 import { fetchMixedGenreTV } from "../../utils/apiCalls";
-
-import { CACHE_DURATION } from "../../utils/utils";
+import { formatDate, CACHE_DURATION } from "../../utils/utils";
 
 const MixedGenreTVSearch = () => {
+  const navigate = useNavigate();
+  const { mixedGenreSearchResults, setMixedGenreSearchResults } = useContext( SearchResultsContext );
   const [userInput, setUserInput] = useState({
     genres: [],
   });
-
-  const [mixedGenreTvSearchResults, setMixedGenreTvSearchResults] =
-    useState([]);
 
   useEffect(() => {
     console.log("State has changed: ", userInput);
@@ -68,8 +70,11 @@ const MixedGenreTVSearch = () => {
 
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
-        setMixedGenreTvSearchResults(data);
+        setMixedGenreSearchResults(data);
         console.log("Using cached mixed genre tv search results", data);
+        navigate("/mixed_genre_search_results", {
+          state: { titles: data, genres: userInput.genres },
+        });
         return;
       } else {
         localStorage.removeItem(
@@ -88,12 +93,12 @@ const MixedGenreTVSearch = () => {
         }
 
         const searchResults = await response.json();
-        console.log("Mixed Genre Movie Search Results: ", searchResults);
+        console.log("Mixed Genre TV Search Results: ", searchResults);
 
         const searchResultsTitleData = searchResults.results.map((tvShow) => ({
           id: tvShow.id,
-          title: tvShow.title,
-          year: tvShow.release_date,
+          title: tvShow.name,
+          year: formatDate(tvShow.first_air_date),
           type: 'tv',
           poster_url: "https://image.tmdb.org/t/p/w300/" + tvShow.poster_path,
           backdrop_url: "https://image.tmdb.org/t/p/w500/" + tvShow.backdrop_path,
@@ -101,6 +106,8 @@ const MixedGenreTVSearch = () => {
         }));
 
         console.log("Mixed Genre Tv Search Title Data: ",searchResultsTitleData);
+
+        setMixedGenreSearchResults(searchResultsTitleData);
 
         const cacheData = {
           data: searchResultsTitleData,
@@ -110,12 +117,9 @@ const MixedGenreTVSearch = () => {
           `mixedGenreTvSearchResults_${searchedGenres}`,
           JSON.stringify(cacheData)
         );
-        setUserInput({ genres: [] });
-        setMixedGenreTvSearchResults(searchResultsTitleData);
-        window.location.href =
-          "/mixed_genre_search_results?titles=" +
-          encodeURIComponent(JSON.stringify(searchResultsTitleData))
-          + "&genres=" + encodeURIComponent(JSON.stringify(userInput.genres));
+        navigate("/mixed_genre_search_results", {
+          state: { titles: searchResultsTitleData, genres: userInput.genres },
+        });
       } catch (error) {
         console.log(error);
       }
@@ -310,7 +314,6 @@ const MixedGenreTVSearch = () => {
             </AccordionDetails>
           </Accordion>
         </FormGroup>
-
         <Button type="submit" variant="contained">
           Submit
         </Button>

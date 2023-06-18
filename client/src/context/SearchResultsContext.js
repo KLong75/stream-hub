@@ -12,20 +12,24 @@ export const SearchResultsProvider = ({ children }) => {
   const [mixedGenreSearchResults, setMixedGenreSearchResults] = useState(
     JSON.parse(localStorage.getItem("mixedGenreSearchResults")) || []
   );
+  const [mixedGenreMovieSearchResults, setMixedGenreMovieSearchResults] = useState(
+    JSON.parse(localStorage.getItem("mixedGenreMovieSearchResults")) || []
+  );
   const [titleSearchResults, setTitleSearchResults] = useState(
     JSON.parse(localStorage.getItem("titleSearchResults")) || []
   );
-  const [genreSourceTypeResults, setGenreSourceTypeResults] = useState(
-    JSON.parse(localStorage.getItem("genreSourceTypeResults")) || []
+  const [genreSourceTypeSearchResults, setGenreSourceTypeSearchResults] = useState(
+    JSON.parse(localStorage.getItem("genreSourceTypeSearchResults")) || []
   );
 
   useEffect(() => {
     localStorage.setItem("genreSearchResults", JSON.stringify(genreSearchResults));
     localStorage.setItem("actorSearchResults", JSON.stringify(actorSearchResults));
     localStorage.setItem("mixedGenreSearchResults", JSON.stringify(mixedGenreSearchResults));
+    localStorage.setItem("mixedGenreMovieSearchResults", JSON.stringify(mixedGenreMovieSearchResults));
     localStorage.setItem("titleSearchResults", JSON.stringify(titleSearchResults));
-    localStorage.setItem("genreSourceTypeResults", JSON.stringify(genreSourceTypeResults));
-  }, [genreSearchResults, actorSearchResults, mixedGenreSearchResults, titleSearchResults, genreSourceTypeResults]);
+    localStorage.setItem("genreSourceTypeSearchResults", JSON.stringify(genreSourceTypeSearchResults));
+  }, [genreSearchResults, actorSearchResults, mixedGenreSearchResults, mixedGenreMovieSearchResults, titleSearchResults, genreSourceTypeSearchResults]);
 
 
 
@@ -39,10 +43,12 @@ export const SearchResultsProvider = ({ children }) => {
         setActorSearchResults,
         mixedGenreSearchResults,
         setMixedGenreSearchResults,
+        mixedGenreMovieSearchResults,
+        setMixedGenreMovieSearchResults,
         titleSearchResults,
         setTitleSearchResults,
-        genreSourceTypeResults,
-        setGenreSourceTypeResults
+        genreSourceTypeSearchResults,
+        setGenreSourceTypeSearchResults
       }}
     >
       {children}

@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
-
+// import from react
+import React, { useEffect, useState, useContext } from "react";
+// import from react-router
+import { useNavigate } from "react-router-dom";
+// import context
+import { SearchResultsContext } from "../context/SearchResultsContext";
+import { TitleDetailsContext } from "../context/TitleDetailsContext";
+// import from mui
 import Button from "@mui/material/Button";
-
+// import from utils
 import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
-
 import { CACHE_DURATION } from "../utils/utils";
 
 const MixedGenreSearchResults = () => {
-  const [mixedGenreSearchResults, setMixedGenreSearchResults] = useState([]);
-
+  const navigate = useNavigate();
+  const { mixedGenreSearchResults } = useContext(SearchResultsContext); 
+  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
+  const [searchedGenres, setSearchedGenres] = useState([]);
   const [selectedTitle, setSelectedTitle] = useState("");
 
-  // eslint-disable-next-line no-unused-vars
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
-
-  const [searchedGenres, setSearchedGenres] = useState([]);
-  
   const genreList = {
     28: "Action",
     12: "Adventure",
@@ -45,27 +47,7 @@ const MixedGenreSearchResults = () => {
     10768: "War & Politics",
   };
 
-  
-
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const titles = urlParams.get("titles");
-
-    if (titles) {
-      const parsedTitles = JSON.parse(decodeURIComponent(titles));
-      setMixedGenreSearchResults(parsedTitles);
-    }
-
-    const genres = urlParams.get("genres");
-
-    if (genres) {
-      const parsedGenres = JSON.parse(decodeURIComponent(genres));
-      setSearchedGenres(parsedGenres);
-    }
-  }, []);
-
-  
+  useEffect(() => {}, [mixedGenreSearchResults]);
 
   console.log(mixedGenreSearchResults);
   
@@ -82,15 +64,11 @@ const MixedGenreSearchResults = () => {
     console.log("Cached Data Retrieved: cachedTitleDetails", cachedTitleDetails);
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
-
-      console.log(CACHE_DURATION);
-
       const now = Date.now();
-      console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log('cached data retrieved, parsed, time checked',data)
-        window.location.href ='/title_details?titleDetails=' + encodeURIComponent(JSON.stringify(data));
+        navigate('/title_details');
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -128,8 +106,6 @@ const MixedGenreSearchResults = () => {
         runtime: titleDetails.runtime,
         similar_titles: titleDetails.similar_titles ? titleDetails.similar_titles.slice(0, 5) : [],
         sources: titleDetails.sources.filter((source) => source.type === "sub"),
-        // trailer: titleDetails.trailer,
-        // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
         trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
         trailer_thumbnail: titleDetails.trailer_thumbnail,
         us_rating: titleDetails.us_rating,
@@ -148,9 +124,7 @@ const MixedGenreSearchResults = () => {
         `titleDetails_${selectedTitleId}`,
         JSON.stringify(cacheData)
       );
-      window.location.href =
-        "/title_details?titleDetails=" +
-        encodeURIComponent(JSON.stringify(titleDetailsData));
+      navigate('/title_details');
     } catch (err) {
       console.error(err);
     }

@@ -1,33 +1,34 @@
 // import from React
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
+// import from React Router
+import { useNavigate } from "react-router-dom";
+// import context
+import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from Material UI
 import FormGroup from "@mui/material/FormGroup";
-// import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-// import MenuItem from "@mui/material";
-// import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
-// import InputLabel from "@mui/material/InputLabel";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FormLabel } from "@mui/material";
-
+// import from utils
 import { fetchMixedGenreMovies } from "../../utils/apiCalls";
-
 import { CACHE_DURATION } from "../../utils/utils";
 
 const MixedGenreMovieSearch = () => {
+  const navigate = useNavigate();
+  const { mixedGenreSearchResults, setMixedGenreSearchResults } = useContext( SearchResultsContext );
+  // const { mixedGenreMovieSearchResults, setMixedGenreMovieSearchResults } = useContext(SearchResultsContext);
   const [userInput, setUserInput] = useState({
     genres: [],
   });
 
-  const [mixedGenreMovieSearchResults, setMixedGenreMovieSearchResults] =
-    useState([]);
+  // const [mixedGenreMovieSearchResults, setMixedGenreMovieSearchResults] =
+  //   useState([]);
 
   useEffect(() => {
     console.log("State has changed: ", userInput);
@@ -68,13 +69,11 @@ const MixedGenreMovieSearch = () => {
 
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
-        setMixedGenreMovieSearchResults(data);
+        setMixedGenreSearchResults(data);
         console.log("Using cached mixed genre movie search results", data);
-        window.location.href =
-          "/mixed_genre_search_results?titles=" +
-          encodeURIComponent(JSON.stringify(data)) +
-          "&genres=" +
-          encodeURIComponent(JSON.stringify(userInput.genres));
+        navigate("/mixed_genre_search_results", {
+          state: { titles: data, genres: userInput.genres },
+        });
         return;
       } else {
         localStorage.removeItem(
@@ -111,6 +110,8 @@ const MixedGenreMovieSearch = () => {
           searchResultsTitleData
         );
 
+        setMixedGenreSearchResults(searchResultsTitleData);
+
         const cacheData = {
           data: searchResultsTitleData,
           timestamp: Date.now(),
@@ -119,16 +120,9 @@ const MixedGenreMovieSearch = () => {
           `mixedGenreMovieSearchResults_${searchedGenres}`,
           JSON.stringify(cacheData)
         );
-        setUserInput({ genres: [] });
-        setMixedGenreMovieSearchResults(searchResultsTitleData);
-        // window.location.href =
-        //   "/mixed_genre_search_results?titles=" +
-        //   encodeURIComponent(JSON.stringify(searchResultsTitleData));
-        window.location.href =
-          "/mixed_genre_search_results?titles=" +
-          encodeURIComponent(JSON.stringify(searchResultsTitleData)) +
-          "&genres=" +
-          encodeURIComponent(JSON.stringify(userInput.genres));
+        navigate("/mixed_genre_search_results", {
+          state: { titles: searchResultsTitleData, genres: userInput.genres },
+        });
       } catch (error) {
         console.log(error);
       }

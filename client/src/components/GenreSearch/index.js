@@ -1,13 +1,13 @@
+// import from react
 import React, { useState, useContext } from "react";
-
+// import from react-router
 import { useNavigate } from "react-router-dom";
-
+// import context
+import { SearchResultsContext } from "../../context/SearchResultsContext"; 
+// import from mui
 import { Box, TextField, MenuItem } from "@mui/material";
-
+// import from utils
 import { searchByGenre } from "../../utils/apiCalls";
-
-import { SearchResultsContext } from "../../context/SearchResultsContext"; // <- import the context
-
 import { CACHE_DURATION } from "../../utils/utils";
 
 const genreOptions = [
@@ -59,10 +59,6 @@ const genreOptions = [
     value: "9",
     label: "Fantasy",
   },
-  // {
-  //   value: '34',
-  //   label: 'Food'
-  // },
   {
     value: "28",
     label: "Game Show",
@@ -91,10 +87,6 @@ const genreOptions = [
     value: "13",
     label: "Mystery",
   },
-  // {
-  //   value: '36',
-  //   label: 'Nature'
-  // },
   {
     value: "22",
     label: "News",
@@ -123,10 +115,6 @@ const genreOptions = [
     value: "29",
     label: "Sports",
   },
-  // {
-  //   value: '37',
-  //   label: 'Supernatural'
-  // },
   {
     value: "26",
     label: "Talk",
@@ -135,14 +123,6 @@ const genreOptions = [
     value: "17",
     label: "Thriller",
   },
-  // {
-  //   value: '35',
-  //   label: 'Travel'
-  // },
-  // {
-  //   value: '38',
-  //   label: 'TV Movie'
-  // },
   {
     value: "18",
     label: "War",
@@ -232,8 +212,7 @@ const GenreSearch = () => {
           `genreSearchResults_${selectedGenreCode}`,
           JSON.stringify(cacheData)
         );
-
-        navigate("/search_results", { state: { titles: titleData } }); // <- navigate with useNavigate
+        navigate("/search_results", { state: { titles: titleData },}); 
       } catch (err) {
         console.error(err);
       }

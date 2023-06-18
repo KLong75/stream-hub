@@ -1,5 +1,7 @@
 export const CACHE_DURATION = 30*24*60*60*1000; // 30 days
 
+export const CACHE_DURATION_ONE_DAY = 1000 * 60 * 60 * 24 * 1; // 1 day
+
 export const CACHE_DURATION_ONE_WEEK = 7*24*60*60*1000; // 7 days
 
 export function formatDate(release_date) {
