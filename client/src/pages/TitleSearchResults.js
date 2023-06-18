@@ -1,39 +1,31 @@
-import React, { useEffect, useState } from "react";
-// import { Link } from 'react-router-dom';
+import React, { useEffect, useContext } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 
 import { fetchTitleDetails } from "../utils/apiCalls";
 
-const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
+import { SearchResultsContext } from '../context/SearchResultsContext'; 
+import { TitleDetailsContext } from '../context/TitleDetailsContext';
+
+import { CACHE_DURATION } from '../utils/utils';
 
 const TitleSearchResults = () => {
-  const [titleSearchResults, setTitleSearchResults] = useState([]);
-
-  const [selectedTitle, setSelectedTitle] = useState("");
-
-  // eslint-disable-next-line no-unused-vars
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
-
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const titles = urlParams.get("titles");
-
-    if (titles) {
-      const parsedTitles = JSON.parse(decodeURIComponent(titles));
-      setTitleSearchResults(parsedTitles);
-    }
-  }, []);
+  const navigate = useNavigate();
+  const { titleSearchResults } = useContext(SearchResultsContext); // Get the data from context
+  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
   console.log(titleSearchResults);
+  
+  useEffect(() => {
+
+  }, [titleSearchResults]);
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
-    setSelectedTitle(event.target.value);
-    console.log(event.target.value);
     const selectedTitleId = event.target.value;
-    console.log(selectedTitle);
+    console.log(selectedTitleId);
 
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
@@ -52,9 +44,7 @@ const TitleSearchResults = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(data));
+        navigate("/title_details");
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -65,7 +55,6 @@ const TitleSearchResults = () => {
     if (!cachedTitleDetails) {
       try {
         const response = await fetchTitleDetails(selectedTitleId);
-        console.log(fetchTitleDetails(selectedTitleId));
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -80,32 +69,17 @@ const TitleSearchResults = () => {
         const uniqueBuySources = [];
         const buySourceNames = new Set();
 
-        titleDetails.sources.filter((source) => {
+        titleDetails.sources.forEach((source) => {
           if (
-            source.type === "buy" &&
-            rentBuySourceNamesToInclude.some((name) => name === source.name)
+              source.type === "buy" &&
+              rentBuySourceNamesToInclude.some((name) => name === source.name)
           ) {
-            if (!buySourceNames.has(source.name)) {
-              buySourceNames.add(source.name);
-              uniqueBuySources.push(source);
-            }
+              if (!buySourceNames.has(source.name)) {
+                  buySourceNames.add(source.name);
+                  uniqueBuySources.push(source);
+              }
           }
-        });
-
-        const uniqueRentSources = [];
-        const rentSourceNames = new Set();
-
-        titleDetails.sources.filter((source) => {
-          if (
-            source.type === "rent" &&
-            rentBuySourceNamesToInclude.some((name) => name === source.name)
-          ) {
-            if (!rentSourceNames.has(source.name)) {
-              rentSourceNames.add(source.name);
-              uniqueRentSources.push(source);
-            }
-          }
-        });
+      });
 
         const titleDetailsData = {
           id: titleDetails.id,
@@ -120,21 +94,11 @@ const TitleSearchResults = () => {
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
           runtime: titleDetails.runtime_minutes,
-          // similar_titles: titleDetails.similar_titles.slice(0, 5),
           similar_titles: titleDetails.similar_titles
             ? titleDetails.similar_titles.slice(0, 5)
             : [],
-          sources: titleDetails.sources.filter(
-            (source) => source.type === "sub"
-          ),
-          // buy_sources: titleDetails.sources.filter(
-          //   (source) => source.type === "buy" && rentBuySourceNamesToInclude.some(name => name === source.name)
-          // ),
+          sources: titleDetails.sources.filter((source) => source.type === "sub"),
           buy_sources: uniqueBuySources,
-          rent_sources: uniqueRentSources,
-          // rent_sources: titleDetails.sources.filter(
-          //   (source) => source.type === "rent" && rentBuySourceNamesToInclude.some(name => name === source.name)),
-          // trailer: titleDetails.trailer,
           trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
@@ -154,9 +118,7 @@ const TitleSearchResults = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(titleDetailsData));
+        navigate("/title_details");
       } catch (err) {
         console.error(err);
       }

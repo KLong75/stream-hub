@@ -1,38 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+
 // import { Link } from 'react-router-dom';
 
 import Button from "@mui/material/Button";
 
 import { fetchTitleDetails } from "../utils/apiCalls";
 
-const CACHE_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
+import { SearchResultsContext } from '../context/SearchResultsContext'; 
+import { TitleDetailsContext } from '../context/TitleDetailsContext';
+
+import { CACHE_DURATION } from '../utils/utils';
 
 const GenreSearchResults = () => {
-  const [genreSearchResults, setGenreSearchResults] = useState([]);
+  
+  const { genreSearchResults } = useContext(SearchResultsContext); // Get the data from context
+  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
-  const [selectedTitle, setSelectedTitle] = useState("");
+  const navigate = useNavigate();
 
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+  // const [genreSearchResults, setGenreSearchResults] = useState([]);
+
+  // const [selectedTitle, setSelectedTitle] = useState("");
+
+  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   // console.log(selectedTitleDetails);
 
   useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const titles = urlParams.get("titles");
-
-    if (titles) {
-      const parsedTitles = JSON.parse(decodeURIComponent(titles));
-      setGenreSearchResults(parsedTitles);
-      console.log(parsedTitles)
-    }
-  }, []);
+   
+  }, [genreSearchResults]);
 
   console.log(genreSearchResults);
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
-    setSelectedTitle(event.target.value);
+    // setSelectedTitle(event.target.value);
     const selectedTitleId = event.target.value;
     console.log(selectedTitleId);
 
@@ -50,7 +55,8 @@ const GenreSearchResults = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log('cached data retrieved, parsed, time checked',data)
-        window.location.href ='/title_details?titleDetails=' + encodeURIComponent(JSON.stringify(data));
+        navigate('/title_details')
+        // window.location.href ='/title_details?titleDetails=' + encodeURIComponent(JSON.stringify(data));
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -61,8 +67,6 @@ const GenreSearchResults = () => {
     if (!cachedTitleDetails) {
       try {
         const response = await fetchTitleDetails(selectedTitleId);
-
-        // console.log(response);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -92,8 +96,6 @@ const GenreSearchResults = () => {
           purchase_sources: titleDetails.sources.filter(
             (source) => source.type === "purchase"
           ),
-          // trailer: titleDetails.trailer,
-          // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
           trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
@@ -110,7 +112,7 @@ const GenreSearchResults = () => {
           timestamp: Date.now(),
         };
         localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
-        window.location.href ="/title_details?titleDetails=" + encodeURIComponent(JSON.stringify(titleDetailsData));
+        navigate('/title_details');
       } catch (error) {
         console.log(error);
       }

@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { SearchResultsContext } from "../../context/SearchResultsContext"; // <- import the context
 
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -45,6 +48,8 @@ const TITLE_LIST_CACHE_DURATION = 1000 * 60 * 60 * 24 * 1; // 1 day
 const filter = createFilterOptions();
 
 const TitleSearch = () => {
+  const navigate = useNavigate();
+  const { setTitleSearchResults } = useContext(SearchResultsContext); // <- get the context 
   const [value, setValue] = useState(null);
   const [topTitlesMovieAndTv, setTopTitlesMovieAndTv] = useState([]);
 
@@ -170,7 +175,6 @@ const TitleSearch = () => {
           ).map((title) => {
             return allTitles.find((t) => t.title === title);
           });
-
           uniqueTitles = uniqueTitles.filter((title) => {
             let filteredOutTitles = [];
             if (title && title.title) {
@@ -180,25 +184,20 @@ const TitleSearch = () => {
               console.log(filteredOutTitles);
               return false;
             }
-            
           });
-
           uniqueTitles = uniqueTitles.sort((a, b) =>
             a.title.localeCompare(b.title)
           );
-
           setTopTitlesMovieAndTv(uniqueTitles);
           console.log("titles retrieved:", uniqueTitles);
           const cacheData = {
             data: uniqueTitles,
             timestamp: Date.now(),
           };
-
           localStorage.setItem(
             `topTitlesMovieAndTv`,
             JSON.stringify(cacheData)
           );
-
           console.log(topTitlesMovieAndTv);
         }
       }
@@ -536,11 +535,12 @@ const TitleSearch = () => {
       console.log(data);
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
-        // setValue(data);
+        setTitleSearchResults(data);
         console.log("Using Cached Data:", data);
-        window.location.href =
-          "/title_search_results?titles=" +
-          encodeURIComponent(JSON.stringify(data));
+        navigate("/title_search_results", { state: { data },});
+        // window.location.href =
+        //   "/title_search_results?titles=" +
+        //   encodeURIComponent(JSON.stringify(data));
         return;
       } else {
         localStorage.removeItem(`titleSearchResults_${userInput}`);
@@ -560,7 +560,7 @@ const TitleSearch = () => {
         const data = await response.json();
         console.log(data);
 
-        const titleSearchResults = data.results.map((titles) => ({
+        const titleSearchData = data.results.map((titles) => ({
           id: titles.id,
           title: titles.name,
           year: titles.year,
@@ -568,26 +568,34 @@ const TitleSearch = () => {
           image_url: titles.image_url,
         }));
 
-        console.log(titleSearchResults);
+        console.log(titleSearchData);
+        setTitleSearchResults(titleSearchData);
 
         const cacheData = {
-          data: titleSearchResults,
+          data: titleSearchData,
           timestamp: Date.now(),
         };
         localStorage.setItem(
           `titleSearchResults_${userInput}`,
           JSON.stringify(cacheData)
         );
-        setValue('');
-
-        window.location.href =
-          "/title_search_results?titles=" +
-          encodeURIComponent(JSON.stringify(titleSearchResults));
+        // setValue('');
+        navigate("/title_search_results", { state: { data: titleSearchData},});
+        // window.location.href =
+        //   "/title_search_results?titles=" +
+        //   encodeURIComponent(JSON.stringify(titleSearchResults));
       } catch (err) {
         console.log(err);
       }
     }
   };
+
+  // useEffect(() => {
+  //   if (setTitleSearchResults) {
+  //     navigate('/title_details');
+  //   }
+  // }, [setTitleSearchResults, navigate]);
+
 
   return (
     <div>
@@ -598,6 +606,7 @@ const TitleSearch = () => {
           <Autocomplete
             size="small"
             value={value}
+            
             onChange={(event, newValue) => {
               if (typeof newValue === "string") {
                 setValue({
@@ -614,7 +623,6 @@ const TitleSearch = () => {
             }}
             filterOptions={(options, params) => {
               const filtered = filter(options, params);
-
               const { inputValue } = params;
               // Suggest the creation of a new value
               const isExisting = options.some(

@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+import { TitleDetailsContext } from '../context/TitleDetailsContext';
+
 import { fetchMoreTitleDetailsMovie, fetchTitleDetails, searchByName, fetchMoreTitleDetailsTV, fetchTvTitle} from "../utils/apiCalls";
 
 import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, formatDate} from "../utils/utils";
 
-// fetchFind();
 
 const TitleDetails = () => {
+  const navigate = useNavigate();
+
+  const { selectedTitleDetails, setSelectedTitleDetails } = useContext(TitleDetailsContext);
+  
   const [selectedTitle, setSelectedTitle] = useState("");
 
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
   const [moreDetails, setMoreDetails] = useState({});
 
@@ -78,36 +86,15 @@ const TitleDetails = () => {
 
   const [buyNotAvailable, setBuyNotAvailable] = useState("");
 
-  // const [rentAmazonUrl, setRentAmazonUrl] = useState("");
-
-  // const [rentItunesUrl, setRentItunesUrl] = useState("");
-
-  // const [rentGooglePlayUrl, setRentGooglePlayUrl] = useState("");
-
-  // const [rentYouTubeUrl, setRentYouTubeUrl] = useState("");
-
-  // const [rentNotAvailable, setRentNotAvailable] = useState("");
-
   const [selectedActorName, setSelectedActorName] = useState("");
 
   // const [similarTitles, setSimilarTitles] = useState([]);
 
   useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const titleDetailsParam = urlParams.get("titleDetails");
-    // console.log(titleDetailsParam);
-
-    if (titleDetailsParam) {
-      const parsedTitleDetails = JSON.parse(
-        decodeURIComponent(titleDetailsParam)
-      );
-      setSelectedTitleDetails(parsedTitleDetails);
-
-      const sources = parsedTitleDetails.sources || [];
+    if (selectedTitleDetails) {
+      const sources = selectedTitleDetails.sources || [];
       console.log(sources);
       const appleTv = sources.filter((source) => source.source_id === 371);
-      console.log(appleTv);
       const netflix = sources.filter((source) => source.source_id === 203);
       const hulu = sources.filter((source) => source.source_id === 157);
       const amazonPrime = sources.filter((source) => source.source_id === 26);
@@ -115,9 +102,7 @@ const TitleDetails = () => {
       const disneyPlus = sources.filter((source) => source.source_id === 372);
       const peacock = sources.filter((source) => source.source_id === 389);
       const hayu = sources.filter((source) => source.source_id === 392);
-      const paramountPlus = sources.filter(
-        (source) => source.source_id === 444
-      );
+      const paramountPlus = sources.filter((source) => source.source_id === 444);
       const showtime = sources.filter((source) => source.source_id === 248);
       const crave = sources.filter((source) => source.source_id === 393);
       const craveStarz = sources.filter((source) => source.source_id === 395);
@@ -135,19 +120,12 @@ const TitleDetails = () => {
       const showtimeAmazonPrime = sources.filter((source) => source.source_id === 249);
       const fuboTv = sources.filter((source) => source.source_id === 373);
 
-      const buy_sources = parsedTitleDetails.buy_sources || [];
+      const buy_sources = selectedTitleDetails.buy_sources || [];
       console.log(buy_sources);
       const buyAmazon = buy_sources.filter((source) => source.source_id === 24);
       const buyItunes = buy_sources.filter((source) => source.source_id === 349);
       const buyGooglePlay = buy_sources.filter((source) => source.source_id === 140);
       const buyYouTube = buy_sources.filter((source) => source.source_id === 344);
-
-      // const rent_sources = parsedTitleDetails.rent_sources || [];
-      // console.log(rent_sources);
-      // const rentAmazon = rent_sources.filter((source) => source.source_id === 24);
-      // const rentItunes = rent_sources.filter((source) => source.source_id === 349);
-      // const rentGooglePlay = rent_sources.filter((source) => source.source_id === 140);
-      // const rentYouTube = rent_sources.filter((source) => source.source_id === 344);
       
       if (sources.length === 0) {
         const notAvailable = "Not Available on Subscription Streaming Services";
@@ -158,12 +136,6 @@ const TitleDetails = () => {
         const buyNotAvailable = "Not Available for Purchase or Rent";
         setBuyNotAvailable(buyNotAvailable);
       }
-
-      // if (rent_sources.length === 0) {
-      //   const rentNotAvailable = "Not Available for Rent";
-      //   setRentNotAvailable(rentNotAvailable);
-      // }
-
       if (appleTv.length >= 1) {
         const appleTvUrl = appleTv[0].web_url;
         setAppleTvUrl(appleTvUrl);
@@ -282,27 +254,10 @@ const TitleDetails = () => {
         const buyYouTubeUrl = buyYouTube[0].web_url;
         setBuyYouTubeUrl(buyYouTubeUrl);
       }
-      // rent sources
-      // if (rentAmazon.length >= 1) {
-      //   const rentAmazonUrl = rentAmazon[0].web_url;
-      //   setRentAmazonUrl(rentAmazonUrl);
-      // }
-      // if (rentItunes.length >= 1) {
-      //   const rentItunesUrl = rentItunes[0].web_url;
-      //   setRentItunesUrl(rentItunesUrl);
-      // }
-      // if (rentGooglePlay.length >= 1) {
-      //   const rentGooglePlayUrl = rentGooglePlay[0].web_url;
-      //   setRentGooglePlayUrl(rentGooglePlayUrl);
-      // }
-      // if (rentYouTube.length >= 1) {
-      //   const rentYouTubeUrl = rentYouTube[0].web_url;
-      //   setRentYouTubeUrl(rentYouTubeUrl);
-      // }
     }
   }, []);
 
-  console.log(selectedTitleDetails);
+  // console.log(selectedTitleDetails);
 
   useEffect(() => {
     const getMoreDetailsMovie = async () => {
@@ -533,9 +488,11 @@ const TitleDetails = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(data));
+        navigate(`/title_details`);
+        window.scrollTo(0, 0); // Scroll to the top of the page
+        // window.location.href =
+        //   "/title_details?titleDetails=" +
+        //   encodeURIComponent(JSON.stringify(data));
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -547,16 +504,11 @@ const TitleDetails = () => {
       try {
         const response = await fetchTitleDetails(selectedTitleId);
 
-        // console.log(fetchTitleDetails(selectedTitleId));
-
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-
         const titleDetails = await response.json();
-
         console.log("New Data Retrieved:", titleDetails);
-
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -582,10 +534,9 @@ const TitleDetails = () => {
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
         };
-
         console.log(titleDetailsData);
 
-        setSelectedTitleDetails(titleDetailsData);
+        // setSelectedTitleDetails(titleDetailsData);
 
         const cacheData = {
           data: titleDetailsData,
@@ -595,15 +546,23 @@ const TitleDetails = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(titleDetailsData));
+        setSelectedTitleDetails(titleDetailsData);
+        navigate(`/title_details`);
+        window.scrollTo(0, 0); // Scroll to the top of the page
+        // window.location.href =
+        //   "/title_details?titleDetails=" +
+        //   encodeURIComponent(JSON.stringify(titleDetailsData));
       } catch (err) {
         console.error(err);
       }
     }
   };
+
+  useEffect(() => {
+    if (selectedTitleDetails) {
+      navigate('/title_details');
+    }
+  }, [selectedTitleDetails, navigate]);
 
   const handleActorNameClicked = async (actorName) => {
     console.log(actorName);
@@ -622,9 +581,10 @@ const TitleDetails = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedActorName(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        window.location.href =
-          "/actor_search_results?actors=" +
-          encodeURIComponent(JSON.stringify(data));
+        navigate(`/actor_search_results`);
+        // window.location.href =
+        //   "/actor_search_results?actors=" +
+        //   encodeURIComponent(JSON.stringify(data));
       } else {
         localStorage.removeItem(`actorSearchResults_${selectedActorName}`);
         console.log("Cached Data Expired and Removed");
@@ -670,10 +630,10 @@ const TitleDetails = () => {
           `actorSearchResults_${selectedActorName}`,
           JSON.stringify(cacheData)
         );
-
-        window.location.href =
-          "/actor_search_results?actors=" +
-          encodeURIComponent(JSON.stringify(actorSearchResults));
+        navigate(`/actor_search_results`);
+        // window.location.href =
+        //   "/actor_search_results?actors=" +
+        //   encodeURIComponent(JSON.stringify(actorSearchResults));
         return;
       } catch (err) {
         console.log(err.message);
@@ -777,28 +737,6 @@ const TitleDetails = () => {
           )}
       </div>
 
-      {/* <div>
-        {moreDetails &&
-          moreDetails.crew &&
-          moreDetails.crew.some(
-            (crewMember) =>
-              crewMember.job === "Producer" ||
-              crewMember.job === "Executive Producer"
-          ) && (
-            <>
-              <p>Produced by:</p>
-              {moreDetails.crew
-                .filter(
-                  (crewMember) =>
-                    crewMember.job === "Producer" ||
-                    crewMember.job === "Executive Producer"
-                )
-                .map((crewMember) => (
-                  <p key={crewMember.id}>{crewMember.name}</p>
-                ))}
-            </>
-          )}
-      </div> */}
 
       {selectedTitleDetails.sources && <p>Subscription Streaming:</p>}
 
@@ -1149,7 +1087,7 @@ const TitleDetails = () => {
         title="YouTube video player" 
         style={{border: "2px", borderStyle: "solid", borderColor: "black"}} 
         // allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowfullscreen='true'>
+        allowFullScreen={true}>
       </iframe> 
       ) : (
         <a href={selectedTitleDetails.trailer} target="_blank" rel="noreferrer">
@@ -1182,7 +1120,7 @@ const TitleDetails = () => {
               title="YouTube video player" 
               style={{border: "2px", borderStyle: "solid", borderColor: "black"}} 
               // allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
-              allowfullscreen='true'>
+              allowFullScreen={true}>
             </iframe>
           ) : (
             <a
