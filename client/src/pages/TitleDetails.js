@@ -28,8 +28,9 @@ const TitleDetails = () => {
   // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
   const [moreDetails, setMoreDetails] = useState({});
   const [similarTitlesDetails, setSimilarTitlesDetails] = useState([]);
-  //  const [selectedActorName, setSelectedActorName] = useState("");
-  const [setSelectedActorName] = useState("");
+   // eslint-disable-next-line no-unused-vars
+   const [selectedActorName, setSelectedActorName] = useState("");
+  // const [setSelectedActorName] = useState("");
   // const [similarTitles, setSimilarTitles] = useState([]);
 
   const [appleTvUrl, setAppleTvUrl] = useState("");
