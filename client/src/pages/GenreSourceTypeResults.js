@@ -23,11 +23,11 @@ const GenreSourceTypeResults = () => {
   // eslint-disable-next-line no-unused-vars
   // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
 
-  const [searchedGenres, setSearchedGenres] = useState([]);
+  const [searchedGenres] = useState([]);
 
-  const [searchedTypes, setSearchedTypes] = useState([]);
+  const [searchedTypes] = useState([]);
 
-  const [searchedSources, setSearchedSources] = useState([]);
+  const [searchedSources] = useState([]);
 
   const watchModeGenreList = {
     1: "Action",
@@ -118,6 +118,7 @@ const GenreSourceTypeResults = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log('cached data retrieved, parsed, time checked',data)
+        window.scrollTo(0, 0);
         navigate('/title-details')
         return;
       } else {
@@ -174,6 +175,7 @@ const GenreSourceTypeResults = () => {
         `titleDetails_${selectedTitleId}`,
         JSON.stringify(cacheData)
       );
+      window.scrollTo(0, 0);
       navigate('/title_details')
     } catch (err) {
       console.error(err);

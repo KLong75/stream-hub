@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 // import from react-router
 import { useNavigate } from "react-router-dom";
 // import context
-import { SearchResultsContext } from "../../context/SearchResultsContext"; // <- import the context
+import { SearchResultsContext } from "../../context/SearchResultsContext"; 
 // import from mui
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
@@ -171,7 +171,8 @@ const ActorSearch = () => {
       if (now - timestamp < CACHE_DURATION) {
         setActorSearchResults(data);
         console.log("Using Cached Data:", data);
-        navigate('/actor-search-results', { state: { data },});
+        window.scrollTo(0, 0);
+        navigate('/actor_search_results', { state: { data },});
         // setSearchTerm("");
         return;
       } else {
@@ -226,9 +227,8 @@ const ActorSearch = () => {
           JSON.stringify(cacheData)
         );
         console.log(searchedName);
+        window.scrollTo(0, 0);
         navigate('/actor_search_results', {state: {data: actorSearchData},});
-
-        
       } catch (err) {
         console.log(err.message);
       }

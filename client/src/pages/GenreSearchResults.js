@@ -1,5 +1,5 @@
 // import from react
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 // import from react-router
 import { useNavigate } from "react-router-dom";
 // import context
@@ -40,8 +40,8 @@ const GenreSearchResults = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log('cached data retrieved, parsed, time checked',data)
+        window.scrollTo(0, 0);
         navigate('/title_details')
-        // window.location.href ='/title_details?titleDetails=' + encodeURIComponent(JSON.stringify(data));
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -97,6 +97,7 @@ const GenreSearchResults = () => {
           timestamp: Date.now(),
         };
         localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
+        window.scrollTo(0, 0);
         navigate('/title_details');
       } catch (error) {
         console.log(error);

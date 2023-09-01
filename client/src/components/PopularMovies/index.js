@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-
+// import from react
+import React, { useState, useEffect, useContext } from "react";
+// import from react-router-dom
+import { useNavigate } from "react-router-dom";
+// import context
+import { TitleDetailsContext } from '../../context/TitleDetailsContext';
 // import fetch calls
 import {
   fetchPopularMoviesPageOne,
-  searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
-
 
 // import from material-ui
 import Button from "@mui/material/Button";
@@ -15,14 +17,16 @@ import Button from "@mui/material/Button";
 
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 
-
 const PopularMovies = () => {
+  const navigate = useNavigate();
   const [popularMovies, setPopularMovies] = useState([]);
   console.log(popularMovies);
 
-  const [selectedTitle, setSelectedTitle] = useState("");
+  // const [selectedTitle, setSelectedTitle] = useState("");
 
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+
+  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
   useEffect(() => {
     const getPopularMovies = async () => {
@@ -80,10 +84,8 @@ const PopularMovies = () => {
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
-    setSelectedTitle(event.target.value);
-    console.log(event.target.value);
     const selectedTitleId = event.target.value;
-    console.log(selectedTitle);
+    console.log(selectedTitleId);
 
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
@@ -95,14 +97,15 @@ const PopularMovies = () => {
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
 
+      console.log(CACHE_DURATION);
+
       const now = Date.now();
       console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(data));
+        window.scrollTo(0, 0);
+        navigate("/title_details");
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -112,9 +115,7 @@ const PopularMovies = () => {
 
     if (!cachedTitleDetails) {
       try {
-        const response = await searchTitlesByTMDBId(selectedTitleId);
-
-        console.log(fetchTitleDetails(selectedTitleId));
+        const response = await fetchTitleDetails(selectedTitleId);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -123,6 +124,23 @@ const PopularMovies = () => {
         const titleDetails = await response.json();
 
         console.log(titleDetails);
+        
+        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
+
+        const uniqueBuySources = [];
+        const buySourceNames = new Set();
+
+        titleDetails.sources.forEach((source) => {
+          if (
+              source.type === "buy" &&
+              rentBuySourceNamesToInclude.some((name) => name === source.name)
+          ) {
+              if (!buySourceNames.has(source.name)) {
+                  buySourceNames.add(source.name);
+                  uniqueBuySources.push(source);
+              }
+          }
+      });
 
         const titleDetailsData = {
           id: titleDetails.id,
@@ -136,18 +154,12 @@ const PopularMovies = () => {
           plot_overview: titleDetails.plot_overview,
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
-          runtime: titleDetails.runtime,
+          runtime: titleDetails.runtime_minutes,
           similar_titles: titleDetails.similar_titles
             ? titleDetails.similar_titles.slice(0, 5)
             : [],
-          sources: titleDetails.sources.filter(
-            (source) => source.type === "sub"
-          ),
-          purchase_sources: titleDetails.sources.filter(
-            (source) => source.type === "purchase"
-          ),
-          // trailer: titleDetails.trailer,
-          // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
+          sources: titleDetails.sources.filter((source) => source.type === "sub"),
+          buy_sources: uniqueBuySources,
           trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
@@ -158,6 +170,7 @@ const PopularMovies = () => {
         console.log(titleDetailsData);
 
         setSelectedTitleDetails(titleDetailsData);
+
         const cacheData = {
           data: titleDetailsData,
           timestamp: Date.now(),
@@ -166,9 +179,8 @@ const PopularMovies = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(titleDetailsData));
+        window.scrollTo(0, 0);
+        navigate("/title_details");
       } catch (err) {
         console.error(err);
       }
@@ -190,7 +202,7 @@ const PopularMovies = () => {
             <p>{movie.overview}</p>
             <Button
               variant="contained"
-              value={`tv-${movie.id}`}
+              value={`movie-${movie.id}`}
               onClick={handleTitleSelected}
             >
               More Details

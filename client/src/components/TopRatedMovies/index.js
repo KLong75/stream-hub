@@ -1,10 +1,11 @@
 // import from react
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+// import context
+import { TitleDetailsContext } from '../../context/TitleDetailsContext';
 // import fetch calls
 import {
   fetchTopMoviesPageOne,
-  searchTitlesByTMDBId,
   fetchTitleDetails,
 } from "../../utils/apiCalls";
 
@@ -16,12 +17,15 @@ import Button from "@mui/material/Button";
 import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 
 const TopRatedMovies = () => {
+  const navigate = useNavigate();
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   console.log(topRatedMovies);
 
-  const [selectedTitle, setSelectedTitle] = useState("");
+  // const [selectedTitle, setSelectedTitle] = useState("");
 
-  const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
+
+  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
   useEffect(() => {
     const getTopRatedMovies = async () => {
@@ -79,10 +83,8 @@ const TopRatedMovies = () => {
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
-    setSelectedTitle(event.target.value);
-    console.log(event.target.value);
     const selectedTitleId = event.target.value;
-    console.log(selectedTitle);
+    console.log(selectedTitleId);
 
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
@@ -94,14 +96,15 @@ const TopRatedMovies = () => {
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
 
+      console.log(CACHE_DURATION);
+
       const now = Date.now();
       console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(data));
+        window.scrollTo(0, 0);
+        navigate("/title_details");
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -111,9 +114,7 @@ const TopRatedMovies = () => {
 
     if (!cachedTitleDetails) {
       try {
-        const response = await searchTitlesByTMDBId(selectedTitleId);
-
-        console.log(fetchTitleDetails(selectedTitleId));
+        const response = await fetchTitleDetails(selectedTitleId);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -122,6 +123,23 @@ const TopRatedMovies = () => {
         const titleDetails = await response.json();
 
         console.log(titleDetails);
+        
+        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
+
+        const uniqueBuySources = [];
+        const buySourceNames = new Set();
+
+        titleDetails.sources.forEach((source) => {
+          if (
+              source.type === "buy" &&
+              rentBuySourceNamesToInclude.some((name) => name === source.name)
+          ) {
+              if (!buySourceNames.has(source.name)) {
+                  buySourceNames.add(source.name);
+                  uniqueBuySources.push(source);
+              }
+          }
+      });
 
         const titleDetailsData = {
           id: titleDetails.id,
@@ -135,14 +153,13 @@ const TopRatedMovies = () => {
           plot_overview: titleDetails.plot_overview,
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
-          runtime: titleDetails.runtime,
+          runtime: titleDetails.runtime_minutes,
           similar_titles: titleDetails.similar_titles
             ? titleDetails.similar_titles.slice(0, 5)
             : [],
-          sources: titleDetails.sources.filter(
-            (source) => source.type === "sub"
-          ),
-          trailer: titleDetails.trailer,
+          sources: titleDetails.sources.filter((source) => source.type === "sub"),
+          buy_sources: uniqueBuySources,
+          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
@@ -152,6 +169,7 @@ const TopRatedMovies = () => {
         console.log(titleDetailsData);
 
         setSelectedTitleDetails(titleDetailsData);
+
         const cacheData = {
           data: titleDetailsData,
           timestamp: Date.now(),
@@ -160,9 +178,8 @@ const TopRatedMovies = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        window.location.href =
-          "/title_details?titleDetails=" +
-          encodeURIComponent(JSON.stringify(titleDetailsData));
+        window.scrollTo(0, 0);
+        navigate("/title_details");
       } catch (err) {
         console.error(err);
       }

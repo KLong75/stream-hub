@@ -21,7 +21,7 @@ import { CACHE_DURATION } from "../../utils/utils";
 
 const MixedGenreMovieSearch = () => {
   const navigate = useNavigate();
-  const { mixedGenreSearchResults, setMixedGenreSearchResults } = useContext( SearchResultsContext );
+  const { setMixedGenreSearchResults } = useContext( SearchResultsContext );
   // const { mixedGenreMovieSearchResults, setMixedGenreMovieSearchResults } = useContext(SearchResultsContext);
   const [userInput, setUserInput] = useState({
     genres: [],

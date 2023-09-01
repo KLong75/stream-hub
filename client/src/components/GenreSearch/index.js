@@ -145,6 +145,7 @@ const GenreSearch = () => {
 
   const [selectedGenre, setSelectedGenre] = useState("");
 
+  // eslint-disable-next-line no-unused-vars
   const [selectedGenreCode, setSelectedGenreCode] = useState("");
 
   const handleChange = async (event) => {
@@ -172,7 +173,6 @@ const GenreSearch = () => {
         setGenreSearchResults(data);
         console.log("Using Cached Data:", data);
         navigate("/search_results", { state: { titles: data } }); // <- navigate with useNavigate
-        // window.location.href = '/search_results?titles=' + encodeURIComponent(JSON.stringify(data));
         return;
       } else {
         localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);

@@ -15,8 +15,8 @@ const MixedGenreSearchResults = () => {
   const navigate = useNavigate();
   const { mixedGenreSearchResults } = useContext(SearchResultsContext); 
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
-  const [searchedGenres, setSearchedGenres] = useState([]);
-  const [selectedTitle, setSelectedTitle] = useState("");
+  const [searchedGenres] = useState([]);
+  // const [selectedTitle, setSelectedTitle] = useState("");
 
   const genreList = {
     28: "Action",
@@ -53,10 +53,10 @@ const MixedGenreSearchResults = () => {
   
   const handleTitleSelected = async (event) => {
     event.preventDefault();
-    setSelectedTitle(event.target.value);
+    // setSelectedTitle(event.target.value);
     console.log(event.target.value);
     const selectedTitleId = event.target.value;
-    console.log(selectedTitle);
+    console.log(selectedTitleId);
 
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
@@ -68,6 +68,7 @@ const MixedGenreSearchResults = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log('cached data retrieved, parsed, time checked',data)
+        window.scrollTo(0, 0);
         navigate('/title_details');
         return;
       } else {
@@ -124,6 +125,7 @@ const MixedGenreSearchResults = () => {
         `titleDetails_${selectedTitleId}`,
         JSON.stringify(cacheData)
       );
+      window.scrollTo(0, 0);
       navigate('/title_details');
     } catch (err) {
       console.error(err);

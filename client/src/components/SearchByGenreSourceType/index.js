@@ -31,7 +31,7 @@ const SearchByGenreSourceType = () => {
     type: [],
   });
 
-  const { genreSourceTypeSearchResults, setGenreSourceTypeSearchResults } = useContext(SearchResultsContext);
+  const { setGenreSourceTypeSearchResults } = useContext(SearchResultsContext);
 
   // const [genreSourceTypeResults, setGenreSourceTypeResults] = useState([]);
 

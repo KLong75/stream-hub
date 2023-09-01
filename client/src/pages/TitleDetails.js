@@ -1,94 +1,68 @@
+// import from react
 import React, { useEffect, useState, useContext } from "react";
-
 import { useNavigate } from "react-router-dom";
-
-import { TitleDetailsContext } from '../context/TitleDetailsContext';
-
-import { fetchMoreTitleDetailsMovie, fetchTitleDetails, searchByName, fetchMoreTitleDetailsTV, fetchTvTitle} from "../utils/apiCalls";
-
+// import context
+import { TitleDetailsContext } from "../context/TitleDetailsContext";
+import { SearchResultsContext } from "../context/SearchResultsContext";
+// import api calls
+import {
+  fetchMoreTitleDetailsMovie,
+  fetchTitleDetails,
+  searchByName,
+  fetchMoreTitleDetailsTV,
+  fetchTvTitle,
+} from "../utils/apiCalls";
+// import from material-ui
 import Button from "@mui/material/Button";
-
-import { CACHE_DURATION, formatDate} from "../utils/utils";
-
+// import from utils
+import { CACHE_DURATION, formatDate } from "../utils/utils";
 
 const TitleDetails = () => {
   const navigate = useNavigate();
 
-  const { selectedTitleDetails, setSelectedTitleDetails } = useContext(TitleDetailsContext);
-  
+  const { selectedTitleDetails, setSelectedTitleDetails } =
+    useContext(TitleDetailsContext);
+  const { setActorSearchResults } = useContext(SearchResultsContext);
+
   const [selectedTitle, setSelectedTitle] = useState("");
-
   // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
-
   const [moreDetails, setMoreDetails] = useState({});
-
   const [similarTitlesDetails, setSimilarTitlesDetails] = useState([]);
+  //  const [selectedActorName, setSelectedActorName] = useState("");
+  const [setSelectedActorName] = useState("");
+  // const [similarTitles, setSimilarTitles] = useState([]);
 
   const [appleTvUrl, setAppleTvUrl] = useState("");
-
   const [netflixUrl, setNetflixUrl] = useState("");
-
   const [huluUrl, setHuluUrl] = useState("");
-
   const [amazonPrimeUrl, setAmazonPrimeUrl] = useState("");
-
   const [maxUrl, setMaxUrl] = useState("");
-
   const [disneyPlusUrl, setDisneyPlusUrl] = useState("");
-
   const [peacockUrl, setPeacockUrl] = useState("");
-
   const [hayuUrl, setHayuUrl] = useState("");
-
   const [paramountPlusUrl, setParamountPlusUrl] = useState("");
-
   const [showtimeUrl, setShowtimeUrl] = useState("");
-
   const [craveUrl, setCraveUrl] = useState("");
-
   const [craveStarzUrl, setCraveStarzUrl] = useState("");
-
   const [stanUrl, setStanUrl] = useState("");
-
   const [starzUrl, setStarzUrl] = useState("");
-
   const [foxtelNowUrl, setFoxtelNowUrl] = useState("");
-
   const [skyGoUrl, setSkyGoUrl] = useState("");
-
   const [mgmPlusUrl, setMgmPlusUrl] = useState("");
-
   const [nowTvUrl, setNowTvUrl] = useState("");
-
   const [bingeUrl, setBingeUrl] = useState("");
-
   const [britboxUrl, setBritboxUrl] = useState("");
-
   const [kanopyUrl, setKanopyUrl] = useState("");
-
   const [huluWithShowtimeUrl, setHuluWithShowtimeUrl] = useState("");
-
   const [youTubePremiumUrl, setYouTubePremiumUrl] = useState("");
-
   const [showtimeAmazonPrimeUrl, setShowtimeAmazonPrimeUrl] = useState("");
-
   const [fuboTvUrl, setFuboTvUrl] = useState("");
-
   const [notAvailable, setNotAvailable] = useState("");
-
   const [buyAmazonUrl, setBuyAmazonUrl] = useState("");
-
   const [buyItunesUrl, setBuyItunesUrl] = useState("");
-
   const [buyGooglePlayUrl, setBuyGooglePlayUrl] = useState("");
-
   const [buyYouTubeUrl, setBuyYouTubeUrl] = useState("");
-
   const [buyNotAvailable, setBuyNotAvailable] = useState("");
-
-  const [selectedActorName, setSelectedActorName] = useState("");
-
-  // const [similarTitles, setSimilarTitles] = useState([]);
 
   useEffect(() => {
     if (selectedTitleDetails) {
@@ -102,7 +76,9 @@ const TitleDetails = () => {
       const disneyPlus = sources.filter((source) => source.source_id === 372);
       const peacock = sources.filter((source) => source.source_id === 389);
       const hayu = sources.filter((source) => source.source_id === 392);
-      const paramountPlus = sources.filter((source) => source.source_id === 444);
+      const paramountPlus = sources.filter(
+        (source) => source.source_id === 444
+      );
       const showtime = sources.filter((source) => source.source_id === 248);
       const crave = sources.filter((source) => source.source_id === 393);
       const craveStarz = sources.filter((source) => source.source_id === 395);
@@ -115,18 +91,30 @@ const TitleDetails = () => {
       const binge = sources.filter((source) => source.source_id === 423);
       const britbox = sources.filter((source) => source.source_id === 419);
       const kanopy = sources.filter((source) => source.source_id === 367);
-      const huluWithShowtime = sources.filter((source) => source.source_id === 159);
-      const youTubePremium = sources.filter((source) => source.source_id === 368);
-      const showtimeAmazonPrime = sources.filter((source) => source.source_id === 249);
+      const huluWithShowtime = sources.filter(
+        (source) => source.source_id === 159
+      );
+      const youTubePremium = sources.filter(
+        (source) => source.source_id === 368
+      );
+      const showtimeAmazonPrime = sources.filter(
+        (source) => source.source_id === 249
+      );
       const fuboTv = sources.filter((source) => source.source_id === 373);
 
       const buy_sources = selectedTitleDetails.buy_sources || [];
       console.log(buy_sources);
       const buyAmazon = buy_sources.filter((source) => source.source_id === 24);
-      const buyItunes = buy_sources.filter((source) => source.source_id === 349);
-      const buyGooglePlay = buy_sources.filter((source) => source.source_id === 140);
-      const buyYouTube = buy_sources.filter((source) => source.source_id === 344);
-      
+      const buyItunes = buy_sources.filter(
+        (source) => source.source_id === 349
+      );
+      const buyGooglePlay = buy_sources.filter(
+        (source) => source.source_id === 140
+      );
+      const buyYouTube = buy_sources.filter(
+        (source) => source.source_id === 344
+      );
+
       if (sources.length === 0) {
         const notAvailable = "Not Available on Subscription Streaming Services";
         setNotAvailable(notAvailable);
@@ -439,7 +427,11 @@ const TitleDetails = () => {
             plot_overview: similarTitleData.plot_overview,
             poster: similarTitleData.poster,
             // trailer: similarTitleData.trailer,
-            trailer: similarTitleData.trailer && similarTitleData.trailer.includes('youtube') ? similarTitleData.trailer.replace(/watch\?v=/, 'embed/') : similarTitleData.trailer,
+            trailer:
+              similarTitleData.trailer &&
+              similarTitleData.trailer.includes("youtube")
+                ? similarTitleData.trailer.replace(/watch\?v=/, "embed/")
+                : similarTitleData.trailer,
           };
 
           fetchedSimilarTitles.push(similarTitleDetails);
@@ -528,7 +520,10 @@ const TitleDetails = () => {
           ),
           // trailer: titleDetails.trailer,
           // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
-          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
+          trailer:
+            titleDetails.trailer && titleDetails.trailer.includes("youtube")
+              ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
+              : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
@@ -560,20 +555,20 @@ const TitleDetails = () => {
 
   useEffect(() => {
     if (selectedTitleDetails) {
-      navigate('/title_details');
+      navigate("/title_details");
     }
   }, [selectedTitleDetails, navigate]);
 
   const handleActorNameClicked = async (actorName) => {
+    // event.preventDefault();
     console.log(actorName);
-    setSelectedActorName(actorName);
-    const selectedActorName = actorName;
-    console.log(selectedActorName);
+    const searchedName = actorName;
+    setSelectedActorName(searchedName);
+    // console.log(selectedActorName);
 
     const cachedActorSearchResults = localStorage.getItem(
-      `actorSearchResults_${selectedActorName}`
+      `actorSearchResults_${searchedName}`
     );
-    console.log("cached data retrieved: cachedActorSearchResults");
 
     if (cachedActorSearchResults) {
       const { data, timestamp } = JSON.parse(cachedActorSearchResults);
@@ -581,21 +576,21 @@ const TitleDetails = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedActorName(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        navigate(`/actor_search_results`);
-        // window.location.href =
-        //   "/actor_search_results?actors=" +
-        //   encodeURIComponent(JSON.stringify(data));
+        window.scrollTo(0, 0);
+        navigate("/actor_search_results", { state: { data } });
+        // setSearchTerm("");
+        return;
       } else {
-        localStorage.removeItem(`actorSearchResults_${selectedActorName}`);
+        localStorage.removeItem(`actorSearchResults_${searchedName}`);
         console.log("Cached Data Expired and Removed");
       }
     }
 
     if (!cachedActorSearchResults) {
       try {
-        const response = await searchByName(selectedActorName);
+        const response = await searchByName(searchedName);
 
-        console.log(searchByName(selectedActorName));
+        console.log(searchByName(searchedName));
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -604,513 +599,583 @@ const TitleDetails = () => {
         const results = await response.json();
         console.log(results);
 
-        const actorSearchResults = results.results
-          .filter((actor) => actor.known_for_department === "Acting")
-          .slice(0,8)
+        const actorSearchData = results.results
+          .filter((actor) => {
+            if (actor.known_for_department !== "Acting") {
+              return false;
+            }
+            // Check the 'known_for' array for any object where 'adult' is true
+            for (let i = 0; i < actor.known_for.length; i++) {
+              if (actor.known_for[i].adult === true) {
+                return false;
+              }
+            }
+            // If the actor passed the previous checks, include them in the results
+            return true;
+          })
+          .slice(0, 8)
           .map((actor) => ({
-          id: actor.id,
-          name: actor.name,
-          job: actor.known_for_department,
-          known_for: actor.known_for,
-          poster_url:
-            actor.known_for.length > 0
-              ? "https://image.tmdb.org/t/p/w500/" +
-                actor.known_for[0].poster_path
-              : "",
-          image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
-        }));
-
-        console.log(actorSearchResults);
-
+            id: actor.id,
+            name: actor.name,
+            job: actor.known_for_department,
+            known_for: actor.known_for,
+            poster_url:
+              actor.known_for.length > 0
+                ? "https://image.tmdb.org/t/p/w500/" +
+                  actor.known_for[0].poster_path
+                : "",
+            image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
+          }));
+        console.log(actorSearchData);
+        // setSearchTerm("");
+        setActorSearchResults(actorSearchData);
         const cacheData = {
-          data: actorSearchResults,
+          data: actorSearchData,
           timestamp: Date.now(),
         };
         localStorage.setItem(
-          `actorSearchResults_${selectedActorName}`,
+          `actorSearchResults_${searchedName}`,
           JSON.stringify(cacheData)
         );
-        navigate(`/actor_search_results`);
-        // window.location.href =
-        //   "/actor_search_results?actors=" +
-        //   encodeURIComponent(JSON.stringify(actorSearchResults));
-        return;
+        console.log(searchedName);
+        window.scrollTo(0, 0);
+        navigate("/actor_search_results", { state: { data: actorSearchData } });
       } catch (err) {
         console.log(err.message);
       }
     }
   };
 
-  const titleDetailsStyles = {
-    backgroundImage: `url(${selectedTitleDetails.backdrop})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-  };
+  // const titleDetailsStyles = {
+  //   backgroundImage: `url(${selectedTitleDetails.backdrop})`,
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center",
+  //   backgroundRepeat: "no-repeat",
+  // };
 
   return (
     <>
       <div>
-      <h2>{selectedTitleDetails.title}</h2>
-      {selectedTitleDetails.poster && (<img src={selectedTitleDetails.poster} alt="show poster" />)}
-     
-      {selectedTitleDetails.type && (
-        <p>
-          {selectedTitleDetails.type === "movie"
-            ? "Movie"
-            : selectedTitleDetails.type === "tv_series"
-            ? "TV Series"
-            : selectedTitleDetails.type === "tv_miniseries"
-            ? "TV Miniseries"
-            : selectedTitleDetails.type === "short_film"
-            ? "Short Film"
-            : "Unknown Type"}
-        </p>
-      )}
-      {selectedTitleDetails.release_date && <p>Released on {formatDate(selectedTitleDetails.release_date)}</p>}
-      {selectedTitleDetails.runtime &&<p>Runtime: {selectedTitleDetails.runtime} minutes</p>}
-      {selectedTitleDetails.us_rating && (<p>Rated {selectedTitleDetails.us_rating}</p>)}
-      {/* <p>User Score: {selectedTitleDetails.user_rating}</p> */}
-      
-      
-      {/* {selectedTitleDetails.critic_score && <p>Critic Score: {selectedTitleDetails.critic_score}</p>} */}
-      {selectedTitleDetails.genre_names &&
-        selectedTitleDetails.genre_names.length > 0 && (
-          <div>
-            <p>Genres:</p>
-            {selectedTitleDetails.genre_names.map((genre) => (
-              <p key={genre}>{genre}</p>
-            ))}
-          </div>
+        <h2>{selectedTitleDetails.title}</h2>
+        {selectedTitleDetails.poster && (
+          <img src={selectedTitleDetails.poster} alt="show poster" />
         )}
-      {selectedTitleDetails.network_names &&
-        selectedTitleDetails.network_names.length > 0 && (
-          <p>Network: {selectedTitleDetails.network_names}</p>
-      )}
 
-      {selectedTitleDetails.backdrop && (
-        <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
-      )}
-
-      {selectedTitleDetails.plot_overview && (
-        <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
-      )}
-      <div>
-        {moreDetails && moreDetails.cast && moreDetails.cast.length > 0 && (
-          <p>Cast:</p>
+        {selectedTitleDetails.type && (
+          <p>
+            {selectedTitleDetails.type === "movie"
+              ? "Movie"
+              : selectedTitleDetails.type === "tv_series"
+              ? "TV Series"
+              : selectedTitleDetails.type === "tv_miniseries"
+              ? "TV Miniseries"
+              : selectedTitleDetails.type === "short_film"
+              ? "Short Film"
+              : "Unknown Type"}
+          </p>
         )}
-        {moreDetails &&
-          moreDetails.cast &&
-          moreDetails.cast.length > 0 &&
-          moreDetails.cast
-            .slice(0, Math.min(10, moreDetails.cast.length))
-            .map((castMember) => (
-              <p key={castMember.id} style={{ fontSize: "1rem" }}>
-                <Button
-                  style={{
-                    color: "black",
-                    textTransform: "none",
-                    fontSize: "1rem",
-                  }}
-                  onClick={() => handleActorNameClicked(castMember.name)}
-                >
-                  {castMember.name}
-                </Button>
-                as {castMember.character}
-              </p>
-            ))}
-      </div>
-      <div>
-        {moreDetails &&
-          moreDetails.crew &&
-          moreDetails.crew.some(
-            (crewMember) => crewMember.job === "Director"
-          ) && (
-            <>
-              <p>Directed by:</p>
-              {moreDetails.crew
-                .filter((crewMember) => crewMember.job === "Director")
-                .map((crewMember) => (
-                  <p key={crewMember.id}>{crewMember.name}</p>
-                ))}
-            </>
+        {selectedTitleDetails.release_date && (
+          <p>Released on {formatDate(selectedTitleDetails.release_date)}</p>
+        )}
+        {selectedTitleDetails.runtime && (
+          <p>Runtime: {selectedTitleDetails.runtime} minutes</p>
+        )}
+        {selectedTitleDetails.us_rating && (
+          <p>Rated {selectedTitleDetails.us_rating}</p>
+        )}
+        {/* <p>User Score: {selectedTitleDetails.user_rating}</p> */}
+
+        {/* {selectedTitleDetails.critic_score && <p>Critic Score: {selectedTitleDetails.critic_score}</p>} */}
+        {selectedTitleDetails.genre_names &&
+          selectedTitleDetails.genre_names.length > 0 && (
+            <div>
+              <p>Genres:</p>
+              {selectedTitleDetails.genre_names.map((genre) => (
+                <p key={genre}>{genre}</p>
+              ))}
+            </div>
           )}
-      </div>
+        {selectedTitleDetails.network_names &&
+          selectedTitleDetails.network_names.length > 0 && (
+            <p>Network: {selectedTitleDetails.network_names}</p>
+          )}
 
+        {selectedTitleDetails.backdrop && (
+          <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
+        )}
 
-      {selectedTitleDetails.sources && <p>Subscription Streaming:</p>}
+        {selectedTitleDetails.plot_overview && (
+          <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
+        )}
+        <div>
+          {moreDetails && moreDetails.cast && moreDetails.cast.length > 0 && (
+            <p>Cast:</p>
+          )}
+          {moreDetails &&
+            moreDetails.cast &&
+            moreDetails.cast.length > 0 &&
+            moreDetails.cast
+              .slice(0, Math.min(10, moreDetails.cast.length))
+              .map((castMember) => (
+                <p key={castMember.id} style={{ fontSize: "1rem" }}>
+                  <Button
+                    style={{
+                      color: "black",
+                      textTransform: "none",
+                      fontSize: "1rem",
+                    }}
+                    onClick={() => handleActorNameClicked(castMember.name)}
+                  >
+                    {castMember.name}
+                  </Button>
+                  as {castMember.character}
+                </p>
+              ))}
+        </div>
+        <div>
+          {moreDetails &&
+            moreDetails.crew &&
+            moreDetails.crew.some(
+              (crewMember) => crewMember.job === "Director"
+            ) && (
+              <>
+                <p>Directed by:</p>
+                {moreDetails.crew
+                  .filter((crewMember) => crewMember.job === "Director")
+                  .map((crewMember) => (
+                    <p key={crewMember.id}>{crewMember.name}</p>
+                  ))}
+              </>
+            )}
+        </div>
 
-      {/* Not Available} */}
-      {notAvailable && <span>{notAvailable}</span>}
+        {selectedTitleDetails.sources && <p>Subscription Streaming:</p>}
 
-      {/* Netflix button */}
-      {netflixUrl && (
-        <Button variant="contained" color="primary" href={netflixUrl} target="_blank" rel="noopener noreferrer">
-          Watch on Netflix
-        </Button>
-      )}
-      {/* Amazon Prime button */}
-      {amazonPrimeUrl && (
-        <Button variant="contained" color="primary" href={amazonPrimeUrl} target="_blank" rel="noopener noreferrer">
-          Watch on Amazon Prime
-        </Button>
-      )}
-      {/* Hulu button */}
-      {huluUrl && (
-        <Button variant="contained" color="primary" href={huluUrl} target="_blank" rel="noopener noreferrer">
-          Watch on Hulu
-        </Button>
-      )}
-      {/* Max button */}
-      {maxUrl && (
-        <Button variant="contained" color="primary" href={maxUrl} target="_blank" rel="noopener noreferrer">
-          Watch on Max
-        </Button>
-      )}
-      {/* Disney Plus button */}
-      {disneyPlusUrl && (
-        <Button variant="contained" color="primary" href={disneyPlusUrl} target="_blank" rel="noopener noreferrer">
-          Watch on Disney Plus
-        </Button>
-      )}
-      {/* Apple TV button */}
-      {appleTvUrl && (
-        <Button variant="contained" color="primary" href={appleTvUrl} target="_blank" rel="noopener noreferrer">
-          Watch on Apple TV
-        </Button>
-      )}
-      {/* Peacock Button */}
-      {peacockUrl && (
-        <Button variant="contained" color="primary" href={peacockUrl} target="_blank" rel="noopener noreferrer">
-          Watch on Peacock
-        </Button>
-      )}
-      {/* Hayu Button */}
-      {hayuUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={hayuUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Hayu
-        </Button>
-      )}
+        {/* Not Available} */}
+        {notAvailable && <span>{notAvailable}</span>}
 
-      {/* Paramount Plus Button */}
-      {paramountPlusUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={paramountPlusUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Paramount+
-        </Button>
-      )}
+        {/* Netflix button */}
+        {netflixUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={netflixUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Netflix
+          </Button>
+        )}
+        {/* Amazon Prime button */}
+        {amazonPrimeUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={amazonPrimeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Amazon Prime
+          </Button>
+        )}
+        {/* Hulu button */}
+        {huluUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={huluUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Hulu
+          </Button>
+        )}
+        {/* Max button */}
+        {maxUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={maxUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Max
+          </Button>
+        )}
+        {/* Disney Plus button */}
+        {disneyPlusUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={disneyPlusUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Disney Plus
+          </Button>
+        )}
+        {/* Apple TV button */}
+        {appleTvUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={appleTvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Apple TV
+          </Button>
+        )}
+        {/* Peacock Button */}
+        {peacockUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={peacockUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Peacock
+          </Button>
+        )}
+        {/* Hayu Button */}
+        {hayuUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={hayuUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Hayu
+          </Button>
+        )}
 
-      {/* Showtime Button */}
-      {showtimeUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={showtimeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Showtime
-        </Button>
-      )}
+        {/* Paramount Plus Button */}
+        {paramountPlusUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={paramountPlusUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Paramount+
+          </Button>
+        )}
 
-      {/* Crave Button */}
-      {craveUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={craveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Crave
-        </Button>
-      )}
+        {/* Showtime Button */}
+        {showtimeUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={showtimeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Showtime
+          </Button>
+        )}
 
-      {/* Crave Starz Button */}
-      {craveStarzUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={craveStarzUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Crave Starz
-        </Button>
-      )}
+        {/* Crave Button */}
+        {craveUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={craveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Crave
+          </Button>
+        )}
 
-      {/* Stan Button */}
-      {stanUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={stanUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Stan
-        </Button>
-      )}
+        {/* Crave Starz Button */}
+        {craveStarzUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={craveStarzUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Crave Starz
+          </Button>
+        )}
 
-      {/* Starz Button */}
-      {starzUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={starzUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Starz
-        </Button>
-      )}
+        {/* Stan Button */}
+        {stanUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={stanUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Stan
+          </Button>
+        )}
 
-      {/* Foxtel Now Button */}
-      {foxtelNowUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={foxtelNowUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Foxtel Now
-        </Button>
-      )}
+        {/* Starz Button */}
+        {starzUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={starzUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Starz
+          </Button>
+        )}
 
-      {/* Sky Go Button */}
-      {skyGoUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={skyGoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Sky Go
-        </Button>
-      )}
+        {/* Foxtel Now Button */}
+        {foxtelNowUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={foxtelNowUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Foxtel Now
+          </Button>
+        )}
 
-      {/*MGM Plus Button */}
-      {mgmPlusUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={mgmPlusUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on MGM Plus
-        </Button>
-      )}
+        {/* Sky Go Button */}
+        {skyGoUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={skyGoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Sky Go
+          </Button>
+        )}
 
-      {/* Now TV Button */}
-      {nowTvUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={nowTvUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Now TV
-        </Button>
-      )}
+        {/*MGM Plus Button */}
+        {mgmPlusUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={mgmPlusUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on MGM Plus
+          </Button>
+        )}
 
-      {/* Binge Button */}
-      {bingeUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={bingeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on BINGE
-        </Button>
-      )}
+        {/* Now TV Button */}
+        {nowTvUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={nowTvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Now TV
+          </Button>
+        )}
 
-      {/* Britbox Button */}
-      {britboxUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={britboxUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Britbox UK
-        </Button>
-      )}
+        {/* Binge Button */}
+        {bingeUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={bingeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on BINGE
+          </Button>
+        )}
 
-      {/* Kanopy Button */}
-      {kanopyUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={kanopyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Kanopy
-        </Button>
-      )}
+        {/* Britbox Button */}
+        {britboxUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={britboxUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Britbox UK
+          </Button>
+        )}
 
-      {/* Hulu With Showtime Button */}
-      {huluWithShowtimeUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={huluWithShowtimeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Hulu With Showtime
-        </Button>
-      )}
+        {/* Kanopy Button */}
+        {kanopyUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={kanopyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Kanopy
+          </Button>
+        )}
 
-      {/* Youtube Premium Button */}
-      {youTubePremiumUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={youTubePremiumUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Youtube Premium
-        </Button>
-      )}
+        {/* Hulu With Showtime Button */}
+        {huluWithShowtimeUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={huluWithShowtimeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Hulu With Showtime
+          </Button>
+        )}
 
-      {/* Showtime via Amazon Prime Button */}
-      {showtimeAmazonPrimeUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={showtimeAmazonPrimeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on Showtime via Amazon Prime
-        </Button>
-      )}
+        {/* Youtube Premium Button */}
+        {youTubePremiumUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={youTubePremiumUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Youtube Premium
+          </Button>
+        )}
 
-      {/* fuboTV Button */}
-      {fuboTvUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={fuboTvUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Watch on fuboTV
-        </Button>
-      )}
-  
+        {/* Showtime via Amazon Prime Button */}
+        {showtimeAmazonPrimeUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={showtimeAmazonPrimeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on Showtime via Amazon Prime
+          </Button>
+        )}
 
-    {/*purchase buttons*/}
-    {selectedTitleDetails.buy_sources && <p>Available to Rent or Buy on:</p>}
+        {/* fuboTV Button */}
+        {fuboTvUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={fuboTvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Watch on fuboTV
+          </Button>
+        )}
 
-      {/* Not Available} */}
-      {buyNotAvailable && <span>{buyNotAvailable}</span>}
-      {/* Buy on Amazon Button */}
-      {buyAmazonUrl && (  
-        <Button
-          variant="contained"
-          color="primary"
-          href={buyAmazonUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Amazon
-        </Button>
-      )}
+        {/*purchase buttons*/}
+        {selectedTitleDetails.buy_sources && (
+          <p>Available to Rent or Buy on:</p>
+        )}
 
-      {/* Buy on iTunes Button */}
-      {buyItunesUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={buyItunesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          iTunes
+        {/* Not Available} */}
+        {buyNotAvailable && <span>{buyNotAvailable}</span>}
+        {/* Buy on Amazon Button */}
+        {buyAmazonUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={buyAmazonUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Amazon
+          </Button>
+        )}
+
+        {/* Buy on iTunes Button */}
+        {buyItunesUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={buyItunesUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            iTunes
+          </Button>
+        )}
+        {/* buy on google play button */}
+        {buyGooglePlayUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={buyGooglePlayUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Play
+          </Button>
+        )}
+        {/* buy on youtube button */}
+        {buyYouTubeUrl && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={buyYouTubeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Youtube
+          </Button>
+        )}
+        {selectedTitleDetails.trailer && (
+          <>
+            <p>Trailer:</p>{" "}
+            {selectedTitleDetails.trailer.includes("youtube") ? (
+              <iframe
+                width="560rem"
+                height="315rem"
+                // width="400rem"
+                // height="200rem"
+                src={selectedTitleDetails.trailer}
+                title="YouTube video player"
+                style={{
+                  border: "2px",
+                  borderStyle: "solid",
+                  borderColor: "black",
+                }}
+                // allow="encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen={true}
+              ></iframe>
+            ) : (
+              <a
+                href={selectedTitleDetails.trailer}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  width="560"
+                  height="315"
+                  src={selectedTitleDetails.trailer_thumbnail}
+                  alt="trailer thumbnail"
+                />
+              </a>
+              // width="400rem"
+              // height="200rem"
+            )}
+          </>
+        )}
+        <Button value={selectedTitleDetails.id} variant="contained">
+          Save to Watchlist
         </Button>
-      )}
-      {/* buy on google play button */}
-      {buyGooglePlayUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={buyGooglePlayUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Google Play
-        </Button>
-      )}
-      {/* buy on youtube button */}
-      {buyYouTubeUrl && (
-        <Button
-          variant="contained"
-          color="primary"
-          href={buyYouTubeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Youtube
-        </Button>
-      )}
-    {selectedTitleDetails.trailer && (
-    <>
-    <p>Trailer:</p>{" "}
-    {selectedTitleDetails.trailer.includes('youtube') ? (
-      <iframe 
-        width="560rem" 
-        height="315rem" 
-        // width="400rem"
-        // height="200rem"
-        src={selectedTitleDetails.trailer} 
-        title="YouTube video player" 
-        style={{border: "2px", borderStyle: "solid", borderColor: "black"}} 
-        // allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowFullScreen={true}>
-      </iframe> 
-      ) : (
-        <a href={selectedTitleDetails.trailer} target="_blank" rel="noreferrer">
-          <img width='560' height='315' src={selectedTitleDetails.trailer_thumbnail} alt="trailer thumbnail"/>
-        </a>
-        // width="400rem"
-        // height="200rem"
-      )}
-    </>
-    )}
-      <Button value={selectedTitleDetails.id} variant="contained">
-        Save to Watchlist
-      </Button>
-      <p>Related Titles: </p>
-      {similarTitlesDetails.map((similarTitle) => (
-        <React.Fragment key={similarTitle.id}>
-          <p>{similarTitle.title}</p>
-          <img src={similarTitle.poster} alt="similar title poster" />
-          <p>{similarTitle.plot_overview}</p>
-          {/* <a href={similarTitle.trailer} target="_blank" rel="noreferrer">
-            Watch Trailer
-          </a> */}
-          {similarTitle.trailer.includes('youtube') ? (
+        <p>Related Titles: </p>
+        {similarTitlesDetails.map((similarTitle) => (
+          <React.Fragment key={similarTitle.id}>
+            <p>{similarTitle.title}</p>
+            <img src={similarTitle.poster} alt="similar title poster" />
+            <p>{similarTitle.plot_overview}</p>
+
+            {/* {similarTitle.trailer.includes('youtube') ? (
             <iframe 
               width="560rem" 
               height="315rem" 
@@ -1130,19 +1195,41 @@ const TitleDetails = () => {
             >
               Watch Trailer
             </a>
-    )};
-          <Button
-            variant="contained"
-            value={similarTitle.id}
-            onClick={handleTitleSelected}
-          >
-            More Details
-          </Button>
-          <Button variant="contained" value={similarTitle.id}>
-            Save to Watchlist
-          </Button>
-        </React.Fragment>
-      ))}
+    )}; */}
+
+            {similarTitle.trailer &&
+            similarTitle.trailer.trim() !== "" &&
+            similarTitle.trailer.includes("youtube") ? (
+              <iframe
+                width="560rem"
+                height="315rem"
+                src={similarTitle.trailer}
+                title="YouTube video player"
+                style={{
+                  border: "2px",
+                  borderStyle: "solid",
+                  borderColor: "black",
+                }}
+                allowFullScreen={true}
+              ></iframe>
+            ) : similarTitle.trailer && similarTitle.trailer.trim() !== "" ? (
+              <a href={similarTitle.trailer} target="_blank" rel="noreferrer">
+                Watch Trailer
+              </a>
+            ) : null}
+
+            <Button
+              variant="contained"
+              value={similarTitle.id}
+              onClick={handleTitleSelected}
+            >
+              More Details
+            </Button>
+            <Button variant="contained" value={similarTitle.id}>
+              Save to Watchlist
+            </Button>
+          </React.Fragment>
+        ))}
       </div>
     </>
   );
