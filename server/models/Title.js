@@ -20,9 +20,11 @@ const titleSchema = new Schema({
   backdrop: {
     type: String,
   },
-  genre_names: {
-    type: [String],
-  },
+  genre_names: [
+    {
+      type: String 
+    }
+  ],
   plot_overview: {
     type: String,
   },
@@ -41,18 +43,26 @@ const titleSchema = new Schema({
   us_rating: {
     type: String,
   },
-  cast: {
-    type: [String],
-  },
-  director: {
-    type: String,
-  },
-  sources: {
-    type: [String],
-  },
-  similar_titles: {
-    type: [String],
-  }
+  cast: [
+    {
+      type: String 
+    }
+  ],
+  director: [
+    {
+      type: String 
+    }
+  ],
+  sources: [
+    {
+      type: String 
+    }
+  ],
+  similar_titles: [
+    {
+      type: String 
+    }
+  ],
   }
 );
 

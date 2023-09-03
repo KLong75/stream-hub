@@ -10,10 +10,8 @@ const actorSchema = new Schema({
   },
   image: {
     type: String,
-  },
-  known_for: {
-    type: [String],
-  },
+  }
+  
 });
 
 module.exports = actorSchema;
