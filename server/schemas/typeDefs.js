@@ -6,7 +6,7 @@ const typeDefs = gql`
     username: String
     email: String
     titleCount: Int
-   
+  
   }
 
   

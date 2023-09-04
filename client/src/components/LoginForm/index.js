@@ -1,33 +1,33 @@
 import { useState } from "react";
 import { TextField, InputLabel, Select, FormControl } from "@mui/material";
-// import { useMutation } from "@apollo/client";
-// import { ADD_USER } from "../utils/mutations";
-// import Auth from '../../utils/auth';
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from '../../utils/mutations';
+import Auth from '../../utils/auth';
 
 const LoginForm = () => {
-  // const [formState, setFormState] = useState({
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  // });
-  // const [addUser, { error, data }] = useMutation(ADD_USER);
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+  });
+  const [login, { error }] = useMutation(LOGIN_USER);
 
-  // const handleChanges = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormState({ ...formState, [name]: value });
-  // };
+  const handleChanges = (event) => {
+    const { name, value } = event.target;
+    setFormState({ ...formState, [name]: value });
+  };
 
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const { data } = await addUser({
-  //       variables: { ...formState },
-  //     });
-  //     Auth.login(data.addUser.token);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const mutationResponse = await login({
+        variables: { ...formState },
+      });
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // setFormState({
   //   username: "",
@@ -38,8 +38,8 @@ const LoginForm = () => {
   return (
     <div>
       <h2>Login</h2>
-      {/* <form onSubmit={handleFormSubmit}> */}
-      <form>
+      <form onSubmit={handleFormSubmit}>
+      
         <div>
           <TextField
             required
@@ -47,8 +47,8 @@ const LoginForm = () => {
             id="email"
             name="email"
             type="email"
-            // value={formState.email}
-            // onChange={handleChanges}
+            value={formState.email}
+            onChange={handleChanges}
           />
         </div>
         <div>
@@ -58,8 +58,8 @@ const LoginForm = () => {
             id="password"
             name="password"
             type="password"
-            // value={formState.password}
-            // onChange={handleChanges}
+            value={formState.password}
+            onChange={handleChanges}
           />
         </div>
         <button type="submit">Submit</button>
