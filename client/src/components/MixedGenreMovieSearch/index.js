@@ -131,11 +131,11 @@ const MixedGenreMovieSearch = () => {
 
   return (
     <>
-      <h3>Mixed Genre Movie Search</h3>
+      <h4>Mixed Genre Movie Search</h4>
+      <h5>Looking for an extra-terrestrial romance? A crime thriller? A hilarious horror movie? We've got you covered. </h5>
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <FormLabel>Select Genre</FormLabel>
-
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -145,19 +145,16 @@ const MixedGenreMovieSearch = () => {
               <Typography>What are you in the mood for?</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <h4>Select any combination</h4>
-              <p>
+              <h6>
                 <em>
-                  Looking for an extra-terrestrial romance? A crime thriller? A
-                  hilarious horror movie? We've got you covered. Select any
-                  combination of genres to find the perfect movie for your mood.
+                  Select any combination of genres to find the perfect movie for your mood.
                   <br />
                   <strong>
                     Note: The more genres you select, the fewer results you will
                     get.
                   </strong>
                 </em>
-              </p>
+              </h6>
               <FormControlLabel
                 control={
                   <Checkbox

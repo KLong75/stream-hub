@@ -128,11 +128,11 @@ const MixedGenreTVSearch = () => {
 
   return (
     <>
-      <h3>Mixed Genre TV Search</h3>
+       <h4>Mixed Genre TV Search</h4>
+       <h5>Looking for a sc-fi adventure series to binge? A family comedy? A news documentary? We'll find what you want.</h5>
       <form onSubmit={handleSubmit}>
         <FormGroup>
-          <FormLabel>Select Genre</FormLabel>
-
+          <FormLabel>Select Genre(s)</FormLabel>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -142,15 +142,14 @@ const MixedGenreTVSearch = () => {
               <Typography>What are you in the mood for?</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <h4>Select any combination</h4>
-              <p>
+              <h6>
                 <em>
-                  Looking for an extra-terrestrial romance? A crime thriller? A hilarious horror movie? We've got you covered. Select any combination of genres to find the perfect movie for your mood.
+                 Select any combination of genres to find the perfect show for your next binge.
                   <br />
                   <strong>Note: The more genres you select, the fewer results you will get.
                   </strong>
                 </em>
-              </p>
+              </h6>
               <FormControlLabel
                 control={
                   <Checkbox

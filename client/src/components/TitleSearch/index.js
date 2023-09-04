@@ -205,7 +205,8 @@ const TitleSearch = () => {
       }
     };
     fetchData();
-  }, []);
+    // keep an eye on the line below topTitlesMovieAndTv was not there before and it caused a warning
+  }, [topTitlesMovieAndTv]);
 
   const getTopMovieTitlesPageOne = async () => {
     try {
@@ -594,8 +595,8 @@ const TitleSearch = () => {
 
   return (
     <div>
-      <h3>Search Movies and TV Shows by Title</h3>
-      <h4>Don't see your title in the menu? Enter it anyway! If it exists we'll find it.</h4>
+      <h4>Search Movies and TV Shows by Title</h4>
+      <h5>Don't see your title in the menu? Enter it anyway! If it exists, we'll find it.</h5>
       <form onSubmit={searchByUserInput}>
         <FormControl>
           <Autocomplete

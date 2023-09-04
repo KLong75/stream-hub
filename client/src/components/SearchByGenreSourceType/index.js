@@ -180,7 +180,8 @@ const SearchByGenreSourceType = () => {
 
   return (
     <>
-      <h3>Search By Combination of Genre, Source, and Type</h3>
+      <h4>Search By Combination of Genre, Source, and Type</h4>
+      <h5>Find what you want to watch, where you want to watch it.</h5>
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <FormLabel>Select Genre</FormLabel>
@@ -194,8 +195,7 @@ const SearchByGenreSourceType = () => {
               <Typography>What are you in the mood for?</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <h4>For Best Results Select One Genre</h4>
-              <p><em>Please note that searching for Sci-Fi and Romance won't give you a list of alien love stories. It will give you a list of titles mixed with both Science Fiction AND Romance.</em></p>
+              <h6><em>For best results select ONE genre. Selecting Sci-Fi and Romance won't give you a list of alien love stories. It will give you a list of titles mixed with both Science Fiction AND Romance. If you want an alien love story use the "Mixed Genre" search options above.</em></h6>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -512,7 +512,7 @@ const SearchByGenreSourceType = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <h4>Select any combination</h4>
+              <h5>Select any combination</h5>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -577,8 +577,7 @@ const SearchByGenreSourceType = () => {
               <Typography>Search all major (and some minor) streaming platforms</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <h4>Select any combination</h4>
-
+              <h5>Select any combination</h5>
               <FormControlLabel
                 control={
                   <Checkbox

@@ -1,14 +1,16 @@
+// import from react
 import React from "react";
+import { useLocation } from 'react-router-dom';
+// import components
 import Nav from '../Nav';
 
 
-
 const Header = () => {
+  const location = useLocation();
   
   return (
     <header>
-   
-    <Nav />
+      {location.pathname !== '/' && <Nav />}
     </header>
   );
 };
