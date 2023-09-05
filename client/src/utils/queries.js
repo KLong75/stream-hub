@@ -8,7 +8,7 @@ export const QUERY_ME = gql`
       email
       titleCount
       savedTitles {
-        titleId
+        id
         title
         type
         year
@@ -20,17 +20,18 @@ export const QUERY_ME = gql`
         trailer_thumbnail
         release_date
         us_rating
-        cast
-        director
-        sources
-        buy_sources
+        sources {
+          source_id
+          name
+          web_url
+        }
+        buy_sources {
+          source_id
+          name
+          web_url
+          type
+        }
         similar_titles
-      }
-      actorCount
-      savedActors {
-        actorId
-        name
-        image
       }
     }
   }

@@ -25,7 +25,7 @@ const typeDefs = gql`
     release_date: String
     us_rating: String
     sources: [Source]
-    buy_sources: [Source]
+    buy_sources: [BuySource]
     similar_titles: [Int]
   }
 
@@ -47,6 +47,13 @@ const typeDefs = gql`
   }
 
   type Source {
+    source_id: Int
+    name: String
+    web_url: String
+    type: String
+  }
+
+  type BuySource {
     source_id: Int
     name: String
     web_url: String
@@ -83,10 +90,6 @@ const typeDefs = gql`
     buy_sources: [BuySourceInput]
     similar_titles: [Int]
   }
-
-
-
-
 
   type Mutation {
     login(email: String!, password: String!): Auth

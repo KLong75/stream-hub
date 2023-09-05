@@ -678,12 +678,14 @@ const TitleDetails = () => {
         name: source.name,
         web_url: source.web_url,}),
       ),
-
-      // cast: title.selectedTitleDetails.cast,
-      // director: title.selectedTitleDetails.director,
+      buy_sources: title.selectedTitleDetails.buy_sources.map((source) => ({
+        source_id: source.source_id,
+        name: source.name,
+        web_url: source.web_url,
+        type: source.type,}),
+      ),
+  
       
-      // buy_sources: title.selectedTitleDetails.buy_sources,
-      // similar_titles: title.selectedTitleDetails.similar_titles,
     };
     console.log('title to save', input);
     // const titleToSave = titleId;

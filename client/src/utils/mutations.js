@@ -63,12 +63,12 @@ export const SAVE_TITLE = gql`
 
 export const REMOVE_TITLE = gql`
   mutation removeTitle($titleId: String!) {
-    removeTitle(titleId: $titleId) {
+    removeTitle(id: $id) {
       _id
       username
       email
       savedTitles {
-        titleId
+        id
         title
         type
         year
@@ -80,10 +80,17 @@ export const REMOVE_TITLE = gql`
         trailer_thumbnail
         release_date
         us_rating
-        cast
-        director
-        sources
-        buy_sources
+        sources {
+          source_id
+          name
+          web_url
+        }
+        buy_sources {
+          source_id
+          name
+          web_url
+          type
+        }
         similar_titles
       }
     }
