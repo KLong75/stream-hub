@@ -25,6 +25,8 @@ const typeDefs = gql`
     release_date: String
     us_rating: String
     sources: [Source]
+    buy_sources: [Source]
+    similar_titles: [Int]
   }
 
   type Actor {
@@ -48,13 +50,20 @@ const typeDefs = gql`
     source_id: Int
     name: String
     web_url: String
+    type: String
   }
-
 
   input SourceInput {
     source_id: Int
     name: String
     web_url: String
+  }
+
+  input BuySourceInput {
+    source_id: Int
+    name: String
+    web_url: String
+    type: String
   }
 
   input TitleInput {
@@ -71,6 +80,8 @@ const typeDefs = gql`
     trailer: String
     trailer_thumbnail: String
     sources: [SourceInput]
+    buy_sources: [BuySourceInput]
+    similar_titles: [Int]
   }
 
 

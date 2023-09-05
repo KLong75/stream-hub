@@ -49,6 +49,13 @@ export const SAVE_TITLE = gql`
           name
           web_url
         }
+        buy_sources {
+          source_id
+          name
+          web_url
+          type
+        }
+        similar_titles
       }
     }
   }

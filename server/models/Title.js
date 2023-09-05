@@ -47,16 +47,12 @@ const titleSchema = new Schema({
       type: Object,
     },
   ],
-  // buy_sources: [
-  //   {
-  //     type: Object,
-  //   },
-  // ],
-  // similar_titles: [
-  //   {
-  //     type: Object,
-  //   },
-  // ],
+  buy_sources: [
+    {
+      type: Object,
+    },
+  ],
+  similar_titles: [Number],
   // cast: [
   //   {
   //     type: Object,
