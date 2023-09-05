@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_ME = gql`
   {
@@ -6,8 +6,34 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      titleCount
+      savedTitles {
+        titleId
+        title
+        type
+        year
+        backdrop
+        genre_names
+        plot_overview
+        poster
+        trailer
+        trailer_thumbnail
+        release_date
+        us_rating
+        cast
+        director
+        sources
+        buy_sources
+        similar_titles
+      }
+      actorCount
+      savedActors {
+        actorId
+        name
+        image
+      }
+    }
   }
-}
 `;
 
 export const QUERY_ME_BASIC = gql`
@@ -39,9 +65,3 @@ export const QUERY_USER_BASIC = gql`
     }
   }
 `;
-
-
-
-
-
-

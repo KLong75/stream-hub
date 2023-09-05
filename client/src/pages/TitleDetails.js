@@ -16,9 +16,19 @@ import {
 import Button from "@mui/material/Button";
 // import from utils
 import { CACHE_DURATION, formatDate } from "../utils/utils";
+import Auth from "../utils/auth";
+
+import { useMutation } from "@apollo/client";
+import { SAVE_TITLE } from "../utils/mutations";
+
+
 
 const TitleDetails = () => {
   const navigate = useNavigate();
+
+  const title = useContext(TitleDetailsContext);
+
+  const [saveTitle] = useMutation(SAVE_TITLE);
 
   const { selectedTitleDetails, setSelectedTitleDetails } =
     useContext(TitleDetailsContext);
@@ -244,7 +254,8 @@ const TitleDetails = () => {
         setBuyYouTubeUrl(buyYouTubeUrl);
       }
     }
-  }, []);
+    // watch the line below. is selectedTitleDetails needed in dependency array?
+  }, [selectedTitleDetails]);
 
   // console.log(selectedTitleDetails);
 
@@ -647,12 +658,50 @@ const TitleDetails = () => {
     }
   };
 
-  // const titleDetailsStyles = {
-  //   backgroundImage: `url(${selectedTitleDetails.backdrop})`,
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "center",
-  //   backgroundRepeat: "no-repeat",
-  // };
+  const handleSaveTitle = async (title) => {
+    console.log(title);
+    const input = {
+      id: title.selectedTitleDetails.id,
+      title: title.selectedTitleDetails.title,
+      plot_overview: title.selectedTitleDetails.plot_overview,
+      poster: title.selectedTitleDetails.poster,
+      backdrop: title.selectedTitleDetails.backdrop,
+      release_date: title.selectedTitleDetails.release_date,
+      us_rating: title.selectedTitleDetails.us_rating,
+      genre_names: title.selectedTitleDetails.genre_names,
+      type: title.selectedTitleDetails.type,
+      year: title.selectedTitleDetails.year,
+      trailer: title.selectedTitleDetails.trailer,
+      trailer_thumbnail: title.selectedTitleDetails.trailer_thumbnail,
+      sources: title.selectedTitleDetails.sources.map((source) => ({
+        source_id: source.source_id,
+        name: source.name,
+        web_url: source.web_url,}),
+      ),
+
+      // cast: title.selectedTitleDetails.cast,
+      // director: title.selectedTitleDetails.director,
+      
+      // buy_sources: title.selectedTitleDetails.buy_sources,
+      // similar_titles: title.selectedTitleDetails.similar_titles,
+    };
+    console.log('title to save', input);
+    // const titleToSave = titleId;
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      await saveTitle({
+        variables: { input },
+      });
+      console.log(`Title ${input.title} saved successfully`, input);
+      // window.location.reload();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   return (
     <>
@@ -1166,7 +1215,11 @@ const TitleDetails = () => {
             )}
           </>
         )}
-        <Button value={selectedTitleDetails.id} variant="contained">
+        <Button 
+          // value={title} 
+          variant="contained"
+          onClick={() => handleSaveTitle(title)}
+        >
           Save to Watchlist
         </Button>
         <p>Related Titles: </p>
@@ -1175,28 +1228,6 @@ const TitleDetails = () => {
             <p>{similarTitle.title}</p>
             <img src={similarTitle.poster} alt="similar title poster" />
             <p>{similarTitle.plot_overview}</p>
-
-            {/* {similarTitle.trailer.includes('youtube') ? (
-            <iframe 
-              width="560rem" 
-              height="315rem" 
-              // width="400rem"
-              // height="200rem"
-              src={similarTitle.trailer} 
-              title="YouTube video player" 
-              style={{border: "2px", borderStyle: "solid", borderColor: "black"}} 
-              // allow="encrypted-media; gyroscope; picture-in-picture; web-share" 
-              allowFullScreen={true}>
-            </iframe>
-          ) : (
-            <a
-              href={similarTitle.trailer}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Watch Trailer
-            </a>
-    )}; */}
 
             {similarTitle.trailer &&
             similarTitle.trailer.trim() !== "" &&

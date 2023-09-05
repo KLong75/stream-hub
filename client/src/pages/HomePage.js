@@ -9,7 +9,7 @@ import MixedGenreMovieSearch from "../components/MixedGenreMovieSearch";
 import MixedGenreTVSearch from "../components/MixedGenreTVSearch";
 import SearchByGenreSourceType from "../components/SearchByGenreSourceType";
 import ActorSearch from "../components/ActorSearch";
-import SavedTitleList from "../components/SavedTitleList";
+import WatchList from "../components/WatchList";
 
 import Auth from "../utils/auth";
 
@@ -36,7 +36,7 @@ const HomePage = () => {
             <MixedGenreTVSearch />
             <SearchByGenreSourceType />
             <ActorSearch />
-            <SavedTitleList />
+            <WatchList />
           </section>
         </>
       ) : (

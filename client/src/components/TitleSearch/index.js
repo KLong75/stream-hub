@@ -76,451 +76,514 @@ const TitleSearch = () => {
 
     // do i need an (!cachedTopTitlesMovieAndTv) here?
 
+    // const fetchData = async () => {
+    //   const pageOneMovies = await getTopMovieTitlesPageOne();
+    //   const pageTwoMovies = await getTopMovieTitlesPageTwo();
+    //   const pageThreeMovies = await getTopMovieTitlesPageThree();
+    //   const pageFourMovies = await getTopMovieTitlesPageFour();
+    //   const pageFiveMovies = await getTopMovieTitlesPageFive();
+    //   const pageOneTv = await getTopTvTitlesPageOne();
+    //   const pageTwoTv = await getTopTvTitlesPageTwo();
+    //   const pageThreeTv = await getTopTvTitlesPageThree();
+    //   const pageFourTv = await getTopTvTitlesPageFour();
+    //   const pageFiveTv = await getTopTvTitlesPageFive();
+    //   const trendingMoviesPageOne = await getTrendingMoviesPageOne();
+    //   const trendingMoviesPageTwo = await getTrendingMoviesPageTwo();
+    //   const trendingMoviesPageThree = await getTrendingMoviesPageThree();
+    //   const trendingMoviesPageFour = await getTrendingMoviesPageFour();
+    //   const trendingMoviesPageFive = await getTrendingMoviesPageFive();
+    //   const popularMoviesPageOne = await getPopularMoviesPageOne();
+    //   const popularMoviesPageTwo = await getPopularMoviesPageTwo();
+    //   const popularMoviesPageThree = await getPopularMoviesPageThree();
+    //   const popularMoviesPageFour = await getPopularMoviesPageFour();
+    //   const popularMoviesPageFive = await getPopularMoviesPageFive();
+    //   const trendingTvPageOne = await getTrendingTvPageOne();
+    //   const trendingTvPageTwo = await getTrendingTvPageTwo();
+    //   const trendingTvPageThree = await getTrendingTvPageThree();
+    //   const trendingTvPageFour = await getTrendingTvPageFour();
+    //   const trendingTvPageFive = await getTrendingTvPageFive();
+    //   const popularTvPageOne = await getPopularTvPageOne();
+    //   const popularTvPageTwo = await getPopularTvPageTwo();
+    //   const popularTvPageThree = await getPopularTvPageThree();
+    //   const popularTvPageFour = await getPopularTvPageFour();
+    //   const popularTvPageFive = await getPopularTvPageFive();
+
+    //   const allFetchedData = [
+    //     pageOneMovies,
+    //     pageTwoMovies,
+    //     pageThreeMovies,
+    //     pageFourMovies,
+    //     pageFiveMovies,
+    //     pageOneTv,
+    //     pageTwoTv,
+    //     pageThreeTv,
+    //     pageFourTv,
+    //     pageFiveTv,
+    //     trendingMoviesPageOne,
+    //     trendingMoviesPageTwo,
+    //     trendingMoviesPageThree,
+    //     trendingMoviesPageFour,
+    //     trendingMoviesPageFive,
+    //     popularMoviesPageOne,
+    //     popularMoviesPageTwo,
+    //     popularMoviesPageThree,
+    //     popularMoviesPageFour,
+    //     popularMoviesPageFive,
+    //     trendingTvPageOne,
+    //     trendingTvPageTwo,
+    //     trendingTvPageThree,
+    //     trendingTvPageFour,
+    //     trendingTvPageFive,
+    //     popularTvPageOne,
+    //   ];
+
+    //   if (allFetchedData.every((page) => page)) {
+    //     const allTitles = [
+    //       ...pageOneMovies,
+    //       ...pageTwoMovies,
+    //       ...pageThreeMovies,
+    //       ...pageFourMovies,
+    //       ...pageFiveMovies,
+    //       ...pageOneTv,
+    //       ...pageTwoTv,
+    //       ...pageThreeTv,
+    //       ...pageFourTv,
+    //       ...pageFiveTv,
+    //       ...trendingMoviesPageOne,
+    //       ...trendingMoviesPageTwo,
+    //       ...trendingMoviesPageThree,
+    //       ...trendingMoviesPageFour,
+    //       ...trendingMoviesPageFour,
+    //       ...popularMoviesPageOne,
+    //       ...popularMoviesPageTwo,
+    //       ...popularMoviesPageThree,
+    //       ...popularMoviesPageFour,
+    //       ...popularMoviesPageFive,
+    //       ...trendingTvPageOne,
+    //       ...trendingTvPageTwo,
+    //       ...trendingTvPageThree,
+    //       ...trendingTvPageFour,
+    //       ...trendingTvPageFive,
+    //       ...popularTvPageOne,
+    //       ...popularTvPageTwo,
+    //       ...popularTvPageThree,
+    //       ...popularTvPageFour,
+    //       ...popularTvPageFive,
+    //     ];
+
+    //     if (allTitles.every((title) => title)) {
+    //       let uniqueTitles = Array.from(
+    //         new Set(allTitles.map((title) => title.title))
+    //       ).map((title) => {
+    //         return allTitles.find((t) => t.title === title);
+    //       });
+    //       uniqueTitles = uniqueTitles.filter((title) => {
+    //         let filteredOutTitles = [];
+    //         if (title && title.title) {
+    //           return true;
+    //         } else {
+    //           filteredOutTitles.push(title);
+    //           console.log(filteredOutTitles);
+    //           return false;
+    //         }
+    //       });
+    //       uniqueTitles = uniqueTitles.sort((a, b) =>
+    //         a.title.localeCompare(b.title)
+    //       );
+    //       setTopTitlesMovieAndTv(uniqueTitles);
+    //       console.log("titles retrieved:", uniqueTitles);
+    //       const cacheData = {
+    //         data: uniqueTitles,
+    //         timestamp: Date.now(),
+    //       };
+    //       localStorage.setItem(
+    //         `topTitlesMovieAndTv`,
+    //         JSON.stringify(cacheData)
+    //       );
+    //       console.log(topTitlesMovieAndTv);
+    //     }
+    //   }
+    // };
+
+    const getTopMovieTitlesPageOne = async () => {
+      try {
+        const response = await fetchTopMoviesPageOne();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopMovieTitlesPageTwo = async () => {
+      try {
+        const response = await fetchTopMoviesPageTwo();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopMovieTitlesPageThree = async () => {
+      try {
+        const response = await fetchTopMoviesPageThree();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopMovieTitlesPageFour = async () => {
+      try {
+        const response = await fetchTopMoviesPageFour();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopMovieTitlesPageFive = async () => {
+      try {
+        const response = await fetchTopMoviesPageFive();
+        const data = await response.json();
+        console.log(data);
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopTvTitlesPageOne = async () => {
+      try {
+        const response = await fetchTopTvPageOne();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopTvTitlesPageTwo = async () => {
+      try {
+        const response = await fetchTopTvPageTwo();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopTvTitlesPageThree = async () => {
+      try {
+        const response = await fetchTopTvPageThree();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopTvTitlesPageFour = async () => {
+      try {
+        const response = await fetchTopTvPageFour();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTopTvTitlesPageFive = async () => {
+      try {
+        const response = await fetchTopTvPageFive();
+        const data = await response.json();
+        console.log(data);
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingMoviesPageOne = async () => {
+      try {
+        const response = await fetchTrendingMoviesPageOne();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingMoviesPageTwo = async () => {
+      try {
+        const response = await fetchTrendingMoviesPageTwo();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingMoviesPageThree = async () => {
+      try {
+        const response = await fetchTrendingMoviesPageThree();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingMoviesPageFour = async () => {
+      try {
+        const response = await fetchTrendingMoviesPageFour();
+        const data = await response.json();
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingMoviesPageFive = async () => {
+      try {
+        const response = await fetchTrendingMoviesPageFive();
+        const data = await response.json();
+        console.log(data);
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularMoviesPageOne = async () => {
+      try {
+        const response = await fetchPopularMoviesPageOne();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularMoviesPageTwo = async () => {
+      try {
+        const response = await fetchPopularMoviesPageTwo();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularMoviesPageThree = async () => {
+      try {
+        const response = await fetchPopularMoviesPageThree();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularMoviesPageFour = async () => {
+      try {
+        const response = await fetchPopularMoviesPageFour();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularMoviesPageFive = async () => {
+      try {
+        const response = await fetchPopularMoviesPageFive();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((movie) => ({ title: movie.title }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingTvPageOne = async () => {
+      try {
+        const response = await fetchTrendingTvPageOne();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingTvPageTwo = async () => {
+      try {
+        const response = await fetchTrendingTvPageTwo();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingTvPageThree = async () => {
+      try {
+        const response = await fetchTrendingTvPageThree();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingTvPageFour = async () => {
+      try {
+        const response = await fetchTrendingTvPageFour();
+        const data = await response.json();
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getTrendingTvPageFive = async () => {
+      try {
+        const response = await fetchTrendingTvPageFive();
+        const data = await response.json();
+        console.log(data);
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularTvPageOne = async () => {
+      try {
+        const response = await fetchPopularTvPageOne();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularTvPageTwo = async () => {
+      try {
+        const response = await fetchPopularTvPageTwo();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularTvPageThree = async () => {
+      try {
+        const response = await fetchPopularTvPageThree();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularTvPageFour = async () => {
+      try {
+        const response = await fetchPopularTvPageFour();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const getPopularTvPageFive = async () => {
+      try {
+        const response = await fetchPopularTvPageFive();
+        const data = await response.json();
+        console.log(data)
+        return data.results.map((tvShow) => ({ title: tvShow.name }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     const fetchData = async () => {
-      const pageOneMovies = await getTopMovieTitlesPageOne();
-      const pageTwoMovies = await getTopMovieTitlesPageTwo();
-      const pageThreeMovies = await getTopMovieTitlesPageThree();
-      const pageFourMovies = await getTopMovieTitlesPageFour();
-      const pageFiveMovies = await getTopMovieTitlesPageFive();
-      const pageOneTv = await getTopTvTitlesPageOne();
-      const pageTwoTv = await getTopTvTitlesPageTwo();
-      const pageThreeTv = await getTopTvTitlesPageThree();
-      const pageFourTv = await getTopTvTitlesPageFour();
-      const pageFiveTv = await getTopTvTitlesPageFive();
-      const trendingMoviesPageOne = await getTrendingMoviesPageOne();
-      const trendingMoviesPageTwo = await getTrendingMoviesPageTwo();
-      const trendingMoviesPageThree = await getTrendingMoviesPageThree();
-      const trendingMoviesPageFour = await getTrendingMoviesPageFour();
-      const trendingMoviesPageFive = await getTrendingMoviesPageFive();
-      const popularMoviesPageOne = await getPopularMoviesPageOne();
-      const popularMoviesPageTwo = await getPopularMoviesPageTwo();
-      const popularMoviesPageThree = await getPopularMoviesPageThree();
-      const popularMoviesPageFour = await getPopularMoviesPageFour();
-      const popularMoviesPageFive = await getPopularMoviesPageFive();
-      const trendingTvPageOne = await getTrendingTvPageOne();
-      const trendingTvPageTwo = await getTrendingTvPageTwo();
-      const trendingTvPageThree = await getTrendingTvPageThree();
-      const trendingTvPageFour = await getTrendingTvPageFour();
-      const trendingTvPageFive = await getTrendingTvPageFive();
-      const popularTvPageOne = await getPopularTvPageOne();
-      const popularTvPageTwo = await getPopularTvPageTwo();
-      const popularTvPageThree = await getPopularTvPageThree();
-      const popularTvPageFour = await getPopularTvPageFour();
-      const popularTvPageFive = await getPopularTvPageFive();
-
-      const allFetchedData = [
-        pageOneMovies,
-        pageTwoMovies,
-        pageThreeMovies,
-        pageFourMovies,
-        pageFiveMovies,
-        pageOneTv,
-        pageTwoTv,
-        pageThreeTv,
-        pageFourTv,
-        pageFiveTv,
-        trendingMoviesPageOne,
-        trendingMoviesPageTwo,
-        trendingMoviesPageThree,
-        trendingMoviesPageFour,
-        trendingMoviesPageFive,
-        popularMoviesPageOne,
-        popularMoviesPageTwo,
-        popularMoviesPageThree,
-        popularMoviesPageFour,
-        popularMoviesPageFive,
-        trendingTvPageOne,
-        trendingTvPageTwo,
-        trendingTvPageThree,
-        trendingTvPageFour,
-        trendingTvPageFive,
-        popularTvPageOne,
-      ];
-
-      if (allFetchedData.every((page) => page)) {
-        const allTitles = [
-          ...pageOneMovies,
-          ...pageTwoMovies,
-          ...pageThreeMovies,
-          ...pageFourMovies,
-          ...pageFiveMovies,
-          ...pageOneTv,
-          ...pageTwoTv,
-          ...pageThreeTv,
-          ...pageFourTv,
-          ...pageFiveTv,
-          ...trendingMoviesPageOne,
-          ...trendingMoviesPageTwo,
-          ...trendingMoviesPageThree,
-          ...trendingMoviesPageFour,
-          ...trendingMoviesPageFour,
-          ...popularMoviesPageOne,
-          ...popularMoviesPageTwo,
-          ...popularMoviesPageThree,
-          ...popularMoviesPageFour,
-          ...popularMoviesPageFive,
-          ...trendingTvPageOne,
-          ...trendingTvPageTwo,
-          ...trendingTvPageThree,
-          ...trendingTvPageFour,
-          ...trendingTvPageFive,
-          ...popularTvPageOne,
-          ...popularTvPageTwo,
-          ...popularTvPageThree,
-          ...popularTvPageFour,
-          ...popularTvPageFive,
+      try {
+        const fetchFunctions = [
+          getTopMovieTitlesPageOne, 
+          getTopMovieTitlesPageTwo, 
+          getTopMovieTitlesPageThree, 
+          getTopMovieTitlesPageFour,
+          getTopMovieTitlesPageFive,
+          getTopTvTitlesPageOne,
+          getTopTvTitlesPageTwo,
+          getTopTvTitlesPageThree,
+          getTopTvTitlesPageFour,
+          getTopTvTitlesPageFive,
+          getTrendingMoviesPageOne,
+          getTrendingMoviesPageTwo,
+          getTrendingMoviesPageThree,
+          getTrendingMoviesPageFour,
+          getTrendingMoviesPageFive,
+          getPopularMoviesPageOne,
+          getPopularMoviesPageTwo,
+          getPopularMoviesPageThree,
+          getPopularMoviesPageFour,
+          getPopularMoviesPageFive,
+          getTrendingTvPageOne,
+          getTrendingTvPageTwo,
+          getTrendingTvPageThree,
+          getTrendingTvPageFour,
+          getTrendingTvPageFive,
+          getPopularTvPageOne,
+          getPopularTvPageTwo,
+          getPopularTvPageThree,
+          getPopularTvPageFour,
+          getPopularTvPageFive,
         ];
-
-        if (allTitles.every((title) => title)) {
-          let uniqueTitles = Array.from(
-            new Set(allTitles.map((title) => title.title))
-          ).map((title) => {
-            return allTitles.find((t) => t.title === title);
-          });
-          uniqueTitles = uniqueTitles.filter((title) => {
-            let filteredOutTitles = [];
-            if (title && title.title) {
-              return true;
-            } else {
-              filteredOutTitles.push(title);
-              console.log(filteredOutTitles);
-              return false;
-            }
-          });
-          uniqueTitles = uniqueTitles.sort((a, b) =>
-            a.title.localeCompare(b.title)
-          );
+        
+        const allFetchedData = await Promise.all(fetchFunctions.map(func => func()));
+    
+        // Flatten the arrays
+        const allTitles = allFetchedData.flat();
+    
+        if (allTitles.every(title => title)) {
+          let uniqueTitles = Array.from(new Set(allTitles.map(title => title.title)))
+            .map(title => {
+              return allTitles.find(t => t.title === title);
+            })
+            .filter(title => title && title.title)
+            .sort((a, b) => a.title.localeCompare(b.title));
+    
           setTopTitlesMovieAndTv(uniqueTitles);
-          console.log("titles retrieved:", uniqueTitles);
+    
           const cacheData = {
             data: uniqueTitles,
             timestamp: Date.now(),
           };
-          localStorage.setItem(
-            `topTitlesMovieAndTv`,
-            JSON.stringify(cacheData)
-          );
+    
+          localStorage.setItem(`topTitlesMovieAndTv`, JSON.stringify(cacheData));
           console.log(topTitlesMovieAndTv);
         }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
     fetchData();
-    // keep an eye on the line below topTitlesMovieAndTv was not there before and it caused a warning
-  }, [topTitlesMovieAndTv]);
-
-  const getTopMovieTitlesPageOne = async () => {
-    try {
-      const response = await fetchTopMoviesPageOne();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopMovieTitlesPageTwo = async () => {
-    try {
-      const response = await fetchTopMoviesPageTwo();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopMovieTitlesPageThree = async () => {
-    try {
-      const response = await fetchTopMoviesPageThree();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopMovieTitlesPageFour = async () => {
-    try {
-      const response = await fetchTopMoviesPageFour();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopMovieTitlesPageFive = async () => {
-    try {
-      const response = await fetchTopMoviesPageFive();
-      const data = await response.json();
-      console.log(data);
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopTvTitlesPageOne = async () => {
-    try {
-      const response = await fetchTopTvPageOne();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopTvTitlesPageTwo = async () => {
-    try {
-      const response = await fetchTopTvPageTwo();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopTvTitlesPageThree = async () => {
-    try {
-      const response = await fetchTopTvPageThree();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopTvTitlesPageFour = async () => {
-    try {
-      const response = await fetchTopTvPageFour();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTopTvTitlesPageFive = async () => {
-    try {
-      const response = await fetchTopTvPageFive();
-      const data = await response.json();
-      console.log(data);
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingMoviesPageOne = async () => {
-    try {
-      const response = await fetchTrendingMoviesPageOne();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingMoviesPageTwo = async () => {
-    try {
-      const response = await fetchTrendingMoviesPageTwo();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingMoviesPageThree = async () => {
-    try {
-      const response = await fetchTrendingMoviesPageThree();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingMoviesPageFour = async () => {
-    try {
-      const response = await fetchTrendingMoviesPageFour();
-      const data = await response.json();
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingMoviesPageFive = async () => {
-    try {
-      const response = await fetchTrendingMoviesPageFive();
-      const data = await response.json();
-      console.log(data);
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularMoviesPageOne = async () => {
-    try {
-      const response = await fetchPopularMoviesPageOne();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularMoviesPageTwo = async () => {
-    try {
-      const response = await fetchPopularMoviesPageTwo();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularMoviesPageThree = async () => {
-    try {
-      const response = await fetchPopularMoviesPageThree();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularMoviesPageFour = async () => {
-    try {
-      const response = await fetchPopularMoviesPageFour();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularMoviesPageFive = async () => {
-    try {
-      const response = await fetchPopularMoviesPageFive();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((movie) => ({ title: movie.title }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingTvPageOne = async () => {
-    try {
-      const response = await fetchTrendingTvPageOne();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingTvPageTwo = async () => {
-    try {
-      const response = await fetchTrendingTvPageTwo();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingTvPageThree = async () => {
-    try {
-      const response = await fetchTrendingTvPageThree();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingTvPageFour = async () => {
-    try {
-      const response = await fetchTrendingTvPageFour();
-      const data = await response.json();
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getTrendingTvPageFive = async () => {
-    try {
-      const response = await fetchTrendingTvPageFive();
-      const data = await response.json();
-      console.log(data);
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularTvPageOne = async () => {
-    try {
-      const response = await fetchPopularTvPageOne();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularTvPageTwo = async () => {
-    try {
-      const response = await fetchPopularTvPageTwo();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularTvPageThree = async () => {
-    try {
-      const response = await fetchPopularTvPageThree();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularTvPageFour = async () => {
-    try {
-      const response = await fetchPopularTvPageFour();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPopularTvPageFive = async () => {
-    try {
-      const response = await fetchPopularTvPageFive();
-      const data = await response.json();
-      console.log(data)
-      return data.results.map((tvShow) => ({ title: tvShow.name }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const searchByUserInput = async (event) => {
     event.preventDefault();
@@ -585,13 +648,6 @@ const TitleSearch = () => {
       }
     }
   };
-
-  // useEffect(() => {
-  //   if (setTitleSearchResults) {
-  //     navigate('/title_details');
-  //   }
-  // }, [setTitleSearchResults, navigate]);
-
 
   return (
     <div>

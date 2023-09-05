@@ -2,9 +2,8 @@ const { Schema } = require("mongoose");
 
 // This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedTitles` array in User.js
 const titleSchema = new Schema({
-  // saved title id
-  titleId: {
-    type: String,
+  id: {
+    type: Number,
     required: true,
   },
   title: {
@@ -15,7 +14,7 @@ const titleSchema = new Schema({
     type: String,
   },
   year: {
-    type: String,
+    type: Number,
   },
   backdrop: {
     type: String,
@@ -43,26 +42,32 @@ const titleSchema = new Schema({
   us_rating: {
     type: String,
   },
-  cast: [
-    {
-      type: String,
-    },
-  ],
-  director: [
-    {
-      type: String,
-    },
-  ],
   sources: [
     {
-      type: String,
+      type: Object,
     },
   ],
-  similar_titles: [
-    {
-      type: String,
-    },
-  ],
+  // buy_sources: [
+  //   {
+  //     type: Object,
+  //   },
+  // ],
+  // similar_titles: [
+  //   {
+  //     type: Object,
+  //   },
+  // ],
+  // cast: [
+  //   {
+  //     type: Object,
+  //   },
+  // ],
+  // director: [
+  //   {
+  //     type: Object,
+  //   },
+  // ],
+ 
 });
 
 module.exports = titleSchema;

@@ -13,6 +13,8 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
+    
+
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -36,28 +38,29 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // saveTitle: async (parent, { input }, context) => {
-    //   if (context.user) {
-    //     const addTitle = await User.findByIdAndUpdate(
-    //       { _id: context.user._id },
-    //       { $push: { savedTitles: title } },
-    //       { new: true, runValidators: true }
-    //     );
-    //     return addTitle;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    // removeTitle: async (parent, { titleId }, context) => {
-    //   if (context.user) {
-    //     const removeTitle = await User.findByIdAndUpdate(
-    //       { _id: context.user._id },
-    //       { $pull: { savedTitles: { titleId } } },
-    //       { new: true }
-    //     );
-    //     return removeTitle;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
+    saveTitle: async (parent, { input }, context) => {
+      console.log('trying to save:', input);
+      if (context.user) {
+        const addTitle = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { savedTitles: input } },
+          { new: true, runValidators: true }
+        );
+        return addTitle;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    removeTitle: async (parent, { id }, context) => {
+      if (context.user) {
+        const removeTitle = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedTitles: { id } } },
+          { new: true }
+        );
+        return removeTitle;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     // saveActor: async (parent, { input }, context) => {
     //   if (context.user) {
     //     const addActor = await User.findByIdAndUpdate(
