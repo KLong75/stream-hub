@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, InputLabel, Select, FormControl } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
@@ -28,12 +28,6 @@ const SignupForm = () => {
       console.error(e);
     }
   };
-
-  // setFormState({
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  // });
 
   return (
     <div>

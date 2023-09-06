@@ -66,7 +66,7 @@ const resolvers = {
             throw new Error("No user found with this id!");
           }
           if (dbUserData.savedTitles && dbUserData.savedTitles.length > 0) {
-            await Title.deleteMany({ _id: { $in: dbUserData.savedTitles } });
+           
           }
         } catch (err) {
           throw new Error(err);
