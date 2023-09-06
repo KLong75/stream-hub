@@ -62,7 +62,7 @@ export const SAVE_TITLE = gql`
 `;
 
 export const REMOVE_TITLE = gql`
-  mutation removeTitle($titleId: String!) {
+  mutation removeTitle($id: Int!) {
     removeTitle(id: $id) {
       _id
       username

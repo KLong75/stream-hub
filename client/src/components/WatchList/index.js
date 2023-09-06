@@ -10,35 +10,68 @@ import { QUERY_ME } from "../../utils/queries";
 
 import { REMOVE_TITLE } from "../../utils/mutations";
 
-const WatchList = () => {
-  const { loading, data } = useQuery(QUERY_ME);
-  const [removeTitle] = useMutation(REMOVE_TITLE);
-  const userData = data?.me || {};
-  const loggedIn = Auth.loggedIn();
 
-  const handleDeleteTitle = async (titleId) => {
+
+const WatchList = () => {
+  const loggedIn = Auth.loggedIn();
+  const { loading, data } = useQuery(QUERY_ME);
+  const userData = data?.me || {};
+  const [removeTitle] = useMutation(REMOVE_TITLE);
+
+  // const handleDeleteTitle = async (id) => {
+  //   console.log(id);
+  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
+  //   if (!token) {
+  //     return false;
+  //   }
+  //   try {
+  //     await removeTitle({
+  //       variables: { id: id },
+  //       update: (cache) => {
+  //         const data = cache.readQuery({ query: QUERY_ME });
+  //         const userDataCache = data.me;
+  //         const savedTitlesCache = userDataCache.savedTitles;
+  //         const updatedTitleCache = savedTitlesCache.filter(
+  //           (title) => title.id !== id
+  //         );
+  //         data.me.savedTitles = updatedTitleCache;
+  //         cache.writeQuery({ query: QUERY_ME, data });
+  //       },
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  const handleDeleteTitle = async (id) => {
+    console.log(id);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
     }
     try {
       await removeTitle({
-        variables: { titleId },
+        variables: { id: id },
         update: (cache) => {
           const data = cache.readQuery({ query: QUERY_ME });
-          const userDataCache = data.me;
-          const savedTitlesCache = userDataCache.savedTitles;
-          const updatedTitleCache = savedTitlesCache.filter(
-            (title) => title.titleId !== titleId
+          
+          // Create a deep copy of the data
+          const newData = JSON.parse(JSON.stringify(data));
+          
+          // Update the copy, not the original data
+          newData.me.savedTitles = newData.me.savedTitles.filter(
+            (title) => title.id !== id
           );
-          data.me.savedTitles = updatedTitleCache;
-          cache.writeQuery({ query: QUERY_ME, data });
+          
+          // Write the updated data back to the cache
+          cache.writeQuery({ query: QUERY_ME, data: newData });
         },
       });
     } catch (err) {
       console.error(err);
     }
-  };
+};
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,6 +83,11 @@ const WatchList = () => {
         <>
           <h4>{Auth.getProfile().data.username}'s Watchlist</h4>
           <div className="watchlist">
+          <h5>
+          {userData.savedTitles.length
+            ? `You have ${userData.savedTitles.length} saved ${userData.savedTitles.length === 1 ? 'title' : 'titles'}:`
+            : 'You have no saved titles!'}
+        </h5>
             {userData.savedTitles?.map((title) => {
               return (
                 <div className="watchlist-item" key={title.id}>
@@ -108,7 +146,7 @@ const WatchList = () => {
                   </div>
 
                   <div className="watchlist-item-buttons">
-                    <button onClick={() => handleDeleteTitle(title.titleId)}>
+                    <button onClick={() => handleDeleteTitle(title.id)}>
                       Remove
                     </button>
                     <Link to={`/title/${title.titleId}`}>

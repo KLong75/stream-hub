@@ -16,6 +16,7 @@ import {
 import Button from "@mui/material/Button";
 // import from utils
 import { CACHE_DURATION, formatDate } from "../utils/utils";
+import { saveTitleIds, getSavedTitleIds } from '../utils/savedTitleIdsLocalStorage';
 import Auth from "../utils/auth";
 
 import { useMutation } from "@apollo/client";
@@ -24,6 +25,13 @@ import { SAVE_TITLE } from "../utils/mutations";
 
 
 const TitleDetails = () => {
+  const [savedTitleIds, setSavedTitleIds] = useState(getSavedTitleIds); // [1, 2, 3, 4, 5
+  console.log(getSavedTitleIds);
+  console.log(savedTitleIds);
+  useEffect(() => {
+    return () => saveTitleIds(savedTitleIds);
+  });
+
   const navigate = useNavigate();
 
   const title = useContext(TitleDetailsContext);
@@ -484,9 +492,7 @@ const TitleDetails = () => {
     );
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
-
       console.log(CACHE_DURATION);
-
       const now = Date.now();
       console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
@@ -494,9 +500,6 @@ const TitleDetails = () => {
         console.log("cached data retrieved, parsed, time checked", data);
         navigate(`/title_details`);
         window.scrollTo(0, 0); // Scroll to the top of the page
-        // window.location.href =
-        //   "/title_details?titleDetails=" +
-        //   encodeURIComponent(JSON.stringify(data));
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -507,7 +510,6 @@ const TitleDetails = () => {
     if (!cachedTitleDetails) {
       try {
         const response = await fetchTitleDetails(selectedTitleId);
-
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
@@ -530,8 +532,6 @@ const TitleDetails = () => {
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
-          // trailer: titleDetails.trailer,
-          // trailer: titleDetails.trailer.replace(/watch\?v=/, 'embed/'),
           trailer:
             titleDetails.trailer && titleDetails.trailer.includes("youtube")
               ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
@@ -542,8 +542,6 @@ const TitleDetails = () => {
           imdb_id: titleDetails.imdb_id,
         };
         console.log(titleDetailsData);
-
-        // setSelectedTitleDetails(titleDetailsData);
 
         const cacheData = {
           data: titleDetailsData,
@@ -698,7 +696,9 @@ const TitleDetails = () => {
         variables: { input },
       });
       console.log(`Title ${input.title} saved successfully`, input);
-      // window.location.reload();
+      setSavedTitleIds([...savedTitleIds, input.id])
+      console.log(input.id);
+      console.log(savedTitleIds);
     } catch (err) {
       console.error(err);
     }

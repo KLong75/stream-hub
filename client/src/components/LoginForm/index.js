@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import { LOGIN_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const LoginForm = () => {
   const [formState, setFormState] = useState({
@@ -39,7 +40,6 @@ const LoginForm = () => {
     <div>
       <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
-      
         <div>
           <TextField
             required
@@ -62,7 +62,20 @@ const LoginForm = () => {
             onChange={handleChanges}
           />
         </div>
+      
         <button type="submit">Submit</button>
+        {error ? (
+          <>
+          <p className="error-text font-link" id="log-in-error">
+            Login failed.
+          </p>
+          <p>Please try again.</p>
+          <p>Or</p>
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+          </>
+        ) : null}
       </form>
     </div>
   );

@@ -61,6 +61,23 @@ const GenreSearchResults = () => {
 
         console.log("New Data Retrieved:", titleDetails);
 
+        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
+
+        const uniqueBuySources = [];
+        const buySourceNames = new Set();
+
+        titleDetails.sources.forEach((source) => {
+          if (
+              source.type === "buy" &&
+              rentBuySourceNamesToInclude.some((name) => name === source.name)
+          ) {
+              if (!buySourceNames.has(source.name)) {
+                  buySourceNames.add(source.name);
+                  uniqueBuySources.push(source);
+              }
+          }
+      });
+
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -74,13 +91,11 @@ const GenreSearchResults = () => {
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
           runtime: titleDetails.runtime,
-          similar_titles: titleDetails.similar_titles.slice(0, 5) ?? [],
-          sources: titleDetails.sources.filter(
-            (source) => source.type === "sub"
-          ),
-          purchase_sources: titleDetails.sources.filter(
-            (source) => source.type === "purchase"
-          ),
+          similar_titles: titleDetails.similar_titles
+            ? titleDetails.similar_titles.slice(0, 5)
+            : [],
+          sources: titleDetails.sources.filter((source) => source.type === "sub"),
+          buy_sources: uniqueBuySources,
           trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,

@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 // import from mui
 import Button from "@mui/material/Button";
 // import context
-import { SearchResultsContext } from '../context/SearchResultsContext'; 
-import { TitleDetailsContext } from '../context/TitleDetailsContext';
+import { SearchResultsContext } from "../context/SearchResultsContext";
+import { TitleDetailsContext } from "../context/TitleDetailsContext";
 // import from utils
 import { fetchTitleDetails } from "../utils/apiCalls";
-import { CACHE_DURATION } from '../utils/utils';
+import { CACHE_DURATION } from "../utils/utils";
 
 const TitleSearchResults = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const TitleSearchResults = () => {
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
   console.log(titleSearchResults);
-  
+
   useEffect(() => {}, [titleSearchResults]);
 
   const handleTitleSelected = async (event) => {
@@ -54,32 +54,30 @@ const TitleSearchResults = () => {
     if (!cachedTitleDetails) {
       try {
         const response = await fetchTitleDetails(selectedTitleId);
-
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-
         const titleDetails = await response.json();
-
         console.log(titleDetails);
-        
-        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
-
+        const rentBuySourceNamesToInclude = [
+          "iTunes",
+          "Google Play",
+          "Amazon",
+          "YouTube",
+        ];
         const uniqueBuySources = [];
         const buySourceNames = new Set();
-
         titleDetails.sources.forEach((source) => {
           if (
-              source.type === "buy" &&
-              rentBuySourceNamesToInclude.some((name) => name === source.name)
+            source.type === "buy" &&
+            rentBuySourceNamesToInclude.some((name) => name === source.name)
           ) {
-              if (!buySourceNames.has(source.name)) {
-                  buySourceNames.add(source.name);
-                  uniqueBuySources.push(source);
-              }
+            if (!buySourceNames.has(source.name)) {
+              buySourceNames.add(source.name);
+              uniqueBuySources.push(source);
+            }
           }
-      });
-
+        });
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -96,9 +94,14 @@ const TitleSearchResults = () => {
           similar_titles: titleDetails.similar_titles
             ? titleDetails.similar_titles.slice(0, 5)
             : [],
-          sources: titleDetails.sources.filter((source) => source.type === "sub"),
+          sources: titleDetails.sources.filter(
+            (source) => source.type === "sub"
+          ),
           buy_sources: uniqueBuySources,
-          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
+          trailer:
+            titleDetails.trailer && titleDetails.trailer.includes("youtube")
+              ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
+              : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
