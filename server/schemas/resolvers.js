@@ -39,22 +39,6 @@ const resolvers = {
       return { token, user };
     },
 
-    // deleteUser: async (parent, args, context) => {
-    //   if (context.user) {
-    //   User.findOneAndDelete({ _id: context.user._id })
-    //   .then((dbUserData) => {
-    //     if (!dbUserData) {
-    //       return res.status(404).json({ message: 'No user found with this id!' });
-    //     }
-    //     Title.deleteMany({ _id: { $in: dbUserData.savedTitles } })
-    //       .then(() => {res,status(200).json({ message: 'User and associated titles deleted!' });
-    //       })
-    //       .catch((err) => res.status(400).json(err));
-    //   })
-    //   .catch((err) => res.status(400).json(err));
-    //   }
-    // },
-
     deleteUser: async (parent, args, context) => {
       if (context.user) {
         try {
@@ -65,9 +49,7 @@ const resolvers = {
           if (!dbUserData) {
             throw new Error("No user found with this id!");
           }
-          if (dbUserData.savedTitles && dbUserData.savedTitles.length > 0) {
-           
-          }
+          return dbUserData;
         } catch (err) {
           throw new Error(err);
         }
@@ -75,7 +57,6 @@ const resolvers = {
         throw new Error("You must be logged in to delete a user!");
       }
     },
-
     saveTitle: async (parent, { input }, context) => {
       console.log("trying to save:", input);
       if (context.user) {
