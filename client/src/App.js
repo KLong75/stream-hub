@@ -12,7 +12,7 @@ import ActorSearchResults from './pages/ActorSearchResults';
 import SignUp from './pages/SignUp';
 import TitleDetails from './pages/TitleDetails';
 import NowTrending from './pages/NowTrending';
-import Library from './pages/Library';
+import AccountSettings from './pages/AccountSettings';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -102,8 +102,8 @@ const App = () => {
               element={<TitleDetails />}
             />
             <Route
-              path='/library'
-              element={<Library />}
+              path='/account_settings'
+              element={<AccountSettings />}
             />
           </Routes>
           <Footer/>

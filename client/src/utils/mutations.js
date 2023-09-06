@@ -25,6 +25,42 @@ export const ADD_USER = gql`
   }
 `;
 
+export const DELETE_USER = gql`
+  mutation deleteUser {
+    deleteUser {
+      _id
+      username
+      email
+      savedTitles {
+        id
+        title
+        type
+        year
+        backdrop
+        genre_names
+        plot_overview
+        poster
+        trailer
+        trailer_thumbnail
+        release_date
+        us_rating
+        sources {
+          source_id
+          name
+          web_url
+        }
+        buy_sources {
+          source_id
+          name
+          web_url
+          type
+        }
+        similar_titles
+      }
+    }
+  }
+`;
+
 export const SAVE_TITLE = gql`
   mutation saveTitle($input: TitleInput!) {
     saveTitle(input: $input) {

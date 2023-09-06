@@ -18,31 +18,6 @@ const WatchList = () => {
   const userData = data?.me || {};
   const [removeTitle] = useMutation(REMOVE_TITLE);
 
-  // const handleDeleteTitle = async (id) => {
-  //   console.log(id);
-  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
-  //   if (!token) {
-  //     return false;
-  //   }
-  //   try {
-  //     await removeTitle({
-  //       variables: { id: id },
-  //       update: (cache) => {
-  //         const data = cache.readQuery({ query: QUERY_ME });
-  //         const userDataCache = data.me;
-  //         const savedTitlesCache = userDataCache.savedTitles;
-  //         const updatedTitleCache = savedTitlesCache.filter(
-  //           (title) => title.id !== id
-  //         );
-  //         data.me.savedTitles = updatedTitleCache;
-  //         cache.writeQuery({ query: QUERY_ME, data });
-  //       },
-  //     });
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
   const handleDeleteTitle = async (id) => {
     console.log(id);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -71,8 +46,6 @@ const WatchList = () => {
       console.error(err);
     }
 };
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -104,8 +77,8 @@ const WatchList = () => {
                         <>
                           <p>Watch On:</p>
                           {title.sources.map((source) => {
-                            const keyVal = `${title.id}-${source.source_id}`;
-                            console.log("Source Key: ", keyVal);
+                            //const keyVal = `${title.id}-${source.source_id}`;
+                            //console.log("Source Key: ", keyVal);
                             return (
                               <div key={`${title.id}-${source.source_id}`}>
                                 <a
@@ -126,8 +99,8 @@ const WatchList = () => {
                         <>
                           <p>Rent or buy on:</p>
                           {title.buy_sources.map((buy_source) => {
-                            const keyVal = `${title.id}-${buy_source.source_id}`;
-                            console.log("Buy Source Key: ", keyVal);
+                            //const keyVal = `${title.id}-${buy_source.source_id}`;
+                            //console.log("Buy Source Key: ", keyVal);
                             return (
                               <div key={`${title.id}-${buy_source.source_id}`}>
                                 <a

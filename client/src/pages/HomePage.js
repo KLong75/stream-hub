@@ -30,6 +30,7 @@ const HomePage = () => {
             <SearchByGenreSourceType />
             <ActorSearch />
             <WatchList />
+            <Link to="/account_settings">Account Settings</Link>
           </section>
         </>
       ) : (

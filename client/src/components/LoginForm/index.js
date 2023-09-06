@@ -62,7 +62,6 @@ const LoginForm = () => {
             onChange={handleChanges}
           />
         </div>
-      
         <button type="submit">Submit</button>
         {error ? (
           <>
