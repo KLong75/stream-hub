@@ -52,7 +52,7 @@ const WatchList = () => {
           <div className="watchlist">
             {userData.savedTitles?.map((title) => {
               return (
-                <div className="watchlist-item" key={title.titleId}>
+                <div className="watchlist-item" key={title.id}>
                   <div className="watchlist-item-title">
                     <h5>{title.title}</h5>
                     <p>{title.year}</p>
@@ -66,8 +66,10 @@ const WatchList = () => {
                         <>
                           <p>Watch On:</p>
                           {title.sources.map((source) => {
+                            const keyVal = `${title.id}-${source.source_id}`;
+                            console.log("Source Key: ", keyVal);
                             return (
-                              <div key={source.source_id}>
+                              <div key={`${title.id}-${source.source_id}`}>
                                 <a
                                   href={source.web_url}
                                   target="_blank"
@@ -79,15 +81,17 @@ const WatchList = () => {
                             );
                           })}
                         </>
-                        )}
+                      )}
                     </div>
                     <div>
                       {title.buy_sources && title.buy_sources.length > 0 && (
                         <>
                           <p>Rent or buy on:</p>
                           {title.buy_sources.map((buy_source) => {
+                            const keyVal = `${title.id}-${buy_source.source_id}`;
+                            console.log("Buy Source Key: ", keyVal);
                             return (
-                              <div key={buy_source.source_id}>
+                              <div key={`${title.id}-${buy_source.source_id}`}>
                                 <a
                                   href={buy_source.web_url}
                                   target="_blank"
@@ -99,11 +103,10 @@ const WatchList = () => {
                             );
                           })}
                         </>
-                        )}
+                      )}
                     </div>
-
-
                   </div>
+
                   <div className="watchlist-item-buttons">
                     <button onClick={() => handleDeleteTitle(title.titleId)}>
                       Remove

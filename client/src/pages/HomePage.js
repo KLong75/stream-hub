@@ -13,13 +13,6 @@ import WatchList from "../components/WatchList";
 
 import Auth from "../utils/auth";
 
-// import { fetchSources, discoverTrendingActionMovies, trendingTvTest } from '../utils/apiCalls';
-
-// discoverTrendingActionMovies();
-// trendingTvTest();
-// fetchSources();
-// fetchTitlesBySource();
-
 const HomePage = () => {
   const loggedIn = Auth.loggedIn();
 

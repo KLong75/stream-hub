@@ -12,6 +12,7 @@ import ActorSearchResults from './pages/ActorSearchResults';
 import SignUp from './pages/SignUp';
 import TitleDetails from './pages/TitleDetails';
 import NowTrending from './pages/NowTrending';
+import Library from './pages/Library';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -99,6 +100,10 @@ const App = () => {
             <Route
               path='/title_details'
               element={<TitleDetails />}
+            />
+            <Route
+              path='/library'
+              element={<Library />}
             />
           </Routes>
           <Footer/>
