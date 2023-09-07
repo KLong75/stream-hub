@@ -13,25 +13,43 @@ const AccountSettings = () => {
     setTimeout(() => setUpdateSuccess(false), 5000); // hides the message after 5 seconds
   };
 
+  const handleUserEmailUpdate = () => {
+    setUpdateSuccess(true);
+    setTimeout(() => setUpdateSuccess(false), 5000); // hides the message after 5 seconds
+  };
+
+  const handleUsernameUpdate = () => {
+    setUpdateSuccess(true);
+    setTimeout(() => setUpdateSuccess(false), 5000); // hides the message after 5 seconds
+  };
+
+
   const [modalType, setModalType] = useState("");
 
   return (
     <>
       <h3>Account Settings</h3>
-
       <button onClick={() => setModalType("delete")}>Delete Account</button>
       <button onClick={() => setModalType("username")}>Update Username</button>
       <button onClick={() => setModalType("email")}>Update Email</button>
       <button onClick={() => setModalType("password")}>Update Password</button>
-
+      
       {modalType === "delete" && (
-        <DeleteAccountModal onClose={() => setModalType("")} />
+        <DeleteAccountModal 
+          onClose={() => setModalType("")}  
+        />
       )}
       {modalType === "username" && (
-        <UpdateUsernameModal onClose={() => setModalType("")} />
+        <UpdateUsernameModal 
+          onClose={() => setModalType("")}
+          onSuccessfulUpdate={handleUsernameUpdate} 
+        />
       )}
       {modalType === "email" && (
-        <UpdateUserEmailModal onClose={() => setModalType("")} />
+        <UpdateUserEmailModal 
+          onClose={() => setModalType("")}
+          onSuccessfulUpdate={handleUserEmailUpdate} 
+        />
       )}
       {modalType === "password" && (
         <UpdatePasswordModal
@@ -39,7 +57,7 @@ const AccountSettings = () => {
           onSuccessfulUpdate={handlePasswordUpdate}
         />
       )}
-      {updateSuccess && <div>Password updated successfully!</div>}
+      {updateSuccess && <div>Your account information has been updated.</div>}
     </>
   );
 };

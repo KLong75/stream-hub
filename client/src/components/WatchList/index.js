@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Auth from "../../utils/auth";
 
@@ -14,8 +14,12 @@ import { REMOVE_TITLE } from "../../utils/mutations";
 
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
-  const { loading, data } = useQuery(QUERY_ME);
+  const { username: userParam } = useParams();
+  const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
+    variables: { username: userParam },
+  });
   const userData = data?.me || {};
+
   const [removeTitle] = useMutation(REMOVE_TITLE);
 
   const handleDeleteTitle = async (id) => {
@@ -54,7 +58,7 @@ const WatchList = () => {
     <>
       {loggedIn ? (
         <>
-          <h4>{Auth.getProfile().data.username}'s Watchlist</h4>
+          <h4>{userData.username}'s Watchlist</h4>
           <div className="watchlist">
           <h5>
           {userData.savedTitles.length

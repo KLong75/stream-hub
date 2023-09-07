@@ -22,6 +22,17 @@ const userSchema = new Schema(
       type: String,
       required: true,
       minlength: 6,
+      validate: {
+        validator: function(value) {
+          const upperCase = /[A-Z]/.test(value);
+          const lowerCase = /[a-z]/.test(value);
+          const number = /[0-9]/.test(value);
+          const specialChar = /[^A-Za-z0-9]/.test(value);
+    
+          return upperCase && lowerCase && number && specialChar;
+        },
+        message: "Password must have at least one uppercase letter, one lowercase letter, one number, and one special character"
+      }
     },
     // set savedTitles to be an array of data that adheres to the titleSchema
     savedTitles: [titleSchema],

@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+// import components
 // import TvLoader from '../components/TvLoader';
-// import Clapboard from '../components/LoadingClapBoard';
+import Clapboard from '../components/LoadingClapBoard';
 import GenreSearch from "../components/GenreSearch";
 import TitleSearch from "../components/TitleSearch";
 import MixedGenreMovieSearch from "../components/MixedGenreMovieSearch";
@@ -13,14 +13,30 @@ import WatchList from "../components/WatchList";
 
 import Auth from "../utils/auth";
 
+import { useQuery } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
+
 const HomePage = () => {
   const loggedIn = Auth.loggedIn();
+  const { username: userParam } = useParams();
+  const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
+    variables: { username: userParam },
+  });
+  const user = data?.me || {};
+
+  if (loading) {
+    return (
+      <div>
+        Loading...
+        <Clapboard />
+      </div>);
+  }
 
   return (
     <>
       {loggedIn ? (
         <>
-          <h2>Welcome {Auth.getProfile().data.username}</h2>
+          <h2>Welcome {user.username}</h2>
           <section>
             <h3>Find Something to Watch</h3>
             <GenreSearch />

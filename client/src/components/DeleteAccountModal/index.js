@@ -19,8 +19,6 @@ const DeleteAccountModal = ({ onClose }) => {
     }
   };
 
-  
-  
   return (
     <div>
       <p>Are you sure you want to delete your account?</p>

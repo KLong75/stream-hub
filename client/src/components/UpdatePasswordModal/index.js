@@ -57,7 +57,6 @@ const UpdatePasswordModal = ({ onClose, onSuccessfulUpdate }) => {
         <button type="submit">Submit</button>
         {error && <span className="font-link">Update failed.</span>}
       </form>
-
       <button onClick={onClose}>Close</button>
     </>
   );
