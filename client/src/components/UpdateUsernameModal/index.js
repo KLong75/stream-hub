@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextField } from "@mui/material";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { QUERY_ME } from "../../utils/queries";
