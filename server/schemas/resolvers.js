@@ -2,6 +2,7 @@ const { User, Title } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const titleSchema = require("../models/Title");
+const bcrypt = require("bcrypt");
 
 const resolvers = {
   Query: {
@@ -37,6 +38,37 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+
+    updateUser: async (parent, args, context) => {
+      if (!context.user) {
+        throw new AuthenticationError("You need to be logged in to update a user!");
+      }
+      const { username, email, password } = args;
+      let updates = {};
+      if (username) {
+        updates.username = username;
+      }
+      if (email) {
+        updates.email = email;
+      }
+      if (password) {
+        updates.password = await bcrypt.hash(password, 10);
+      }
+
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          updates,
+          { new: true }
+        );
+        if (!updatedUser) {
+          throw new Error("No user found with this id!");
+        }
+        return updatedUser;
+      } catch (err) {
+        throw new Error(err.message);
+      }
     },
 
     deleteUser: async (parent, args, context) => {
