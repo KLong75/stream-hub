@@ -1,22 +1,17 @@
-// useTitleSelection.js
-
+// import context
 import { useContext } from "react";
-// import { SearchResultsContext } from "../context/SearchResultsContext";
 import { TitleDetailsContext } from "../context/TitleDetailsContext";
-import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
+import { searchTitlesByTMDBId } from "../utils/apiCalls";
 import { CACHE_DURATION } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 export const useTitleSelectionTMDBId = () => {
   const navigate = useNavigate();
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
-
   const handleTitleSelectedTMDBId = async (event) => {
     event.preventDefault();
-    // setSelectedTitle(event.target.value);
     const selectedTitleId = event.target.value;
     console.log(selectedTitleId);
-
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
     );
@@ -40,29 +35,22 @@ export const useTitleSelectionTMDBId = () => {
         console.log("Cached Data Expired and Removed");
       }
     }
-
     if (!cachedTitleDetails) {
       try {
         const response = await searchTitlesByTMDBId(selectedTitleId);
-
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-
         const titleDetails = await response.json();
-
         console.log("New Data Retrieved:", titleDetails);
-
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
           "Amazon",
           "YouTube",
         ];
-
         const uniqueBuySources = [];
         const buySourceNames = new Set();
-
         titleDetails.sources.forEach((source) => {
           if (
             source.type === "buy" &&
@@ -74,7 +62,6 @@ export const useTitleSelectionTMDBId = () => {
             }
           }
         });
-
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -104,11 +91,8 @@ export const useTitleSelectionTMDBId = () => {
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
         };
-
         console.log(titleDetailsData);
-
         setSelectedTitleDetails(titleDetailsData);
-
         const cacheData = {
           data: titleDetailsData,
           timestamp: Date.now(),
@@ -117,7 +101,7 @@ export const useTitleSelectionTMDBId = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         navigate("/title_details");
       } catch (error) {
         console.log(error);

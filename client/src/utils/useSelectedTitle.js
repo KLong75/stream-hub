@@ -1,10 +1,7 @@
-// useTitleSelection.js
-
 import { useContext } from "react";
-// import { SearchResultsContext } from "../context/SearchResultsContext";
 import { TitleDetailsContext } from "../context/TitleDetailsContext";
-import { fetchTitleDetails } from "../utils/apiCalls";
-import { CACHE_DURATION } from "../utils/utils";
+import { fetchTitleDetails } from "./apiCalls";
+import { CACHE_DURATION } from "./utils";
 import { useNavigate } from "react-router-dom";
 
 export const useTitleSelection = () => {
@@ -13,10 +10,8 @@ export const useTitleSelection = () => {
 
   const handleTitleSelected = async (event) => {
     event.preventDefault();
-    // setSelectedTitle(event.target.value);
     const selectedTitleId = event.target.value;
     console.log(selectedTitleId);
-
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
     );
@@ -32,7 +27,7 @@ export const useTitleSelection = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         navigate("/title_details");
         return;
       } else {
@@ -40,29 +35,22 @@ export const useTitleSelection = () => {
         console.log("Cached Data Expired and Removed");
       }
     }
-
     if (!cachedTitleDetails) {
       try {
         const response = await fetchTitleDetails(selectedTitleId);
-
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-
         const titleDetails = await response.json();
-
         console.log("New Data Retrieved:", titleDetails);
-
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
           "Amazon",
           "YouTube",
         ];
-
         const uniqueBuySources = [];
         const buySourceNames = new Set();
-
         titleDetails.sources.forEach((source) => {
           if (
             source.type === "buy" &&
@@ -74,7 +62,6 @@ export const useTitleSelection = () => {
             }
           }
         });
-
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -104,11 +91,8 @@ export const useTitleSelection = () => {
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
         };
-
         console.log(titleDetailsData);
-
         setSelectedTitleDetails(titleDetailsData);
-
         const cacheData = {
           data: titleDetailsData,
           timestamp: Date.now(),
@@ -124,6 +108,5 @@ export const useTitleSelection = () => {
       }
     }
   };
-
   return handleTitleSelected;
 };

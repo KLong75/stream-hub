@@ -17,6 +17,7 @@ import AccountSettings from './pages/AccountSettings';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import GenreSourceTypeResults from './pages/GenreSourceTypeResults';
+import ScrollToTop from './components/ScrollToTop.js';
 
 import { SearchResultsProvider } from './context/SearchResultsContext';
 import { TitleDetailsProvider } from './context/TitleDetailsContext';
@@ -51,6 +52,7 @@ const App = () => {
     <SearchResultsProvider>
       <TitleDetailsProvider>
         <Router>
+          <ScrollToTop/>
           <Header/>
           <Routes>
             <Route

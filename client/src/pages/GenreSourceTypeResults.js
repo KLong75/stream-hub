@@ -1,34 +1,19 @@
 // import from react
 import React, { useEffect, useState, useContext } from "react";
 // import from react-router
-import { useNavigate } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
-import { TitleDetailsContext } from "../context/TitleDetailsContext";
 // import from mui
 import Button from "@mui/material/Button";
 // import from utils
-import { searchTitlesByTMDBId, fetchTitleDetails } from "../utils/apiCalls";
-import { CACHE_DURATION } from "../utils/utils";
+import { useTitleSelectionTMDBId } from "../utils/useSelectedTitleTMDBId.js";
 
 const GenreSourceTypeResults = () => {
-  const navigate = useNavigate();
+
   const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
-  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
-
-  // const [genreSourceTypeSearchResults, setGenreSourceTypeSearchResults] = useState([]);
-
-  const [selectedTitle, setSelectedTitle] = useState("");
-
-  // eslint-disable-next-line no-unused-vars
-  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
-
   const [searchedGenres] = useState([]);
-
   const [searchedTypes] = useState([]);
-
   const [searchedSources] = useState([]);
-
   const watchModeGenreList = {
     1: "Action",
     39: "Action & Adventure",
@@ -91,141 +76,80 @@ const GenreSourceTypeResults = () => {
   };
 
   const titleTypeMap = {
-    "movie": "Movie",
-    "tv_series": "TV Series",
-    "tv_miniseries": "TV Mini-Series",
-    "short_film": "Short Film",
-  }
-
-  useEffect(() => {}, [genreSourceTypeSearchResults]);
-
-  console.log(genreSourceTypeSearchResults);
+    movie: "Movie",
+    tv_series: "TV Series",
+    tv_miniseries: "TV Mini-Series",
+    short_film: "Short Film",
+  };
   
-  const handleTitleSelected = async (event) => {
-    event.preventDefault();
-    setSelectedTitle(event.target.value);
-    console.log(event.target.value);
-    const selectedTitleId = event.target.value;
-    console.log(selectedTitle);
-
-    const cachedTitleDetails = localStorage.getItem(
-      `titleDetails_${selectedTitleId}`
-    );
-    console.log("Cached Data Retrieved: cachedTitleDetails", cachedTitleDetails);
-    if (cachedTitleDetails) {
-      const { data, timestamp } = JSON.parse(cachedTitleDetails);
-      const now = Date.now();
-      if (now - timestamp < CACHE_DURATION) {
-        setSelectedTitleDetails(data);
-        console.log('cached data retrieved, parsed, time checked',data)
-        window.scrollTo(0, 0);
-        navigate('/title-details')
-        return;
-      } else {
-        localStorage.removeItem(`titleDetails_${selectedTitleId}`);
-        console.log('Cached Data Expired and Removed');
-      }
-    }
-
-    if (!cachedTitleDetails) {
-
-    try {
-      const response = await searchTitlesByTMDBId(selectedTitleId);
-
-      console.log(fetchTitleDetails(selectedTitleId));
-
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      const titleDetails = await response.json();
-
-      console.log(titleDetails);
-
-      const titleDetailsData = {
-        id: titleDetails.id,
-        title: titleDetails.title,
-        type: titleDetails.type,
-        year: titleDetails.year,
-        backdrop: titleDetails.backdrop,
-        critic_score: titleDetails.critic_score,
-        genre_names: titleDetails.genre_names,
-        network_names: titleDetails.network_names,
-        plot_overview: titleDetails.plot_overview,
-        poster: titleDetails.poster,
-        release_date: titleDetails.release_date,
-        runtime: titleDetails.runtime,
-        similar_titles: titleDetails.similar_titles ? titleDetails.similar_titles.slice(0, 5) : [],
-        sources: titleDetails.sources.filter((source) => source.type === "sub"),
-        trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
-        trailer_thumbnail: titleDetails.trailer_thumbnail,
-        us_rating: titleDetails.us_rating,
-        user_rating: titleDetails.user_rating,
-        imdb_id: titleDetails.imdb_id,
-      };
-
-      console.log(titleDetailsData);
-
-      setSelectedTitleDetails(titleDetailsData);
-      const cacheData = {
-        data: titleDetailsData,
-        timestamp: Date.now(),
-      };
-      localStorage.setItem(
-        `titleDetails_${selectedTitleId}`,
-        JSON.stringify(cacheData)
-      );
-      window.scrollTo(0, 0);
-      navigate('/title_details')
-    } catch (err) {
-      console.error(err);
-    }
-  }
-};
+  useEffect(() => {}, [genreSourceTypeSearchResults]);
+  console.log(genreSourceTypeSearchResults);
+  const handleTitleSelected = useTitleSelectionTMDBId();
 
   return (
     <>
       <h3>Genre Source Type Search Results</h3>
       <h4>You Searched For: </h4>
-      <h5>{searchedGenres.map(id => watchModeGenreList[id]).filter(Boolean).join(', ')}</h5>
-      <h5>{searchedTypes.map(id => titleTypeMap[id]).filter(Boolean).join(', ')}</h5>
-      <h5>{searchedSources.map(id => subStreamingSourceMap[id]).filter(Boolean).join(', ')}</h5>
+      <h5>
+        {searchedGenres
+          .map((id) => watchModeGenreList[id])
+          .filter(Boolean)
+          .join(", ")}
+      </h5>
+      <h5>
+        {searchedTypes
+          .map((id) => titleTypeMap[id])
+          .filter(Boolean)
+          .join(", ")}
+      </h5>
+      <h5>
+        {searchedSources
+          .map((id) => subStreamingSourceMap[id])
+          .filter(Boolean)
+          .join(", ")}
+      </h5>
       <div>
-        {genreSourceTypeSearchResults
-          .map((title) => (
-            <div key={title.id}>
-              {title.title && <p>{title.title}</p>}
-              {title.genres && <p>{title.genres.map(id => watchModeGenreList[id]).filter(Boolean).join(', ')}</p>}
-              {title.type && (
-                <p>
-                    {title.type === "movie"
-                      ? "Movie"
-                      : title.type === "tv_series"
-                      ? "TV Series"
-                      : title.type === "tv_miniseries"
-                      ? "TV Miniseries"
-                      : title.type === "short_film"
-                      ? "Short Film"
-                      : "Unknown Type"}
-                </p>
-              )}
-              {title.year && <p>{title.year}</p>}
-              <Button
-                variant="contained"
-                // value={title.type + '-' + title.id}
-                value={title.id}
-                onClick={handleTitleSelected}
-              >
-                More Details
-              </Button>
-              <Button variant="contained" value={title.id}>
-                Save To Watchlist
-              </Button>
-            </div>
-          ))}
+        {genreSourceTypeSearchResults.map((title) => (
+          <div key={title.id}>
+            {title.title && <p>{title.title}</p>}
+            {title.genres && (
+              <p>
+                {title.genres
+                  .map((id) => watchModeGenreList[id])
+                  .filter(Boolean)
+                  .join(", ")}
+              </p>
+            )}
+            {title.type && (
+              <p>
+                {title.type === "movie"
+                  ? "Movie"
+                  : title.type === "tv_series"
+                  ? "TV Series"
+                  : title.type === "tv_miniseries"
+                  ? "TV Miniseries"
+                  : title.type === "short_film"
+                  ? "Short Film"
+                  : "Unknown Type"}
+              </p>
+            )}
+            {title.year && <p>{title.year}</p>}
+            <Button
+              variant="contained"
+              // value={title.type + '-' + title.id}
+              value={title.id}
+              onClick={handleTitleSelected}
+            >
+              More Details
+            </Button>
+            <Button variant="contained" value={title.id}>
+              Save To Watchlist
+            </Button>
+          </div>
+        ))}
       </div>
     </>
   );
-}
+};
 
 export default GenreSourceTypeResults;
