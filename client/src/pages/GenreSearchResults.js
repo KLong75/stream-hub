@@ -1,124 +1,128 @@
 // import from react
 import React, { useEffect, useContext } from "react";
 // import from react-router
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import context
 import { SearchResultsContext } from '../context/SearchResultsContext'; 
-import { TitleDetailsContext } from '../context/TitleDetailsContext';
+// import { TitleDetailsContext } from '../context/TitleDetailsContext';
 // import from mui
 import Button from "@mui/material/Button";
 // import from utils
-import { fetchTitleDetails } from "../utils/apiCalls";
-import { CACHE_DURATION } from '../utils/utils';
+// import { fetchTitleDetails } from "../utils/apiCalls";
+// import { CACHE_DURATION } from '../utils/utils';
+
+import { useTitleSelection } from '../utils/useSelectedTitle.js';
 
 const GenreSearchResults = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { genreSearchResults } = useContext(SearchResultsContext); // Get the data from context
-  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
+  // const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
   useEffect(() => {}, [genreSearchResults]);
 
   console.log(genreSearchResults);
 
-  const handleTitleSelected = async (event) => {
-    event.preventDefault();
-    // setSelectedTitle(event.target.value);
-    const selectedTitleId = event.target.value;
-    console.log(selectedTitleId);
+  const handleTitleSelected = useTitleSelection();
 
-    const cachedTitleDetails = localStorage.getItem(
-      `titleDetails_${selectedTitleId}`
-    );
-    console.log("Cached Data Retrieved: cachedTitleDetails", cachedTitleDetails);
-    if (cachedTitleDetails) {
-      const { data, timestamp } = JSON.parse(cachedTitleDetails);
+  // const handleTitleSelected = async (event) => {
+  //   event.preventDefault();
+  //   // setSelectedTitle(event.target.value);
+  //   const selectedTitleId = event.target.value;
+  //   console.log(selectedTitleId);
 
-      console.log(CACHE_DURATION);
+  //   const cachedTitleDetails = localStorage.getItem(
+  //     `titleDetails_${selectedTitleId}`
+  //   );
+  //   console.log("Cached Data Retrieved: cachedTitleDetails", cachedTitleDetails);
+  //   if (cachedTitleDetails) {
+  //     const { data, timestamp } = JSON.parse(cachedTitleDetails);
 
-      const now = Date.now();
-      console.log(now - timestamp);
-      if (now - timestamp < CACHE_DURATION) {
-        setSelectedTitleDetails(data);
-        console.log('cached data retrieved, parsed, time checked',data)
-        window.scrollTo(0, 0);
-        navigate('/title_details')
-        return;
-      } else {
-        localStorage.removeItem(`titleDetails_${selectedTitleId}`);
-        console.log('Cached Data Expired and Removed');
-      }
-    }
+  //     console.log(CACHE_DURATION);
 
-    if (!cachedTitleDetails) {
-      try {
-        const response = await fetchTitleDetails(selectedTitleId);
+  //     const now = Date.now();
+  //     console.log(now - timestamp);
+  //     if (now - timestamp < CACHE_DURATION) {
+  //       setSelectedTitleDetails(data);
+  //       console.log('cached data retrieved, parsed, time checked',data)
+  //       window.scrollTo(0, 0);
+  //       navigate('/title_details')
+  //       return;
+  //     } else {
+  //       localStorage.removeItem(`titleDetails_${selectedTitleId}`);
+  //       console.log('Cached Data Expired and Removed');
+  //     }
+  //   }
 
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
+  //   if (!cachedTitleDetails) {
+  //     try {
+  //       const response = await fetchTitleDetails(selectedTitleId);
 
-        const  titleDetails  = await response.json();
+  //       if (!response.ok) {
+  //         throw new Error("Something went wrong");
+  //       }
 
-        console.log("New Data Retrieved:", titleDetails);
+  //       const  titleDetails  = await response.json();
 
-        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
+  //       console.log("New Data Retrieved:", titleDetails);
 
-        const uniqueBuySources = [];
-        const buySourceNames = new Set();
+  //       const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
 
-        titleDetails.sources.forEach((source) => {
-          if (
-              source.type === "buy" &&
-              rentBuySourceNamesToInclude.some((name) => name === source.name)
-          ) {
-              if (!buySourceNames.has(source.name)) {
-                  buySourceNames.add(source.name);
-                  uniqueBuySources.push(source);
-              }
-          }
-      });
+  //       const uniqueBuySources = [];
+  //       const buySourceNames = new Set();
 
-        const titleDetailsData = {
-          id: titleDetails.id,
-          title: titleDetails.title,
-          type: titleDetails.type,
-          year: titleDetails.year,
-          backdrop: titleDetails.backdrop,
-          critic_score: titleDetails.critic_score,
-          genre_names: titleDetails.genre_names,
-          network_names: titleDetails.network_names,
-          plot_overview: titleDetails.plot_overview,
-          poster: titleDetails.poster,
-          release_date: titleDetails.release_date,
-          runtime: titleDetails.runtime,
-          similar_titles: titleDetails.similar_titles
-            ? titleDetails.similar_titles.slice(0, 5)
-            : [],
-          sources: titleDetails.sources.filter((source) => source.type === "sub"),
-          buy_sources: uniqueBuySources,
-          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
-          trailer_thumbnail: titleDetails.trailer_thumbnail,
-          us_rating: titleDetails.us_rating,
-          user_rating: titleDetails.user_rating,
-          imdb_id: titleDetails.imdb_id,
-        };
+  //       titleDetails.sources.forEach((source) => {
+  //         if (
+  //             source.type === "buy" &&
+  //             rentBuySourceNamesToInclude.some((name) => name === source.name)
+  //         ) {
+  //             if (!buySourceNames.has(source.name)) {
+  //                 buySourceNames.add(source.name);
+  //                 uniqueBuySources.push(source);
+  //             }
+  //         }
+  //     });
 
-        console.log(titleDetailsData);
+  //       const titleDetailsData = {
+  //         id: titleDetails.id,
+  //         title: titleDetails.title,
+  //         type: titleDetails.type,
+  //         year: titleDetails.year,
+  //         backdrop: titleDetails.backdrop,
+  //         critic_score: titleDetails.critic_score,
+  //         genre_names: titleDetails.genre_names,
+  //         network_names: titleDetails.network_names,
+  //         plot_overview: titleDetails.plot_overview,
+  //         poster: titleDetails.poster,
+  //         release_date: titleDetails.release_date,
+  //         runtime: titleDetails.runtime,
+  //         similar_titles: titleDetails.similar_titles
+  //           ? titleDetails.similar_titles.slice(0, 5)
+  //           : [],
+  //         sources: titleDetails.sources.filter((source) => source.type === "sub"),
+  //         buy_sources: uniqueBuySources,
+  //         trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
+  //         trailer_thumbnail: titleDetails.trailer_thumbnail,
+  //         us_rating: titleDetails.us_rating,
+  //         user_rating: titleDetails.user_rating,
+  //         imdb_id: titleDetails.imdb_id,
+  //       };
 
-        setSelectedTitleDetails(titleDetailsData);
+  //       console.log(titleDetailsData);
 
-        const cacheData = {
-          data: titleDetailsData,
-          timestamp: Date.now(),
-        };
-        localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
-        window.scrollTo(0, 0);
-        navigate('/title_details');
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  };
+  //       setSelectedTitleDetails(titleDetailsData);
+
+  //       const cacheData = {
+  //         data: titleDetailsData,
+  //         timestamp: Date.now(),
+  //       };
+  //       localStorage.setItem(`titleDetails_${selectedTitleId}`, JSON.stringify(cacheData));
+  //       window.scrollTo(0, 0);
+  //       navigate('/title_details');
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  // };
 
   return (
     <>
