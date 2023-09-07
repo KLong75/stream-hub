@@ -212,7 +212,12 @@ const GenreSearch = () => {
           `genreSearchResults_${selectedGenreCode}`,
           JSON.stringify(cacheData)
         );
-        navigate("/search_results", { state: { titles: titleData },}); 
+        const selectedGenreLabel = genreOptions.find(
+          (option) => option.value === selectedGenreCode
+        )?.label;
+        
+        navigate("/search_results", 
+        { state: { titles: titleData, genre: selectedGenreLabel },}); 
       } catch (err) {
         console.error(err);
       }
