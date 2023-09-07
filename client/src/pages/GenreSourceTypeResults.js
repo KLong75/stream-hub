@@ -1,19 +1,28 @@
 // import from react
 import React, { useEffect, useState, useContext } from "react";
 // import from react-router
+import { useLocation } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
 // import from mui
 import Button from "@mui/material/Button";
 // import from utils
-import { useTitleSelectionTMDBId } from "../utils/useSelectedTitleTMDBId.js";
+import { useTitleSelectionTMDBId } from "../utils/useTitleSelectionTMDBId";
 
 const GenreSourceTypeResults = () => {
+  const location = useLocation();
+  const searchDataFromRouter = location.state || {};
 
   const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
-  const [searchedGenres] = useState([]);
-  const [searchedTypes] = useState([]);
-  const [searchedSources] = useState([]);
+  const [searchedGenres] = useState(
+    searchDataFromRouter.genres || ""
+  );
+  const [searchedTypes] = useState(
+    searchDataFromRouter.types || ""
+  );
+  const [searchedSources] = useState(
+    searchDataFromRouter.sources || ""
+  );
   const watchModeGenreList = {
     1: "Action",
     39: "Action & Adventure",
@@ -81,33 +90,21 @@ const GenreSourceTypeResults = () => {
     tv_miniseries: "TV Mini-Series",
     short_film: "Short Film",
   };
-  
+
   useEffect(() => {}, [genreSourceTypeSearchResults]);
   console.log(genreSourceTypeSearchResults);
   const handleTitleSelected = useTitleSelectionTMDBId();
+
+  console.log(searchDataFromRouter);
+  console.log(searchedGenres, searchedTypes, searchedSources);
 
   return (
     <>
       <h3>Genre Source Type Search Results</h3>
       <h4>You Searched For: </h4>
-      <h5>
-        {searchedGenres
-          .map((id) => watchModeGenreList[id])
-          .filter(Boolean)
-          .join(", ")}
-      </h5>
-      <h5>
-        {searchedTypes
-          .map((id) => titleTypeMap[id])
-          .filter(Boolean)
-          .join(", ")}
-      </h5>
-      <h5>
-        {searchedSources
-          .map((id) => subStreamingSourceMap[id])
-          .filter(Boolean)
-          .join(", ")}
-      </h5>
+      <h5>Genre(s): {watchModeGenreList[searchedGenres] || "N/A"}</h5>
+      <h5>Streaming Sources: {subStreamingSourceMap[searchedSources] || "N/A"}</h5>
+      <h5>Type: {titleTypeMap[searchedTypes] || "N/A"}</h5>
       <div>
         {genreSourceTypeSearchResults.map((title) => (
           <div key={title.id}>

@@ -265,8 +265,6 @@ const TitleDetails = () => {
     // watch the line below. is selectedTitleDetails needed in dependency array?
   }, [selectedTitleDetails]);
 
-  // console.log(selectedTitleDetails);
-
   useEffect(() => {
     const getMoreDetailsMovie = async () => {
       const imdbId = selectedTitleDetails.imdb_id;
@@ -406,7 +404,7 @@ const TitleDetails = () => {
         return; // Don't proceed if there are no similar titles
       }
 
-      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 1); // Adjust # of similar titles to fetch here
+      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 3); // Adjust # of similar titles to fetch here
       const fetchedSimilarTitles = [];
 
       for (const similarTitleId of similarTitles) {
@@ -446,7 +444,6 @@ const TitleDetails = () => {
             type: similarTitleData.type,
             plot_overview: similarTitleData.plot_overview,
             poster: similarTitleData.poster,
-            // trailer: similarTitleData.trailer,
             trailer:
               similarTitleData.trailer &&
               similarTitleData.trailer.includes("youtube")
@@ -499,7 +496,6 @@ const TitleDetails = () => {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
         navigate(`/title_details`);
-        window.scrollTo(0, 0); // Scroll to the top of the page
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
@@ -553,10 +549,6 @@ const TitleDetails = () => {
         );
         setSelectedTitleDetails(titleDetailsData);
         navigate(`/title_details`);
-        window.scrollTo(0, 0); // Scroll to the top of the page
-        // window.location.href =
-        //   "/title_details?titleDetails=" +
-        //   encodeURIComponent(JSON.stringify(titleDetailsData));
       } catch (err) {
         console.error(err);
       }
@@ -648,7 +640,7 @@ const TitleDetails = () => {
           JSON.stringify(cacheData)
         );
         console.log(searchedName);
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         navigate("/actor_search_results", { state: { data: actorSearchData } });
       } catch (err) {
         console.log(err.message);

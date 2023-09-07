@@ -1,9 +1,10 @@
 // import context
 import { useContext } from "react";
 import { TitleDetailsContext } from "../context/TitleDetailsContext";
-import { searchTitlesByTMDBId } from "../utils/apiCalls";
-import { CACHE_DURATION } from "../utils/utils";
+import { searchTitlesByTMDBId } from "./apiCalls";
+import { CACHE_DURATION } from "./utils";
 import { useNavigate } from "react-router-dom";
+
 
 export const useTitleSelectionTMDBId = () => {
   const navigate = useNavigate();
@@ -101,7 +102,6 @@ export const useTitleSelectionTMDBId = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        // window.scrollTo(0, 0);
         navigate("/title_details");
       } catch (error) {
         console.log(error);

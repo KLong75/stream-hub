@@ -5,7 +5,7 @@ import { SearchResultsContext } from '../context/SearchResultsContext';
 // import from mui
 import Button from "@mui/material/Button";
 // import from utils
-import { useTitleSelection } from '../utils/useSelectedTitle.js';
+import { useTitleSelection } from '../utils/useTitleSelection';
 
 const GenreSearchResults = () => {
   

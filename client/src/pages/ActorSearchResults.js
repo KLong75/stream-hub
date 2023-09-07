@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 // import images
 import imageNotAvailable from "../assets/images/no_image_available.jpg";
 // import from utils
-import { useTitleSelectionTMDBId } from '../utils/useSelectedTitleTMDBId.js';
+import { useTitleSelectionTMDBId } from '../utils/useTitleSelectionTMDBId';
 
 const ActorSearchResults = () => {
   const { actorSearchResults } = useContext(SearchResultsContext); // Get the data from context

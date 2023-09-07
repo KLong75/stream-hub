@@ -163,12 +163,6 @@ const SearchByGenreSourceType = () => {
           `genreSourceType_${genres}_${sources}_${types}`,
           JSON.stringify(cacheData)
         );
-
-        // setUserInput({
-        //   genres: [],
-        //   source: [],
-        //   type: [],
-        // });
         navigate("/genre_source_type_search_results", { state: { titles: titleData, genres: genres, sources: sources, types: types
           },})
         

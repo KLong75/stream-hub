@@ -1,16 +1,18 @@
 // import from react
 import React, { useEffect, useState, useContext } from "react";
+import { useLocation } from 'react-router-dom';
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
 // import from mui
 import Button from "@mui/material/Button";
 // import from utils
-import { useTitleSelectionTMDBId } from '../utils/useSelectedTitleTMDBId.js';
+import { useTitleSelectionTMDBId } from '../utils/useTitleSelectionTMDBId';
 
 const MixedGenreSearchResults = () => {
-  
-  const { mixedGenreSearchResults } = useContext(SearchResultsContext); 
-  const [searchedGenres] = useState([]);
+  const location = useLocation();
+  const searchedGenresFromRouter = location.state?.genres || [];
+  const { mixedGenreSearchResults, } = useContext(SearchResultsContext); 
+  const [searchedGenres] = useState(searchedGenresFromRouter);
   
   const genreList = {
     28: "Action",
@@ -45,12 +47,12 @@ const MixedGenreSearchResults = () => {
   console.log(mixedGenreSearchResults);
 
   const handleTitleSelected = useTitleSelectionTMDBId();
-  
 
   return (
     <>
       <h3>Mixed Genre Search Results</h3>
-      <h4>You Searched For: {searchedGenres.map(id => genreList[id]).filter(Boolean).join(', ')}</h4>
+      <h4>Search Results For: {searchedGenres.map(id => genreList[id]).filter(Boolean).join(', ')}</h4>
+
       <div>
         {mixedGenreSearchResults
           .map((title) => (
