@@ -1,6 +1,6 @@
 // import from react
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import context
 import { TitleDetailsContext } from "../context/TitleDetailsContext";
 import { SearchResultsContext } from "../context/SearchResultsContext";
@@ -28,6 +28,7 @@ import LoadingClapBoard from "../components/LoadingClapBoard";
 
 
 const TitleDetails = () => {
+  const loggedIn = Auth.loggedIn();
   const navigate = useNavigate();
   const { data, loading } = useQuery(QUERY_ME);
   
@@ -536,7 +537,6 @@ const TitleDetails = () => {
   };
 
   const handleSaveTitle = async (title) => {
-    
     console.log(title);
     const input = {
       id: title.selectedTitleDetails.id,
@@ -588,6 +588,19 @@ const TitleDetails = () => {
 
   return (
     <>
+      {!loggedIn ? (
+        <div>
+          <h2>Welcome to streamHub</h2>
+          <p>Please</p>
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+          <p>Or</p>
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+        </div>
+      ) : (
       <div>
         <h2>{selectedTitleDetails.title}</h2>
         {selectedTitleDetails.poster && (
@@ -1098,7 +1111,8 @@ const TitleDetails = () => {
           disabled={savedTitleIds.includes(selectedTitleDetails.id)}
           variant="contained"
           onClick={() => handleSaveTitle(title)}>
-          {savedTitleIds.includes(selectedTitleDetails.id) ? 'Title Saved!' : 'Save to Watchlist'}
+          {savedTitleIds.includes(selectedTitleDetails.id) ? 
+          'Title Saved!' : 'Save to Watchlist'}
         </Button>
         <p>Related Titles: </p>
         {similarTitlesDetails.map((similarTitle) => (
@@ -1135,14 +1149,18 @@ const TitleDetails = () => {
             >
               More Details
             </Button>
-            <Button variant="contained" value={similarTitle.id}>
-              Save to Watchlist
-            </Button>
           </React.Fragment>
         ))}
       </div>
+      )}
     </>
   );
+
 };
+
+
+
+
+
 
 export default TitleDetails;

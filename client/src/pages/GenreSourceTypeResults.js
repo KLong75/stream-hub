@@ -1,7 +1,7 @@
 // import from react
 import React, { useEffect, useState, useContext } from "react";
 // import from react-router
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
 // import from mui
@@ -9,20 +9,17 @@ import Button from "@mui/material/Button";
 // import from utils
 import { useTitleSelectionTMDBId } from "../utils/useTitleSelectionTMDBId";
 
+import Auth from "../utils/auth";
+
 const GenreSourceTypeResults = () => {
+  const loggedIn = Auth.loggedIn();
   const location = useLocation();
   const searchDataFromRouter = location.state || {};
 
   const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
-  const [searchedGenres] = useState(
-    searchDataFromRouter.genres || ""
-  );
-  const [searchedTypes] = useState(
-    searchDataFromRouter.types || ""
-  );
-  const [searchedSources] = useState(
-    searchDataFromRouter.sources || ""
-  );
+  const [searchedGenres] = useState(searchDataFromRouter.genres || "");
+  const [searchedTypes] = useState(searchDataFromRouter.types || "");
+  const [searchedSources] = useState(searchDataFromRouter.sources || "");
   const watchModeGenreList = {
     1: "Action",
     39: "Action & Adventure",
@@ -96,16 +93,20 @@ const GenreSourceTypeResults = () => {
   const handleTitleSelected = useTitleSelectionTMDBId();
   console.log(searchDataFromRouter);
   console.log(searchedGenres, searchedTypes, searchedSources);
-  
+
   const getGenreLabels = (searchedGenres) => {
     const genreArray = searchedGenres.split(",");
-    const genreLabelsArray = genreArray.map((genre) => watchModeGenreList[genre]);
+    const genreLabelsArray = genreArray.map(
+      (genre) => watchModeGenreList[genre]
+    );
     return genreLabelsArray.join(", ");
   };
 
-  const getStreamingSourceLabels  = (searchedSources) => {
+  const getStreamingSourceLabels = (searchedSources) => {
     const selectedSourcesArray = searchedSources.split(",");
-    const sourceLabelsArray = selectedSourcesArray.map((source) => subStreamingSourceMap[source]);
+    const sourceLabelsArray = selectedSourcesArray.map(
+      (source) => subStreamingSourceMap[source]
+    );
     return sourceLabelsArray.join(", ");
   };
 
@@ -117,51 +118,67 @@ const GenreSourceTypeResults = () => {
 
   return (
     <>
-      <h3>Genre Source Type Search Results</h3>
-      <h4>Results For: </h4>
-      <h5>Genre(s): {getGenreLabels(searchedGenres) || "None Selected"}</h5>
-      <h5>Streaming Sources: {getStreamingSourceLabels(searchedSources) || "None Selected"}</h5>
-      <h5>Type: {getTypeLabels(searchedTypes) || "None Selected"}</h5>
-      <div>
-        {genreSourceTypeSearchResults.map((title) => (
-          <div key={title.id}>
-            {title.title && <p>{title.title}</p>}
-            {title.genres && (
-              <p>
-                {title.genres
-                  .map((id) => watchModeGenreList[id])
-                  .filter(Boolean)
-                  .join(", ")}
-              </p>
-            )}
-            {title.type && (
-              <p>
-                {title.type === "movie"
-                  ? "Movie"
-                  : title.type === "tv_series"
-                  ? "TV Series"
-                  : title.type === "tv_miniseries"
-                  ? "TV Miniseries"
-                  : title.type === "short_film"
-                  ? "Short Film"
-                  : "Unknown Type"}
-              </p>
-            )}
-            {title.year && <p>{title.year}</p>}
-            <Button
-              variant="contained"
-              // value={title.type + '-' + title.id}
-              value={title.id}
-              onClick={handleTitleSelected}
-            >
-              More Details
-            </Button>
-            <Button variant="contained" value={title.id}>
-              Save To Watchlist
-            </Button>
+      {!loggedIn ? (
+        <div>
+          <h2>Welcome to streamHub</h2>
+          <p>Please</p>
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+          <p>Or</p>
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <h3>Genre Source Type Search Results</h3>
+          <h4>Results For: </h4>
+          <h5>Genre(s): {getGenreLabels(searchedGenres) || "None Selected"}</h5>
+          <h5>
+            Streaming Sources:{" "}
+            {getStreamingSourceLabels(searchedSources) || "None Selected"}
+          </h5>
+          <h5>Type: {getTypeLabels(searchedTypes) || "None Selected"}</h5>
+          <div>
+            {genreSourceTypeSearchResults.map((title) => (
+              <div key={title.id}>
+                {title.title && <p>{title.title}</p>}
+                {title.genres && (
+                  <p>
+                    {title.genres
+                      .map((id) => watchModeGenreList[id])
+                      .filter(Boolean)
+                      .join(", ")}
+                  </p>
+                )}
+                {title.type && (
+                  <p>
+                    {title.type === "movie"
+                      ? "Movie"
+                      : title.type === "tv_series"
+                      ? "TV Series"
+                      : title.type === "tv_miniseries"
+                      ? "TV Miniseries"
+                      : title.type === "short_film"
+                      ? "Short Film"
+                      : "Unknown Type"}
+                  </p>
+                )}
+                {title.year && <p>{title.year}</p>}
+                <Button
+                  variant="contained"
+                  // value={title.type + '-' + title.id}
+                  value={title.id}
+                  onClick={handleTitleSelected}
+                >
+                  More Details
+                </Button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </>
   );
 };

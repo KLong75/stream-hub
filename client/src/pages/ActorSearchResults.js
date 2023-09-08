@@ -1,5 +1,8 @@
 // import from react
-import React, { useEffect,  useContext } from "react";
+import React, { useState, useEffect,  useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Auth from "../utils/auth";
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
 // import from mui
@@ -10,12 +13,33 @@ import imageNotAvailable from "../assets/images/no_image_available.jpg";
 import { useTitleSelectionTMDBId } from '../utils/useTitleSelectionTMDBId';
 
 const ActorSearchResults = () => {
+  const navigate = useNavigate();
   const { actorSearchResults } = useContext(SearchResultsContext); // Get the data from context
   // const [actorSearchResults, setActorSearchResults] = useState([]);
   console.log(actorSearchResults);
   useEffect(() => {}, [actorSearchResults]);
   console.log(actorSearchResults);
   const handleTitleSelected = useTitleSelectionTMDBId();
+
+  const [showRedirectMessage, setShowRedirectMessage] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setShowRedirectMessage(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [navigate, isAuthenticated]);
+
+  useEffect(() => {
+    setIsAuthenticated(Auth.loggedIn());
+  }, [actorSearchResults]);
+
+  if (showRedirectMessage) {
+    return <div>Please login or signup</div>;
+  }
 
   return (
     <>

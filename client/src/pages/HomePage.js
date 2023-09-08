@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 // import components
 // import TvLoader from '../components/TvLoader';
-import Clapboard from '../components/LoadingClapBoard';
 import GenreSearch from "../components/GenreSearch";
 import TitleSearch from "../components/TitleSearch";
 import MixedGenreMovieSearch from "../components/MixedGenreMovieSearch";
@@ -10,6 +9,7 @@ import MixedGenreTVSearch from "../components/MixedGenreTVSearch";
 import SearchByGenreSourceType from "../components/SearchByGenreSourceType";
 import ActorSearch from "../components/ActorSearch";
 import WatchList from "../components/WatchList";
+import LoadingClapboard from "../components/LoadingClapBoard";
 
 import Auth from "../utils/auth";
 
@@ -19,6 +19,7 @@ import { QUERY_ME } from "../utils/queries";
 const HomePage = () => {
   const loggedIn = Auth.loggedIn();
   const { username: userParam } = useParams();
+
   const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
     variables: { username: userParam },
   });
@@ -28,7 +29,7 @@ const HomePage = () => {
     return (
       <div>
         Loading...
-        <Clapboard />
+        <LoadingClapboard />
       </div>);
   }
 
@@ -56,22 +57,12 @@ const HomePage = () => {
           <Link to="/login">
             <button>Login</button>
           </Link>
-          <br />
           <p>Or</p>
           <Link to="/signup">
             <button>Sign Up</button>
           </Link>
         </>
       )}
-      {/* <h2>Home Page</h2>
-    <div>
-     
-      <GenreSearch/>
-      <TitleSearch/>
-      <ActorSearch/>
-      <SavedTitleList/>
-     
-    </div> */}
     </>
   );
 };

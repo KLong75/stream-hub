@@ -1,12 +1,34 @@
+import React, { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
+
+import Auth from "../utils/auth";
+
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import UpdateUsernameModal from "../components/UpdateUsernameModal";
 import UpdateUserEmailModal from "../components/UpdateUserEmailModal";
 import UpdatePasswordModal from "../components/UpdatePasswordModal";
 
-import React, { useState } from "react";
 
 const AccountSettings = () => {
+  const navigate = useNavigate();
   const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  const [showRedirectMessage, setShowRedirectMessage] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setShowRedirectMessage(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [navigate, isAuthenticated]);
+
+  useEffect(() => {
+    setIsAuthenticated(Auth.loggedIn());
+  }, []);
 
   const handlePasswordUpdate = () => {
     setUpdateSuccess(true);
@@ -23,8 +45,12 @@ const AccountSettings = () => {
     setTimeout(() => setUpdateSuccess(false), 5000); // hides the message after 5 seconds
   };
 
-
   const [modalType, setModalType] = useState("");
+
+  if (showRedirectMessage) {
+    return <div>Please login or signup</div>;
+  }
+
 
   return (
     <>

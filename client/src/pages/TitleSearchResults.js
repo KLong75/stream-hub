@@ -1,22 +1,57 @@
 // import from react
-import React, { useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 // import from mui
 import Button from "@mui/material/Button";
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
 
-import { useTitleSelection } from '../utils/useTitleSelection';
+import { useTitleSelection } from "../utils/useTitleSelection";
+import Auth from "../utils/auth";
+
+import { QUERY_ME } from "../utils/queries";
+import { useQuery } from "@apollo/client";
+import LoadingClapBoard from "../components/LoadingClapBoard";
 
 const TitleSearchResults = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  
+  const [showRedirectMessage, setShowRedirectMessage] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
+  const { data, loading } = useQuery(QUERY_ME);
+
+  const savedTitleIds = data?.me.savedTitles.map((title) => title.id) || [];
+  console.log("savedTitleIds", savedTitleIds);
+
   const searchedTitle = location.state?.searchedTitle;
   const { titleSearchResults } = useContext(SearchResultsContext); // Get the data from context
   console.log(titleSearchResults);
-  useEffect(() => {}, [titleSearchResults]);
+  
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setShowRedirectMessage(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [navigate, isAuthenticated]);
+
+  useEffect(() => {
+    setIsAuthenticated(Auth.loggedIn());
+  }, [titleSearchResults]);
+
   const handleTitleSelected = useTitleSelection();
 
+  if (showRedirectMessage) {
+    return <div>Please login or signup</div>;
+  }
 
+  if (loading) {
+    return <LoadingClapBoard />;
+  }
+  
   return (
     <>
       <h3>Results For:</h3>
@@ -56,14 +91,12 @@ const TitleSearchResults = () => {
               >
                 More Details
               </Button>
-              <Button variant="contained" value={result.id}>
-                Save To Watchlist
-              </Button>
             </div>
           ))}
       </div>
     </>
   );
+
 };
 
 export default TitleSearchResults;
