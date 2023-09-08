@@ -16,35 +16,32 @@ import {
 import Button from "@mui/material/Button";
 // import from utils
 import { CACHE_DURATION, formatDate } from "../utils/utils";
-import { saveTitleIds, getSavedTitleIds } from '../utils/savedTitleIdsLocalStorage';
+
 import Auth from "../utils/auth";
 
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { SAVE_TITLE } from "../utils/mutations";
+import { QUERY_ME } from "../utils/queries";
+import { useTitleSelection } from "../utils/useTitleSelection";
 
+import LoadingClapBoard from "../components/LoadingClapBoard";
 
 
 const TitleDetails = () => {
   const navigate = useNavigate();
-  const [savedTitleIds, setSavedTitleIds] = useState(getSavedTitleIds()); // [1, 2, 3, 4, 5
-  console.log(getSavedTitleIds);
-  console.log(savedTitleIds);
-
+  const { data, loading } = useQuery(QUERY_ME);
+  
+  const savedTitleIds = data?.me.savedTitles.map((title) => title.id) || [];
+  console.log('savedTitleIds', savedTitleIds);
+  
   const title = useContext(TitleDetailsContext);
-  const { selectedTitleDetails, setSelectedTitleDetails } = useContext(TitleDetailsContext);
+  const { selectedTitleDetails } = useContext(TitleDetailsContext);
+  console.log('selectedTitleDetails', selectedTitleDetails);
   const { setActorSearchResults } = useContext(SearchResultsContext);
-
   const [saveTitle] = useMutation(SAVE_TITLE);
-
-  const [selectedTitle, setSelectedTitle] = useState("");
-  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
   const [moreDetails, setMoreDetails] = useState({});
   const [similarTitlesDetails, setSimilarTitlesDetails] = useState([]);
-   // eslint-disable-next-line no-unused-vars
-   const [selectedActorName, setSelectedActorName] = useState("");
-  // const [setSelectedActorName] = useState("");
-  // const [similarTitles, setSimilarTitles] = useState([]);
-
+  const [ setSelectedActorName] = useState("");
   const [appleTvUrl, setAppleTvUrl] = useState("");
   const [netflixUrl, setNetflixUrl] = useState("");
   const [huluUrl, setHuluUrl] = useState("");
@@ -78,10 +75,6 @@ const TitleDetails = () => {
   const [buyNotAvailable, setBuyNotAvailable] = useState("");
 
   useEffect(() => {
-    return () => saveTitleIds(savedTitleIds);
-  });
-
-  useEffect(() => {
     if (selectedTitleDetails) {
       const sources = selectedTitleDetails.sources || [];
       console.log(sources);
@@ -93,9 +86,7 @@ const TitleDetails = () => {
       const disneyPlus = sources.filter((source) => source.source_id === 372);
       const peacock = sources.filter((source) => source.source_id === 389);
       const hayu = sources.filter((source) => source.source_id === 392);
-      const paramountPlus = sources.filter(
-        (source) => source.source_id === 444
-      );
+      const paramountPlus = sources.filter((source) => source.source_id === 444);
       const showtime = sources.filter((source) => source.source_id === 248);
       const crave = sources.filter((source) => source.source_id === 393);
       const craveStarz = sources.filter((source) => source.source_id === 395);
@@ -108,35 +99,22 @@ const TitleDetails = () => {
       const binge = sources.filter((source) => source.source_id === 423);
       const britbox = sources.filter((source) => source.source_id === 419);
       const kanopy = sources.filter((source) => source.source_id === 367);
-      const huluWithShowtime = sources.filter(
-        (source) => source.source_id === 159
-      );
-      const youTubePremium = sources.filter(
-        (source) => source.source_id === 368
-      );
-      const showtimeAmazonPrime = sources.filter(
-        (source) => source.source_id === 249
-      );
+      const huluWithShowtime = sources.filter((source) => source.source_id === 159);
+      const youTubePremium = sources.filter((source) => source.source_id === 368);
+      const showtimeAmazonPrime = sources.filter((source) => source.source_id === 249);
       const fuboTv = sources.filter((source) => source.source_id === 373);
 
       const buy_sources = selectedTitleDetails.buy_sources || [];
       console.log(buy_sources);
       const buyAmazon = buy_sources.filter((source) => source.source_id === 24);
-      const buyItunes = buy_sources.filter(
-        (source) => source.source_id === 349
-      );
-      const buyGooglePlay = buy_sources.filter(
-        (source) => source.source_id === 140
-      );
-      const buyYouTube = buy_sources.filter(
-        (source) => source.source_id === 344
-      );
+      const buyItunes = buy_sources.filter((source) => source.source_id === 349);
+      const buyGooglePlay = buy_sources.filter((source) => source.source_id === 140);
+      const buyYouTube = buy_sources.filter((source) => source.source_id === 344);
 
       if (sources.length === 0) {
         const notAvailable = "Not Available on Subscription Streaming Services";
         setNotAvailable(notAvailable);
       }
-
       if (buy_sources.length === 0) {
         const buyNotAvailable = "Not Available for Purchase or Rent";
         setBuyNotAvailable(buyNotAvailable);
@@ -380,17 +358,8 @@ const TitleDetails = () => {
         }
       }
     };
-
-    if (selectedTitleDetails.imdb_id && selectedTitleDetails.type === "movie") {
-      getMoreDetailsMovie();
-    }
-
-    if (
-      selectedTitleDetails.imdb_id &&
-      selectedTitleDetails.type === "tv_series"
-    ) {
-      getMoreDetailsTV();
-    }
+    if (selectedTitleDetails.imdb_id && selectedTitleDetails.type === "movie") {getMoreDetailsMovie();}
+    if (selectedTitleDetails.imdb_id && selectedTitleDetails.type === "tv_series") {getMoreDetailsTV();}
   }, [selectedTitleDetails]);
 
   useEffect(() => {
@@ -471,87 +440,7 @@ const TitleDetails = () => {
     getSimilarTitles();
   }, [selectedTitleDetails]);
 
-  const handleTitleSelected = async (event) => {
-    event.preventDefault();
-    setSelectedTitle(event.target.value);
-    console.log(event.target.value);
-    const selectedTitleId = event.target.value;
-    console.log(selectedTitle);
-
-    const cachedTitleDetails = localStorage.getItem(
-      `titleDetails_${selectedTitleId}`
-    );
-    console.log(
-      "Cached Data Retrieved: cachedTitleDetails",
-      cachedTitleDetails
-    );
-    if (cachedTitleDetails) {
-      const { data, timestamp } = JSON.parse(cachedTitleDetails);
-      console.log(CACHE_DURATION);
-      const now = Date.now();
-      console.log(now - timestamp);
-      if (now - timestamp < CACHE_DURATION) {
-        setSelectedTitleDetails(data);
-        console.log("cached data retrieved, parsed, time checked", data);
-        navigate(`/title_details`);
-        return;
-      } else {
-        localStorage.removeItem(`titleDetails_${selectedTitleId}`);
-        console.log("Cached Data Expired and Removed");
-      }
-    }
-
-    if (!cachedTitleDetails) {
-      try {
-        const response = await fetchTitleDetails(selectedTitleId);
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-        const titleDetails = await response.json();
-        console.log("New Data Retrieved:", titleDetails);
-        const titleDetailsData = {
-          id: titleDetails.id,
-          title: titleDetails.title,
-          type: titleDetails.type,
-          year: titleDetails.year,
-          backdrop: titleDetails.backdrop,
-          critic_score: titleDetails.critic_score,
-          genre_names: titleDetails.genre_names,
-          network_names: titleDetails.network_names,
-          plot_overview: titleDetails.plot_overview,
-          poster: titleDetails.poster,
-          release_date: titleDetails.release_date,
-          runtime: titleDetails.runtime,
-          similar_titles: titleDetails.similar_titles.slice(0, 5) ?? [],
-          sources: titleDetails.sources.filter(
-            (source) => source.type === "sub"
-          ),
-          trailer:
-            titleDetails.trailer && titleDetails.trailer.includes("youtube")
-              ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
-              : titleDetails.trailer,
-          trailer_thumbnail: titleDetails.trailer_thumbnail,
-          us_rating: titleDetails.us_rating,
-          user_rating: titleDetails.user_rating,
-          imdb_id: titleDetails.imdb_id,
-        };
-        console.log(titleDetailsData);
-
-        const cacheData = {
-          data: titleDetailsData,
-          timestamp: Date.now(),
-        };
-        localStorage.setItem(
-          `titleDetails_${selectedTitleId}`,
-          JSON.stringify(cacheData)
-        );
-        setSelectedTitleDetails(titleDetailsData);
-        navigate(`/title_details`);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
+  const handleTitleSelected = useTitleSelection();
 
   useEffect(() => {
     if (selectedTitleDetails) {
@@ -647,6 +536,7 @@ const TitleDetails = () => {
   };
 
   const handleSaveTitle = async (title) => {
+    
     console.log(title);
     const input = {
       id: title.selectedTitleDetails.id,
@@ -684,14 +574,17 @@ const TitleDetails = () => {
         variables: { input },
       });
       console.log(`Title ${input.title} saved successfully`, input);
-      setSavedTitleIds([...savedTitleIds, input.id])
       console.log(input.id);
-      console.log(saveTitleIds);
+      
     } catch (err) {
       console.error(err);
     }
   };
 
+  if (loading) {
+    return <LoadingClapBoard />;
+  }
+  
 
   return (
     <>
@@ -1175,8 +1068,6 @@ const TitleDetails = () => {
               <iframe
                 width="560rem"
                 height="315rem"
-                // width="400rem"
-                // height="200rem"
                 src={selectedTitleDetails.trailer}
                 title="YouTube video player"
                 style={{
@@ -1184,7 +1075,7 @@ const TitleDetails = () => {
                   borderStyle: "solid",
                   borderColor: "black",
                 }}
-                // allow="encrypted-media; gyroscope; picture-in-picture; web-share"
+                
                 allowFullScreen={true}
               ></iframe>
             ) : (
@@ -1200,18 +1091,14 @@ const TitleDetails = () => {
                   alt="trailer thumbnail"
                 />
               </a>
-              // width="400rem"
-              // height="200rem"
             )}
           </>
         )}
         <Button 
-          disabled={savedTitleIds?.some((savedTitleId) => savedTitleId === title.id)}
+          disabled={savedTitleIds.includes(selectedTitleDetails.id)}
           variant="contained"
           onClick={() => handleSaveTitle(title)}>
-          {savedTitleIds?.some((savedTitleId) => savedTitleId === title.id)
-            ? 'Title Saved!'
-            : 'Save to Watchlist'}
+          {savedTitleIds.includes(selectedTitleDetails.id) ? 'Title Saved!' : 'Save to Watchlist'}
         </Button>
         <p>Related Titles: </p>
         {similarTitlesDetails.map((similarTitle) => (
