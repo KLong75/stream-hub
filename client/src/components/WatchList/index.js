@@ -21,6 +21,7 @@ const WatchList = () => {
     variables: { username: userParam },
   });
   const userData = data?.me || {};
+  // console.log(userData)
   const handleTitleSelected = useTitleSelection();
   const [removeTitle] = useMutation(REMOVE_TITLE);
 
@@ -73,20 +74,32 @@ const WatchList = () => {
               return (
                 <div className="watchlist-item" key={title.id}>
                   <div className="watchlist-item-title">
-                    <h5>{title.title}</h5>
-                    <p>{title.year}</p>
+                    <h5><strong>Title: </strong>{title.title}</h5>
+                    <p><strong>{title.year}</strong></p>
                     <img src={title.poster} alt={title.title} />
-                    <p>{title.genre_names}</p>
-                    <p>{title.type}</p>
-                    <p>{title.plot_overview}</p>
-                    <img src={title.backdrop} alt={title.title} />
+                    <p><strong>Genres: </strong> {title.genre_names.join(', ')}</p>
+                    {title.type && (
+                      <p><strong>Type: </strong>
+                        {title.type === "movie"
+                          ? "Movie"
+                          : title.type === "tv_series"
+                          ? "TV Series"
+                          : title.type === "tv_miniseries"
+                          ? "TV Miniseries"
+                          : title.type === "short_film"
+                          ? "Short Film"
+                          : "Unknown Type"}
+                      </p>
+                    )}
+                    <p><strong>Plot Overview: </strong>{title.plot_overview}</p>
+                    {title.backdrop && (
+                      <img src={title.backdrop} alt={title.title} />
+                    )}
                     <div>
                       {title.sources && title.sources.length > 0 && (
                         <>
-                          <p>Watch On:</p>
+                          <p><strong>Watch On:</strong></p>
                           {title.sources.map((source) => {
-                            //const keyVal = `${title.id}-${source.source_id}`;
-                            //console.log("Source Key: ", keyVal);
                             return (
                               <div key={`${title.id}-${source.source_id}`}>
                                 <a
@@ -105,10 +118,8 @@ const WatchList = () => {
                     <div>
                       {title.buy_sources && title.buy_sources.length > 0 && (
                         <>
-                          <p>Rent or buy on:</p>
+                          <p><strong>Rent or buy on:</strong></p>
                           {title.buy_sources.map((buy_source) => {
-                            //const keyVal = `${title.id}-${buy_source.source_id}`;
-                            //console.log("Buy Source Key: ", keyVal);
                             return (
                               <div key={`${title.id}-${buy_source.source_id}`}>
                                 <a
@@ -127,9 +138,10 @@ const WatchList = () => {
                   </div>
 
                   <div className="watchlist-item-buttons">
-                    <Button 
-                      variant='contained'
-                      onClick={() => handleDeleteTitle(title.id)}>
+                    <Button
+                      variant="contained"
+                      onClick={() => handleDeleteTitle(title.id)}
+                    >
                       Remove
                     </Button>
                     <Button
