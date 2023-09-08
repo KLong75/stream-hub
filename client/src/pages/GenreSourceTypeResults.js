@@ -94,17 +94,34 @@ const GenreSourceTypeResults = () => {
   useEffect(() => {}, [genreSourceTypeSearchResults]);
   console.log(genreSourceTypeSearchResults);
   const handleTitleSelected = useTitleSelectionTMDBId();
-
   console.log(searchDataFromRouter);
   console.log(searchedGenres, searchedTypes, searchedSources);
+  
+  const getGenreLabels = (searchedGenres) => {
+    const genreArray = searchedGenres.split(",");
+    const genreLabelsArray = genreArray.map((genre) => watchModeGenreList[genre]);
+    return genreLabelsArray.join(", ");
+  };
+
+  const getStreamingSourceLabels  = (searchedSources) => {
+    const selectedSourcesArray = searchedSources.split(",");
+    const sourceLabelsArray = selectedSourcesArray.map((source) => subStreamingSourceMap[source]);
+    return sourceLabelsArray.join(", ");
+  };
+
+  const getTypeLabels = (searchedTypes) => {
+    const typeArray = searchedTypes.split(",");
+    const typeLabelsArray = typeArray.map((type) => titleTypeMap[type]);
+    return typeLabelsArray.join(", ");
+  };
 
   return (
     <>
       <h3>Genre Source Type Search Results</h3>
-      <h4>You Searched For: </h4>
-      <h5>Genre(s): {watchModeGenreList[searchedGenres] || "N/A"}</h5>
-      <h5>Streaming Sources: {subStreamingSourceMap[searchedSources] || "N/A"}</h5>
-      <h5>Type: {titleTypeMap[searchedTypes] || "N/A"}</h5>
+      <h4>Results For: </h4>
+      <h5>Genre(s): {getGenreLabels(searchedGenres) || "None Selected"}</h5>
+      <h5>Streaming Sources: {getStreamingSourceLabels(searchedSources) || "None Selected"}</h5>
+      <h5>Type: {getTypeLabels(searchedTypes) || "None Selected"}</h5>
       <div>
         {genreSourceTypeSearchResults.map((title) => (
           <div key={title.id}>

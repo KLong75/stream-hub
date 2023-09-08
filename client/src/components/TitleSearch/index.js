@@ -76,135 +76,6 @@ const TitleSearch = () => {
 
     // do i need an (!cachedTopTitlesMovieAndTv) here?
 
-    // const fetchData = async () => {
-    //   const pageOneMovies = await getTopMovieTitlesPageOne();
-    //   const pageTwoMovies = await getTopMovieTitlesPageTwo();
-    //   const pageThreeMovies = await getTopMovieTitlesPageThree();
-    //   const pageFourMovies = await getTopMovieTitlesPageFour();
-    //   const pageFiveMovies = await getTopMovieTitlesPageFive();
-    //   const pageOneTv = await getTopTvTitlesPageOne();
-    //   const pageTwoTv = await getTopTvTitlesPageTwo();
-    //   const pageThreeTv = await getTopTvTitlesPageThree();
-    //   const pageFourTv = await getTopTvTitlesPageFour();
-    //   const pageFiveTv = await getTopTvTitlesPageFive();
-    //   const trendingMoviesPageOne = await getTrendingMoviesPageOne();
-    //   const trendingMoviesPageTwo = await getTrendingMoviesPageTwo();
-    //   const trendingMoviesPageThree = await getTrendingMoviesPageThree();
-    //   const trendingMoviesPageFour = await getTrendingMoviesPageFour();
-    //   const trendingMoviesPageFive = await getTrendingMoviesPageFive();
-    //   const popularMoviesPageOne = await getPopularMoviesPageOne();
-    //   const popularMoviesPageTwo = await getPopularMoviesPageTwo();
-    //   const popularMoviesPageThree = await getPopularMoviesPageThree();
-    //   const popularMoviesPageFour = await getPopularMoviesPageFour();
-    //   const popularMoviesPageFive = await getPopularMoviesPageFive();
-    //   const trendingTvPageOne = await getTrendingTvPageOne();
-    //   const trendingTvPageTwo = await getTrendingTvPageTwo();
-    //   const trendingTvPageThree = await getTrendingTvPageThree();
-    //   const trendingTvPageFour = await getTrendingTvPageFour();
-    //   const trendingTvPageFive = await getTrendingTvPageFive();
-    //   const popularTvPageOne = await getPopularTvPageOne();
-    //   const popularTvPageTwo = await getPopularTvPageTwo();
-    //   const popularTvPageThree = await getPopularTvPageThree();
-    //   const popularTvPageFour = await getPopularTvPageFour();
-    //   const popularTvPageFive = await getPopularTvPageFive();
-
-    //   const allFetchedData = [
-    //     pageOneMovies,
-    //     pageTwoMovies,
-    //     pageThreeMovies,
-    //     pageFourMovies,
-    //     pageFiveMovies,
-    //     pageOneTv,
-    //     pageTwoTv,
-    //     pageThreeTv,
-    //     pageFourTv,
-    //     pageFiveTv,
-    //     trendingMoviesPageOne,
-    //     trendingMoviesPageTwo,
-    //     trendingMoviesPageThree,
-    //     trendingMoviesPageFour,
-    //     trendingMoviesPageFive,
-    //     popularMoviesPageOne,
-    //     popularMoviesPageTwo,
-    //     popularMoviesPageThree,
-    //     popularMoviesPageFour,
-    //     popularMoviesPageFive,
-    //     trendingTvPageOne,
-    //     trendingTvPageTwo,
-    //     trendingTvPageThree,
-    //     trendingTvPageFour,
-    //     trendingTvPageFive,
-    //     popularTvPageOne,
-    //   ];
-
-    //   if (allFetchedData.every((page) => page)) {
-    //     const allTitles = [
-    //       ...pageOneMovies,
-    //       ...pageTwoMovies,
-    //       ...pageThreeMovies,
-    //       ...pageFourMovies,
-    //       ...pageFiveMovies,
-    //       ...pageOneTv,
-    //       ...pageTwoTv,
-    //       ...pageThreeTv,
-    //       ...pageFourTv,
-    //       ...pageFiveTv,
-    //       ...trendingMoviesPageOne,
-    //       ...trendingMoviesPageTwo,
-    //       ...trendingMoviesPageThree,
-    //       ...trendingMoviesPageFour,
-    //       ...trendingMoviesPageFour,
-    //       ...popularMoviesPageOne,
-    //       ...popularMoviesPageTwo,
-    //       ...popularMoviesPageThree,
-    //       ...popularMoviesPageFour,
-    //       ...popularMoviesPageFive,
-    //       ...trendingTvPageOne,
-    //       ...trendingTvPageTwo,
-    //       ...trendingTvPageThree,
-    //       ...trendingTvPageFour,
-    //       ...trendingTvPageFive,
-    //       ...popularTvPageOne,
-    //       ...popularTvPageTwo,
-    //       ...popularTvPageThree,
-    //       ...popularTvPageFour,
-    //       ...popularTvPageFive,
-    //     ];
-
-    //     if (allTitles.every((title) => title)) {
-    //       let uniqueTitles = Array.from(
-    //         new Set(allTitles.map((title) => title.title))
-    //       ).map((title) => {
-    //         return allTitles.find((t) => t.title === title);
-    //       });
-    //       uniqueTitles = uniqueTitles.filter((title) => {
-    //         let filteredOutTitles = [];
-    //         if (title && title.title) {
-    //           return true;
-    //         } else {
-    //           filteredOutTitles.push(title);
-    //           console.log(filteredOutTitles);
-    //           return false;
-    //         }
-    //       });
-    //       uniqueTitles = uniqueTitles.sort((a, b) =>
-    //         a.title.localeCompare(b.title)
-    //       );
-    //       setTopTitlesMovieAndTv(uniqueTitles);
-    //       console.log("titles retrieved:", uniqueTitles);
-    //       const cacheData = {
-    //         data: uniqueTitles,
-    //         timestamp: Date.now(),
-    //       };
-    //       localStorage.setItem(
-    //         `topTitlesMovieAndTv`,
-    //         JSON.stringify(cacheData)
-    //       );
-    //       console.log(topTitlesMovieAndTv);
-    //     }
-    //   }
-    // };
-
     const getTopMovieTitlesPageOne = async () => {
       try {
         const response = await fetchTopMoviesPageOne();
@@ -641,8 +512,8 @@ const TitleSearch = () => {
           `titleSearchResults_${userInput}`,
           JSON.stringify(cacheData)
         );
-        // setValue('');
-        navigate("/title_search_results", { state: { data: titleSearchData},});
+
+        navigate("/title_search_results", { state: { data: titleSearchData, searchedTitle: userInput},});
       } catch (err) {
         console.log(err);
       }

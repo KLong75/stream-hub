@@ -171,7 +171,6 @@ const ActorSearch = () => {
       if (now - timestamp < CACHE_DURATION) {
         setActorSearchResults(data);
         console.log("Using Cached Data:", data);
-        window.scrollTo(0, 0);
         navigate('/actor_search_results', { state: { data },});
         // setSearchTerm("");
         return;

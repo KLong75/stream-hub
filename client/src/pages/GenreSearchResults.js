@@ -19,7 +19,7 @@ const GenreSearchResults = () => {
   return (
     <>
       <div>Genre Search Results Page</div>
-      <h4>You Searched For: </h4>
+      <h4>Results For: </h4>
       <h5>{searchedGenreLabel}</h5>
 
       <div>

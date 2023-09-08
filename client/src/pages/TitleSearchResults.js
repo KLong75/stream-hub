@@ -1,5 +1,6 @@
 // import from react
 import React, { useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 // import from mui
 import Button from "@mui/material/Button";
 // import context
@@ -8,7 +9,8 @@ import { SearchResultsContext } from "../context/SearchResultsContext";
 import { useTitleSelection } from '../utils/useTitleSelection';
 
 const TitleSearchResults = () => {
-  
+  const location = useLocation();
+  const searchedTitle = location.state?.searchedTitle;
   const { titleSearchResults } = useContext(SearchResultsContext); // Get the data from context
   console.log(titleSearchResults);
   useEffect(() => {}, [titleSearchResults]);
@@ -17,7 +19,8 @@ const TitleSearchResults = () => {
 
   return (
     <>
-      <h3>Title Search Results Page</h3>
+      <h3>Results For:</h3>
+      <h4>'{searchedTitle}'</h4>
       <div>
         {titleSearchResults
           .filter(
