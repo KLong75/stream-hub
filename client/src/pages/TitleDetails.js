@@ -73,7 +73,7 @@ const TitleDetails = () => {
   const [buyYouTubeUrl, setBuyYouTubeUrl] = useState("");
   const [buyNotAvailable, setBuyNotAvailable] = useState("");
 
-  const [selectedActorName, setSelectedActorName] = useState(null);
+  const [setSelectedActorName] = useState(null);
 
   useEffect(() => {
     if (selectedTitleDetails) {
@@ -474,7 +474,6 @@ const TitleDetails = () => {
     event.preventDefault();
     const searchedName = event.currentTarget.value;
     console.log("searched name", searchedName);
-    setSelectedActorName(searchedName);
 
     const cachedActorSearchResults = localStorage.getItem(
       `actorSearchResults_${searchedName}`
