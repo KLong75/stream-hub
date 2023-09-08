@@ -10,7 +10,9 @@ import { QUERY_ME } from "../../utils/queries";
 
 import { REMOVE_TITLE } from "../../utils/mutations";
 
+import { Button } from "@mui/material";
 
+import { useTitleSelection } from "../../utils/useTitleSelection";
 
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
@@ -19,7 +21,7 @@ const WatchList = () => {
     variables: { username: userParam },
   });
   const userData = data?.me || {};
-
+  const handleTitleSelected = useTitleSelection();
   const [removeTitle] = useMutation(REMOVE_TITLE);
 
   const handleDeleteTitle = async (id) => {
@@ -33,15 +35,15 @@ const WatchList = () => {
         variables: { id: id },
         update: (cache) => {
           const data = cache.readQuery({ query: QUERY_ME });
-          
+
           // Create a deep copy of the data
           const newData = JSON.parse(JSON.stringify(data));
-          
+
           // Update the copy, not the original data
           newData.me.savedTitles = newData.me.savedTitles.filter(
             (title) => title.id !== id
           );
-          
+
           // Write the updated data back to the cache
           cache.writeQuery({ query: QUERY_ME, data: newData });
         },
@@ -49,7 +51,7 @@ const WatchList = () => {
     } catch (err) {
       console.error(err);
     }
-};
+  };
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -60,11 +62,13 @@ const WatchList = () => {
         <>
           <h4>{userData.username}'s Watchlist</h4>
           <div className="watchlist">
-          <h5>
-          {userData.savedTitles.length
-            ? `You have ${userData.savedTitles.length} saved ${userData.savedTitles.length === 1 ? 'title' : 'titles'}:`
-            : 'You have no saved titles!'}
-        </h5>
+            <h5>
+              {userData.savedTitles.length
+                ? `You have ${userData.savedTitles.length} saved ${
+                    userData.savedTitles.length === 1 ? "title" : "titles"
+                  }:`
+                : "You have no saved titles!"}
+            </h5>
             {userData.savedTitles?.map((title) => {
               return (
                 <div className="watchlist-item" key={title.id}>
@@ -123,12 +127,18 @@ const WatchList = () => {
                   </div>
 
                   <div className="watchlist-item-buttons">
-                    <button onClick={() => handleDeleteTitle(title.id)}>
+                    <Button 
+                      variant='contained'
+                      onClick={() => handleDeleteTitle(title.id)}>
                       Remove
-                    </button>
-                    <Link to={`/title/${title.titleId}`}>
-                      <button>Details</button>
-                    </Link>
+                    </Button>
+                    <Button
+                      variant="contained"
+                      value={title.id}
+                      onClick={handleTitleSelected}
+                    >
+                      More Details
+                    </Button>
                   </div>
                 </div>
               );

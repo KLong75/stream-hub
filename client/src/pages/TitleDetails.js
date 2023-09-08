@@ -25,22 +25,16 @@ import { SAVE_TITLE } from "../utils/mutations";
 
 
 const TitleDetails = () => {
-  const [savedTitleIds, setSavedTitleIds] = useState(getSavedTitleIds); // [1, 2, 3, 4, 5
+  const navigate = useNavigate();
+  const [savedTitleIds, setSavedTitleIds] = useState(getSavedTitleIds()); // [1, 2, 3, 4, 5
   console.log(getSavedTitleIds);
   console.log(savedTitleIds);
-  useEffect(() => {
-    return () => saveTitleIds(savedTitleIds);
-  });
-
-  const navigate = useNavigate();
 
   const title = useContext(TitleDetailsContext);
+  const { selectedTitleDetails, setSelectedTitleDetails } = useContext(TitleDetailsContext);
+  const { setActorSearchResults } = useContext(SearchResultsContext);
 
   const [saveTitle] = useMutation(SAVE_TITLE);
-
-  const { selectedTitleDetails, setSelectedTitleDetails } =
-    useContext(TitleDetailsContext);
-  const { setActorSearchResults } = useContext(SearchResultsContext);
 
   const [selectedTitle, setSelectedTitle] = useState("");
   // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
@@ -82,6 +76,10 @@ const TitleDetails = () => {
   const [buyGooglePlayUrl, setBuyGooglePlayUrl] = useState("");
   const [buyYouTubeUrl, setBuyYouTubeUrl] = useState("");
   const [buyNotAvailable, setBuyNotAvailable] = useState("");
+
+  useEffect(() => {
+    return () => saveTitleIds(savedTitleIds);
+  });
 
   useEffect(() => {
     if (selectedTitleDetails) {
@@ -674,8 +672,6 @@ const TitleDetails = () => {
         web_url: source.web_url,
         type: source.type,}),
       ),
-  
-      
     };
     console.log('title to save', input);
     // const titleToSave = titleId;
@@ -690,7 +686,7 @@ const TitleDetails = () => {
       console.log(`Title ${input.title} saved successfully`, input);
       setSavedTitleIds([...savedTitleIds, input.id])
       console.log(input.id);
-      console.log(savedTitleIds);
+      console.log(saveTitleIds);
     } catch (err) {
       console.error(err);
     }
@@ -1210,11 +1206,12 @@ const TitleDetails = () => {
           </>
         )}
         <Button 
-          // value={title} 
+          disabled={savedTitleIds?.some((savedTitleId) => savedTitleId === title.id)}
           variant="contained"
-          onClick={() => handleSaveTitle(title)}
-        >
-          Save to Watchlist
+          onClick={() => handleSaveTitle(title)}>
+          {savedTitleIds?.some((savedTitleId) => savedTitleId === title.id)
+            ? 'Title Saved!'
+            : 'Save to Watchlist'}
         </Button>
         <p>Related Titles: </p>
         {similarTitlesDetails.map((similarTitle) => (
