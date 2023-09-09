@@ -1136,7 +1136,7 @@ const TitleDetails = () => {
           </Button>
           <p>Related Titles: </p>
           {similarTitlesDetails.map((similarTitle) => (
-            <React.Fragment key={similarTitle.id} {...title}>
+            <React.Fragment key={similarTitle.id}>
               <p>{similarTitle.title}</p>
               <img src={similarTitle.poster} alt="similar title poster" />
               <p>{similarTitle.plot_overview}</p>

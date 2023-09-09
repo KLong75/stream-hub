@@ -3,9 +3,9 @@ import React, { useState, useContext } from "react";
 // import from react-router
 import { useNavigate } from "react-router-dom";
 // import context
-import { SearchResultsContext } from "../../context/SearchResultsContext"; 
+import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
-import { Box, TextField, MenuItem } from "@mui/material";
+import { TextField, MenuItem } from "@mui/material";
 // import from utils
 import { searchByGenre } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
@@ -215,9 +215,10 @@ const GenreSearch = () => {
         const selectedGenreLabel = genreOptions.find(
           (option) => option.value === selectedGenreCode
         )?.label;
-        
-        navigate("/search_results", 
-        { state: { titles: titleData, genre: selectedGenreLabel },}); 
+
+        navigate("/search_results", {
+          state: { titles: titleData, genre: selectedGenreLabel },
+        });
       } catch (err) {
         console.error(err);
       }
@@ -226,36 +227,23 @@ const GenreSearch = () => {
 
   return (
     <div>
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
+      <h4>Browse Movies and TV Shows by Genre From All Available Sources</h4>
+      <TextField
+        required
+        id="genre-select"
+        select
+        size="small"
+        label="Select Genre"
+        value={selectedGenre}
+        onChange={handleChange}
+        helperText="Please select a genre"
       >
-        <div>
-          <h4>
-            Browse Movies and TV Shows by Genre From All Available Sources
-          </h4>
-          <TextField
-            required
-            id="genre-select"
-            select
-            size="small"
-            label="Select Genre"
-            value={selectedGenre}
-            onChange={handleChange}
-            helperText="Please select a genre"
-          >
-            {genreOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-      </Box>
+        {genreOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
     </div>
   );
 };

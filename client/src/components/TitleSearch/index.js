@@ -524,12 +524,13 @@ const TitleSearch = () => {
     <div>
       <h4>Search Movies and TV Shows by Title</h4>
       <h5>Don't see your title in the menu? Enter it anyway! If it exists, we'll find it.</h5>
-      <form onSubmit={searchByUserInput}>
+      <form onSubmit={searchByUserInput}
+       
+      >
         <FormControl>
           <Autocomplete
             size="small"
             value={value}
-            
             onChange={(event, newValue) => {
               if (typeof newValue === "string") {
                 setValue({

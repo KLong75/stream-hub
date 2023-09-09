@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // import context
-import { TitleDetailsContext } from '../../context/TitleDetailsContext';
+import { TitleDetailsContext } from "../../context/TitleDetailsContext";
 // import fetch calls
 import {
   fetchTrendingMoviesPageOne,
@@ -14,23 +14,32 @@ import Button from "@mui/material/Button";
 
 // import imageNotAvailable from "../assets/no_image_available.jpg";
 
-import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
+import {
+  CACHE_DURATION,
+  CACHE_DURATION_ONE_WEEK,
+  formatDate,
+} from "../../utils/utils";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+// import required modules
+import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+
+import styles from "./TrendingMovies.module.css";
 
 const TrendingMovies = () => {
   const navigate = useNavigate();
   const [trendingMovies, setTrendingMovies] = useState([]);
   console.log(trendingMovies);
 
-  // const [selectedTitle, setSelectedTitle] = useState("");
-  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
-
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
   useEffect(() => {
     const getTrendingMovies = async () => {
-      const cachedTrendingMovies = localStorage.getItem(
-        "trendingMovies"
-      );
+      const cachedTrendingMovies = localStorage.getItem("trendingMovies");
 
       if (cachedTrendingMovies) {
         const { data, timestamp } = JSON.parse(cachedTrendingMovies);
@@ -66,10 +75,7 @@ const TrendingMovies = () => {
             data: topMovies,
             timestamp: Date.now(),
           };
-          localStorage.setItem(
-            "trendingMovies",
-            JSON.stringify(cacheData)
-          );
+          localStorage.setItem("trendingMovies", JSON.stringify(cacheData));
         } catch (error) {
           console.log(error);
         }
@@ -121,23 +127,28 @@ const TrendingMovies = () => {
         const titleDetails = await response.json();
 
         console.log(titleDetails);
-        
-        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
+
+        const rentBuySourceNamesToInclude = [
+          "iTunes",
+          "Google Play",
+          "Amazon",
+          "YouTube",
+        ];
 
         const uniqueBuySources = [];
         const buySourceNames = new Set();
 
         titleDetails.sources.forEach((source) => {
           if (
-              source.type === "buy" &&
-              rentBuySourceNamesToInclude.some((name) => name === source.name)
+            source.type === "buy" &&
+            rentBuySourceNamesToInclude.some((name) => name === source.name)
           ) {
-              if (!buySourceNames.has(source.name)) {
-                  buySourceNames.add(source.name);
-                  uniqueBuySources.push(source);
-              }
+            if (!buySourceNames.has(source.name)) {
+              buySourceNames.add(source.name);
+              uniqueBuySources.push(source);
+            }
           }
-      });
+        });
 
         const titleDetailsData = {
           id: titleDetails.id,
@@ -155,9 +166,14 @@ const TrendingMovies = () => {
           similar_titles: titleDetails.similar_titles
             ? titleDetails.similar_titles.slice(0, 5)
             : [],
-          sources: titleDetails.sources.filter((source) => source.type === "sub"),
+          sources: titleDetails.sources.filter(
+            (source) => source.type === "sub"
+          ),
           buy_sources: uniqueBuySources,
-          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
+          trailer:
+            titleDetails.trailer && titleDetails.trailer.includes("youtube")
+              ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
+              : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
@@ -186,7 +202,7 @@ const TrendingMovies = () => {
 
   return (
     <>
-      <h3>Trending Movies</h3>
+      {/* <h3>Trending Movies</h3>
       <div>
         {trendingMovies.map((movie) => (
           <div key={movie.id}>
@@ -206,7 +222,67 @@ const TrendingMovies = () => {
             </Button>
           </div>
         ))}
-      </div>
+      </div> */}
+
+      <>
+        <h3 style={{marginBottom: '0'}}>Trending Movies</h3>
+        <Swiper
+          style={{
+            "--swiper-navigation-color": "#000000",
+            "--swiper-pagination-color": "#000000",
+          }}
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          navigation={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[EffectCoverflow, Pagination, Navigation]}
+          className={styles.swiper}
+        >
+          {trendingMovies.map((movie) => (
+            <SwiperSlide
+              className={styles.slide}
+              key={movie.id}
+              // style={{
+              //   backgroundImage: `url(https://image.tmdb.org/t/p/w200/${movie.poster_path})`,
+              // }}
+            >
+              <p>
+                <strong>{movie.title}</strong>
+              </p>
+              <img
+                src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+                alt={movie.title}
+                className={styles.img}
+              />
+
+              <p>
+                <strong>Released on {movie.release_date}</strong>
+              </p>
+              <p className={styles.overviewText}>
+                <strong>{movie.overview}</strong>
+              </p>
+              <Button
+                variant="contained"
+                value={`movie-${movie.id}`}
+                onClick={handleTitleSelected}
+              >
+                More Details
+              </Button>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </>
     </>
   );
 };
