@@ -200,6 +200,35 @@ const TrendingMovies = () => {
     }
   };
 
+  const genreList = {
+    28: "Action",
+    12: "Adventure",
+    16: "Animation",
+    35: "Comedy",
+    80: "Crime",
+    99: "Documentary",
+    18: "Drama",
+    10751: "Family",
+    14: "Fantasy",
+    36: "History",
+    27: "Horror",
+    10402: "Music",
+    9648: "Mystery",
+    10749: "Romance",
+    878: "Science Fiction",
+    53: "Thriller",
+    10752: "War",
+    37: "Western",
+    10759: "Action & Adventure",
+    10762: "Kids",
+    10763: "News",
+    10764: "Reality",
+    10765: "Sci-Fi & Fantasy",
+    10766: "Soap",
+    10767: "Talk",
+    10768: "War & Politics",
+  };
+
   return (
     <>
       {/* <h3>Trending Movies</h3>
@@ -225,7 +254,7 @@ const TrendingMovies = () => {
       </div> */}
 
       <>
-        <h3 style={{marginBottom: '0'}}>Trending Movies</h3>
+        <h3 style={{ marginBottom: "0" }}>Trending Movies</h3>
         <Swiper
           style={{
             "--swiper-navigation-color": "#000000",
@@ -259,6 +288,14 @@ const TrendingMovies = () => {
             >
               <p>
                 <strong>{movie.title}</strong>
+              </p>
+              <p>
+                <strong>
+                  {movie.genre
+                    .map((id) => genreList[id])
+                    .filter(Boolean)
+                    .join(", ")}
+                </strong>
               </p>
               <img
                 src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}

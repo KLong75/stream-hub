@@ -2,7 +2,7 @@
   width: 100%;
   height: auto;
   /* padding-top: 2rem; */
-  padding-bottom: 10rem;
+  padding-bottom: 12rem;
 }
 
 .slide {
@@ -14,7 +14,7 @@
 
 .img {
   display: block;
-  width: 40%;
+  width: 60%;
 }
 
 .overviewText {
