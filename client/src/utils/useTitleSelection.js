@@ -27,7 +27,6 @@ export const useTitleSelection = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        // window.scrollTo(0, 0);
         navigate("/title_details");
         return;
       } else {

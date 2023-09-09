@@ -386,6 +386,7 @@ const TitleDetails = () => {
 
   useEffect(() => {
     const getSimilarTitles = async () => {
+       const fetchedSimilarTitles = [];
       if (
         !selectedTitleDetails.similar_titles ||
         selectedTitleDetails.similar_titles.length === 0
@@ -394,22 +395,23 @@ const TitleDetails = () => {
       }
 
       const similarTitles = selectedTitleDetails.similar_titles.slice(0, 3); // Adjust # of similar titles to fetch here
-      const fetchedSimilarTitles = [];
+      console.log(similarTitles)
+      
 
       for (const similarTitleId of similarTitles) {
         const cachedSimilarTitles = localStorage.getItem(
           `similarTitles-${similarTitleId}`
         );
-        console.log("cached data retrieved: cachedSimilarTitles");
+        console.log("cached data retrieved: cachedSimilarTitles", cachedSimilarTitles);
 
         if (cachedSimilarTitles) {
           const { data, timestamp } = JSON.parse(cachedSimilarTitles);
           const now = Date.now();
 
           if (now - timestamp < CACHE_DURATION) {
-            setSimilarTitlesDetails(data);
+            fetchedSimilarTitles.push(data);
             console.log("cached data retrieved, parsed, time checked", data);
-            return;
+            continue;
           } else {
             localStorage.removeItem(`similarTitles-${similarTitleId}`);
             console.log("Cached Data Expired and Removed");
@@ -426,7 +428,7 @@ const TitleDetails = () => {
           }
 
           const similarTitleData = await response.json();
-
+          console.log('similarTitleData', similarTitleData);
           const similarTitleDetails = {
             id: similarTitleData.id,
             title: similarTitleData.title,
@@ -438,13 +440,14 @@ const TitleDetails = () => {
               similarTitleData.trailer.includes("youtube")
                 ? similarTitleData.trailer.replace(/watch\?v=/, "embed/")
                 : similarTitleData.trailer,
+            trailer_thumbnail: similarTitleData.trailer_thumbnail,
           };
 
           fetchedSimilarTitles.push(similarTitleDetails);
           console.log(similarTitleDetails);
 
           const cacheData = {
-            data: fetchedSimilarTitles,
+            data: similarTitleDetails,
             timestamp: Date.now(),
           };
           localStorage.setItem(
@@ -1133,7 +1136,7 @@ const TitleDetails = () => {
           </Button>
           <p>Related Titles: </p>
           {similarTitlesDetails.map((similarTitle) => (
-            <React.Fragment key={similarTitle.id}>
+            <React.Fragment key={similarTitle.id} {...title}>
               <p>{similarTitle.title}</p>
               <img src={similarTitle.poster} alt="similar title poster" />
               <p>{similarTitle.plot_overview}</p>
