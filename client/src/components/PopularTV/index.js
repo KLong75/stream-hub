@@ -1,36 +1,46 @@
 // import from react
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-// import context
-import { TitleDetailsContext } from '../../context/TitleDetailsContext';
+import React, { useState, useEffect } from "react";
 // import fetch calls
-import {
-  fetchPopularTvPageOne,
-  fetchTitleDetails,
-} from "../../utils/apiCalls";
-
+import { fetchPopularTvPageOne } from "../../utils/apiCalls";
 // import from material-ui
 import Button from "@mui/material/Button";
-
-// import imageNotAvailable from "../assets/no_image_available.jpg";
-
-import { CACHE_DURATION, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+// import from utils
+import { formatDate, CACHE_DURATION_ONE_WEEK } from "../../utils/utils";
+import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
+// import Swiper core and required modules
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+// import css module
+import styles from "./PopularTV.module.css";
 
 const PopularTV = () => {
-  const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [currentOverview, setCurrentOverview] = useState("");
+  const [currentTitle, setCurrentTitle] = useState("");
+  const [currentTitleId, setCurrentTitleId] = useState("");
+
+  const handleOverviewClick = (overview, title, id) => {
+    setCurrentOverview(overview);
+    setCurrentTitle(title);
+    setCurrentTitleId(id);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setCurrentOverview("");
+  };
   const [popularTV, setPopularTV] = useState([]);
   console.log(popularTV);
 
-  // const [selectedTitle, setSelectedTitle] = useState("");
-
-  // const [selectedTitleDetails, setSelectedTitleDetails] = useState({});
-  const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
-
   useEffect(() => {
     const getPopularTV = async () => {
-      const cachedPopularTV = localStorage.getItem(
-        "popularTV"
-      );
+      const cachedPopularTV = localStorage.getItem("popularTV");
 
       if (cachedPopularTV) {
         const { data, timestamp } = JSON.parse(cachedPopularTV);
@@ -52,15 +62,15 @@ const PopularTV = () => {
           // console.log(data);
           const popTV = data.results.map((tvShow) => ({
             id: tvShow.id,
-            title: tvShow.title,
+            title: tvShow.name,
             poster_path: tvShow.poster_path,
             backdrop_path: tvShow.backdrop_path,
             overview: tvShow.overview,
-            release_date: tvShow.release_date,
+            first_air_date: formatDate(tvShow.first_air_date),
             genre: tvShow.genre_ids,
           }));
 
-          console.log('popTV: ', popTV);
+          console.log("popTV: ", popTV);
 
           setPopularTV(popTV);
 
@@ -68,10 +78,7 @@ const PopularTV = () => {
             data: popTV,
             timestamp: Date.now(),
           };
-          localStorage.setItem(
-            "popularTV",
-            JSON.stringify(cacheData)
-          );
+          localStorage.setItem("popularTV", JSON.stringify(cacheData));
         } catch (error) {
           console.log(error);
         }
@@ -81,124 +88,89 @@ const PopularTV = () => {
     getPopularTV();
   }, []);
 
-  const handleTitleSelected = async (event) => {
-    event.preventDefault();
-    const selectedTitleId = event.target.value;
-    console.log(selectedTitleId);
+  const handleTitleSelected = useTitleSelectionTMDBId();
 
-    const cachedTitleDetails = localStorage.getItem(
-      `titleDetails_${selectedTitleId}`
-    );
-    console.log(
-      "Cached Data Retrieved: cachedTitleDetails",
-      cachedTitleDetails
-    );
-    if (cachedTitleDetails) {
-      const { data, timestamp } = JSON.parse(cachedTitleDetails);
-
-      console.log(CACHE_DURATION);
-
-      const now = Date.now();
-      console.log(now - timestamp);
-      if (now - timestamp < CACHE_DURATION) {
-        setSelectedTitleDetails(data);
-        console.log("cached data retrieved, parsed, time checked", data);
-        window.scrollTo(0, 0);
-        navigate("/title_details");
-        return;
-      } else {
-        localStorage.removeItem(`titleDetails_${selectedTitleId}`);
-        console.log("Cached Data Expired and Removed");
-      }
-    }
-
-    if (!cachedTitleDetails) {
-      try {
-        const response = await fetchTitleDetails(selectedTitleId);
-
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-
-        const titleDetails = await response.json();
-
-        console.log(titleDetails);
-        
-        const rentBuySourceNamesToInclude = [ 'iTunes', 'Google Play', 'Amazon', 'YouTube' ]
-
-        const uniqueBuySources = [];
-        const buySourceNames = new Set();
-
-        titleDetails.sources.forEach((source) => {
-          if (
-              source.type === "buy" &&
-              rentBuySourceNamesToInclude.some((name) => name === source.name)
-          ) {
-              if (!buySourceNames.has(source.name)) {
-                  buySourceNames.add(source.name);
-                  uniqueBuySources.push(source);
-              }
-          }
-      });
-
-        const titleDetailsData = {
-          id: titleDetails.id,
-          title: titleDetails.title,
-          type: titleDetails.type,
-          year: titleDetails.year,
-          backdrop: titleDetails.backdrop,
-          critic_score: titleDetails.critic_score,
-          genre_names: titleDetails.genre_names,
-          network_names: titleDetails.network_names,
-          plot_overview: titleDetails.plot_overview,
-          poster: titleDetails.poster,
-          release_date: titleDetails.release_date,
-          runtime: titleDetails.runtime_minutes,
-          similar_titles: titleDetails.similar_titles
-            ? titleDetails.similar_titles.slice(0, 5)
-            : [],
-          sources: titleDetails.sources.filter((source) => source.type === "sub"),
-          buy_sources: uniqueBuySources,
-          trailer: titleDetails.trailer && titleDetails.trailer.includes('youtube') ? titleDetails.trailer.replace(/watch\?v=/, 'embed/') : titleDetails.trailer,
-          trailer_thumbnail: titleDetails.trailer_thumbnail,
-          us_rating: titleDetails.us_rating,
-          user_rating: titleDetails.user_rating,
-          imdb_id: titleDetails.imdb_id,
-        };
-
-        console.log(titleDetailsData);
-
-        setSelectedTitleDetails(titleDetailsData);
-
-        const cacheData = {
-          data: titleDetailsData,
-          timestamp: Date.now(),
-        };
-        localStorage.setItem(
-          `titleDetails_${selectedTitleId}`,
-          JSON.stringify(cacheData)
-        );
-        window.scrollTo(0, 0);
-        navigate("/title_details");
-      } catch (err) {
-        console.error(err);
-      }
-    }
+  const genreList = {
+    28: "Action",
+    12: "Adventure",
+    16: "Animation",
+    35: "Comedy",
+    80: "Crime",
+    99: "Documentary",
+    18: "Drama",
+    10751: "Family",
+    14: "Fantasy",
+    36: "History",
+    27: "Horror",
+    10402: "Music",
+    9648: "Mystery",
+    10749: "Romance",
+    878: "Science Fiction",
+    53: "Thriller",
+    10752: "War",
+    37: "Western",
+    10759: "Action & Adventure",
+    10762: "Kids",
+    10763: "News",
+    10764: "Reality",
+    10765: "Sci-Fi & Fantasy",
+    10766: "Soap",
+    10767: "Talk",
+    10768: "War & Politics",
   };
 
   return (
     <>
-      <h3>Popular TV</h3>
-      <div>
+      <h3 style={{ marginBottom: "0" }}>Popular TV</h3>
+      <Swiper
+        style={{
+          "--swiper-navigation-color": "#000000",
+          "--swiper-pagination-color": "#000000",
+        }}
+        effect={"coverflow"}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={"auto"}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        navigation={true}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[EffectCoverflow, Pagination, Navigation]}
+        className={styles.swiper}
+      >
         {popularTV.map((tvShow) => (
-          <div key={tvShow.id}>
+          <SwiperSlide className={styles.slide} key={tvShow.id}>
+            <p>
+              <strong>{tvShow.title}</strong>
+            </p>
+            <p>
+              <strong>
+                {tvShow.genre.map((id) => genreList[id]).slice(0,2).join(", ")}
+              </strong>
+            </p>
             <img
               src={`https://image.tmdb.org/t/p/w200/${tvShow.poster_path}`}
               alt={tvShow.title}
+              className={styles.img}
             />
-            <p>{tvShow.title}</p>
-            <p>Released on {tvShow.first_air_date}</p>
-            <p>{tvShow.overview}</p>
+            <p>
+              <strong>First aired on {tvShow.first_air_date}</strong>
+            </p>
+            <Button
+              variant="contained"
+              onClick={() =>
+                handleOverviewClick(tvShow.overview, tvShow.title, tvShow.id)
+              }
+            >
+              Overview
+            </Button>
             <Button
               variant="contained"
               value={`tv-${tvShow.id}`}
@@ -206,9 +178,23 @@ const PopularTV = () => {
             >
               More Details
             </Button>
-          </div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
+      {/* Modal for showing overview */}
+      <Dialog open={isModalOpen} onClose={handleCloseModal}>
+        <DialogTitle>{currentTitle}: Overview</DialogTitle>
+        <DialogContent>
+          <p>{currentOverview}</p>
+        </DialogContent>
+        <Button
+          variant="contained"
+          value={`movie-${currentTitleId}`}
+          onClick={handleTitleSelected}
+        >
+          More Details
+        </Button>
+      </Dialog>
     </>
   );
 };

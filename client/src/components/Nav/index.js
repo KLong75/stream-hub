@@ -1,7 +1,10 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+// import from utils
 import Auth from "../../utils/auth";
+// import from mui
+import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
 
 const Nav = () => {
   const location = useLocation();
@@ -14,25 +17,43 @@ const Nav = () => {
     <nav>
       {Auth.loggedIn() ? (
         <>
-          {/* The following conditionally renders each link based on the current path */}
-          {location.pathname !== "/home_page" && (
-            <Link to="/home_page">
-              <li>Home</li>
-            </Link>
-          )}
-          {location.pathname !== "/search" && (
-            <Link to="/search">
-              <li>Search</li>
-            </Link>
-          )}
-          {location.pathname !== "/now_trending" && (
-            <Link to="/now_trending">
-              <li>Now Trending</li>
-            </Link>
-          )}
-          <a href="/" onClick={logout}>
-            <li>Sign Out</li>
-          </a>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography component="div" sx={{ flexGrow: 1 }}>
+                <h1>streamHub</h1>
+              </Typography>
+              {/* The following conditionally renders each link based on the current path */}
+              {location.pathname !== "/home_page" && (
+                <Link
+                color="inherit"
+                component={RouterLink}
+                to="/home_page"
+                variant="button"
+                underline="none"
+                sx={{ marginRight: 1, textTransform: "uppercase" }}
+              >
+                Home
+              </Link>
+              )}
+              {location.pathname !== "/search" && (
+                <Link color="inherit" component={RouterLink} to="/search" variant="button"
+                underline="none"
+                sx={{ marginRight: 1, textTransform: "uppercase" }}>
+                  Search
+                </Link>
+              )}
+              {location.pathname !== "/now_trending" && (
+                <Link color="inherit" component={RouterLink} to="/now_trending" variant="button"
+                underline="none"
+                sx={{ marginRight: 1, textTransform: "uppercase" }}>
+                  Trending Titles
+                </Link>
+              )}
+              <Button color="inherit" onClick={logout}>
+                Sign Out
+              </Button>
+            </Toolbar>
+          </AppBar>
         </>
       ) : (
         <>
@@ -61,3 +82,7 @@ const Nav = () => {
 };
 
 export default Nav;
+
+
+
+

@@ -92,7 +92,7 @@ export const useTitleSelectionTMDBId = () => {
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
         };
-        console.log(titleDetailsData);
+        console.log('titleDetailsData', titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);
         const cacheData = {
           data: titleDetailsData,
