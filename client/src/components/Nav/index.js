@@ -30,7 +30,7 @@ const Nav = () => {
                 to="/home_page"
                 variant="button"
                 underline="none"
-                sx={{ marginRight: 1, textTransform: "uppercase" }}
+                sx={{ marginRight: 2, textTransform: "uppercase" }}
               >
                 Home
               </Link>
@@ -38,18 +38,18 @@ const Nav = () => {
               {location.pathname !== "/search" && (
                 <Link color="inherit" component={RouterLink} to="/search" variant="button"
                 underline="none"
-                sx={{ marginRight: 1, textTransform: "uppercase" }}>
+                sx={{ marginRight: 2, textTransform: "uppercase" }}>
                   Search
                 </Link>
               )}
               {location.pathname !== "/now_trending" && (
                 <Link color="inherit" component={RouterLink} to="/now_trending" variant="button"
                 underline="none"
-                sx={{ marginRight: 1, textTransform: "uppercase" }}>
+                sx={{ marginRight: 2, textTransform: "uppercase"}}>
                   Trending Titles
                 </Link>
               )}
-              <Button color="inherit" onClick={logout}>
+              <Button color="inherit" onClick={logout} sx={{marginRight: 2, paddingRight: 0, paddingLeft: 0}} >
                 Sign Out
               </Button>
             </Toolbar>
