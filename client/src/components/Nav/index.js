@@ -1,10 +1,11 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 // import from utils
 import Auth from "../../utils/auth";
 // import from mui
 import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
+
+import styles from "./Nav.module.css";
 
 const Nav = () => {
   const location = useLocation();
@@ -19,8 +20,8 @@ const Nav = () => {
         <>
           <AppBar position="static">
             <Toolbar>
-              <Typography component="div" sx={{ flexGrow: 1 }}>
-                <h1>streamHub</h1>
+              <Typography variant="h1" component="div" sx={{ flexGrow: 1 }} className={styles.app_title}>
+                streamHub
               </Typography>
               {/* The following conditionally renders each link based on the current path */}
               {location.pathname !== "/home_page" && (
@@ -118,3 +119,6 @@ const Nav = () => {
 };
 
 export default Nav;
+
+
+
