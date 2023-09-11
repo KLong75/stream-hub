@@ -25,31 +25,45 @@ const Nav = () => {
               {/* The following conditionally renders each link based on the current path */}
               {location.pathname !== "/home_page" && (
                 <Link
-                color="inherit"
-                component={RouterLink}
-                to="/home_page"
-                variant="button"
-                underline="none"
-                sx={{ marginRight: 2, textTransform: "uppercase" }}
-              >
-                Home
-              </Link>
+                  color="inherit"
+                  component={RouterLink}
+                  to="/home_page"
+                  variant="button"
+                  underline="none"
+                  sx={{ marginRight: 2, textTransform: "uppercase" }}
+                >
+                  Home
+                </Link>
               )}
               {location.pathname !== "/search" && (
-                <Link color="inherit" component={RouterLink} to="/search" variant="button"
-                underline="none"
-                sx={{ marginRight: 2, textTransform: "uppercase" }}>
+                <Link
+                  color="inherit"
+                  component={RouterLink}
+                  to="/search"
+                  variant="button"
+                  underline="none"
+                  sx={{ marginRight: 2, textTransform: "uppercase" }}
+                >
                   Search
                 </Link>
               )}
               {location.pathname !== "/now_trending" && (
-                <Link color="inherit" component={RouterLink} to="/now_trending" variant="button"
-                underline="none"
-                sx={{ marginRight: 2, textTransform: "uppercase"}}>
+                <Link
+                  color="inherit"
+                  component={RouterLink}
+                  to="/now_trending"
+                  variant="button"
+                  underline="none"
+                  sx={{ marginRight: 2, textTransform: "uppercase" }}
+                >
                   Trending Titles
                 </Link>
               )}
-              <Button color="inherit" onClick={logout} sx={{marginRight: 2, paddingRight: 0, paddingLeft: 0}} >
+              <Button
+                color="inherit"
+                onClick={logout}
+                sx={{ marginRight: 2, paddingRight: 0, paddingLeft: 0 }}
+              >
                 Sign Out
               </Button>
             </Toolbar>
@@ -57,24 +71,46 @@ const Nav = () => {
         </>
       ) : (
         <>
-          <ul>
-            <Link to="/">
-              <li>streamHub</li>
-            </Link>
-            {/* If on signup page, show login link */}
-            {location.pathname === "/signup" && (
-              <Link to="/login">
-                <li>Login</li>
-              </Link>
-            )}
-
-            {/* If on login page, show signup link */}
-            {location.pathname === "/login" && (
-              <Link to="/signup">
-                <li>Sign Up</li>
-              </Link>
-            )}
-          </ul>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography component="div" sx={{ flexGrow: 1 }}>
+                <Link
+                  to="/"
+                  color={"inherit"}
+                  underline="none"
+                  component={RouterLink}
+                  // variant="button"
+                >
+                  <h1>streamHub</h1>
+                </Link>
+              </Typography>
+              {/* If on login page, show signup link */}
+              {location.pathname === "/login" && (
+                <Link
+                  color="inherit"
+                  component={RouterLink}
+                  to="/signup"
+                  variant="button"
+                  underline="none"
+                  sx={{ marginRight: 2, textTransform: "uppercase" }}
+                >
+                  Signup
+                </Link>
+              )}
+              {location.pathname === "/signup" && (
+                <Link
+                  color="inherit"
+                  component={RouterLink}
+                  to="/login"
+                  variant="button"
+                  underline="none"
+                  sx={{ marginRight: 2, textTransform: "uppercase" }}
+                >
+                  Login
+                </Link>
+              )}
+            </Toolbar>
+          </AppBar>
         </>
       )}
     </nav>
@@ -82,7 +118,3 @@ const Nav = () => {
 };
 
 export default Nav;
-
-
-
-

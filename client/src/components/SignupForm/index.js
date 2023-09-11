@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
@@ -66,7 +66,7 @@ const SignupForm = () => {
             onChange={handleChanges}
           />
         </div>
-        <button type="submit">Submit</button>
+        <Button variant='contained' type="submit">Submit</Button>
         {error && <span className='font-link'>Sign up failed.</span>}
       </form>
     </div>

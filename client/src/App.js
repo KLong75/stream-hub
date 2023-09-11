@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -54,6 +53,7 @@ const App = () => {
         <Router>
           <ScrollToTop/>
           <Header/>
+          <main className='app-main'>
           <Routes>
             <Route
               path='/'
@@ -108,7 +108,8 @@ const App = () => {
               element={<AccountSettings />}
             />
           </Routes>
-          <Footer/>
+          </main>
+          <Footer />
         </Router>
       </TitleDetailsProvider>
     </SearchResultsProvider>
