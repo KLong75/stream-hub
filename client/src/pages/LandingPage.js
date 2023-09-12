@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-// import { ReactComponent as TV } from "../assets/images/TV.svg";
+import Tv from "../assets/images/TV.png";
 
 
 const LandingPage = () => {
@@ -15,19 +15,28 @@ const LandingPage = () => {
           <h1>streamHub</h1>
         </Grid>
       </Grid>
-   
-      <Grid container spacing={2} justifyContent="center">
-         <Grid >
-          <Link to="login">
-            <Button variant="contained">Login</Button>
-          </Link>
-        </Grid>
-        
+
+      <Grid container justifyContent="center" style={{marginTop: '4rem'}} className='tv-container'>
         <Grid >
-          <Link to="signup">
-            <Button variant="contained">Sign Up</Button>
+          <img src={Tv} alt="tv" style={{height: '20rem'}}/>
+        </Grid>
+      </Grid>
+   
+      <Grid container justifyContent="center" style={{ marginTop: '-10.5rem', marginRight: '3.5rem'}} >
+        <Grid xs={5}></Grid>  
+        <Grid xs={2} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '.5rem' }}>
+          <Link to="login">
+            <Button variant="contained" className="landing-button">Login</Button>
           </Link>
         </Grid>
+        <Grid xs={5}></Grid>  
+        <Grid xs={5}></Grid>
+        <Grid xs={2} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '.5rem' }}>
+          <Link to="signup">
+            <Button variant="contained" className="landing-button">Sign Up</Button>
+          </Link>
+        </Grid>
+        <Grid xs={5}></Grid>
       </Grid>
     </>
   );

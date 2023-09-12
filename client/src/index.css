@@ -6,6 +6,8 @@
 html {
   position: relative;
   height: 100%;
+  font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -27,4 +29,31 @@ code {
 
 .app-main{
   flex: 1;
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 14px; /* Reduce base font-size on smaller screens */
+  }
+  .tv-container {
+    margin-top: 10rem !important;
+  }
+}
+
+@media (max-width: 500px) {
+  html {
+    font-size: 12px; /* Reduce base font-size on smaller screens */
+  }
+  .tv-container {
+    margin-top: 14rem !important;
+  }
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 10px; /* Reduce base font-size on smaller screens */
+  }
+  .tv-container {
+    margin-top: 20rem !important;
+  }
 }
