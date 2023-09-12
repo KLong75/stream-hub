@@ -37,6 +37,7 @@ const LoginForm = () => {
       <form onSubmit={handleFormSubmit}>
         <div>
           <TextField
+            size="small"
             required
             label="Email"
             id="email"
@@ -48,6 +49,7 @@ const LoginForm = () => {
         </div>
         <div>
           <TextField
+            size="small"
             required
             label="Password"
             id="password"
@@ -58,6 +60,7 @@ const LoginForm = () => {
           />
         </div>
         <Button variant='contained' type="submit">Submit</Button>
+  
         {error ? (
           <>
           <p className="error-text font-link" id="log-in-error">
