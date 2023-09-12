@@ -24,6 +24,7 @@ const DeleteAccountModal = ({ onClose }) => {
       <p>Are you sure you want to delete your account?</p>
       <button onClick={deleteAccount}>Confirm</button>
       <button onClick={onClose}>Close</button>
+      {error && <span className="font-link">Delete account failed.</span>}
     </div>
   );
 };

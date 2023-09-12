@@ -36,7 +36,7 @@ code {
     font-size: 14px; /* Reduce base font-size on smaller screens */
   }
   .tv-container {
-    margin-top: 10rem !important;
+    /* margin-top: 10rem !important; */
   }
 }
 
@@ -75,3 +75,4 @@ code {
     margin-top: 20rem !important;
   }
 }
+
