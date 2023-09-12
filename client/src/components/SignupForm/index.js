@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import { ADD_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
-const SignupForm = () => {
+const SignupForm = ({ switchToLogin }) => {
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -35,6 +35,7 @@ const SignupForm = () => {
       <form onSubmit={handleFormSubmit}>
         <div>
           <TextField
+            size="small"
             required
             label="Username"
             id="username"
@@ -46,6 +47,7 @@ const SignupForm = () => {
         </div>
         <div>
           <TextField
+            size="small" 
             required
             label="Email"
             id="email"
@@ -57,6 +59,7 @@ const SignupForm = () => {
         </div>
         <div>
           <TextField
+            size="small"
             required
             label="Password"
             id="password"
@@ -66,8 +69,11 @@ const SignupForm = () => {
             onChange={handleChanges}
           />
         </div>
-        <Button variant='contained' type="submit">Submit</Button>
-        {error && <span className='font-link'>Sign up failed.</span>}
+        <Button size='small' variant="contained" type="submit">
+          Submit
+        </Button>
+        {/* <Button onClick={switchToLogin}>Login</Button> */}
+        {error && <span className="font-link">Sign up failed.</span>}
       </form>
     </div>
   );

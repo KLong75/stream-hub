@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
-const LoginForm = () => {
+const LoginForm = ({ switchToSignup }) => {
   const [formState, setFormState] = useState({
     email: "",
     password: "",
@@ -29,7 +29,6 @@ const LoginForm = () => {
       console.log(e);
     }
   };
-
 
   return (
     <div>
@@ -59,18 +58,20 @@ const LoginForm = () => {
             onChange={handleChanges}
           />
         </div>
-        <Button variant='contained' type="submit">Submit</Button>
-  
+        <Button size='small' variant="contained" type="submit">
+          Submit
+        </Button>
+        {/* <Button onClick={switchToSignup}>Sign Up</Button> */}
         {error ? (
           <>
-          <p className="error-text font-link" id="log-in-error">
-            Login failed.
-          </p>
-          <p>Please try again.</p>
-          <p>Or</p>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
+            <p className="error-text font-link" id="log-in-error">
+              Login failed.
+            </p>
+            <p>Please try again.</p>
+            <p>Or</p>
+            <Link to="/signup">
+              <button>Sign Up</button>
+            </Link>
           </>
         ) : null}
       </form>
