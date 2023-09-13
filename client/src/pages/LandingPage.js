@@ -35,8 +35,8 @@ const LandingPage = () => {
       >
         <Grid>
           {modalType === "" && (
-            <h1
-              style={{ fontSize: "3rem", color: "black" }}
+            <h1 className="app-title"
+              style={{ fontSize: "3rem" }}
             >
               streamHub
             </h1>

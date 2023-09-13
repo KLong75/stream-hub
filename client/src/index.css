@@ -44,14 +44,23 @@ code {
   display: inline-block;
   outline: none;
   background-size: 120% auto;
-  background-image: linear-gradient(315deg, #c02425 0%, #f0cb35 75%);
+  /* background-image: linear-gradient(315deg, #c02425 0%, #f0cb35 75%); */
+  background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%);
   text-transform: uppercase;
 }
 
 .tv-button:hover {
   /* background: #f0cb35; */
   color: black;
-  background-image: linear-gradient(315deg, #f0cb35 0%, #c02425 100%);
+  /* background-image: linear-gradient(315deg, #f0cb35 0%, #c02425 100%); */
+  background-image: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
+}
+
+.app-title {
+  background: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+    color: transparent;
 }
 
 @media (max-width: 1445px) {
@@ -229,3 +238,25 @@ code {
 }
 
 
+.css-button-gradient--4 {
+  min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  background-size: 120% auto;
+  background-image: linear-gradient(315deg, #43cea2 0%, #185a9d 75%);
+}
+.css-button-gradient--4:hover {
+  background-position: right center;
+}
+.css-button-gradient--4:active {
+  top: 2px;
+}
