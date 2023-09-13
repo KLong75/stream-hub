@@ -1,0 +1,15 @@
+.login_form_title {
+  background: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+    color: transparent;
+}
+
+.submit_button {
+  background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%);
+}
+
+.submit_button:hover {
+  background-image: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
+  color: black;
+}

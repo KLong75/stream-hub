@@ -4,6 +4,8 @@ import { TextField, Button } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import styles from "./LoginForm.module.css";
+
 
 const LoginForm = ({ switchToSignup }) => {
   const [formState, setFormState] = useState({
@@ -32,7 +34,7 @@ const LoginForm = ({ switchToSignup }) => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className={styles.login_form_title}>Login</h2>
       <form onSubmit={handleFormSubmit}>
         <div>
           <TextField
@@ -58,7 +60,7 @@ const LoginForm = ({ switchToSignup }) => {
             onChange={handleChanges}
           />
         </div>
-        <Button size='small' variant="contained" type="submit">
+        <Button className={styles.submit_button}size='small' variant="contained" type="submit">
           Submit
         </Button>
         {/* <Button onClick={switchToSignup}>Sign Up</Button> */}

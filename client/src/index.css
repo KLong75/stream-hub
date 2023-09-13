@@ -61,6 +61,9 @@ code {
   -webkit-background-clip: text;
   background-clip: text;
     color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+    color: transparent;
 }
 
 @media (max-width: 1445px) {
