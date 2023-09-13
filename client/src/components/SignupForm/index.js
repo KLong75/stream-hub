@@ -3,8 +3,9 @@ import { TextField, Button } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import styles from "./SignupForm.module.css";
 
-const SignupForm = ({ switchToLogin }) => {
+const SignupForm = () => {
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -31,8 +32,9 @@ const SignupForm = ({ switchToLogin }) => {
 
   return (
     <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleFormSubmit}>
+      <h2 className={styles.signup_form_title}>Signup</h2>
+      <form onSubmit={handleFormSubmit}
+        style={{width: ''}}>
         <div>
           <TextField
             size="small"
@@ -59,6 +61,7 @@ const SignupForm = ({ switchToLogin }) => {
         </div>
         <div>
           <TextField
+          
             size="small"
             required
             label="Password"
@@ -70,7 +73,7 @@ const SignupForm = ({ switchToLogin }) => {
           />
         </div>
         <Button size='small' variant="contained" type="submit">
-          Submit
+          Sign Up
         </Button>
         {/* <Button onClick={switchToLogin}>Login</Button> */}
         {error && <span className="font-link">Sign up failed.</span>}

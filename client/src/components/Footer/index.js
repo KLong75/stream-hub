@@ -5,8 +5,13 @@ import filmStrip from "../../assets/images/FilmStrip_PNG.png";
 import Grid from '@mui/material/Unstable_Grid2';
 import { Link } from "@mui/material";
 
+import {useLocation} from 'react-router-dom';
+
 
 const Footer = () => {
+  const location = useLocation();
+  if (location.pathname === '/') return (<></>);
+
   return (
     
     <footer

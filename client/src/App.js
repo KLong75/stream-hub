@@ -24,6 +24,10 @@ import { TitleDetailsProvider } from './context/TitleDetailsContext';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+// import from MUI
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -43,13 +47,35 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        
+        root: {
+          backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
+          '&:hover': {
+            backgroundImage: 'linear-gradient(315deg, #185a9d 0%, #43cea2 100%)',
+            color: 'black'
+          }
+        }
+      }
+    }
+  }
+});
+
+
+
+
 const App = () => {
 
   return (
     <>
+    <ThemeProvider theme={theme}>
     <ApolloProvider client={client}>
     <SearchResultsProvider>
       <TitleDetailsProvider>
+        <CssBaseline />
         <Router>
           <ScrollToTop/>
           <Header/>
@@ -114,6 +140,7 @@ const App = () => {
       </TitleDetailsProvider>
     </SearchResultsProvider>
     </ApolloProvider>
+    </ThemeProvider>
     </>
   );
 }

@@ -61,7 +61,7 @@ const LoginForm = ({ switchToSignup }) => {
           />
         </div>
         <Button className={styles.submit_button}size='small' variant="contained" type="submit">
-          Submit
+          Login
         </Button>
         {/* <Button onClick={switchToSignup}>Sign Up</Button> */}
         {error ? (

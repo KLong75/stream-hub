@@ -1,4 +1,5 @@
-.login_form_title {
+.signup_form_title{
+  margin: 0;
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -6,3 +7,8 @@
   margin: 0;
 }
 
+@media (max-width: 500px) {
+  .signup_form_title{
+    display: none;
+  }
+}
