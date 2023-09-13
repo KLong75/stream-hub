@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button } from "@mui/material";
+
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 import Tv from "../assets/images/TvNew.png";
@@ -22,20 +22,21 @@ const LandingPage = () => {
   return (
     <>
       <Grid
+        className="title-container"
         container
         justifyContent="center"
         style={{
           position: "fixed",
-          top: "46%",
-          left: "47.5%",
+          top: "44%",
+          left: "47.4%",
           transform: "translate(-50%, -50%)",
+          zIndex: 1001,
         }}
       >
         <Grid>
           {modalType === "" && (
             <h1
-              onClick={() => setModalType("")}
-              style={{ fontSize: "3rem", color: "black", cursor: "pointer" }}
+              style={{ fontSize: "3rem", color: "black" }}
             >
               streamHub
             </h1>
@@ -44,17 +45,17 @@ const LandingPage = () => {
       </Grid>
 
       <Grid
+        className="tv-container"
         container
         justifyContent="center"
         style={{
-          marginTop: "0rem",
           zIndex: 0,
           position: "fixed",
           top: "42%",
           left: "50%",
           transform: "translate(-50%, -50%)",
         }}
-        className="tv-container"
+
       >
         <Grid>
           <img src={Tv} alt="tv" style={{ height: "32rem" }} />
@@ -62,107 +63,88 @@ const LandingPage = () => {
       </Grid>
 
       <Grid
+        direction={"column"}
+        spacing={2}
+        className='tv-button-container'
         container
         justifyContent="center"
         style={{
           marginTop: "0",
           marginRight: "0",
           zIndex: 1000,
-
           position: "fixed",
-          top: "46%",
-          left: "60.5%",
+          top: "46.25%",
+          right: "34%",
           transform: "translate(-50%, -50%)",
         }}
       >
         <>
-          <Grid xs={5}></Grid>
-          <Grid
-            xs={2}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: ".5rem",
-            }}
-          >
-            <Button
+        <Grid xs={4}>
+            <button
               size="small"
               onClick={() => setModalType("login")}
               variant="contained"
-              className="landing-button"
+              className="tv-button"
               style={{
-                width: "55px",
-                height: "60px",
+                fontSize: ".74rem",
+                // width: "55px",
+                height: "4rem",
+                width: "4rem",
+                // height: "4rem",
                 borderRadius: "50%",
                 padding: 0, // to reset any default padding
               }}
             >
-              Login
-            </Button>
+              LOGIN
+            </button>
           </Grid>
-          <Grid xs={5}></Grid>
-          <Grid xs={5}></Grid>
-          <Grid
-            xs={2}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: ".5rem",
-            }}
-          >
-            <Button
+         
+          <Grid xs={4}>
+            <button
               size="small"
               onClick={() => setModalType("signup")}
               variant="contained"
-              className="landing-button"
+              className="tv-button"
               style={{
-                width: "55px",
-                height: "60px",
+                fontSize: ".74rem",
+                height: "4rem",
+                width: "4rem",
                 borderRadius: "50%",
                 padding: 0, // to reset any default padding
               }}
             >
               Sign Up
-            </Button>
+            </button>
           </Grid>
-          <Grid xs={5}></Grid>
-          <Grid xs={5}></Grid>
-          <Grid
-            xs={2}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: ".5rem",
-            }}
-          >
-            <Button
+          
+          <Grid xs={4}>
+            <button
               size="small"
               onClick={() => setModalType("")}
               variant="contained"
-              className="landing-button"
-              color="warning"
+              className="tv-button"
+              // color="warning"
               style={{
-                fontSize: ".75rem",
-                width: "55px",
-                height: "60px",
+                fontSize: ".74rem",
+                height: "4rem",
+                width: "4rem",
                 borderRadius: "50%",
                 padding: 0, // to reset any default padding
                 textTransform: "none",
+                
+                
               }}
             >
               streamHub
-            </Button>
+            </button>
           </Grid>
-          <Grid xs={5}></Grid>
+          
         </>
       </Grid>
 
       {modalType === "login" && (
         <section
-          className="fade-in"
+        
           style={{
             position: "fixed",
             top: "43%",
@@ -179,9 +161,10 @@ const LandingPage = () => {
       )}
       {modalType === "signup" && (
         <section
+       
           style={{
             position: "fixed",
-            top: "43%",
+            top: "44%",
             left: "47.35%",
             transform: "translate(-50%, -50%)",
             zIndex: 1000,
