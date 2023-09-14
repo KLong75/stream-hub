@@ -2,10 +2,12 @@ import React, { useState } from "react";
 
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-import Tv from "../assets/images/TvNew.png";
-import TvIcon from "../assets/images/TvIcon.png";
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
+import Tv from "../../assets/images/TvNew.png";
+import TvIcon from "../../assets/images/TvIcon.png";
+import LoginForm from "../../components/LoginForm";
+import SignupForm from "../../components/SignupForm";
+
+import styles from "./LandingPage.module.css";
 
 const LandingPage = () => {
   const [modalType, setModalType] = useState("");
@@ -34,7 +36,7 @@ const LandingPage = () => {
           }}
         >
           <Grid>
-            <h1 className="app-title" style={{ fontSize: "3rem" }}>
+            <h1 className={styles.app_title} style={{ fontSize: "3rem" }}>
               streamHub
             </h1>
           </Grid>
@@ -55,7 +57,7 @@ const LandingPage = () => {
           }}
         >
           <Grid>
-            <h1 className="app-title" style={{ fontSize: "3rem" }}>
+            <h1 className={styles.app_title} style={{ fontSize: "3rem" }}>
               streamHub
             </h1>
           </Grid>
@@ -106,7 +108,7 @@ const LandingPage = () => {
               size="small"
               onClick={() => setModalType("login")}
               variant="contained"
-              className="tv-button"
+              className={styles.tv_button}
               style={{
                 fontSize: ".74rem",
                 height: "4rem",
@@ -129,7 +131,7 @@ const LandingPage = () => {
               size="small"
               onClick={() => setModalType("signup")}
               variant="contained"
-              className="tv-button"
+              className={styles.tv_button}
               style={{
                 fontSize: ".74rem",
                 height: "4rem",
@@ -151,7 +153,7 @@ const LandingPage = () => {
               size="small"
               onClick={() => setModalType("")}
               variant="contained"
-              className="tv-button"
+              className={styles.tv_button}
               // color="warning"
               style={{
                 // fontSize: ".74rem",
@@ -182,7 +184,7 @@ const LandingPage = () => {
 
       {modalType === "login" && (
         <section
-          className="landing-page-modal"
+          className={styles.landing_page_modal}
           style={{
             position: "fixed",
             top: "50%",
@@ -199,7 +201,7 @@ const LandingPage = () => {
       )}
       {modalType === "signup" && (
         <section
-          className="landing-page-modal"
+          className={styles.landing_page_modal}
           style={{
             position: "fixed",
             top: "51.2%",

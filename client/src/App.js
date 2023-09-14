@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import LandingPage from './pages/LandingPage';
+import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Login';
 import Search from './pages/SearchPage';
 import GenreSearchResults from './pages/GenreSearchResults';
@@ -27,6 +27,7 @@ import { setContext } from '@apollo/client/link/context';
 // import from MUI
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -56,8 +57,9 @@ const theme = createTheme({
           backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
           '&:hover': {
             backgroundImage: 'linear-gradient(315deg, #185a9d 0%, #43cea2 100%)',
-            color: 'black'
-          }
+            color: 'white'
+          },
+          color: 'black'
         }
       }
     }

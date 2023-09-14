@@ -5,30 +5,24 @@ import Auth from "../../utils/auth";
 // import from mui
 import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
 
-import styles from "./Header.module.css";
+import styles from "./Nav.module.css";
 
-const Header= () => {
+const Nav = () => {
   const location = useLocation();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
 
-    // If the location is the landing page and the user isn't logged in, don't render the header
-    if (location.pathname === "/" && !Auth.loggedIn()) {
-      return null;
-    }
-
   return (
-    <>
+    <nav>
       {Auth.loggedIn() ? (
         <>
-          <AppBar position="static" className={styles.header}>
+          <AppBar position="static">
             <Toolbar>
               <Typography variant="h1" component="div" sx={{ flexGrow: 1 }} className={styles.app_title}>
                 streamHub
               </Typography>
-              <nav>
               {/* The following conditionally renders each link based on the current path */}
               {location.pathname !== "/home_page" && (
                 <Link
@@ -66,21 +60,10 @@ const Header= () => {
                   Trending Titles
                 </Link>
               )}
-              </nav>
               <Button
-              className="styles.signout_button"
                 color="inherit"
                 onClick={logout}
-                sx={{ 
-                  marginRight: 2, 
-                  paddingRight: 0, 
-                  paddingLeft: 0, 
-                  backgroundImage: 'none',
-                  '&:hover': {
-                    backgroundImage: 'none',
-                    color: 'white'
-                  }
-                }}
+                sx={{ marginRight: 2, paddingRight: 0, paddingLeft: 0 }}
               >
                 Sign Out
               </Button>
@@ -131,13 +114,11 @@ const Header= () => {
           </AppBar>
         </>
       )}
-    </>
+    </nav>
   );
 };
 
-export default Header;
-
-
+export default Nav;
 
 
 
