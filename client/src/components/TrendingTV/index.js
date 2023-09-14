@@ -1,5 +1,5 @@
 // import from react
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 // import fetch calls
 import { fetchTrendingTvPageOne } from "../../utils/apiCalls";
 // import from material-ui
@@ -24,11 +24,13 @@ const TrendingTv = () => {
   const [currentOverview, setCurrentOverview] = useState("");
   const [currentTitle, setCurrentTitle] = useState("");
   const [currentTitleId, setCurrentTitleId] = useState("");
+  const [currentTitlePoster, setCurrentTitlePoster] = useState("");
 
-  const handleOverviewClick = (overview, title, id) => {
+  const handleOverviewClick = (overview, title, id, poster_path) => {
     setCurrentOverview(overview);
     setCurrentTitle(title);
     setCurrentTitleId(id);
+    setCurrentTitlePoster(poster_path);
     setModalOpen(true);
   };
 
@@ -166,7 +168,7 @@ const TrendingTv = () => {
             <Button
               variant="contained"
               onClick={() =>
-                handleOverviewClick(tvShow.overview, tvShow.title, tvShow.id)
+                handleOverviewClick(tvShow.overview, tvShow.title, tvShow.id, tvShow.poster_path)
               }
             >
               Overview
@@ -183,9 +185,14 @@ const TrendingTv = () => {
       </Swiper>
       {/* Modal for showing overview */}
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
-        <DialogTitle>{currentTitle}: Overview</DialogTitle>
+         <DialogTitle className={styles.overviewTitle}>{currentTitle}</DialogTitle>
         <DialogContent>
-          <p>{currentOverview}</p>
+        <img
+              src={`https://image.tmdb.org/t/p/w200/${currentTitlePoster}`}
+              alt={currentTitle}
+              className={styles.img}
+            />
+          <p className={styles.overviewText}>{currentOverview}</p>
         </DialogContent>
         <Button
           variant="contained"

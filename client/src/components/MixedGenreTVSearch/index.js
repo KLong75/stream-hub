@@ -1,5 +1,5 @@
 // import from react
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 // import from react-router
 import { useNavigate } from "react-router-dom";
 // import context
@@ -18,17 +18,29 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FormLabel } from "@mui/material";
+import { FormLabel, Dialog, DialogTitle, DialogContent } from "@mui/material";
 // import from utils
 import { fetchMixedGenreTV } from "../../utils/apiCalls";
 import { formatDate, CACHE_DURATION } from "../../utils/utils";
 
 const MixedGenreTVSearch = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const { setMixedGenreSearchResults } = useContext( SearchResultsContext );
   const [userInput, setUserInput] = useState({
     genres: [],
   });
+
+  const handleMixedGenreTvSearchClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setUserInput({
+      genres: [],
+    });
+  };
 
   useEffect(() => {
     console.log("State has changed: ", userInput);
@@ -128,8 +140,20 @@ const MixedGenreTVSearch = () => {
 
   return (
     <>
-       <h4>Mixed Genre TV Search</h4>
-       <h5>Looking for a sc-fi adventure series to binge? A family comedy? A news documentary? We'll find what you want.</h5>
+       <h4>Search TV Shows by a Combination of Genres</h4>
+       <Button variant="contained" onClick={() => handleMixedGenreTvSearchClick()}>
+        Mixed Genre TV
+      </Button>
+      <Dialog open={modalOpen} onClose={handleModalClose}>
+      <DialogTitle style={{fontSize: '1.5rem'}}>Mixed Genre TV Search
+        <br />
+        <p style={{fontSize: '1.25rem', padding: '1.5',}}>
+        Looking for a sc-fi adventure series to binge? A family comedy? A news documentary? We'll find what you want.
+        </p> 
+      </DialogTitle> 
+       
+      <DialogContent>
+       
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <FormLabel>Select Genre(s)</FormLabel>
@@ -142,7 +166,7 @@ const MixedGenreTVSearch = () => {
               <Typography>What are you in the mood for?</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <h6>
+            <h6 style={{fontSize: '1.2rem', margin: 0}}>
                 <em>
                  Select any combination of genres to find the perfect show for your next binge.
                   <br />
@@ -314,9 +338,15 @@ const MixedGenreTVSearch = () => {
           </Accordion>
         </FormGroup>
         <Button type="submit" variant="contained">
-          Submit
+          Search
         </Button>
       </form>
+      
+      </DialogContent>
+      <Button variant="contained" onClick={handleModalClose}>
+          Close
+        </Button>
+      </Dialog>
     </>
   );
 };

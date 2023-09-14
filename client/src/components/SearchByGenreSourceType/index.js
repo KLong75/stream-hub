@@ -1,5 +1,5 @@
 // import from React
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 // import from react-router
 import { useNavigate } from "react-router-dom";
 // import context
@@ -18,12 +18,14 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 // import from utils
 import { fetchTitlesByGenreSourceType } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
 
 
 const SearchByGenreSourceType = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     genres: [],
@@ -31,9 +33,21 @@ const SearchByGenreSourceType = () => {
     type: [],
   });
 
-  const { setGenreSourceTypeSearchResults } = useContext(SearchResultsContext);
+  const handleComboSearchClick = () => {
+    setModalOpen(true);
+  };
 
-  // const [genreSourceTypeResults, setGenreSourceTypeResults] = useState([]);
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setUserInput({
+      genres: [],
+      source: [],
+      type: [],
+    });
+    
+  };
+
+  const { setGenreSourceTypeSearchResults } = useContext(SearchResultsContext);
 
   useEffect(() => {
     console.log("State has changed: ", userInput);
@@ -175,7 +189,19 @@ const SearchByGenreSourceType = () => {
   return (
     <>
       <h4>Search By Combination of Genre, Source, and Type</h4>
-      <h5>Find what you want to watch, where you want to watch it.</h5>
+      <Button
+        variant="contained"
+        onClick={handleComboSearchClick}
+      >
+        Combo Search
+      </Button>
+      <Dialog open={modalOpen} onClose={handleModalClose}>
+        <DialogTitle style={{ fontSize: "1.5rem", marginBottom: 0, marginTop: 0 }}>Search By Combination of Genre, Source, and Type
+          <p style={{ fontSize: "1.25rem", padding: 0, marginBottom: 0 }}>
+          Find what you want to watch, where you want to watch it.
+          </p>
+        </DialogTitle>
+        <DialogContent>
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <FormLabel>Select Genre</FormLabel>
@@ -400,7 +426,6 @@ const SearchByGenreSourceType = () => {
                 }
                 label="Romance"
               />
-
               <FormControlLabel
                 value="40"
                 control={
@@ -670,6 +695,11 @@ const SearchByGenreSourceType = () => {
           Submit
         </Button>
       </form>
+      </DialogContent>
+      <Button variant="contained" onClick={handleModalClose}>
+          Close
+        </Button>
+    </Dialog>
     </>
   );
 };

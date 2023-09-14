@@ -615,11 +615,7 @@ const TitleSearch = () => {
           Close
         </Button>
       </Dialog>
-
-      
-
     </>
-
   );
 };
 

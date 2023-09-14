@@ -1,5 +1,5 @@
 // import from react
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 // import from react-router
 import { useNavigate } from "react-router-dom";
 // import context
@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 // import FormLabel from '@mui/material/FormLabel';
 // import from utils
 import {
@@ -30,6 +31,15 @@ const ActorSearch = () => {
   const [topActors, setTopActors] = useState([]);
   const [searchTerm, setSearchTerm] = useState(null);
   const [sortedActors, setSortedActors] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleActorSearchClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const cachedSortedActors = localStorage.getItem("sortedActorList");
@@ -226,7 +236,6 @@ const ActorSearch = () => {
           JSON.stringify(cacheData)
         );
         console.log(searchedName);
-        window.scrollTo(0, 0);
         navigate('/actor_search_results', {state: {data: actorSearchData},});
       } catch (err) {
         console.log(err.message);
@@ -235,9 +244,19 @@ const ActorSearch = () => {
   };
 
   return (
-    <div>
+    <>
       <h4>Actor Search</h4>
-      <h5>Don't see the name you are looking for in the menu? Enter it anyway! We'll find them.</h5>
+      <Button variant="contained" onClick={() => handleActorSearchClick()}>
+        Actor Search
+      </Button>
+      <Dialog open={modalOpen} onClose={handleCloseModal}>
+        <DialogTitle style={{ fontSize: "1.5rem", marginTop: 0, marginBottom: 0 }}>Search By Actor Name
+          <p style={{ fontSize: "1.25rem", padding: 0, marginBottom: 0 }}>
+          Find movies and shows starring your favorite actors.
+          </p>
+        </DialogTitle>
+        <DialogContent>
+      <h5 style={{fontSize: '1.5rem', marginTop: 0, marginBottom: '1rem' }} >Don't see the name you are looking for in the menu? Enter it anyway! We'll find them.</h5>
       <form onSubmit={searchByEnteredName}>
         <FormControl>
           <Autocomplete
@@ -303,7 +322,12 @@ const ActorSearch = () => {
           </Button>
         </FormControl>
       </form>
-    </div>
+      </DialogContent>
+      <Button onClick={handleCloseModal} variant="contained">
+        Close
+      </Button>
+      </Dialog>
+    </>
   );
 };
 
