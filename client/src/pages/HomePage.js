@@ -40,8 +40,6 @@ const HomePage = () => {
         <>
           <h2>Welcome {user.username}</h2>
           <section>
-            {/* <h3>Your Saved Titles</h3> */}
-            {/* <ParallaxSwiper /> */}
             <h3>Find Something to Watch</h3>
             <GenreSearch />
             <TitleSearch />

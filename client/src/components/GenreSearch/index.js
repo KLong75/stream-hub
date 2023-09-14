@@ -6,9 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
 import { TextField, MenuItem } from "@mui/material";
+import Button from "@mui/material/Button";
 // import from utils
 import { searchByGenre } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
+// import from material-ui
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 
 const genreOptions = [
   {
@@ -138,15 +141,23 @@ const genreOptions = [
 ];
 
 const GenreSearch = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { genreSearchResults, setGenreSearchResults } =
-    useContext(SearchResultsContext); // <- use the context
+  const [isModalOpen, setModalOpen] = useState(false);
+  const { setGenreSearchResults } = useContext(SearchResultsContext); // <- use the context
   const navigate = useNavigate();
 
   const [selectedGenre, setSelectedGenre] = useState("");
 
   // eslint-disable-next-line no-unused-vars
   const [selectedGenreCode, setSelectedGenreCode] = useState("");
+
+  const handleGenreSearchClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedGenre("");
+  };
 
   const handleChange = async (event) => {
     event.preventDefault();
@@ -173,6 +184,7 @@ const GenreSearch = () => {
         setGenreSearchResults(data);
         console.log("Using Cached Data:", data);
         navigate("/search_results", { state: { titles: data } }); // <- navigate with useNavigate
+        setSelectedGenre("");
         return;
       } else {
         localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);
@@ -186,7 +198,8 @@ const GenreSearch = () => {
         console.log(searchByGenre(selectedGenreCode));
 
         if (!response.ok) {
-          throw new Error("Something went wrong");
+          // throw new Error("Something went wrong");
+          alert("Something went wrong. Please try again.");
         }
         const { titles } = await response.json();
 
@@ -202,7 +215,7 @@ const GenreSearch = () => {
         console.log(titleData);
 
         setGenreSearchResults(titleData);
-        // setSelectedGenre('');
+        setSelectedGenre("");
 
         const cacheData = {
           data: titleData,
@@ -226,25 +239,37 @@ const GenreSearch = () => {
   };
 
   return (
-    <div>
-      <h4>Browse Movies and TV Shows by Genre From All Available Sources</h4>
-      <TextField
-        required
-        id="genre-select"
-        select
-        size="small"
-        label="Select Genre"
-        value={selectedGenre}
-        onChange={handleChange}
-        helperText="Please select a genre"
-      >
-        {genreOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </div>
+    <>
+      <h4>Search Movies and TV Shows by Genre From All Available Sources</h4>
+      <Button variant="contained" onClick={() => handleGenreSearchClick()}>
+        Genre Search
+      </Button>
+      <Dialog open={isModalOpen} onClose={handleCloseModal}>
+        <DialogTitle>Search by Genre From All Available Sources</DialogTitle>
+        <DialogContent>
+          <TextField
+            fullWidth
+            required
+            id="genre-select"
+            select
+            size="small"
+            label="Select Genre"
+            value={selectedGenre}
+            onChange={handleChange}
+            helperText="Select a genre"
+          >
+            {genreOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </DialogContent>
+        <Button variant="contained" onClick={handleCloseModal}>
+          Close
+        </Button>
+      </Dialog>
+    </>
   );
 };
 

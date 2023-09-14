@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Login';
-import Search from './pages/SearchPage';
+import Search from './pages/SearchPage/SearchPage';
 import GenreSearchResults from './pages/GenreSearchResults';
 import MixedGenreSearchSearchResults from './pages/MixedGenreSearchResults';
 import TitleSearchResults from './pages/TitleSearchResults';
@@ -54,9 +54,14 @@ const theme = createTheme({
       styleOverrides: {
         
         root: {
-          backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
+          // backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
+          // '&:hover': {
+          //   backgroundImage: 'linear-gradient(315deg, #185a9d 0%, #43cea2 100%)',
+          //   color: 'white'
+          // },
+          backgroundImage: 'linear-gradient(315deg, #185a9d 0%, #43cea2 100%)',
           '&:hover': {
-            backgroundImage: 'linear-gradient(315deg, #185a9d 0%, #43cea2 100%)',
+            backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
             color: 'white'
           },
           color: 'black'
@@ -65,8 +70,6 @@ const theme = createTheme({
     }
   }
 });
-
-
 
 
 const App = () => {
