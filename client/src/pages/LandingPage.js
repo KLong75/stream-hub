@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 import Tv from "../assets/images/TvNew.png";
-
+import TvIcon from "../assets/images/TvIcon.png";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 
@@ -20,29 +20,6 @@ const LandingPage = () => {
 
   return (
     <>
-      {/* <Grid
-        className="title-container"
-        container
-        justifyContent="center"
-        style={{
-          position: "fixed",
-          top: "44%",
-          left: "47.4%",
-          transform: "translate(-50%, -50%)",
-          zIndex: 1001,
-        }}
-      >
-        <Grid>
-          {modalType === "" && (
-            <h1 className="app-title"
-              style={{ fontSize: "3rem" }}
-            >
-              streamHub
-            </h1>
-          )}
-        </Grid>
-      </Grid> */}
-
       {modalType === "" && (
         <Grid
           className="title-container"
@@ -64,7 +41,7 @@ const LandingPage = () => {
         </Grid>
       )}
 
-      { (modalType === "login" || modalType === "signup") && (
+      {(modalType === "login" || modalType === "signup") && (
         <Grid
           className="title-container-top"
           container
@@ -98,7 +75,12 @@ const LandingPage = () => {
         }}
       >
         <Grid>
-          <img className='landing_page_tv' src={Tv} alt="tv" style={{ height: "32rem" }} />
+          <img
+            className="landing_page_tv"
+            src={Tv}
+            alt="tv"
+            style={{ height: "32rem" }}
+          />
         </Grid>
       </Grid>
 
@@ -127,15 +109,18 @@ const LandingPage = () => {
               className="tv-button"
               style={{
                 fontSize: ".74rem",
-                // width: "55px",
                 height: "4rem",
                 width: "4rem",
-                // height: "4rem",
                 borderRadius: "50%",
-                padding: 0, // to reset any default padding
+                padding: 0,
+                textTransform: "uppercase",
               }}
             >
-              LOGIN
+              {modalType === "login" ? (
+                <span style={{ visibility: "hidden" }}>Login</span>
+              ) : (
+                "Login"
+              )}
             </button>
           </Grid>
 
@@ -153,7 +138,11 @@ const LandingPage = () => {
                 padding: 0, // to reset any default padding
               }}
             >
-              Sign Up
+              {modalType === "signup" ? (
+                <span style={{ visibility: "hidden" }}>Sign Up</span>
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </Grid>
 
@@ -165,7 +154,7 @@ const LandingPage = () => {
               className="tv-button"
               // color="warning"
               style={{
-                fontSize: ".74rem",
+                // fontSize: ".74rem",
                 height: "4rem",
                 width: "4rem",
                 borderRadius: "50%",
@@ -173,7 +162,19 @@ const LandingPage = () => {
                 textTransform: "none",
               }}
             >
-              streamHub
+            {modalType === "" ? (
+              <img
+                src={TvIcon}
+                style={{ visibility: "hidden", width: "auto", height: "3rem" }}
+                alt="tv icon"
+              />
+            ) : (
+              <img
+                src={TvIcon}
+                style={{  width: "auto", height: "3rem" }}
+                alt="tv icon"
+              />
+            )}
             </button>
           </Grid>
         </>
