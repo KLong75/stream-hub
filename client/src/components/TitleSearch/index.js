@@ -1,5 +1,5 @@
 // import from react
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 // import from react-router-dom
 import { useNavigate } from "react-router-dom";
 // import context
@@ -8,6 +8,7 @@ import { SearchResultsContext } from "../../context/SearchResultsContext"; // <-
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 // import FormLabel from '@mui/material/FormLabel';
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 // import from utils
@@ -50,10 +51,19 @@ import { CACHE_DURATION, CACHE_DURATION_ONE_DAY } from "../../utils/utils";
 const filter = createFilterOptions();
 
 const TitleSearch = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const { setTitleSearchResults } = useContext(SearchResultsContext); // <- get the context 
   const [value, setValue] = useState(null);
   const [topTitlesMovieAndTv, setTopTitlesMovieAndTv] = useState([]);
+  
+  const handleTitleSearchClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const cachedTopTitlesMovieAndTv =
@@ -487,7 +497,7 @@ const TitleSearch = () => {
         console.log(response);
 
         if (!response.ok) {
-          throw new Error("something went wrong!");
+          alert("Something went wrong. Please try again.");
         }
 
         const data = await response.json();
@@ -521,9 +531,16 @@ const TitleSearch = () => {
   };
 
   return (
-    <div>
-      <h4>Search Movies and TV Shows by Title</h4>
-      <h5>Don't see your title in the menu? Enter it anyway! If it exists, we'll find it.</h5>
+    <>
+      <h4>Search Movies and TV Shows by Title From All Available Sources</h4>
+      <Button variant="contained" onClick={() => handleTitleSearchClick()}>
+        Title Search
+      </Button>
+      <Dialog open={modalOpen} onClose={handleCloseModal}>
+        <DialogTitle>Search by Title From All Available Sources</DialogTitle>
+        <DialogContent>
+
+        <h5>Don't see your title in the menu? Enter it anyway! If it exists, we'll find it.</h5>
       <form onSubmit={searchByUserInput}
        
       >
@@ -591,8 +608,18 @@ const TitleSearch = () => {
             Search By Title
           </Button>
         </FormControl>
+
       </form>
-    </div>
+        </DialogContent>
+        <Button variant="contained" onClick={handleCloseModal}>
+          Close
+        </Button>
+      </Dialog>
+
+      
+
+    </>
+
   );
 };
 

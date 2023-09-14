@@ -7,11 +7,12 @@ import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
 import { TextField, MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
+import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 // import from utils
 import { searchByGenre } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
-// import from material-ui
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+
+
 
 const genreOptions = [
   {
