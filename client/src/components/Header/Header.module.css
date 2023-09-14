@@ -1,0 +1,11 @@
+.app_title {
+  font-size: 2.25rem !important;
+}
+
+.header {
+  background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%);
+}
+
+.signout_button {
+  background-image: none !important;
+}
