@@ -3,6 +3,7 @@
   flex-direction: column;
   min-height: 100vh;
 }
+
 html {
   position: relative;
   height: 100%;
@@ -19,7 +20,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   height: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden; 
 }
 
 code {

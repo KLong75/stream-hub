@@ -3,7 +3,8 @@ import { useState, useEffect, useContext } from "react";
 // import from react-router-dom
 import { useNavigate } from "react-router-dom";
 // import context
-import { SearchResultsContext } from "../../context/SearchResultsContext"; // <- import the context
+import { SearchResultsContext } from "../../context/SearchResultsContext"; 
+// import { TrendingMoviesContext } from "../../context/TrendingMoviesContext";
 // import from material-ui
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";

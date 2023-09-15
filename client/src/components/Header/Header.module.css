@@ -1,11 +1,15 @@
 .app_title {
-  font-size: 2.25rem !important;
+  font-size: 2.5rem !important;
   font-weight: bold !important;
   /* color: black; */
-  background: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
+  /* background: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
   -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  background-clip: text; */
+  /* color: transparent; */
+  color: black;
+  letter-spacing: .1rem!important;
+  /* -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black; */
 }
 
 .header {

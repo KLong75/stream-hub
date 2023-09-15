@@ -1,18 +1,15 @@
 // import from react
-import { useState, useEffect } from "react";
-
-// import fetch calls
-import { fetchPopularMoviesPageOne } from "../../utils/apiCalls";
-
+import { useContext } from "react";
+// import context
+import { PopularMoviesContext } from "../../context/PopularMoviesContext";
 // import from material-ui
-import Button from "@mui/material/Button";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+// import Button from "@mui/material/Button";
+// import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 // import from utils
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
 // import Swiper core and required modules
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import { EffectCoverflow, Navigation } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -21,71 +18,27 @@ import "swiper/css/pagination";
 import styles from "./PopularMovies.module.css";
 
 const PopularMovies = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [currentOverview, setCurrentOverview] = useState("");
-  const [currentTitle, setCurrentTitle] = useState("");
-  const [currentTitleId, setCurrentTitleId] = useState("");
-  const [popularMovies, setPopularMovies] = useState([]);
-  console.log(popularMovies);
-  const [currentTitlePoster, setCurrentTitlePoster] = useState("");
+  const popularMovies = useContext(PopularMoviesContext);
+  
+  // const [isModalOpen, setModalOpen] = useState(false);
+  // const [currentOverview, setCurrentOverview] = useState("");
+  // const [currentTitle, setCurrentTitle] = useState("");
+  // const [currentTitleId, setCurrentTitleId] = useState("");
+  // console.log(popularMovies);
+  // const [currentTitlePoster, setCurrentTitlePoster] = useState("");
 
-  const handleOverviewClick = (overview, title, id, poster_path) => {
-    setCurrentOverview(overview);
-    setCurrentTitle(title);
-    setCurrentTitleId(id);
-    setCurrentTitlePoster(poster_path);
-    setModalOpen(true);
-  };
+  // const handleOverviewClick = (overview, title, id, poster_path) => {
+  //   setCurrentOverview(overview);
+  //   setCurrentTitle(title);
+  //   setCurrentTitleId(id);
+  //   setCurrentTitlePoster(poster_path);
+  //   setModalOpen(true);
+  // };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setCurrentOverview("");
-  };
-
-  useEffect(() => {
-    const getPopularMovies = async () => {
-      const cachedPopularMovies = localStorage.getItem("popularMovies");
-
-      if (cachedPopularMovies) {
-        const { data, timestamp } = JSON.parse(cachedPopularMovies);
-        console.log("Cached Data Retrieved: cachedPopularMovies", data);
-        const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setPopularMovies(data);
-          return;
-        } else {
-          localStorage.removeItem("popularMovies");
-          console.log("Cached Data Expired and Removed");
-        }
-      }
-
-      if (!cachedPopularMovies) {
-        try {
-          const response = await fetchPopularMoviesPageOne();
-          const data = await response.json();
-          console.log(data);
-          const popMovies = data.results.map((movie) => ({
-            id: movie.id,
-            title: movie.title,
-            poster_path: movie.poster_path,
-            backdrop_path: movie.backdrop_path,
-            overview: movie.overview,
-            release_date: formatDate(movie.release_date),
-            genre: movie.genre_ids,
-          }));
-          setPopularMovies(popMovies);
-          const cacheData = {
-            data: popMovies,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem("popularMovies", JSON.stringify(cacheData));
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-    getPopularMovies();
-  }, []);
+  // const handleCloseModal = () => {
+  //   setModalOpen(false);
+  //   setCurrentOverview("");
+  // };
 
   const handleTitleSelected = useTitleSelectionTMDBId();
 
@@ -120,7 +73,7 @@ const PopularMovies = () => {
 
   return (
     <>
-      <h3 style={{ marginBottom: "0" }}>Popular Movies</h3>
+      <h3 className={styles.category}>Popular Movies</h3>
       <Swiper
         style={{
           "--swiper-navigation-color": "#000000",
@@ -138,60 +91,54 @@ const PopularMovies = () => {
           slideShadows: true,
         }}
         navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[EffectCoverflow, Pagination, Navigation]}
+        modules={[EffectCoverflow, Navigation]}
         className={styles.swiper}
       >
         {popularMovies.map((movie) => (
           <SwiperSlide
             className={styles.slide}
             key={movie.id}
-            // style={{
-            //   backgroundImage: `url(https://image.tmdb.org/t/p/w200/${movie.poster_path})`,
-            // }}
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/w200/${movie.poster_path}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              // backgroundSize: "cover",
+              backgroundColor: "",
+            }}
+            onClick={() => {
+              const customEvent = {
+                preventDefault: () => {},
+                target: { value: `movie-${movie.id}` },
+              };
+              handleTitleSelected(customEvent);
+            }}
           >
-            <p>
-              <strong>{movie.title}</strong>
-            </p>
-            <p>
-              <strong>
-                {movie.genre
-                  .map((id) => genreList[id])
-                  .filter(Boolean)
-                  .slice(0,2)
-                  .join(", ")}
-              </strong>
-            </p>
-            <img
+            <h4 className={styles.movieTitle}>
+              {movie.title}
+            </h4>
+
+            {/* <img
               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
               alt={movie.title}
               className={styles.img}
-            />
-            <p>
-              <strong>Released on {movie.release_date}</strong>
-            </p>
-            <Button
-              variant="contained"
-              onClick={() =>
-                handleOverviewClick(movie.overview, movie.title, movie.id, movie.poster_path)
-              }
-            >
-              Overview
-            </Button>
-            <Button
-              variant="contained"
-              value={`movie-${movie.id}`}
-              onClick={handleTitleSelected}
-            >
-              More Details
-            </Button>
+            /> */}
+            <h5 className={styles.movieGenres}>
+              
+                {movie.genre
+                  .map((id) => genreList[id])
+                  .filter(Boolean)
+                  .slice(0, 2)
+                  .join(", ")}
+              
+            </h5>
+            <h6 className={styles.releaseDate}>
+              Released on {movie.release_date}
+            </h6>
           </SwiperSlide>
         ))}
       </Swiper>
       {/* Modal for showing overview */}
-      <Dialog open={isModalOpen} onClose={handleCloseModal}>
+      {/* <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle className={styles.overviewTitle}>{currentTitle}</DialogTitle>
         <DialogContent>
         <img
@@ -208,7 +155,7 @@ const PopularMovies = () => {
         >
           More Details
         </Button>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };

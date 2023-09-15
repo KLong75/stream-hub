@@ -1,16 +1,15 @@
 // import from react
-import { useState, useEffect } from "react";
-// import fetch calls
-import { fetchTrendingTvPageOne } from "../../utils/apiCalls";
+import { useContext } from "react";
+// import context
+import { TrendingTvContext } from "../../context/TrendingTvContext";
 // import from material-ui
-import Button from "@mui/material/Button";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+// import Button from "@mui/material/Button";
+// import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 // import from utils
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
 // import Swiper core and required modules
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import { EffectCoverflow, Navigation } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -20,75 +19,26 @@ import styles from "./TrendingTV.module.css";
 
 
 const TrendingTv = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [currentOverview, setCurrentOverview] = useState("");
-  const [currentTitle, setCurrentTitle] = useState("");
-  const [currentTitleId, setCurrentTitleId] = useState("");
-  const [currentTitlePoster, setCurrentTitlePoster] = useState("");
+  const trendingTv = useContext(TrendingTvContext);
 
-  const handleOverviewClick = (overview, title, id, poster_path) => {
-    setCurrentOverview(overview);
-    setCurrentTitle(title);
-    setCurrentTitleId(id);
-    setCurrentTitlePoster(poster_path);
-    setModalOpen(true);
-  };
+  // const [isModalOpen, setModalOpen] = useState(false);
+  // const [currentOverview, setCurrentOverview] = useState("");
+  // const [currentTitle, setCurrentTitle] = useState("");
+  // const [currentTitleId, setCurrentTitleId] = useState("");
+  // const [currentTitlePoster, setCurrentTitlePoster] = useState("");
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setCurrentOverview("");
-  };
+  // const handleOverviewClick = (overview, title, id, poster_path) => {
+  //   setCurrentOverview(overview);
+  //   setCurrentTitle(title);
+  //   setCurrentTitleId(id);
+  //   setCurrentTitlePoster(poster_path);
+  //   setModalOpen(true);
+  // };
 
-  const [trendingTv, setTrendingTv] = useState([]);
-  console.log(trendingTv);
-
-  useEffect(() => {
-    const getTrendingTv = async () => {
-      const cachedTrendingTv = localStorage.getItem("trendingTv");
-
-      if (cachedTrendingTv) {
-        const { data, timestamp } = JSON.parse(cachedTrendingTv);
-        console.log("Cached Data Retrieved: cachedTrendingTv", data);
-        const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingTv(data);
-          return;
-        } else {
-          localStorage.removeItem("trendingTv");
-          console.log("Cached Data Expired and Removed");
-        }
-      }
-
-      if (!cachedTrendingTv) {
-        try {
-          const response = await fetchTrendingTvPageOne();
-          const data = await response.json();
-          console.log(data);
-          const topTvShows = data.results.map((tvShow) => ({
-            id: tvShow.id,
-            title: tvShow.name,
-            poster_path: tvShow.poster_path,
-            backdrop_path: tvShow.backdrop_path,
-            overview: tvShow.overview,
-            first_air_date: formatDate(tvShow.first_air_date),
-            genre: tvShow.genre_ids,
-          }));
-
-          setTrendingTv(topTvShows);
-
-          const cacheData = {
-            data: topTvShows,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem("trendingTv", JSON.stringify(cacheData));
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-
-    getTrendingTv();
-  }, []);
+  // const handleCloseModal = () => {
+  //   setModalOpen(false);
+  //   setCurrentOverview("");
+  // };
 
   const handleTitleSelected = useTitleSelectionTMDBId();
 
@@ -123,11 +73,10 @@ const TrendingTv = () => {
 
   return (
     <>
-      <h3 style={{ marginBottom: "0" }}>Trending TV Shows</h3>
+      <h3 className={styles.category}>Trending TV Shows</h3>
       <Swiper
         style={{
           "--swiper-navigation-color": "#000000",
-          "--swiper-pagination-color": "#000000",
         }}
         effect={"coverflow"}
         grabCursor={true}
@@ -141,31 +90,43 @@ const TrendingTv = () => {
           slideShadows: true,
         }}
         navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[EffectCoverflow, Pagination, Navigation]}
+        modules={[EffectCoverflow, Navigation]}
         className={styles.swiper}
       >
         {trendingTv.map((tvShow) => (
-          <SwiperSlide className={styles.slide} key={tvShow.id}>
-            <p>
-              <strong>{tvShow.title}</strong>
-            </p>
-            <p>
-              <strong>
+          <SwiperSlide 
+            className={styles.slide} 
+            key={tvShow.id} 
+              style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/w200/${tvShow.poster_path}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              // backgroundSize: "cover",
+              backgroundColor: "",
+            }}
+            onClick={() => {
+              const customEvent = {
+                preventDefault: () => {},
+                target: { value: `tv-${tvShow.id}` },
+              };
+              handleTitleSelected(customEvent);
+            }}>
+            <h4 className={styles.tvShowTitle}>
+              {tvShow.title}
+            </h4>
+            <h5 className={styles.tvShowGenres}>
                 {tvShow.genre.map((id) => genreList[id]).slice(0,2).join(", ")}
-              </strong>
-            </p>
-            <img
+            </h5>
+            {/* <img
               src={`https://image.tmdb.org/t/p/w200/${tvShow.poster_path}`}
               alt={tvShow.title}
               className={styles.img}
-            />
-            <p>
-              <strong>First aired on {tvShow.first_air_date}</strong>
-            </p>
-            <Button
+            /> */}
+            <h6 
+              className={styles.releaseDate}>
+                First aired on {tvShow.first_air_date}
+            </h6>
+            {/* <Button
               variant="contained"
               onClick={() =>
                 handleOverviewClick(tvShow.overview, tvShow.title, tvShow.id, tvShow.poster_path)
@@ -179,12 +140,12 @@ const TrendingTv = () => {
               onClick={handleTitleSelected}
             >
               More Details
-            </Button>
+            </Button> */}
           </SwiperSlide>
         ))}
       </Swiper>
       {/* Modal for showing overview */}
-      <Dialog open={isModalOpen} onClose={handleCloseModal}>
+      {/* <Dialog open={isModalOpen} onClose={handleCloseModal}>
          <DialogTitle className={styles.overviewTitle}>{currentTitle}</DialogTitle>
         <DialogContent>
         <img
@@ -201,7 +162,7 @@ const TrendingTv = () => {
         >
           More Details
         </Button>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };

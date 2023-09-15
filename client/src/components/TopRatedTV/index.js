@@ -1,15 +1,12 @@
 // import from react
-import { useState, useEffect} from "react";
-// import fetch calls
-import { fetchTopTvPageOne } from "../../utils/apiCalls";
-// import from material-ui
-import Button from "@mui/material/Button";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
+import { useContext } from "react";
+// import from context
+import { TopRatedTvContext } from "../../context/TopRatedTvContext";
+// import from utils
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
 // import Swiper core and required modules
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import { EffectCoverflow, Navigation } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -19,81 +16,9 @@ import styles from "./TopRatedTV.module.css";
 
 
 const TopRatedTV = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [currentOverview, setCurrentOverview] = useState("");
-  const [currentTitle, setCurrentTitle] = useState("");
-  const [currentTitleId, setCurrentTitleId] = useState("");
-  const [currentTitlePoster, setCurrentTitlePoster] = useState("");
+  const topRatedTv = useContext(TopRatedTvContext);
 
-  const handleOverviewClick = (overview, title, id, poster_path) => {
-    setCurrentOverview(overview);
-    setCurrentTitle(title);
-    setCurrentTitleId(id);
-    setCurrentTitlePoster(poster_path);
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setCurrentOverview("");
-  };
-
-  const [topRatedTv, setTopRatedTv] = useState([]);
   console.log('top rated tv: ', topRatedTv);
-
-  useEffect(() => {
-    const getTopRatedTv = async () => {
-      const cachedTopRatedTv = localStorage.getItem(
-        "topRatedTv"
-      );
-
-      if (cachedTopRatedTv) {
-        const { data, timestamp } = JSON.parse(cachedTopRatedTv);
-        console.log("Cached Data Retrieved: cachedTrendingActAdvTv", data);
-        const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTopRatedTv(data);
-          return;
-        } else {
-          localStorage.removeItem("topRatedTv");
-          console.log("Cached Data Expired and Removed");
-        }
-      }
-
-      if (!cachedTopRatedTv) {
-        try {
-          const response = await fetchTopTvPageOne();
-          const data = await response.json();
-          console.log(data);
-          const topTvShows = data.results.map((tvShow) => ({
-            id: tvShow.id,
-            title: tvShow.name,
-            poster_path: tvShow.poster_path,
-            backdrop_path: tvShow.backdrop_path,
-            overview: tvShow.overview,
-            first_air_date: formatDate(tvShow.first_air_date),
-            genre: tvShow.genre_ids,
-          }));
-
-          
-          setTopRatedTv(topTvShows);
-
-          const cacheData = {
-            data: topTvShows,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem(
-            "topRatedTv",
-            JSON.stringify(cacheData)
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-
-    getTopRatedTv();
-  }, []);
 
   const handleTitleSelected = useTitleSelectionTMDBId();
 
@@ -129,11 +54,10 @@ const TopRatedTV = () => {
 
   return (
     <>
-      <h3 style={{ marginBottom: "0" }}>Top Rated TV</h3>
+      <h3 className={styles.category}>Top Rated TV</h3>
       <Swiper
         style={{
           "--swiper-navigation-color": "#000000",
-          "--swiper-pagination-color": "#000000",
         }}
         effect={"coverflow"}
         grabCursor={true}
@@ -147,67 +71,45 @@ const TopRatedTV = () => {
           slideShadows: true,
         }}
         navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[EffectCoverflow, Pagination, Navigation]}
+        modules={[EffectCoverflow, Navigation]}
         className={styles.swiper}
       >
         {topRatedTv.map((tvShow) => (
-          <SwiperSlide className={styles.slide} key={tvShow.id}>
-            <p>
-              <strong>{tvShow.title}</strong>
-            </p>
-            <p>
-              <strong>
+          <SwiperSlide 
+            className={styles.slide} 
+            key={tvShow.id} 
+              style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/w200/${tvShow.poster_path}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              // backgroundSize: "cover",
+              backgroundColor: "",
+            }}
+            onClick={() => {
+              const customEvent = {
+                preventDefault: () => {},
+                target: { value: `tv-${tvShow.id}` },
+              };
+              handleTitleSelected(customEvent);
+            }}>
+            <h4 className={styles.tvShowTitle}>
+              {tvShow.title}
+            </h4>
+            <h5 className={styles.tvShowGenres}>
                 {tvShow.genre.map((id) => genreList[id]).slice(0,2).join(", ")}
-              </strong>
-            </p>
-            <img
+            </h5>
+            {/* <img
               src={`https://image.tmdb.org/t/p/w200/${tvShow.poster_path}`}
               alt={tvShow.title}
               className={styles.img}
-            />
-            <p>
-              <strong>First aired on {tvShow.first_air_date}</strong>
-            </p>
-            <Button
-              variant="contained"
-              onClick={() =>
-                handleOverviewClick(tvShow.overview, tvShow.title, tvShow.id, tvShow.poster_path)
-              }
-            >
-              Overview
-            </Button>
-            <Button
-              variant="contained"
-              value={`tv-${tvShow.id}`}
-              onClick={handleTitleSelected}
-            >
-              More Details
-            </Button>
-          </SwiperSlide>
+            /> */}
+            <h6 
+              className={styles.releaseDate}>
+                First aired on {tvShow.first_air_date}
+            </h6>
+            </SwiperSlide>
         ))}
       </Swiper>
-      {/* Modal for showing overview */}
-      <Dialog open={isModalOpen} onClose={handleCloseModal}>
-      <DialogTitle className={styles.overviewTitle}>{currentTitle}</DialogTitle>
-        <DialogContent>
-        <img
-              src={`https://image.tmdb.org/t/p/w200/${currentTitlePoster}`}
-              alt={currentTitle}
-              className={styles.img}
-            />
-          <p className={styles.overviewText}>{currentOverview}</p>
-        </DialogContent>
-        <Button
-          variant="contained"
-          value={`movie-${currentTitleId}`}
-          onClick={handleTitleSelected}
-        >
-          More Details
-        </Button>
-      </Dialog>
     </>
   );
 };

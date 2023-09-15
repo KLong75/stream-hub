@@ -1,5 +1,6 @@
-import React from 'react';
+// import from react router
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import pages
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Login from './pages/Login';
@@ -10,20 +11,25 @@ import TitleSearchResults from './pages/TitleSearchResults';
 import ActorSearchResults from './pages/ActorSearchResults';
 import SignUp from './pages/SignUp';
 import TitleDetails from './pages/TitleDetails';
-import NowTrending from './pages/NowTrending';
+import NowTrending from './pages/NowTrending/NowTrending';
 import AccountSettings from './pages/AccountSettings';
-
+// import components
 import Header from './components/Header';
 import Footer from './components/Footer';
 import GenreSourceTypeResults from './pages/GenreSourceTypeResults';
 import ScrollToTop from './components/ScrollToTop.js';
-
+// import context providers
 import { SearchResultsProvider } from './context/SearchResultsContext';
 import { TitleDetailsProvider } from './context/TitleDetailsContext';
-
+import { TrendingMoviesProvider } from './context/TrendingMoviesContext';
+import { PopularMoviesProvider } from './context/PopularMoviesContext';
+import { TopRatedMoviesProvider } from './context/TopRatedMoviesContext';
+import { TrendingTvProvider } from './context/TrendingTvContext';
+import { PopularTvProvider } from './context/PopularTvContext';
+import { TopRatedTvProvider } from './context/TopRatedTvContext';
+// import from apollo
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
 // import from MUI
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -79,12 +85,18 @@ const App = () => {
     <ThemeProvider theme={theme}>
     <ApolloProvider client={client}>
     <SearchResultsProvider>
-      <TitleDetailsProvider>
-        <CssBaseline />
+    <TitleDetailsProvider>
+    <TrendingMoviesProvider>
+    <PopularMoviesProvider>
+    <TopRatedMoviesProvider>
+    <TrendingTvProvider>
+    <PopularTvProvider>
+    <TopRatedTvProvider>
+      <CssBaseline />
         <Router>
           <ScrollToTop/>
           <Header/>
-          <main className='app-main'>
+          {/* <main className='app-main'> */}
           <Routes>
             <Route
               path='/'
@@ -139,10 +151,16 @@ const App = () => {
               element={<AccountSettings />}
             />
           </Routes>
-          </main>
+          {/* </main> */}
           <Footer />
         </Router>
-      </TitleDetailsProvider>
+    </TopRatedTvProvider>
+    </PopularTvProvider>
+    </TrendingTvProvider>
+    </TopRatedMoviesProvider>
+    </PopularMoviesProvider>
+    </TrendingMoviesProvider>
+    </TitleDetailsProvider>
     </SearchResultsProvider>
     </ApolloProvider>
     </ThemeProvider>

@@ -21,7 +21,7 @@ const LandingPage = () => {
   };
 
   return (
-    <>
+    <main className={styles.landingPageContainer}>
       {modalType === "" && (
         <Grid
           className="title-container"
@@ -57,7 +57,7 @@ const LandingPage = () => {
           }}
         >
           <Grid>
-            <h1 className={styles.app_title} style={{ fontSize: "3rem" }}>
+            <h1 className={styles.app_title}>
               streamHub
             </h1>
           </Grid>
@@ -216,7 +216,7 @@ const LandingPage = () => {
           />
         </section>
       )}
-    </>
+    </main>
   );
 };
 

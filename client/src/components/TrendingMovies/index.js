@@ -1,13 +1,8 @@
 // import from react
-import { useState, useEffect } from "react";
-// import fetch calls
-import { fetchTrendingMoviesPageOne } from "../../utils/apiCalls";
-// import from material-ui
-import Button from "@mui/material/Button";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
-
+import { useContext } from "react";
+// import context
+import { TrendingMoviesContext } from "../../context/TrendingMoviesContext";
 // import from utils
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../../utils/utils";
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
 // import Swiper core and required modules
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,75 +15,8 @@ import "swiper/css/pagination";
 import styles from "./TrendingMovies.module.css";
 
 const TrendingMovies = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [currentOverview, setCurrentOverview] = useState("");
-  const [currentTitle, setCurrentTitle] = useState("");
-  const [currentTitleId, setCurrentTitleId] = useState("");
-  const [currentTitlePoster, setCurrentTitlePoster] = useState("");
-
-  const handleOverviewClick = (overview, title, id, poster_path) => {
-    setCurrentOverview(overview);
-    setCurrentTitle(title);
-    setCurrentTitleId(id);
-    setCurrentTitlePoster(poster_path);
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    setCurrentOverview("");
-  };
-  const [trendingMovies, setTrendingMovies] = useState([]);
-  console.log(trendingMovies);
-
-  useEffect(() => {
-    const getTrendingMovies = async () => {
-      const cachedTrendingMovies = localStorage.getItem("trendingMovies");
-
-      if (cachedTrendingMovies) {
-        const { data, timestamp } = JSON.parse(cachedTrendingMovies);
-        console.log("Cached Data Retrieved: cachedTrendingMovies", data);
-        const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
-          setTrendingMovies(data);
-          return;
-        } else {
-          localStorage.removeItem("trendingMovies");
-          console.log("Cached Data Expired and Removed");
-        }
-      }
-
-      if (!cachedTrendingMovies) {
-        try {
-          const response = await fetchTrendingMoviesPageOne();
-          const data = await response.json();
-          console.log(data);
-          const topMovies = data.results.map((movie) => ({
-            id: movie.id,
-            title: movie.title,
-            poster_path: movie.poster_path,
-            backdrop_path: movie.backdrop_path,
-            overview: movie.overview,
-            release_date: formatDate(movie.release_date),
-            genre: movie.genre_ids,
-          }));
-
-          setTrendingMovies(topMovies);
-
-          const cacheData = {
-            data: topMovies,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem("trendingMovies", JSON.stringify(cacheData));
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-
-    getTrendingMovies();
-  }, []);
-
+  const trendingMovies = useContext(TrendingMoviesContext);
+ 
   const handleTitleSelected = useTitleSelectionTMDBId();
 
   const genreList = {
@@ -126,7 +54,6 @@ const TrendingMovies = () => {
       <Swiper
         style={{
           "--swiper-navigation-color": "#000000",
-          "--swiper-pagination-color": "#000000",
         }}
         effect={"coverflow"}
         grabCursor={true}
@@ -140,9 +67,9 @@ const TrendingMovies = () => {
           slideShadows: true,
         }}
         navigation={true}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: true,
+        // }}
         modules={[EffectCoverflow, Pagination, Navigation]}
         className={styles.swiper}
       >
@@ -155,7 +82,7 @@ const TrendingMovies = () => {
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
               // backgroundSize: "cover",
-              backgroundColor: ""
+              // backgroundColor: "",
             }}
             onClick={() => {
               const customEvent = {
@@ -166,7 +93,7 @@ const TrendingMovies = () => {
             }}
           >
             <h4 className={styles.movieTitle}>
-              <strong className={styles.movieTitle}>{movie.title}</strong>
+              {movie.title}
             </h4>
 
             {/* <img
@@ -175,44 +102,21 @@ const TrendingMovies = () => {
               className={styles.img}
             /> */}
             <h5 className={styles.movieGenres}>
-              <strong>
                 {movie.genre
                   .map((id) => genreList[id])
                   .filter(Boolean)
                   .slice(0, 2)
                   .join(", ")}
-              </strong>
             </h5>
-            <p className={styles.releaseDate}>
-              <strong>Released on {movie.release_date}</strong>
-            </p>
-
-            {/* <Button
-              variant="contained"
-              onClick={() =>
-                handleOverviewClick(
-                  movie.overview,
-                  movie.title,
-                  movie.id,
-                  movie.poster_path
-                )
-              }
-            >
-              Plot
-            </Button>
-            <Button
-              variant="contained"
-              value={`movie-${movie.id}`}
-              onClick={handleTitleSelected}
-            >
-              More Details
-            </Button> */}
+            <h6 className={styles.releaseDate}>
+              Released on {movie.release_date}
+            </h6>
           </SwiperSlide>
         ))}
       </Swiper>
 
       {/* Modal for showing overview */}
-      <Dialog open={isModalOpen} onClose={handleCloseModal}>
+      {/* <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle className={styles.overviewTitle}>
           {currentTitle}
         </DialogTitle>
@@ -231,7 +135,7 @@ const TrendingMovies = () => {
         >
           More Details
         </Button>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 };
