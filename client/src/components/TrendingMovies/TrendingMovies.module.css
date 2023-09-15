@@ -2,27 +2,50 @@
   width: 100%;
   height: auto;
   /* padding-top: 2rem; */
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 }
 
 .slide {
-  background-position: center;
-  background-size: cover;
-  width: 20rem;
-  height: 30rem;
+  width: 16rem;
+  height: 24rem;
+  margin-bottom: .5rem;
 }
 
-.img {
-  display: block;
-  width: 60%;
-  padding: .25rem;
-  
+.category {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: .25;
+  padding: .5rem;
 }
+
+.movieTitle{
+  font-size: .88rem;
+  margin-bottom: 0;
+  margin-top: 0.2rem;
+  padding: .25rem;
+  padding-bottom: 0;
+}
+
+.movieGenres{
+  font-size: .8rem;
+  margin-bottom: 0;
+  margin-top: 19.7rem;
+  padding-left: .6rem
+}
+
+
+.releaseDate {
+  font-size: .8rem;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: .5rem;
+  padding-left: .6rem;
+}
+
 
 .overviewTitle{
   font-size: 2rem!important;
-  margin-bottom: -1.25rem!important;
-
+  /* margin-bottom: -1.25rem!important; */
 }
 
 .overviewText {

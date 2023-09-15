@@ -34,14 +34,6 @@ code {
 
 
 
-
-
-
-
-
-
-
-
 @media (max-width: 1445px) {
   .tv-button-container {
     right: 33% !important;
@@ -155,9 +147,10 @@ code {
   }
 }
 
+/* Reduce base font-size on smaller screens */
 @media (max-width: 600px) {
   html {
-    font-size: 14px; /* Reduce base font-size on smaller screens */
+    /* font-size: 14px;  */
   }
   .tv-button-container {
     right: 12% !important;
@@ -177,7 +170,7 @@ code {
 }
 @media (max-width: 500px) {
   html {
-    font-size: 12px; /* Reduce base font-size on smaller screens */
+    /* font-size: 12px;  */
   }
   .tv-button-container {
     right: 11% !important;
@@ -219,7 +212,7 @@ code {
 
 @media (max-width: 400px) {
   html {
-    font-size: 12px; /* Reduce base font-size on smaller screens */
+    /* font-size: 12px;  */
   }
   .tv-button-container {
     right: 2% !important;
@@ -236,7 +229,7 @@ code {
 
 @media (max-width: 360px) {
   html {
-    font-size: 9.5px; /* Reduce base font-size on smaller screens */
+    /* font-size: 9.5px;  */
   }
   .tv-button-container {
     right: 3.5% !important;
@@ -253,7 +246,7 @@ code {
 
 @media (max-width: 320px) {
   html {
-    font-size: 9px; /* Reduce base font-size on smaller screens */
+    /* font-size: 9px;  */
   }
   .tv-button-container {
     right: 4% !important;
@@ -265,7 +258,7 @@ code {
 
 @media (max-width: 300px) {
   html {
-    font-size: 8px; /* Reduce base font-size on smaller screens */
+    /* font-size: 8px;  */
   }
   .tv-button-container {
     right: 6% !important;
@@ -277,7 +270,7 @@ code {
 
 @media (max-width: 280px) {
   html {
-    font-size: 7px; /* Reduce base font-size on smaller screens */
+    /* font-size: 7px;  */
   }
   .tv-button-container {
     right: 8% !important;
@@ -293,7 +286,7 @@ code {
 
 @media (max-width: 260px) {
   html {
-    font-size: 6px; /* Reduce base font-size on smaller screens */
+    /* font-size: 6px;  */
   }
   .tv-button-container {
     right: 10% !important;
