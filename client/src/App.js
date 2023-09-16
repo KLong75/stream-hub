@@ -70,7 +70,8 @@ const theme = createTheme({
             backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
             color: 'white'
           },
-          color: 'black'
+          color: 'black',
+          border: '1px solid black',
         }
       }
     }
