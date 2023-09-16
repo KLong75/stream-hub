@@ -1,9 +1,12 @@
+// import from react
 import { useState } from "react";
-
+// impoirt from mui
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-
+// import images
 import Tv from "../../assets/images/TvNew2.png";
-import TvIcon from "../../assets/images/TvIcon.png";
+import tvIcon from "../../assets/images/tvIcon.png";
+// import components
+import TVButton from "../TVButton";
 import LoginForm from "../../components/LoginForm";
 import SignupForm from "../../components/SignupForm";
 
@@ -15,29 +18,14 @@ const TV = () => {
 
   const setModal = (type) => {
     setModalType(type);
-  
+
     if (type === "" || type === null) {
       setTvOn(false);
     } else {
       setTvOn(true);
     }
   };
-  
-  // const switchToSignup = () => {
-  //   setModalType("signup");
-  //   setTvOn(true);
-  // };
 
-  // const switchToLogin = () => {
-  //   setModalType("login");
-  //   setTvOn(true);
-  // };
-
-  // const turnOffTV = () => {
-  //   setModalType("");
-  //   setTvOn(false);
-  // };
-  
 
   return (
     <main className={styles.landingPageContainer}>
@@ -95,7 +83,14 @@ const TV = () => {
       >
         <Grid>
           <Grid>
-            <div className={styles.tvScreen}  style={{ background: tvOn ? 'linear-gradient(315deg, #43cea2 0%, #185a9d 75%)' : '#262424' }}></div>
+            <div
+              className={styles.tvScreen}
+              style={{
+                background: tvOn
+                  ? "linear-gradient(315deg, #43cea2 0%, #185a9d 75%)"
+                  : "#262424",
+              }}
+            ></div>
           </Grid>
         </Grid>
         <Grid>
@@ -126,86 +121,25 @@ const TV = () => {
       >
         <>
           <Grid xs={4}>
-            <button
-              size="small"
-              onClick={() => setModal("login")}
-
-              // onClick={() => setModalType("login")}
-              variant="contained"
-              className={styles.tv_button}
-              style={{
-                fontSize: ".74rem",
-                height: "4rem",
-                width: "4rem",
-                borderRadius: "50%",
-                padding: 0,
-                textTransform: "uppercase",
-              }}
-            >
-              {modalType === "login" ? (
-                <span style={{ visibility: "hidden" }}>Login</span>
-              ) : (
-                "Login"
-              )}
-            </button>
+            <TVButton modalType={modalType} setModal={setModal} type="login">
+              Login
+            </TVButton>
           </Grid>
 
           <Grid xs={4}>
-            <button
-              size="small"
-              onClick={() => setModal("signup")}
-              variant="contained"
-              className={styles.tv_button}
-              style={{
-                fontSize: ".74rem",
-                height: "4rem",
-                width: "4rem",
-                borderRadius: "50%",
-                padding: 0, // to reset any default padding
-              }}
-            >
-              {modalType === "signup" ? (
-                <span style={{ visibility: "hidden" }}>Sign Up</span>
-              ) : (
-                "Sign Up"
-              )}
-            </button>
+            <TVButton modalType={modalType} setModal={setModal} type="signup">
+              Sign Up
+            </TVButton>
           </Grid>
 
           <Grid xs={4}>
-            <button
-              size="small"
-              onClick={() => setModal("")}
-              variant="contained"
-              className={styles.tv_button}
-              // color="warning"
-              style={{
-                // fontSize: ".74rem",
-                height: "4rem",
-                width: "4rem",
-                borderRadius: "50%",
-                padding: 0, // to reset any default padding
-                textTransform: "none",
-              }}
-            >
-              {modalType === "" ? (
-                <img
-                  src={TvIcon}
-                  style={{
-                    visibility: "hidden",
-                    width: "auto",
-                    height: "3rem",
-                  }}
-                  alt="tv icon"
-                />
-              ) : (
-                <img
-                  src={TvIcon}
-                  style={{ width: "auto", height: "3rem" }}
-                  alt="tv icon"
-                />
-              )}
-            </button>
+            <TVButton modalType={modalType} setModal={setModal} type="">
+              <img
+                src={tvIcon}
+                style={{ width: "auto", height: "3rem" }}
+                alt="tv icon"
+              />
+            </TVButton>
           </Grid>
         </>
       </Grid>
@@ -221,8 +155,7 @@ const TV = () => {
             zIndex: 1000,
           }}
         >
-          <LoginForm
-          />
+          <LoginForm />
         </section>
       )}
       {modalType === "signup" && (
@@ -236,8 +169,7 @@ const TV = () => {
             zIndex: 1000,
           }}
         >
-          <SignupForm
-          />
+          <SignupForm />
         </section>
       )}
     </main>

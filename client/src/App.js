@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import pages
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage/LandingPage';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import Search from './pages/SearchPage/SearchPage';
 import GenreSearchResults from './pages/GenreSearchResults';
 import MixedGenreSearchSearchResults from './pages/MixedGenreSearchResults';
 import TitleSearchResults from './pages/TitleSearchResults';
 import ActorSearchResults from './pages/ActorSearchResults';
-import SignUp from './pages/SignUp';
+// import SignUp from './pages/SignUp';
 import TitleDetails from './pages/TitleDetails';
 import NowTrending from './pages/NowTrending/NowTrending';
 import AccountSettings from './pages/AccountSettings';
@@ -58,7 +58,6 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        
         root: {
           // backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
           // '&:hover': {
@@ -75,8 +74,14 @@ const theme = createTheme({
         }
       }
     }
-  }
+  },
+  
+ 
+
+
+  
 });
+
 
 
 const App = () => {
@@ -103,14 +108,14 @@ const App = () => {
               path='/'
               element={<LandingPage />}
             />
-            <Route
+            {/* <Route
               path='/signup'
               element={<SignUp />}
             />
             <Route
               path='/login'
               element={<Login />}
-            />
+            /> */}
             <Route
               path='/home_page'
               element={<HomePage />}

@@ -46,6 +46,9 @@ const LoginForm = ({ switchToSignup }) => {
             type="email"
             value={formState.email}
             onChange={handleChanges}
+            variant="outlined"
+            color=""
+           
           />
         </div>
         <div>

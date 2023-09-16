@@ -7,12 +7,21 @@ import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
 
 import styles from "./Nav.module.css";
 
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  customBorder: {
+    border: "2px solid red", // or whatever your desired border is
+  },
+});
+
 const Nav = () => {
   const location = useLocation();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
+  const classes = useStyles();
 
   return (
     <nav>
@@ -20,53 +29,34 @@ const Nav = () => {
         <>
           <AppBar position="static">
             <Toolbar>
-              <Typography variant="h1" component="div" sx={{ flexGrow: 1 }} className={styles.app_title}>
+              <Typography
+                variant="h1"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
                 streamHub
               </Typography>
               {/* The following conditionally renders each link based on the current path */}
               {location.pathname !== "/home_page" && (
                 <Link
-                  color="inherit"
                   component={RouterLink}
                   to="/home_page"
-                  variant="button"
-                  underline="none"
                   sx={{ marginRight: 2, textTransform: "uppercase" }}
                 >
                   Home
                 </Link>
               )}
               {location.pathname !== "/search" && (
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/search"
-                  variant="button"
-                  underline="none"
-                  sx={{ marginRight: 2, textTransform: "uppercase" }}
-                >
+                <Link component={RouterLink} to="/search">
                   Search
                 </Link>
               )}
               {location.pathname !== "/now_trending" && (
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/now_trending"
-                  variant="button"
-                  underline="none"
-                  sx={{ marginRight: 2, textTransform: "uppercase" }}
-                >
+                <Link component={RouterLink} to="/now_trending">
                   Trending Titles
                 </Link>
               )}
-              <Button
-                color="inherit"
-                onClick={logout}
-                sx={{ marginRight: 2, paddingRight: 0, paddingLeft: 0 }}
-              >
-                Sign Out
-              </Button>
+              <Button onClick={logout}>Sign Out</Button>
             </Toolbar>
           </AppBar>
         </>
@@ -119,6 +109,3 @@ const Nav = () => {
 };
 
 export default Nav;
-
-
-

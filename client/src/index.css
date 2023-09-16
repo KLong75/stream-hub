@@ -183,7 +183,7 @@ code {
 @media (max-width: 450px) {
   .tv-button-container {
     right: 7% !important;
-    /* top: 50% !important; */
+   
   }
   .title-container {
     left: 43% !important;
@@ -193,7 +193,7 @@ code {
     left: 42%!important;
   }
   .landing_page_tv {
-    height: 34rem!important;
+    /* height: 34rem!important; */
   }
 }
 
@@ -207,7 +207,7 @@ code {
     left: 42%!important;
   }
   .landing_page_tv {
-    height: 33rem!important;
+    /* height: 33rem!important; */
   }
   
 }
@@ -225,7 +225,7 @@ code {
     left: 42.8%!important;
   }
   .landing_page_tv {
-    height: 31rem!important;
+    /* height: 31rem!important; */
   }
 }
 
@@ -242,7 +242,7 @@ code {
     left: 42.5%!important;
   }
   .landing_page_tv {
-    height: 34rem!important;
+    /* height: 34rem!important; */
   }
 }
 
@@ -254,7 +254,7 @@ code {
     right: 4% !important;
   }
   .landing_page_tv {
-    height: 36rem!important;
+    /* height: 36rem!important; */
   }
 }
 
@@ -266,7 +266,7 @@ code {
     right: 6% !important;
   }
   .landing_page_tv {
-    height: 38rem!important;
+    /* height: 38rem!important; */
   }
 }
 

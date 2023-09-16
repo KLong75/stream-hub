@@ -394,7 +394,7 @@ const TitleDetails = () => {
         return; // Don't proceed if there are no similar titles
       }
 
-      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 3); // Adjust # of similar titles to fetch here
+      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 5); // Adjust # of similar titles to fetch here
       console.log(similarTitles)
       
 

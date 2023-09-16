@@ -89,7 +89,7 @@ export const fetchTitlesBySource= () => {
 
 
 // fetch titles by genre
-export const searchByGenre = (query) => { return fetch(`https://api.watchmode.com/v1/list-titles?genres=${query}&limit=2&apiKey=${process.env.REACT_APP_WMODE_API_KEY}`);
+export const searchByGenre = (query) => { return fetch(`https://api.watchmode.com/v1/list-titles?genres=${query}&limit=20&apiKey=${process.env.REACT_APP_WMODE_API_KEY}`);
 }
 
 // fetch titles by genre, type, and source
