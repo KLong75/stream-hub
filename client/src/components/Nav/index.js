@@ -7,13 +7,7 @@ import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
 
 import styles from "./Nav.module.css";
 
-import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
-  customBorder: {
-    border: "2px solid red", // or whatever your desired border is
-  },
-});
 
 const Nav = () => {
   const location = useLocation();
@@ -21,7 +15,7 @@ const Nav = () => {
     event.preventDefault();
     Auth.logout();
   };
-  const classes = useStyles();
+
 
   return (
     <nav>
@@ -56,7 +50,7 @@ const Nav = () => {
                   Trending Titles
                 </Link>
               )}
-              <Button onClick={logout}>Sign Out</Button>
+              <button className={styles.signOutButton} onClick={logout}>Sign Out</button>
             </Toolbar>
           </AppBar>
         </>
