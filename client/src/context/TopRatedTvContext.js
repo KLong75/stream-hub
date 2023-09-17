@@ -34,7 +34,7 @@ export const TopRatedTvProvider = ({ children }) => {
           // console.log(dataTwo);
           const responseThree = await fetchTopTvPageThree();
           const dataThree = await responseThree.json();
-          console.log(dataThree);
+          // console.log(dataThree);
           const responseFour = await fetchTopTvPageFour();
           const dataFour = await responseFour.json();
           // console.log(dataFour);

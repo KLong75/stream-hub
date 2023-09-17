@@ -106,8 +106,9 @@ export const useTitleSelectionTMDBId = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         navigate("/title_details", { replace: true });
+        console.log('navitgated to title details')
       } catch (error) {
         console.log(error);
       }

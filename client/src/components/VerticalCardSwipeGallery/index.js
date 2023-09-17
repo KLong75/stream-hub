@@ -40,7 +40,10 @@ const VerticalCardSwipeGallery = ({
         {trendingData.map((item) => (
           <SwiperSlide
             className={styles.slide}
-            key={item.id}
+            // key={item.id}
+            key={`${categoryTitle}-${item.id}`}
+
+            
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/w200/${item.poster_path}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
               backgroundRepeat: "no-repeat",
