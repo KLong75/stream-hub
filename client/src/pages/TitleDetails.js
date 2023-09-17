@@ -32,11 +32,11 @@ const TitleDetails = () => {
   const { data, loading } = useQuery(QUERY_ME);
 
   const savedTitleIds = data?.me.savedTitles.map((title) => title.id) || [];
-  console.log("savedTitleIds", savedTitleIds);
+  // console.log("savedTitleIds", savedTitleIds);
 
   const title = useContext(TitleDetailsContext);
   const { selectedTitleDetails } = useContext(TitleDetailsContext);
-  console.log("selectedTitleDetails", selectedTitleDetails);
+  // console.log("selectedTitleDetails", selectedTitleDetails);
   const { setActorSearchResults } = useContext(SearchResultsContext);
   const [saveTitle] = useMutation(SAVE_TITLE);
   const [moreDetails, setMoreDetails] = useState({});
@@ -78,7 +78,7 @@ const TitleDetails = () => {
   useEffect(() => {
     if (selectedTitleDetails) {
       const sources = selectedTitleDetails.sources || [];
-      console.log(sources);
+      // console.log(sources);
       const appleTv = sources.filter((source) => source.source_id === 371);
       const netflix = sources.filter((source) => source.source_id === 203);
       const hulu = sources.filter((source) => source.source_id === 157);
@@ -259,12 +259,12 @@ const TitleDetails = () => {
   useEffect(() => {
     const getMoreDetailsMovie = async () => {
       const imdbId = selectedTitleDetails.imdb_id;
-      console.log(imdbId);
+      // console.log(imdbId);
 
       const cachedMoreDetailsMovie = localStorage.getItem(
         `moreDetailsMovie-${imdbId}`
       );
-      console.log("cached data retrieved", cachedMoreDetailsMovie);
+      // console.log("cached data retrieved", cachedMoreDetailsMovie);
 
       if (cachedMoreDetailsMovie) {
         const { data, timestamp } = JSON.parse(cachedMoreDetailsMovie);
@@ -277,7 +277,7 @@ const TitleDetails = () => {
           return;
         } else {
           localStorage.removeItem(`moreDetailsMovie-${imdbId}`);
-          console.log("Cached Data Expired and Removed");
+          // console.log("Cached Data Expired and Removed");
         }
       }
 
@@ -285,7 +285,7 @@ const TitleDetails = () => {
         console.log("no cached data found");
         try {
           const response = await fetchMoreTitleDetailsMovie(imdbId);
-          console.log(response);
+          // console.log(response);
 
           if (!response.ok) {
             throw new Error("Something went wrong");
@@ -294,7 +294,7 @@ const TitleDetails = () => {
           const moreDetailsFetched = await response.json();
           setMoreDetails(moreDetailsFetched);
 
-          console.log(moreDetailsFetched);
+          // console.log(moreDetailsFetched);
 
           const cacheData = {
             data: moreDetailsFetched,
@@ -312,12 +312,12 @@ const TitleDetails = () => {
 
     const getMoreDetailsTV = async () => {
       const tvShowTitle = selectedTitleDetails.title;
-      console.log(tvShowTitle);
+      // console.log(tvShowTitle);
 
       const cachedMoreDetailsTV = localStorage.getItem(
         `moreDetailsTV-${tvShowTitle}`
       );
-      console.log("cached data retrieved: cachedMoreDetailsTV");
+      // console.log("cached data retrieved: cachedMoreDetailsTV");
 
       if (cachedMoreDetailsTV) {
         const { data, timestamp } = JSON.parse(cachedMoreDetailsTV);
@@ -326,19 +326,19 @@ const TitleDetails = () => {
 
         if (now - timestamp < CACHE_DURATION) {
           setMoreDetails(data);
-          console.log("cached data retrieved, parsed, time checked", data);
+          // console.log("cached data retrieved, parsed, time checked", data);
           return;
         } else {
           localStorage.removeItem(`moreDetailsTV-${tvShowTitle}`);
-          console.log("Cached Data Expired and Removed");
+          // console.log("Cached Data Expired and Removed");
         }
       }
 
       if (!cachedMoreDetailsTV) {
-        console.log("no cached data found");
+        // console.log("no cached data found");
         try {
           const response = await fetchTvTitle(tvShowTitle);
-          console.log(response);
+          // console.log(response);
 
           if (!response.ok) {
             throw new Error("Something went wrong");
@@ -347,17 +347,17 @@ const TitleDetails = () => {
           const moreTitleData = await response.json();
 
           const titleTmdbId = moreTitleData.results[0].id;
-          console.log(titleTmdbId);
+          // console.log(titleTmdbId);
 
           const response2 = await fetchMoreTitleDetailsTV(titleTmdbId);
-          console.log(response2);
+          // console.log(response2);
 
           if (!response2.ok) {
             throw new Error("Something went wrong");
           }
 
           const moreTvDetailsFetched = await response2.json();
-          console.log(moreTvDetailsFetched);
+          // console.log(moreTvDetailsFetched);
           setMoreDetails(moreTvDetailsFetched);
 
           const cacheData = {
@@ -395,14 +395,14 @@ const TitleDetails = () => {
       }
 
       const similarTitles = selectedTitleDetails.similar_titles.slice(0, 5); // Adjust # of similar titles to fetch here
-      console.log(similarTitles)
+      // console.log(similarTitles)
       
 
       for (const similarTitleId of similarTitles) {
         const cachedSimilarTitles = localStorage.getItem(
           `similarTitles-${similarTitleId}`
         );
-        console.log("cached data retrieved: cachedSimilarTitles", cachedSimilarTitles);
+        // console.log("cached data retrieved: cachedSimilarTitles", cachedSimilarTitles);
 
         if (cachedSimilarTitles) {
           const { data, timestamp } = JSON.parse(cachedSimilarTitles);
@@ -410,11 +410,11 @@ const TitleDetails = () => {
 
           if (now - timestamp < CACHE_DURATION) {
             fetchedSimilarTitles.push(data);
-            console.log("cached data retrieved, parsed, time checked", data);
+            // console.log("cached data retrieved, parsed, time checked", data);
             continue;
           } else {
             localStorage.removeItem(`similarTitles-${similarTitleId}`);
-            console.log("Cached Data Expired and Removed");
+            // console.log("Cached Data Expired and Removed");
           }
         } else {
           console.log("no cached data found");
@@ -428,7 +428,7 @@ const TitleDetails = () => {
           }
 
           const similarTitleData = await response.json();
-          console.log('similarTitleData', similarTitleData);
+          // console.log('similarTitleData', similarTitleData);
           const similarTitleDetails = {
             id: similarTitleData.id,
             title: similarTitleData.title,
@@ -444,7 +444,7 @@ const TitleDetails = () => {
           };
 
           fetchedSimilarTitles.push(similarTitleDetails);
-          console.log(similarTitleDetails);
+          // console.log(similarTitleDetails);
 
           const cacheData = {
             data: similarTitleDetails,
@@ -476,7 +476,7 @@ const TitleDetails = () => {
   const handleActorNameClicked = async (event) => {
     event.preventDefault();
     const searchedName = event.currentTarget.value;
-    console.log("searched name", searchedName);
+    // console.log("searched name", searchedName);
 
     const cachedActorSearchResults = localStorage.getItem(
       `actorSearchResults_${searchedName}`
@@ -487,7 +487,7 @@ const TitleDetails = () => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setSelectedActorName(data);
-        console.log("cached data retrieved, parsed, time checked", data);
+        // console.log("cached data retrieved, parsed, time checked", data);
         navigate("/actor_search_results", { state: { data } });
         return;
       } else {
@@ -499,7 +499,7 @@ const TitleDetails = () => {
     if (!cachedActorSearchResults) {
       try {
         const response = await searchByName(searchedName);
-        console.log(searchByName(searchedName));
+        // console.log(searchByName(searchedName));
 
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -535,7 +535,7 @@ const TitleDetails = () => {
                 : "",
             image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
           }));
-        console.log(actorSearchData);
+        // console.log(actorSearchData);
         // setSearchTerm("");
         setActorSearchResults(actorSearchData);
         const cacheData = {
@@ -546,7 +546,7 @@ const TitleDetails = () => {
           `actorSearchResults_${searchedName}`,
           JSON.stringify(cacheData)
         );
-        console.log(searchedName);
+        // console.log(searchedName);
         navigate("/actor_search_results", { state: { data: actorSearchData } });
       } catch (err) {
         console.log(err.message);
@@ -555,7 +555,7 @@ const TitleDetails = () => {
   };
 
   const handleSaveTitle = async (title) => {
-    console.log(title);
+    // console.log(title);
     const input = {
       id: title.selectedTitleDetails.id,
       title: title.selectedTitleDetails.title,
@@ -581,7 +581,7 @@ const TitleDetails = () => {
         type: source.type,
       })),
     };
-    console.log("title to save", input);
+    // console.log("title to save", input);
     // const titleToSave = titleId;
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {

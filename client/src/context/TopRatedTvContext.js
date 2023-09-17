@@ -14,35 +14,35 @@ export const TopRatedTvProvider = ({ children }) => {
 
       if (cachedTopRatedTv) {
         const { data, timestamp } = JSON.parse(cachedTopRatedTv);
-        console.log("Cached Data Retrieved: cachedTopRAtedTv", data);
+        // console.log("Cached Data Retrieved: cachedTopRAtedTv", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
           setTopRatedTv(data);
           return;
         } else {
           localStorage.removeItem("topRatedTv");
-          console.log("Cached Data Expired and Removed");
+          // console.log("Cached Data Expired and Removed");
         }
       }
       if (!cachedTopRatedTv) {
         try {
           const responseOne = await fetchTopTvPageOne();
           const dataOne = await responseOne.json();
-          console.log(dataOne);
+          // console.log(dataOne);
           const responseTwo = await fetchTopTvPageTwo();
           const dataTwo = await responseTwo.json();
-          console.log(dataTwo);
+          // console.log(dataTwo);
           const responseThree = await fetchTopTvPageThree();
           const dataThree = await responseThree.json();
           console.log(dataThree);
           const responseFour = await fetchTopTvPageFour();
           const dataFour = await responseFour.json();
-          console.log(dataFour);
+          // console.log(dataFour);
           const responseFive = await fetchTopTvPageFive();
           const dataFive = await responseFive.json();
-          console.log(dataFive);
+          // console.log(dataFive);
           const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
-          console.log(combinedData);
+          // console.log(combinedData);
 
           const topTvShows = combinedData.map((tvShow) => ({
             id: tvShow.id,

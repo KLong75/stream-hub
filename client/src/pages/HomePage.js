@@ -40,13 +40,13 @@ const HomePage = () => {
         <>
           <h2>Welcome {user.username}</h2>
           <section>
-            <h3>Find Something to Watch</h3>
+            {/* <h3>Find Something to Watch</h3>
             <GenreSearch />
             <TitleSearch />
             <MixedGenreMovieSearch />
             <MixedGenreTVSearch />
             <SearchByGenreSourceType />
-            <ActorSearch />
+            <ActorSearch /> */}
             <WatchList />
             <Link to="/account_settings">Account Settings</Link>
           </section>

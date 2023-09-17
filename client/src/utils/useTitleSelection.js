@@ -11,27 +11,28 @@ export const useTitleSelection = () => {
   const handleTitleSelected = async (event) => {
     event.preventDefault();
     const selectedTitleId = event.target.value;
-    console.log(selectedTitleId);
+    // console.log(selectedTitleId);
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
     );
-    console.log(
-      "Cached Data Retrieved: cachedTitleDetails",
-      cachedTitleDetails
-    );
+    // console.log(
+    //   "Cached Data Retrieved: cachedTitleDetails",
+    //   cachedTitleDetails
+    // );
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
-      console.log(CACHE_DURATION);
+      // console.log(CACHE_DURATION);
       const now = Date.now();
-      console.log(now - timestamp);
+      // console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
-        console.log("cached data retrieved, parsed, time checked", data);
+        // console.log("cached data retrieved, parsed, time checked", data);
+        // window.scrollTo(0, 0);
         navigate("/title_details");
         return;
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
     if (!cachedTitleDetails) {
@@ -41,7 +42,7 @@ export const useTitleSelection = () => {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
-        console.log("New Data Retrieved:", titleDetails);
+        // console.log("New Data Retrieved:", titleDetails);
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
@@ -90,7 +91,7 @@ export const useTitleSelection = () => {
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
         };
-        console.log(titleDetailsData);
+        // console.log(titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);
         const cacheData = {
           data: titleDetailsData,
@@ -100,7 +101,7 @@ export const useTitleSelection = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         navigate("/title_details");
       } catch (error) {
         console.log(error);

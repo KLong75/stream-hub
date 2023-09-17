@@ -14,35 +14,35 @@ export const TrendingMoviesProvider = ({ children }) => {
 
       if (cachedTrendingMovies) {
         const { data, timestamp } = JSON.parse(cachedTrendingMovies);
-        console.log("Cached Data Retrieved: cachedTrendingMovies", data);
+        // console.log("Cached Data Retrieved: cachedTrendingMovies", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
           setTrendingMovies(data);
           return;
         } else {
           localStorage.removeItem("trendingMovies");
-          console.log("Cached Data Expired and Removed");
+          // console.log("Cached Data Expired and Removed");
         }
       }
       if (!cachedTrendingMovies) {
         try {
           const responseOne = await fetchTrendingMoviesPageOne();
           const dataOne = await responseOne.json();
-          console.log(dataOne);
+          // console.log(dataOne);
           const responseTwo = await fetchTrendingMoviesPageTwo();
           const dataTwo = await responseTwo.json();
-          console.log(dataTwo);
+          // console.log(dataTwo);
           const responseThree = await fetchTrendingMoviesPageThree();
           const dataThree = await responseThree.json();
-          console.log(dataThree);
+          // console.log(dataThree);
           const responseFour = await fetchTrendingMoviesPageFour();
           const dataFour = await responseFour.json();
-          console.log(dataFour);
+          // console.log(dataFour);
           const responseFive = await fetchTrendingMoviesPageFive();
           const dataFive = await responseFive.json();
-          console.log(dataFive);
+          // console.log(dataFive);
           const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
-          console.log(combinedData);
+          // console.log(combinedData);
 
           const topMovies = combinedData.map((movie) => ({
             id: movie.id,

@@ -1,9 +1,13 @@
-// import context
+// import from react
 import { useContext } from "react";
-import { TitleDetailsContext } from "../context/TitleDetailsContext";
-import { searchTitlesByTMDBId } from "./apiCalls";
-import { CACHE_DURATION } from "./utils";
 import { useNavigate } from "react-router-dom";
+// import context
+import { TitleDetailsContext } from "../context/TitleDetailsContext";
+// import fetch
+import { searchTitlesByTMDBId } from "./apiCalls";
+// impor from utils
+import { CACHE_DURATION } from "./utils";
+
 
 
 export const useTitleSelectionTMDBId = () => {
@@ -102,7 +106,8 @@ export const useTitleSelectionTMDBId = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        navigate("/title_details");
+        window.scrollTo(0, 0);
+        navigate("/title_details", { replace: true });
       } catch (error) {
         console.log(error);
       }

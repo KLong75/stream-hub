@@ -1,29 +1,22 @@
+// import from react
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-import Auth from "../../utils/auth";
-
-// import TrendingMovies from "../../components/TrendingMovies";
-// import PopularMovies from "../../components/PopularMovies";
-// import TopRatedMovies from "../../components/TopRatedMovies";
-// import PopularTV from "../../components/PopularTV";
-// import TrendingTV from "../../components/TrendingTV";
-// import TopRatedTV from "../../components/TopRatedTV";
-
-import styles from "./NowTrending.module.css";
-
-// these are added for the modular componet approach
+// import context
 import { TopRatedTvContext } from "../../context/TopRatedTvContext";
 import { TrendingTvContext } from "../../context/TrendingTvContext";
 import { TrendingMoviesContext } from "../../context/TrendingMoviesContext";
 import { PopularMoviesContext } from "../../context/PopularMoviesContext";
 import { PopularTvContext } from "../../context/PopularTvContext";
 import { TopRatedMoviesContext } from "../../context/TopRatedMoviesContext";
-
 // import from utils
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
 import VerticalCardSwipeGallery from "../../components/VerticalCardSwipeGallery";
 import { genreList } from "../../utils/utils";
+import Auth from "../../utils/auth";
+// import styles
+import styles from "./NowTrending.module.css";
+
+
 
 const NowTrending = () => {
   const titleSelectionHandler = useTitleSelectionTMDBId();

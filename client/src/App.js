@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import pages
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPage/LandingPage';
-// import Login from './pages/Login';
 import Search from './pages/SearchPage/SearchPage';
 import GenreSearchResults from './pages/GenreSearchResults';
 import MixedGenreSearchSearchResults from './pages/MixedGenreSearchResults';
 import TitleSearchResults from './pages/TitleSearchResults';
 import ActorSearchResults from './pages/ActorSearchResults';
-// import SignUp from './pages/SignUp';
 import TitleDetails from './pages/TitleDetails';
 import NowTrending from './pages/NowTrending/NowTrending';
 import AccountSettings from './pages/AccountSettings';
@@ -75,13 +73,7 @@ const theme = createTheme({
       }
     }
   },
-  
- 
-
-
-  
 });
-
 
 
 const App = () => {
@@ -108,14 +100,6 @@ const App = () => {
               path='/'
               element={<LandingPage />}
             />
-            {/* <Route
-              path='/signup'
-              element={<SignUp />}
-            />
-            <Route
-              path='/login'
-              element={<Login />}
-            /> */}
             <Route
               path='/home_page'
               element={<HomePage />}
@@ -155,6 +139,10 @@ const App = () => {
             <Route
               path='/account_settings'
               element={<AccountSettings />}
+            />
+            <Route
+              path='*'
+              element={<LandingPage />}
             />
           </Routes>
           {/* </main> */}

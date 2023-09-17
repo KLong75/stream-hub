@@ -14,35 +14,35 @@ export const PopularTvProvider = ({ children }) => {
 
       if (cachedPopularTv) {
         const { data, timestamp } = JSON.parse(cachedPopularTv);
-        console.log("Cached Data Retrieved: cachedPopularTv", data);
+        // console.log("Cached Data Retrieved: cachedPopularTv", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
           setPopularTv(data);
           return;
         } else {
           localStorage.removeItem("popularTv");
-          console.log("Cached Data Expired and Removed");
+          // console.log("Cached Data Expired and Removed");
         }
       }
       if (!cachedPopularTv) {
         try {
           const responseOne = await fetchPopularTvPageOne();
           const dataOne = await responseOne.json();
-          console.log(dataOne);
+          // console.log(dataOne);
           const responseTwo = await fetchPopularTvPageTwo();
           const dataTwo = await responseTwo.json();
-          console.log(dataTwo);
+          // console.log(dataTwo);
           const responseThree = await fetchPopularTvPageThree();
           const dataThree = await responseThree.json();
-          console.log(dataThree);
+          // console.log(dataThree);
           const responseFour = await fetchPopularTvPageFour();
           const dataFour = await responseFour.json();
-          console.log(dataFour);
+          // console.log(dataFour);
           const responseFive = await fetchPopularTvPageFive();
           const dataFive = await responseFive.json();
-          console.log(dataFive);
+          // console.log(dataFive);
           const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
-          console.log(combinedData);
+          // console.log(combinedData);
 
           const popularTvShows = combinedData.map((tvShow) => ({
             id: tvShow.id,
