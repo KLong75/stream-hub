@@ -1,4 +1,4 @@
-// TrendingCategory.js
+
 import { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation } from "swiper/modules";
@@ -13,9 +13,17 @@ const VerticalCardSwipeGallery = ({
   handleTitleSelected,
   genreList,
 }) => {
-  const trendingData = useContext(context);
+  const rawData = useContext(context);
+  console.log(`${categoryTitle}: `, rawData);
 
-  console.log(`${categoryTitle}: `, trendingData);
+  const uniqueIds = new Set();
+  const filteredData = rawData.filter((item) => {
+    if (!uniqueIds.has(item.id)) {
+      uniqueIds.add(item.id);
+      return true;
+    }
+    return false;
+  });
 
   return (
     <>
@@ -37,19 +45,15 @@ const VerticalCardSwipeGallery = ({
         modules={[EffectCoverflow, Navigation]}
         className={styles.swiper}
       >
-        {trendingData.map((item) => (
+        {filteredData.map((item) => (
           <SwiperSlide
             className={styles.slide}
-            // key={item.id}
-            key={`${categoryTitle}-${item.id}`}
-
-            
+            key={item.id}
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/w200/${item.poster_path}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
             }}
-            // onClick={() => handleTitleSelected(`tv-${item.id}`)}
             onClick={() =>
               handleTitleSelected(
                 categoryTitle.includes("TV")
@@ -62,11 +66,11 @@ const VerticalCardSwipeGallery = ({
             <h5 className={styles.genres}>
               {item.genre
                 .map((id) => genreList[id])
-                .slice(0, 2)
+                .slice(0, 3)
                 .join(", ")}
             </h5>
             <h6 className={styles.releaseDate}>
-              First aired on {item.first_air_date}
+            {categoryTitle.includes("TV") ? "First aired on" : "Released on"} {item.release_date}
             </h6>
           </SwiperSlide>
         ))}

@@ -51,6 +51,9 @@
   margin-top: 19.4rem;
   padding-left: .3rem;
   margin-left: .6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .releaseDate {

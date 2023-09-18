@@ -50,7 +50,7 @@ export const TopRatedTvProvider = ({ children }) => {
             poster_path: tvShow.poster_path,
             backdrop_path: tvShow.backdrop_path,
             overview: tvShow.overview,
-            first_air_date: formatDate(tvShow.first_air_date),
+            release_date: formatDate(tvShow.first_air_date),
             genre: tvShow.genre_ids,
           }));
 
