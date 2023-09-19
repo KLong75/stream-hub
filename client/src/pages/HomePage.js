@@ -2,15 +2,17 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 // import components
 // import TvLoader from '../components/TvLoader';
-import GenreSearch from "../components/GenreSearch";
-import TitleSearch from "../components/TitleSearch";
-import MixedGenreMovieSearch from "../components/MixedGenreMovieSearch";
-import MixedGenreTVSearch from "../components/MixedGenreTVSearch";
-import SearchByGenreSourceType from "../components/SearchByGenreSourceType";
-import ActorSearch from "../components/ActorSearch";
+// import GenreSearch from "../components/GenreSearch";
+// import TitleSearch from "../components/TitleSearch";
+// import MixedGenreMovieSearch from "../components/MixedGenreMovieSearch";
+// import MixedGenreTVSearch from "../components/MixedGenreTVSearch";
+// import SearchByGenreSourceType from "../components/SearchByGenreSourceType";
+// import ActorSearch from "../components/ActorSearch";
 import WatchList from "../components/WatchList";
 import LoadingClapboard from "../components/LoadingClapBoard";
+import Heading from "../components/Heading";
 // import ParallaxSwiper from "../components/ParallaxSwiper";
+
 
 import Auth from "../utils/auth";
 
@@ -38,7 +40,7 @@ const HomePage = () => {
     <>
       {loggedIn ? (
         <>
-          <h2>Welcome {user.username}</h2>
+        <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
           <section>
             {/* <h3>Find Something to Watch</h3>
             <GenreSearch />

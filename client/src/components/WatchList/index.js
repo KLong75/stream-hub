@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import styles from "./Watchlist.module.css";
 import { Parallax, Pagination, Navigation } from "swiper/modules";
 
+
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
   const { username: userParam } = useParams();
