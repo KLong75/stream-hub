@@ -2,7 +2,7 @@
 import Grid from "@mui/material/Unstable_Grid2";
 
 
-const Heading = ({heading, subHeading, variant = 'h2'}) => {
+const Heading = ({heading, subHeading, variant = 'h1'}) => {
 
   const variants = {
     h1: "h1",
@@ -13,8 +13,8 @@ const Heading = ({heading, subHeading, variant = 'h2'}) => {
     h6: "h6",
   };
 
-  const PrimaryTag = variants[variant] || "h2";
-  const SecondaryTag = variants[`h${parseInt(variant[1], 10) + 1}`] || "h3";
+  const PrimaryTag = variants[variant] || "h1";
+  const SecondaryTag = variants[`h${parseInt(variant[1], 10) + 1}`] || "h2";
   
   return (
     <Grid container>

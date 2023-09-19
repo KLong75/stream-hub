@@ -94,7 +94,6 @@ const App = () => {
         <Router>
           <ScrollToTop/>
           <Header/>
-          {/* <main className='app-main'> */}
           <Routes>
             <Route
               path='/'
@@ -145,7 +144,6 @@ const App = () => {
               element={<LandingPage />}
             />
           </Routes>
-          {/* </main> */}
           <Footer />
         </Router>
     </TopRatedTvProvider>

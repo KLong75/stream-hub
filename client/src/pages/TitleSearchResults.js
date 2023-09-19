@@ -28,6 +28,7 @@ const TitleSearchResults = () => {
   const searchedTitle = location.state?.searchedTitle;
   const { titleSearchResults } = useContext(SearchResultsContext); // Get the data from context
   console.log(titleSearchResults);
+  const handleTitleSelected = useTitleSelection();
   
   useEffect(() => {
     if (!isAuthenticated) {
@@ -42,7 +43,7 @@ const TitleSearchResults = () => {
     setIsAuthenticated(Auth.loggedIn());
   }, [titleSearchResults]);
 
-  const handleTitleSelected = useTitleSelection();
+  
 
   if (showRedirectMessage) {
     return <div>Please login or signup</div>;

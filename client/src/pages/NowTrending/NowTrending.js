@@ -37,6 +37,8 @@ const NowTrending = () => {
       navigate("/");
     }
   }, [loggedIn, navigate]);
+
+  
   return (
     <main className={styles.trendingContainer}>
       <h2 className={styles.pageTitle}>What People Are Watching</h2>

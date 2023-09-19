@@ -7,137 +7,94 @@ import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
 
 import styles from "./Header.module.css";
 
-const Header= () => {
+const Header = () => {
   const location = useLocation();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
 
-    // If the location is the landing page and the user isn't logged in, don't render the header
-    if (location.pathname === "/" && !Auth.loggedIn()) {
-      return null;
-    }
+  // If the location is the landing page don't render the header
+  if (location.pathname === "/") {
+    return null;
+  }
+  // If the user is not logged in don't render the header
+  if (!Auth.loggedIn()) {
+    return null;
+  }
 
   return (
     <>
-      {Auth.loggedIn() ? (
-        <>
-          <AppBar position="static" className={styles.header}>
-            <Toolbar>
-              <Typography variant="h1" component="div" sx={{ flexGrow: 1 }} className={styles.app_title}>
-                streamHub
-              </Typography>
-              <nav>
-              {/* The following conditionally renders each link based on the current path */}
-              {location.pathname !== "/home_page" && (
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/home_page"
-                  variant="button"
-                  underline="none"
-                  sx={{ marginRight: 2, textTransform: "uppercase" }}
-                >
-                  Home
-                </Link>
-              )}
-              {location.pathname !== "/search" && (
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/search"
-                  variant="button"
-                  underline="none"
-                  sx={{ marginRight: 2, textTransform: "uppercase" }}
-                >
-                  Search
-                </Link>
-              )}
-              {location.pathname !== "/now_trending" && (
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/now_trending"
-                  variant="button"
-                  underline="none"
-                  sx={{ marginRight: 2, textTransform: "uppercase" }}
-                >
-                  Trending Titles
-                </Link>
-              )}
-              </nav>
-              <Button
-              className="styles.signout_button"
+      <AppBar position="static" className={styles.header}>
+        <Toolbar>
+          <Typography
+            variant="h1"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            className={styles.app_title}
+          >
+            streamHub
+          </Typography>
+          <nav>
+            {/* The following conditionally renders each link based on the current path */}
+            {location.pathname !== "/home_page" && (
+              <Link
                 color="inherit"
-                onClick={logout}
-                sx={{ 
-                  marginRight: 2, 
-                  paddingRight: 0, 
-                  paddingLeft: 0, 
-                  backgroundImage: 'none',
-                  '&:hover': {
-                    backgroundImage: 'none',
-                    color: 'white'
-                  }
-                }}
+                component={RouterLink}
+                to="/home_page"
+                variant="button"
+                underline="none"
+                sx={{ marginRight: 2, textTransform: "uppercase" }}
               >
-                Sign Out
-              </Button>
-            </Toolbar>
-          </AppBar>
-        </>
-      ) : (
-        <>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography component="div" sx={{ flexGrow: 1 }}>
-                <Link
-                  to="/"
-                  color={"inherit"}
-                  underline="none"
-                  component={RouterLink}
-                  // variant="button"
-                >
-                  <h1>streamHub</h1>
-                </Link>
-              </Typography>
-              {/* If on login page, show signup link */}
-              {location.pathname === "/login" && (
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/signup"
-                  variant="button"
-                  underline="none"
-                  sx={{ marginRight: 2, textTransform: "uppercase" }}
-                >
-                  Signup
-                </Link>
-              )}
-              {location.pathname === "/signup" && (
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/login"
-                  variant="button"
-                  underline="none"
-                  sx={{ marginRight: 2, textTransform: "uppercase" }}
-                >
-                  Login
-                </Link>
-              )}
-            </Toolbar>
-          </AppBar>
-        </>
-      )}
+                Home
+              </Link>
+            )}
+            {location.pathname !== "/search" && (
+              <Link
+                color="inherit"
+                component={RouterLink}
+                to="/search"
+                variant="button"
+                underline="none"
+                sx={{ marginRight: 2, textTransform: "uppercase" }}
+              >
+                Search
+              </Link>
+            )}
+            {location.pathname !== "/now_trending" && (
+              <Link
+                color="inherit"
+                component={RouterLink}
+                to="/now_trending"
+                variant="button"
+                underline="none"
+                sx={{ marginRight: 2, textTransform: "uppercase" }}
+              >
+                Trending Titles
+              </Link>
+            )}
+          </nav>
+          <Button
+            className="styles.signout_button"
+            color="inherit"
+            onClick={logout}
+            sx={{
+              marginRight: 2,
+              paddingRight: 0,
+              paddingLeft: 0,
+              backgroundImage: "none",
+              "&:hover": {
+                backgroundImage: "none",
+                color: "white",
+              },
+            }}
+          >
+            Sign Out
+          </Button>
+        </Toolbar>
+      </AppBar>
     </>
   );
 };
 
 export default Header;
-
-
-
-
-

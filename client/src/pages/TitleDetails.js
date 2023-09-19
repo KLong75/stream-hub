@@ -29,6 +29,23 @@ import LoadingClapBoard from "../components/LoadingClapBoard";
 const TitleDetails = () => {
   const loggedIn = Auth.loggedIn();
   const navigate = useNavigate();
+
+  // here
+  const [showRedirectMessage, setShowRedirectMessage] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setShowRedirectMessage(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [navigate, isAuthenticated]);
+  useEffect(() => {
+    setIsAuthenticated(Auth.loggedIn());
+  }, []);
+  // *****
+
   const { data, loading } = useQuery(QUERY_ME);
 
   const savedTitleIds = data?.me.savedTitles.map((title) => title.id) || [];
@@ -597,6 +614,10 @@ const TitleDetails = () => {
       console.error(err);
     }
   };
+
+  if (showRedirectMessage) {
+    return <div>Please login or signup</div>;
+  }
 
   if (loading) {
     return <LoadingClapBoard />;

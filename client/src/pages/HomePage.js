@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect }from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 // import components
 // import TvLoader from '../components/TvLoader';
 // import GenreSearch from "../components/GenreSearch";
@@ -13,7 +13,6 @@ import LoadingClapboard from "../components/LoadingClapBoard";
 import Heading from "../components/Heading";
 // import ParallaxSwiper from "../components/ParallaxSwiper";
 
-
 import Auth from "../utils/auth";
 
 import { useQuery } from "@apollo/client";
@@ -21,12 +20,20 @@ import { QUERY_ME } from "../utils/queries";
 
 const HomePage = () => {
   const loggedIn = Auth.loggedIn();
+  const navigate = useNavigate();
+
   const { username: userParam } = useParams();
 
   const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
     variables: { username: userParam },
   });
   const user = data?.me || {};
+
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate("/");
+    }
+  }, [loggedIn, navigate]);
 
   if (loading) {
     return (
@@ -38,7 +45,7 @@ const HomePage = () => {
 
   return (
     <>
-      {loggedIn ? (
+      {/* {loggedIn ? ( */}
         <>
         <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
           <section>
@@ -53,7 +60,7 @@ const HomePage = () => {
             <Link to="/account_settings">Account Settings</Link>
           </section>
         </>
-      ) : (
+      {/* ) : (
         <>
           <h2>Welcome to streamHub</h2>
           <p>Please</p>
@@ -65,7 +72,7 @@ const HomePage = () => {
             <button>Sign Up</button>
           </Link>
         </>
-      )}
+      )} */}
     </>
   );
 };
