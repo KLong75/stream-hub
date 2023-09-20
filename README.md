@@ -22,8 +22,8 @@ Basic functionality is in place. I am currently working on style, layout, and co
 
 ## Table of Contents
 - [Description](#description)
-- [Status](#status)
-- [Screenshots](#screenshots)
+- [Project Status](#projectstatus)
+- [Screenshots of application](#screenshots)
 - [Usage](#usage)
 - [License](#license)
 - [Questions](#questions)
