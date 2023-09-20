@@ -16,7 +16,6 @@ Basic functionality is in place. I am currently working on style, layout, and co
 ![Screenshot (363)](https://github.com/KLong75/stream-hub/assets/98487770/d6058c92-cbae-4bf5-9fc3-8800362b0de0)
 ![Screenshot (364)](https://github.com/KLong75/stream-hub/assets/98487770/0c40e884-0601-4d6e-b4c0-ecac8499f06d)
 ![Screenshot (365)](https://github.com/KLong75/stream-hub/assets/98487770/96eef6d7-4f9d-4836-9042-9f29d6ffd845)
-![Screenshot (366)](https://github.com/KLong75/stream-hub/assets/98487770/38c3a1d0-48fe-49c8-83a5-334eb3ddd3c2)
 ![Screenshot (367)](https://github.com/KLong75/stream-hub/assets/98487770/05aef967-e46c-418c-9fc0-cf514d370e2d)
 ![Screenshot (369)](https://github.com/KLong75/stream-hub/assets/98487770/23517287-f72a-4f97-9092-6a92ae2dc507)
 
