@@ -8,7 +8,7 @@ streamHub (working title) is a full-stack application that allows users to searc
 
 
 ## Status
-Basic functionality is in place. I am currently working on style, layout, and code optimization. Styles and layout will be kept fairly minimal initially just enough to make it a usable app.
+Basic functionality is in place. I am currently working on style, layout, and code optimization. Style and layout will be kept fairly minimal initially just enough to make it a usable app.
 
 
 ## Screenshots
