@@ -527,7 +527,7 @@ const SearchByGenreSourceType = () => {
               id="panel1a-header"
             >
               <Typography>
-                Looking for a new show to binge or movie for tonight?
+                Looking for a new show to binge or a movie for tonight?
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

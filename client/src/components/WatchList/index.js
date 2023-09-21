@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Auth from "../../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
@@ -12,7 +12,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import styles from "./Watchlist.module.css";
 import { Parallax, Pagination, Navigation } from "swiper/modules";
-
+import Heading from "../Heading";
+import FilterTitles from "../FilterTitles";
 
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
@@ -50,22 +51,67 @@ const WatchList = () => {
       console.error(err);
     }
   };
+
+  const [filters, setFilters] = useState({
+    type: [],
+    source: [],
+    genre: [],
+  });
+
+  const filteredTitles = userData.savedTitles?.filter((title) => {
+    if (filters.type.length) {
+      if (!filters.type.includes(title.type)) {
+        return false;
+      }
+    }
+    if (filters.source.length) {
+      if (!filters.source.includes(title.source)) {
+        return false;
+      }
+    }
+    if (filters.genre.length) {
+      if (!filters.genre.some((genre) => title.genres.includes(genre))) {
+        return false;
+      }
+    }
+    return true;
+  }, );
+
+
+
+
+
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
+  console.log(userData.savedTitles)
+
 
   return (
     <>
       {loggedIn ? (
         <>
-          <h4>{userData.username}'s Watchlist</h4>
-          <h5>
-            {userData.savedTitles.length
-              ? `You have ${userData.savedTitles.length} saved ${
+          
+          <Heading
+            variant="h3"
+            heading="Your Watchlist"
+            subHeading={
+              userData.savedTitles.length ? (
+                `You have ${userData.savedTitles.length} saved ${
                   userData.savedTitles.length === 1 ? "title" : "titles"
                 }:`
-              : "You have no saved titles!"}
-          </h5>
+              ) : (
+                <>
+                  You have no saved titles!
+                  <br />
+                  <Link to="/search">Find Something To Watch!</Link>
+                </>
+              )
+            }
+          />
+          <FilterTitles setFilters={setFilters} />
           <Swiper
             style={{
               "--swiper-navigation-color": "#000000",
@@ -79,7 +125,7 @@ const WatchList = () => {
             className={styles.swiper}
           >
             {userData.savedTitles?.map((title) => (
-              <SwiperSlide 
+              <SwiperSlide
                 key={title.id}
                 style={{
                   backgroundImage: `url(${title.backdrop})`,

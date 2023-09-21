@@ -18,11 +18,11 @@ const Heading = ({heading, subHeading, variant = 'h1'}) => {
   
   return (
     <Grid container>
-      <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+      <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center">
       <PrimaryTag>{heading}</PrimaryTag>
       </Grid>
       {subHeading && (
-      <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+      <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center">
       <SecondaryTag>{subHeading}</SecondaryTag>
       </Grid>
       )}
