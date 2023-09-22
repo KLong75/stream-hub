@@ -6,58 +6,76 @@ import Button from "@mui/material/Button";
 import FormGroup from "@mui/material/FormGroup";
 import FilterSection from "../FilterSection";
 
+const defaultTypeFilter = {
+  Movie: false,
+  TV: false,
+};
+
+const defaultSourceFilter = {
+  AmazonPrime: false,
+  AppleTV: false,
+  DisneyPlus: false,
+  Hulu: false,
+  Max: false,
+  Netflix: false,
+  ParamountPlus: false,
+  Peacock: false,
+  Starz: false,
+};
+
+const defaultGenreFilter = {
+  Action: false,
+  ActionAdventure: false,
+  Adventure: false,
+  Animation: false,
+  Anime: false,
+  Biography: false,
+  Comedy: false,
+  Crime: false,
+  Documentary: false,
+  Drama: false,
+  Family: false,
+  Fantasy: false,
+  History: false,
+  Horror: false,
+  Kids: false,
+  Music: false,
+  Musical: false,
+  Mystery: false,
+  News: false,
+  Reality: false,
+  Romance: false,
+  ScienceFiction: false,
+  SciFiFantasy: false,
+  Soap: false,
+  Sports: false,
+  Talk: false,
+  Thriller: false,
+  War: false,
+  WarPolitics: false,
+  Western: false,
+};
+
+const mapUiGenreToActualGenre = (uiGenre) => {
+  const map = {
+    ActionAdventure: "Action & Adventure",
+  };
+
+  return map[uiGenre] || uiGenre;
+};
+
 const FilterTitles = ({ setFilters }) => {
-  const [typeFilter, setTypeFilter] = useState({
-    Movie: false,
-    TVShow: false,
-  });
+  const [typeFilter, setTypeFilter] = useState(defaultTypeFilter);
 
-  const [sourceFilter, setSourceFilter] = useState({
-    AppleTV: false,
-    DisneyPlus: false,
-    Hulu: false,
-    Max: false,
-    Netflix: false,
-    ParamountPlus: false,
-    Peacock: false,
-    Starz: false,
-  });
+  const [sourceFilter, setSourceFilter] = useState(defaultSourceFilter);
 
-  const [genreFilter, setGenreFilter] = useState({
-    Action: false,
-    ActionAdventure: false,
-    Adventure: false,
-    Animation: false,
-    Anime: false,
-    Biography: false,
-    Comedy: false,
-    Crime: false,
-    Documentary: false,
-    Drama: false,
-    Family: false,
-    Fantasy: false,
-    History: false,
-    Horror: false,
-    Kids: false,
-    Music: false,
-    Musical: false,
-    Mystery: false,
-    News: false,
-    Reality: false,
-    Romance: false,
-    ScienceFiction: false,
-    SciFiFantasy: false,
-    Soap: false,
-    Sports: false,
-    Talk: false,
-    Thriller: false,
-    War: false,
-    WarPolitics: false,
-    Western: false,
-  });
+  const [genreFilter, setGenreFilter] = useState(defaultGenreFilter);
 
   const handleTypeChange = (event) => {
-    setTypeFilter({ ...typeFilter, [event.target.name]: event.target.checked });
+    setTypeFilter({
+      ...typeFilter,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const handleSourceChange = (event) => {
@@ -73,12 +91,22 @@ const FilterTitles = ({ setFilters }) => {
       [event.target.name]: event.target.checked,
     });
   };
+  console.log("genreFilter: ", genreFilter);
+  console.log("typeFilter: ", typeFilter);
+  console.log("sourceFilter: ", sourceFilter);
 
   useEffect(() => {
+    const typeArray = Object.keys(typeFilter).filter((key) => typeFilter[key]);
+    const sourceArray = Object.keys(sourceFilter).filter(
+      (key) => sourceFilter[key]
+    );
+    const genreArray = Object.keys(genreFilter).filter(
+      (key) => genreFilter[key]).map(mapUiGenreToActualGenre);
+
     setFilters({
-      type: typeFilter,
-      source: sourceFilter,
-      genre: genreFilter,
+      type: typeArray,
+      source: sourceArray,
+      genre: genreArray,
     });
   }, [typeFilter, sourceFilter, genreFilter, setFilters]);
 
@@ -112,6 +140,7 @@ const FilterTitles = ({ setFilters }) => {
 
   const activeFilters = getActiveFilters();
 
+ 
 
 
   return (
@@ -121,7 +150,7 @@ const FilterTitles = ({ setFilters }) => {
       </Button>
       {activeFilters.length > 0 && (
         <div>
-          <h5>Active Filters:</h5>
+          <h5>Watchlist Filtered For:</h5>
           <ul>
             {activeFilters.map((filter) => (
               <li key={filter}>{filter}</li>
@@ -135,71 +164,31 @@ const FilterTitles = ({ setFilters }) => {
           <Button
             variant="contained"
             onClick={() => {
-              setTypeFilter({ Movie: false, TVShow: false });
-              setSourceFilter({
-                AppleTV: false,
-                DisneyPlus: false,
-                Hulu: false,
-                Max: false,
-                Netflix: false,
-                ParamountPlus: false,
-                Peacock: false,
-                Starz: false,
-              });
-              setGenreFilter({
-                Action: false,
-                ActionAdventure: false,
-                Adventure: false,
-                Animation: false,
-                Anime: false,
-                Biography: false,
-                Comedy: false,
-                Crime: false,
-                Documentary: false,
-                Drama: false,
-                Family: false,
-                Fantasy: false,
-                History: false,
-                Horror: false,
-                Kids: false,
-                Music: false,
-                Musical: false,
-                Mystery: false,
-                News: false,
-                Reality: false,
-                Romance: false,
-                ScienceFiction: false,
-                SciFiFantasy: false,
-                Soap: false,
-                Sports: false,
-                Talk: false,
-                Thriller: false,
-                War: false,
-                WarPolitics: false,
-                Western: false,
-              });
+              setTypeFilter(defaultTypeFilter);
+              setSourceFilter(defaultSourceFilter);
+              setGenreFilter(defaultGenreFilter);
             }}
-          >Clear Filters
-
+          >
+            Clear Filters
           </Button>
           <FormGroup>
             <FilterSection
               title="Type"
-              items={["Movie", "TVShow"]}
+              items={["Movie", "TV"]}
               filterState={typeFilter}
               handleChange={handleTypeChange}
             />
             <FilterSection
               title="Source"
               items={[
+                "AmazonPrime",
                 "AppleTV",
                 "DisneyPlus",
                 "Hulu",
                 "Max",
                 "Netflix",
-                "Paramount+",
+                "ParamountPlus",
                 "Peacock",
-                "PrimeVideo",
                 "Starz",
               ]}
               filterState={sourceFilter}
@@ -209,7 +198,7 @@ const FilterTitles = ({ setFilters }) => {
               title="Genre"
               items={[
                 "Action",
-                "Action & Adventure",
+                "ActionAdventure",
                 "Adventure",
                 "Animation",
                 "Comedy",
@@ -227,8 +216,8 @@ const FilterTitles = ({ setFilters }) => {
                 "News",
                 "Reality",
                 "Romance",
-                "Sci-Fi & Fantasy",
-                "Science Fiction",
+                "ScienceFiction",
+                "SciFiFantasy",
                 "Soap",
                 "Sports",
                 "Talk",

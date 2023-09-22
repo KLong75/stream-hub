@@ -44,7 +44,7 @@ const TV = () => {
         >
           <Grid>
             <h1 className={styles.app_title} style={{ fontSize: "3rem" }}>
-              idiotBox
+              streamHub
             </h1>
           </Grid>
         </Grid>
@@ -64,7 +64,7 @@ const TV = () => {
           }}
         >
           <Grid>
-            <h1 className={styles.app_title}>idiotBox</h1>
+            <h1 className={styles.app_title}>streamHub</h1>
           </Grid>
         </Grid>
       )}

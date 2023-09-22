@@ -57,43 +57,67 @@ const WatchList = () => {
     source: [],
     genre: [],
   });
+  console.log("filters.type", filters.type);
+  console.log("filters.source", filters.source);
+  console.log("filters.genre", filters.genre);
 
   const filteredTitles = userData.savedTitles?.filter((title) => {
     if (filters.type.length) {
-      if (!filters.type.includes(title.type)) {
+      const typeFilter = filters.type
+        .map((type) => {
+          if (type === "Movie") return ["movie", "short_film"];
+          if (type === "TV") return ["tv_series", "tv_miniseries"];
+          return [type];
+        })
+        .flat();
+
+      if (!typeFilter.includes(title.type)) {
         return false;
       }
     }
+
     if (filters.source.length) {
-      if (!filters.source.includes(title.source)) {
+      const sourceFilter = filters.source
+        .map((source) => {
+          if (source === "AmazonPrime") return "Amazon Prime";
+          if (source === "AppleTV") return "AppleTV+";
+          if (source === "DisneyPlus") return "Disney+";
+          if (source === "Hulu") return "Hulu";
+          if (source === "Max") return "Max";
+          if (source === "Netflix") return "Netflix";
+          if (source === "ParamountPlus") return "Paramount+";
+          if (source === "Peacock") return "Peacock Premium";
+          if (source === "Starz") return "STARZ";
+          return source;
+        })
+        .flat();
+
+      const titleSources = title.sources.map((source) => source.name);
+      if (!sourceFilter.some((filter) => titleSources.includes(filter))) {
         return false;
       }
     }
-    if (filters.genre.length) {
-      if (!filters.genre.some((genre) => title.genres.includes(genre))) {
-        return false;
-      }
+
+    if (
+      filters.genre.length &&
+      !title.genre_names.some((genre) => filters.genre.includes(genre))
+    ) {
+      return false;
     }
+
     return true;
-  }, );
-
-
-
-
-
-
+  });
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  console.log(userData.savedTitles)
-
+  console.log("savedTitles", userData.savedTitles);
+  console.log("filteredTitles", filteredTitles);
 
   return (
     <>
       {loggedIn ? (
         <>
-          
           <Heading
             variant="h3"
             heading="Your Watchlist"
@@ -112,6 +136,15 @@ const WatchList = () => {
             }
           />
           <FilterTitles setFilters={setFilters} />
+          {filters.type.length ||
+          filters.source.length ||
+          filters.genre.length ? (
+            <p>
+              You have {filteredTitles.length} saved titles that meet this
+              criteria.
+            </p>
+          ) : null}
+
           <Swiper
             style={{
               "--swiper-navigation-color": "#000000",
@@ -124,7 +157,7 @@ const WatchList = () => {
             modules={[Parallax, Pagination, Navigation]}
             className={styles.swiper}
           >
-            {userData.savedTitles?.map((title) => (
+            {filteredTitles?.map((title) => (
               <SwiperSlide
                 key={title.id}
                 style={{
