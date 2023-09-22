@@ -1,6 +1,8 @@
 .app_title {
   font-size: 2.5rem !important;
   font-weight: bold !important;
+  margin-left: 1rem !important;
+  margin-right: 2rem !important;
   /* color: black; */
   /* background: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
   -webkit-background-clip: text;
@@ -24,3 +26,4 @@
 .header a:hover {
   color: white;
 }
+
