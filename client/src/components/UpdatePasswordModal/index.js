@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { TextField } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  DialogActions, TextField
+} from "@mui/material";
+
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "../../utils/mutations";
 
@@ -43,7 +50,9 @@ const UpdatePasswordModal = ({ onClose, onSuccessfulUpdate }) => {
 
   return (
     <>
-      <p>Change Password</p>
+    <Dialog open={true} onClose={onClose}>
+      <DialogTitle>Enter Your New Password</DialogTitle>
+      <DialogContent>
       <form onSubmit={handleFormSubmit}>
         <TextField
           required
@@ -54,10 +63,14 @@ const UpdatePasswordModal = ({ onClose, onSuccessfulUpdate }) => {
           value={formState.password}
           onChange={handleChanges}
         />
-        <button type="submit">Submit</button>
+        <DialogActions>
+        <Button type="submit">Submit</Button>
+        </DialogActions>
         {error && <span className="font-link">Update failed.</span>}
       </form>
-      <button onClick={onClose}>Close</button>
+      </DialogContent>
+      <Button onClick={onClose}>Close</Button>
+    </Dialog>
     </>
   );
 };

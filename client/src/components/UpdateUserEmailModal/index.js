@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { TextField } from "@mui/material";
+import {
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 import { useMutation } from "@apollo/client";
-import { UPDATE_USER } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import { UPDATE_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const UpdateUserEmailModal = ({ onClose, onSuccessfulUpdate }) => {
-
   const [formState, setFormState] = useState({
     email: "",
   });
@@ -22,7 +28,7 @@ const UpdateUserEmailModal = ({ onClose, onSuccessfulUpdate }) => {
       const { data } = await updateUser({
         variables: {
           _id: Auth.getProfile().data._id,
-          email: formState.email
+          email: formState.email,
         },
       });
 
@@ -43,21 +49,27 @@ const UpdateUserEmailModal = ({ onClose, onSuccessfulUpdate }) => {
 
   return (
     <>
-      <p>Update Your Email Address</p>
-      <form onSubmit={handleFormSubmit}>
-          <TextField
-            required
-            label="Email"
-            id="email"
-            name="email"
-            type="email"
-            value={formState.email}
-            onChange={handleChanges}
-          />
-        <button type="submit">Submit</button>
-        {error && <span className="font-link">Update failed.</span>}
-      </form>
-      <button onClick={onClose}>Close</button>
+      <Dialog open={true} onClose={onClose}>
+        <DialogTitle>Enter Your New Email Address</DialogTitle>
+        <DialogContent>
+          <form onSubmit={handleFormSubmit}>
+            <TextField
+              required
+              label="Email"
+              id="email"
+              name="email"
+              type="email"
+              value={formState.email}
+              onChange={handleChanges}
+            />
+            <DialogActions>
+              <Button type="submit">Submit</Button>
+            </DialogActions>
+            {error && <span className="font-link">Update failed.</span>}
+          </form>
+        </DialogContent>
+        <Button onClick={onClose}>Close</Button>
+      </Dialog>
     </>
   );
 };
