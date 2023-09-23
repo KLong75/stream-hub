@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import Button from "@mui/material/Button";
+
 import Auth from "../utils/auth";
 
 import DeleteAccountModal from "../components/DeleteAccountModal";
@@ -55,10 +57,10 @@ const AccountSettings = () => {
   return (
     <>
       <h3>Account Settings</h3>
-      <button onClick={() => setModalType("delete")}>Delete Account</button>
-      <button onClick={() => setModalType("username")}>Update Username</button>
-      <button onClick={() => setModalType("email")}>Update Email</button>
-      <button onClick={() => setModalType("password")}>Update Password</button>
+      <Button onClick={() => setModalType("delete")}>Delete Account</Button>
+      <Button onClick={() => setModalType("username")}>Update Username</Button>
+      <Button onClick={() => setModalType("email")}>Update Email</Button>
+      <Button onClick={() => setModalType("password")}>Update Password</Button>
       
       {modalType === "delete" && (
         <DeleteAccountModal 
