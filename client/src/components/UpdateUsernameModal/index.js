@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { TextField } from "@mui/material";
+import {
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -10,9 +17,8 @@ const UpdateUsernameModal = ({ onClose, onSuccessfulUpdate }) => {
     username: "",
   });
   const [updateUser, { error }] = useMutation(UPDATE_USER, {
-    refetchQueries: [{ query: QUERY_ME }]
+    refetchQueries: [{ query: QUERY_ME }],
   });
-  
 
   const handleChanges = (event) => {
     const { name, value } = event.target;
@@ -25,7 +31,7 @@ const UpdateUsernameModal = ({ onClose, onSuccessfulUpdate }) => {
       const { data } = await updateUser({
         variables: {
           _id: Auth.getProfile().data._id,
-          username: formState.username 
+          username: formState.username,
         },
       });
       if (data && data.updateUser) {
@@ -44,22 +50,28 @@ const UpdateUsernameModal = ({ onClose, onSuccessfulUpdate }) => {
 
   return (
     <>
-      <p>Update Your Username</p>
-      <form onSubmit={handleFormSubmit}>
-        <TextField
-          required
-          label="Username"
-          id="username"
-          name="username"
-          type="username"
-          value={formState.username}
-          onChange={handleChanges}
-        />
-        <button type="submit">Submit</button>
-        {error && <span className="font-link">Update failed.</span>}
-      </form>
+      <Dialog open={true} onClose={onClose}>
+        <DialogTitle>Enter Your New Username</DialogTitle>
+        <DialogContent>
+          <form onSubmit={handleFormSubmit}>
+            <TextField
+              required
+              label="Username"
+              id="username"
+              name="username"
+              type="username"
+              value={formState.username}
+              onChange={handleChanges}
+            />
+            <DialogActions>
+              <Button type="submit">Submit</Button>
+            </DialogActions>
+            {error && <span className="font-link">Update failed.</span>}
+          </form>
+        </DialogContent>
 
-      <button onClick={onClose}>Close</button>
+        <Button onClick={onClose}>Close</Button>
+      </Dialog>
     </>
   );
 };

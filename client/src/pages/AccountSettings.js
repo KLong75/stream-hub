@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Unstable_Grid2";
+
 import Auth from "../utils/auth";
 
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import UpdateUsernameModal from "../components/UpdateUsernameModal";
 import UpdateUserEmailModal from "../components/UpdateUserEmailModal";
 import UpdatePasswordModal from "../components/UpdatePasswordModal";
-
+import Heading from "../components/Heading";
 
 const AccountSettings = () => {
   const navigate = useNavigate();
@@ -51,30 +54,40 @@ const AccountSettings = () => {
     return <div>Please login or signup</div>;
   }
 
-
   return (
-    <>
-      <h3>Account Settings</h3>
-      <button onClick={() => setModalType("delete")}>Delete Account</button>
-      <button onClick={() => setModalType("username")}>Update Username</button>
-      <button onClick={() => setModalType("email")}>Update Email</button>
-      <button onClick={() => setModalType("password")}>Update Password</button>
-      
+    <main>
+      <Heading heading={"Account Settings"} variant="h3" />
+      <Grid container spacing={2} justifyContent="center" textAlign="center">
+        <Grid xs={12} md={6} lg={3}>
+          <Button onClick={() => setModalType("email")}>Update Email</Button>
+        </Grid>
+        <Grid xs={12} md={6} lg={3}>
+          <Button onClick={() => setModalType("username")}>
+            Update Username
+          </Button>
+        </Grid>
+        <Grid xs={12} md={6} lg={3}>
+          <Button onClick={() => setModalType("password")}>
+            Update Password
+          </Button>
+        </Grid>
+        <Grid xs={12} md={6} lg={3}>
+          <Button onClick={() => setModalType("delete")}>Delete Account</Button>
+        </Grid>
+      </Grid>
       {modalType === "delete" && (
-        <DeleteAccountModal 
-          onClose={() => setModalType("")}  
-        />
+        <DeleteAccountModal onClose={() => setModalType("")} />
       )}
       {modalType === "username" && (
-        <UpdateUsernameModal 
+        <UpdateUsernameModal
           onClose={() => setModalType("")}
-          onSuccessfulUpdate={handleUsernameUpdate} 
+          onSuccessfulUpdate={handleUsernameUpdate}
         />
       )}
       {modalType === "email" && (
-        <UpdateUserEmailModal 
+        <UpdateUserEmailModal
           onClose={() => setModalType("")}
-          onSuccessfulUpdate={handleUserEmailUpdate} 
+          onSuccessfulUpdate={handleUserEmailUpdate}
         />
       )}
       {modalType === "password" && (
@@ -84,7 +97,7 @@ const AccountSettings = () => {
         />
       )}
       {updateSuccess && <div>Your account information has been updated.</div>}
-    </>
+    </main>
   );
 };
 

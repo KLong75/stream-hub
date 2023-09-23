@@ -3,6 +3,14 @@ import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { DELETE_USER } from "../../utils/mutations";
 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  DialogActions,
+} from "@mui/material";
+
 const DeleteAccountModal = ({ onClose }) => {
   const navigate = useNavigate();
   const [deleteUser, { error }] = useMutation(DELETE_USER);
@@ -20,12 +28,17 @@ const DeleteAccountModal = ({ onClose }) => {
   };
 
   return (
-    <div>
-      <p>Are you sure you want to delete your account?</p>
-      <button onClick={deleteAccount}>Confirm</button>
-      <button onClick={onClose}>Close</button>
-      {error && <span className="font-link">Delete account failed.</span>}
-    </div>
+    <Dialog open={true} onClose={onClose}>
+      <DialogTitle>Delete Account</DialogTitle>
+      <DialogContent>
+        <p>Are you sure you want to delete your account?</p>
+        {error && <span className="font-link">Delete account failed.</span>}
+        <DialogActions>
+          <Button onClick={deleteAccount}>Confirm</Button>
+        </DialogActions>
+      </DialogContent>
+      <Button onClick={onClose}>Close</Button>
+    </Dialog>
   );
 };
 

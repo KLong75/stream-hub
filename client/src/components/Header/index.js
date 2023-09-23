@@ -3,11 +3,32 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 // import from utils
 import Auth from "../../utils/auth";
 // import from mui
-import { AppBar, Toolbar, Button, Typography, Link } from "@mui/material";
+import { AppBar, Toolbar, Typography, Link } from "@mui/material";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+
+import MenuItem from "@mui/material/MenuItem";
+import SettingsIcon from "@mui/icons-material/Settings";
+
+// import images
+import tvIcon from "../../assets/images/tvIcon.png";
 
 import styles from "./Header.module.css";
 
 const Header = () => {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   const location = useLocation();
   const logout = (event) => {
     event.preventDefault();
@@ -26,72 +47,198 @@ const Header = () => {
   return (
     <>
       <AppBar position="static" className={styles.header}>
-        <Toolbar>
-          <Typography
-            variant="h1"
-            component="div"
-            sx={{ flexGrow: 1 }}
-            className={styles.app_title}
-          >
-            streamHub
-          </Typography>
-          <nav>
-            {/* The following conditionally renders each link based on the current path */}
-            {location.pathname !== "/home_page" && (
-              <Link
-                color="inherit"
-                component={RouterLink}
-                to="/home_page"
-                variant="button"
-                underline="none"
-                sx={{ marginRight: 2, textTransform: "uppercase" }}
+        <Container maxWidth="xl">
+          <Toolbar>
+            <Box
+              component="img"
+              src={tvIcon}
+              alt="TV icon"
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            />
+            <Typography
+              noWrap
+              variant="h1"
+              sx={{
+                mr: 2,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                textDecoration: "none",
+                display: { xs: "none", md: "flex" },
+              }}
+              className={styles.app_title}
+            >
+              streamHub
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                edge="start"
+                aria-label="open menu"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
               >
-                Home
-              </Link>
-            )}
-            {location.pathname !== "/search" && (
-              <Link
-                color="inherit"
-                component={RouterLink}
-                to="/search"
-                variant="button"
-                underline="none"
-                sx={{ marginRight: 2, textTransform: "uppercase" }}
+                <MenuIcon fontSize="large"/>
+              </IconButton>
+              
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
               >
-                Search
-              </Link>
-            )}
-            {location.pathname !== "/now_trending" && (
+                {location.pathname !== "/home_page" && (
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link
+                      color="inherit"
+                      component={RouterLink}
+                      to="/home_page"
+                      variant="button"
+                      underline="none"
+                      sx={{ marginRight: 2, textTransform: "uppercase" }}
+                    >
+                      Home
+                    </Link>
+                  </MenuItem>
+                )}
+
+                {location.pathname !== "/search" && (
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link
+                      color="inherit"
+                      component={RouterLink}
+                      to="/search"
+                      variant="button"
+                      underline="none"
+                      sx={{ marginRight: 2, textTransform: "uppercase" }}
+                    >
+                      Search
+                    </Link>
+                  </MenuItem>
+                )}
+
+                {location.pathname !== "/now_trending" && (
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link
+                      color="inherit"
+                      component={RouterLink}
+                      to="/now_trending"
+                      variant="button"
+                      underline="none"
+                      sx={{ marginRight: 2, textTransform: "uppercase" }}
+                    >
+                      Trending Titles
+                    </Link>
+                  </MenuItem>
+                )}
+              </Menu>
+            </Box>
+            <Box
+              component="img"
+              src={tvIcon}
+              alt="TV icon"
+              sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+            />
+
+            <Typography
+              className={styles.app_title}
+              variant="h1"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                
+              }}
+            >
+              streamHub
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <nav>
+                {/* The following conditionally renders each link based on the current path */}
+                {location.pathname !== "/home_page" && (
+                  <Link
+                    color="inherit"
+                    component={RouterLink}
+                    to="/home_page"
+                    variant="button"
+                    underline="none"
+                    sx={{ marginRight: 2, textTransform: "uppercase" }}
+                  >
+                    Home
+                  </Link>
+                )}
+                {location.pathname !== "/search" && (
+                  <Link
+                    color="inherit"
+                    component={RouterLink}
+                    to="/search"
+                    variant="button"
+                    underline="none"
+                    sx={{ marginRight: 2, textTransform: "uppercase" }}
+                  >
+                    Search
+                  </Link>
+                )}
+                {location.pathname !== "/now_trending" && (
+                  <Link
+                    color="inherit"
+                    component={RouterLink}
+                    to="/now_trending"
+                    variant="button"
+                    underline="none"
+                    sx={{ marginRight: 2, textTransform: "uppercase" }}
+                  >
+                    Trending Titles
+                  </Link>
+                )}
+              </nav>
               <Link
-                color="inherit"
-                component={RouterLink}
-                to="/now_trending"
-                variant="button"
                 underline="none"
-                sx={{ marginRight: 2, textTransform: "uppercase" }}
+                variant="button"
+                color="inherit"
+                onClick={logout}
+                sx={{
+                  cursor: "pointer",
+                  textTransform: "uppercase",
+                  color: "inherit",
+                  marginRight: 2,
+                  paddingRight: 0,
+                  paddingLeft: 0,
+                  backgroundImage: "none",
+                  "&:hover": {
+                    backgroundImage: "none",
+                    color: "white",
+                  },
+                }}
               >
-                Trending Titles
+                Sign Out
               </Link>
-            )}
-          </nav>
-          <Button
-            className="styles.signout_button"
-            color="inherit"
-            onClick={logout}
-            sx={{
-              marginRight: 2,
-              paddingRight: 0,
-              paddingLeft: 0,
-              backgroundImage: "none",
-              "&:hover": {
-                backgroundImage: "none",
-                color: "white",
-              },
-            }}
-          >
-            Sign Out
-          </Button>
-        </Toolbar>
+            </Box>
+
+            <Link href="/account_settings">
+              <SettingsIcon fontSize="large" />
+            </Link>
+          </Toolbar>
+        </Container>
       </AppBar>
     </>
   );
