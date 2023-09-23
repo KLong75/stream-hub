@@ -8,10 +8,9 @@ import { Button } from "@mui/material";
 import { useTitleSelection } from "../../utils/useTitleSelection";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 import styles from "./Watchlist.module.css";
-import { Parallax, Pagination, Navigation } from "swiper/modules";
+import { Parallax, Navigation } from "swiper/modules";
 import Heading from "../Heading";
 import FilterTitles from "../FilterTitles";
 
@@ -148,13 +147,12 @@ const WatchList = () => {
           <Swiper
             style={{
               "--swiper-navigation-color": "#000000",
-              "--swiper-pagination-color": "#000000",
             }}
             speed={600}
             parallax={true}
-            pagination={{ clickable: true }}
+            
             navigation={true}
-            modules={[Parallax, Pagination, Navigation]}
+            modules={[Parallax, Navigation]}
             className={styles.swiper}
           >
             {filteredTitles?.map((title) => (

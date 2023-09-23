@@ -6,6 +6,7 @@ import ActorSearch from "../../components/ActorSearch";
 import SearchByGenreSourceType from "../../components/SearchByGenreSourceType";
 import MixedGenreMovieSearch from "../../components/MixedGenreMovieSearch";
 import MixedGenreTVSearch from "../../components/MixedGenreTVSearch";
+import Heading from "../../components/Heading";
 import Auth from "../../utils/auth";
 // import styles from './SearchPage.module.css';
 
@@ -20,15 +21,15 @@ const SearchPage = () => {
   }, [loggedIn, navigate]);
 
   return (
-    <>
-      <h2>Search Page</h2>
+    <main>
+      <Heading heading='Find Something to Watch !' variant='h2' />
       <GenreSearch />
       <TitleSearch />
       <ActorSearch />
       <MixedGenreMovieSearch />
       <MixedGenreTVSearch />
       <SearchByGenreSourceType />
-    </>
+    </main>
   );
 };
 

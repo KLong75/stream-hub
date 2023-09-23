@@ -29,12 +29,9 @@ code {
     monospace;
 }
 
-.app-main {
-  flex: 1;
+main {
+  min-height: 100vh;
 }
-
-
-
 
 @media (max-width: 1445px) {
   .tv-button-container {
