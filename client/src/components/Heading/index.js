@@ -1,6 +1,6 @@
 // import from mui
 import Grid from "@mui/material/Unstable_Grid2";
-
+import styles from '../Heading/Heading.module.css';
 
 const Heading = ({heading, subHeading, variant = 'h1'}) => {
 
@@ -19,11 +19,11 @@ const Heading = ({heading, subHeading, variant = 'h1'}) => {
   return (
     <Grid container>
       <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center">
-      <PrimaryTag>{heading}</PrimaryTag>
+      <PrimaryTag className={styles.heading}>{heading}</PrimaryTag>
       </Grid>
       {subHeading && (
       <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center">
-      <SecondaryTag>{subHeading}</SecondaryTag>
+      <SecondaryTag className={styles.subHeading}>{subHeading}</SecondaryTag>
       </Grid>
       )}
     </Grid>

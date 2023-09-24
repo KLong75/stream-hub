@@ -8,15 +8,18 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 // import MixedGenreTVSearch from "../components/MixedGenreTVSearch";
 // import SearchByGenreSourceType from "../components/SearchByGenreSourceType";
 // import ActorSearch from "../components/ActorSearch";
-import WatchList from "../components/WatchList";
-import LoadingClapboard from "../components/LoadingClapBoard";
-import Heading from "../components/Heading";
+import WatchList from "../../components/WatchList";
+import LoadingClapboard from "../../components/LoadingClapBoard";
+import Heading from "../../components/Heading";
 // import ParallaxSwiper from "../components/ParallaxSwiper";
 
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 
 import { useQuery } from "@apollo/client";
-import { QUERY_ME } from "../utils/queries";
+import { QUERY_ME } from "../../utils/queries";
+
+import styles from "./HomePage.module.css";
+
 
 const HomePage = () => {
   const loggedIn = Auth.loggedIn();
@@ -47,7 +50,7 @@ const HomePage = () => {
     <>
       {/* {loggedIn ? ( */}
         <>
-        <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
+        <Heading className={styles.pageTitle} heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
           <section>
             {/* <h3>Find Something to Watch</h3>
             <GenreSearch />

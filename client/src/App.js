@@ -1,7 +1,7 @@
 // import from react router
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import pages
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Search from "./pages/SearchPage/SearchPage";
 import GenreSearchResults from "./pages/GenreSearchResults";
