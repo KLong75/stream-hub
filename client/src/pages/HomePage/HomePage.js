@@ -18,7 +18,7 @@ import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 
-import styles from "./HomePage.module.css";
+// import styles from "./HomePage.module.css";
 
 
 const HomePage = () => {
@@ -50,7 +50,7 @@ const HomePage = () => {
     <>
       {/* {loggedIn ? ( */}
         <>
-        <Heading className={styles.pageTitle} heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
+        <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
           <section>
             {/* <h3>Find Something to Watch</h3>
             <GenreSearch />
