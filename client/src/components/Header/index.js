@@ -13,6 +13,8 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import SettingsIcon from "@mui/icons-material/Settings";
 
+import AccountSettingsDrawer from "../AccountSettingsDrawer";
+
 // import images
 import tvIcon from "../../assets/images/tvIcon.png";
 
@@ -48,6 +50,7 @@ const Header = () => {
     <>
       <AppBar position="static" className={styles.header}>
         <Container maxWidth="xl">
+        <AccountSettingsDrawer />
           <Toolbar>
             <Box
               component="img"
