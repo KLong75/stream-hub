@@ -21,6 +21,16 @@ import tvIcon from "../../assets/images/tvIcon.png";
 import styles from "./Header.module.css";
 
 const Header = () => {
+  const [isSettingsDrawerOpen, setSettingsDrawerOpen] = React.useState(false);
+  const handleOpenSettingsDrawer = () => {
+    setSettingsDrawerOpen(true);
+  };
+
+  const handleCloseSettingsDrawer = () => {
+    setSettingsDrawerOpen(false);
+  };
+
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -50,7 +60,8 @@ const Header = () => {
     <>
       <AppBar position="static" className={styles.header}>
         <Container maxWidth="xl">
-        <AccountSettingsDrawer />
+        <AccountSettingsDrawer isOpen={isSettingsDrawerOpen}
+        onClose={handleCloseSettingsDrawer}/>
           <Toolbar>
             <Box
               component="img"
@@ -237,8 +248,8 @@ const Header = () => {
               </Link>
             </Box>
 
-            <Link href="/account_settings">
-              <SettingsIcon fontSize="large" />
+            <Link component="button" onClick={handleOpenSettingsDrawer}>
+              <SettingsIcon onClick={handleOpenSettingsDrawer}fontSize="large" style={{color: 'black'}} />
             </Link>
           </Toolbar>
         </Container>
