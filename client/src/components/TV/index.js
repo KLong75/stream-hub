@@ -43,7 +43,7 @@ const TV = () => {
           }}
         >
           <Grid>
-            <h1 className={styles.app_title} style={{ fontSize: "3rem" }}>
+            <h1 className={styles.appTitle}>
               streamHub
             </h1>
           </Grid>
@@ -64,7 +64,7 @@ const TV = () => {
           }}
         >
           <Grid>
-            <h1 className={styles.app_title}>streamHub</h1>
+            <h1 className={styles.appTitle}>streamHub</h1>
           </Grid>
         </Grid>
       )}

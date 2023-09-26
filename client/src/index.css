@@ -33,7 +33,7 @@ main {
   min-height: 100vh;
 }
 
-@media (max-width: 1445px) {
+/* @media (max-width: 1445px) {
   .tv-button-container {
     right: 33% !important;
   }
@@ -144,14 +144,12 @@ main {
   .tv-button-container {
     right: 12% !important;
   }
-}
+} */
 
 /* Reduce base font-size on smaller screens */
-@media (max-width: 600px) {
-  html {
-    /* font-size: 14px;  */
-  }
-  .tv-button-container {
+/*@media (max-width: 600px) {
+  
+   .tv-button-container {
     right: 12% !important;
   }
   .title-container {
@@ -168,9 +166,7 @@ main {
   }
 }
 @media (max-width: 500px) {
-  html {
-    /* font-size: 12px;  */
-  }
+  
   .tv-button-container {
     right: 11% !important;
     top: 51.5% !important;
@@ -189,109 +185,23 @@ main {
     top: 50.6%!important;
     left: 42%!important;
   }
-  .landing_page_tv {
-    /* height: 34rem!important; */
-  }
+ 
 }
 
 @media (max-width: 425px) {
   .tv-button-container {
     right: 5% !important;
-    /* top: 50% !important; */
+    
   }
   .landing-page-modal {
     top: 50.6%!important;
     left: 42%!important;
   }
-  .landing_page_tv {
-    /* height: 33rem!important; */
-  }
+ 
   
 }
+ */
 
-@media (max-width: 400px) {
-  html {
-    /* font-size: 12px;  */
-  }
-  .tv-button-container {
-    right: 2% !important;
-    top: 51% !important;
-  }
-  .landing-page-modal {
-    top: 51%!important;
-    left: 42.8%!important;
-  }
-  .landing_page_tv {
-    /* height: 31rem!important; */
-  }
-}
 
-@media (max-width: 360px) {
-  html {
-    /* font-size: 9.5px;  */
-  }
-  .tv-button-container {
-    right: 3.5% !important;
-    top: 50.5% !important;
-  }
-  .landing-page-modal {
-    /* top: 51%!important; */
-    left: 42.5%!important;
-  }
-  .landing_page_tv {
-    /* height: 34rem!important; */
-  }
-}
-
-@media (max-width: 320px) {
-  html {
-    /* font-size: 9px;  */
-  }
-  .tv-button-container {
-    right: 4% !important;
-  }
-  .landing_page_tv {
-    /* height: 36rem!important; */
-  }
-}
-
-@media (max-width: 300px) {
-  html {
-    /* font-size: 8px;  */
-  }
-  .tv-button-container {
-    right: 6% !important;
-  }
-  .landing_page_tv {
-    /* height: 38rem!important; */
-  }
-}
-
-@media (max-width: 280px) {
-  html {
-    /* font-size: 7px;  */
-  }
-  .tv-button-container {
-    right: 8% !important;
-    top: 50% !important;
-  }
-  .title-container {
-    top: 49%!important;
-  }
-  .landing-page-modal {
-    top: 50.5%!important;
-  }
-}
-
-@media (max-width: 260px) {
-  html {
-    /* font-size: 6px;  */
-  }
-  .tv-button-container {
-    right: 10% !important;
-    top: 49.25% !important;
-  }
-
-}
 
 
