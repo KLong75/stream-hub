@@ -14,7 +14,7 @@
   transform: translate(-50%, -50%);
 }
 
-.app_title {
+.appTitle {
   font-size: 3rem;
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
   -webkit-background-clip: text;
