@@ -5,7 +5,6 @@ import Auth from "../../utils/auth";
 // import from mui
 import { Link } from "@mui/material";
 
-import Heading from "../../components/Heading";
 
 import styles from "./Nav.module.css";
 

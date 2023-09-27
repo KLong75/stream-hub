@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { REMOVE_TITLE } from "../../utils/mutations";
 import { Button } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { useTitleSelection } from "../../utils/useTitleSelection";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -119,8 +120,7 @@ const WatchList = () => {
         <>
           <Heading
             variant="h3"
-            heading="Your Watchlist"
-            subHeading={
+            heading={
               userData.savedTitles.length ? (
                 `You have ${userData.savedTitles.length} saved ${
                   userData.savedTitles.length === 1 ? "title" : "titles"
@@ -129,12 +129,25 @@ const WatchList = () => {
                 <>
                   You have no saved titles!
                   <br />
-                  <Link to="/search">Find Something To Watch!</Link>
+                  <Link
+                    to="/search"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    Find Something To Watch!
+                    <SearchIcon
+                      fontSize="large"
+                      style={{ color: "black", marginBottom: "-.25rem" }}
+                    />
+                  </Link>
                 </>
               )
             }
           />
-          <FilterTitles setFilters={setFilters} />
+
+          {userData.savedTitles.length > 0 && (
+            <FilterTitles setFilters={setFilters} />
+          )}
+
           {filters.type.length ||
           filters.source.length ||
           filters.genre.length ? (
@@ -150,7 +163,6 @@ const WatchList = () => {
             }}
             speed={600}
             parallax={true}
-            
             navigation={true}
             modules={[Parallax, Navigation]}
             className={styles.swiper}
