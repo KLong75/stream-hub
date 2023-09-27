@@ -1,25 +1,26 @@
 import React from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 // import from utils
-import Auth from "../../utils/auth";
+
 // import from mui
 import { Link } from "@mui/material";
-
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+// import components
+import AccountSettingsIconButton from "../AccountSettingsIconButton";
+import LogOutButton from "../LogOutButton";
 
 import styles from "./Nav.module.css";
 
 const Nav = () => {
   const location = useLocation();
-  const logout = (event) => {
-    event.preventDefault();
-    Auth.logout();
-  };
 
   return (
     <>
       <nav>
+        <Grid container alignItems="center" justifyContent="center" spacing={4}>
         {/* The following conditionally renders each link based on the current path */}
-        {location.pathname !== "/home_page" && (
+         {location.pathname !== "/home_page" && (
+          <Grid>
           <Link
             className={styles.navLink}
             component={RouterLink}
@@ -32,8 +33,10 @@ const Nav = () => {
           >
             Home
           </Link>
+          </Grid>
         )}
         {location.pathname !== "/search" && (
+          <Grid>
           <Link
             className={styles.navLink}
             component={RouterLink}
@@ -43,8 +46,10 @@ const Nav = () => {
           >
             Search
           </Link>
+          </Grid>
         )}
         {location.pathname !== "/now_trending" && (
+          <Grid>
           <Link
             className={styles.navLink}
             component={RouterLink}
@@ -54,16 +59,17 @@ const Nav = () => {
           >
             Trending Titles
           </Link>
-        )}
-        <Link
-          className={styles.signOutButton}
-          underline="none"
-          role="button"
-          onClick={logout}
-          sx={{ marginRight: 2, textTransform: "uppercase" }}
-        >
-          Sign Out
-        </Link>
+          </Grid>
+        )} 
+        {/* <Grid container alignItems="center" justifyContent="center" spacing={4}> */}
+          <Grid>
+            <AccountSettingsIconButton />
+          </Grid>
+          <Grid>
+            <LogOutButton />
+          </Grid>
+        </Grid>
+        
       </nav>
     </>
   );

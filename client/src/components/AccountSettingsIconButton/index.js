@@ -15,21 +15,19 @@ const AccountSettingsIconButton = () => {
 
   return (
     <>
-    <AccountSettingsDrawer
-          isOpen={isSettingsDrawerOpen}
-          onClose={handleCloseSettingsDrawer}
-        />
-    <Link
-      component="button"
-      onClick={handleOpenSettingsDrawer}
-      style={{ padding: ".5rem", marginTop: ".25rem" }}
-    >
-      <SettingsIcon
-        onClick={handleOpenSettingsDrawer}
-        fontSize="large"
-        style={{ color: "black" }}
+      <AccountSettingsDrawer
+        isOpen={isSettingsDrawerOpen}
+        onClose={handleCloseSettingsDrawer}
       />
-    </Link>
+      <Link underline="none" component="button" onClick={handleOpenSettingsDrawer}>
+        <SettingsIcon
+          sx={{ marginBottom: "-1.5rem" }}
+          onClick={handleOpenSettingsDrawer}
+          fontSize="large"
+          style={{ color: "black" }}
+        />
+        <h6>Account Settings</h6>
+      </Link>
     </>
   );
 };

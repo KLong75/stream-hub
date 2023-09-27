@@ -1,13 +1,13 @@
-
-.navLink {
+.signOutButton {
+  cursor: pointer;
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-stroke: 1px black;
-  padding: .25rem;
+
 }
 
-.navLink:hover {
+.signOutButton:hover {
   color: white;
 }
