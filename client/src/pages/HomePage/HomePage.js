@@ -11,6 +11,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import Heading from "../../components/Heading";
+import TrendingMovies from "../../components/TrendingMovies";
 // import ParallaxSwiper from "../components/ParallaxSwiper";
 
 import Auth from "../../utils/auth";
@@ -60,6 +61,7 @@ const HomePage = () => {
             <SearchByGenreSourceType />
             <ActorSearch /> */}
             <WatchList />
+            <TrendingMovies />
             <Link to="/account_settings">Account Settings</Link>
           </section>
         </>

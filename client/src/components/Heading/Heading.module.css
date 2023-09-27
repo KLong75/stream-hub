@@ -5,7 +5,11 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  
+  -webkit-text-stroke: 1px black;
+  padding: .25rem;
+  font-family: monospace;
+  font-weight: 700;
+  letter-spacing: .2rem;
 }
 
 .subHeading {

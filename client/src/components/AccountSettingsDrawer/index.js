@@ -2,22 +2,28 @@ import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import Button from "@mui/material/Button";
 
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
-
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from "@mui/icons-material/Email";
+import PasswordIcon from "@mui/icons-material/Password";
 import Auth from "../../utils/auth";
 
+import Heading from "../../components/Heading";
 import DeleteAccountModal from "../../components/DeleteAccountModal";
 import UpdateUsernameModal from "../../components/UpdateUsernameModal";
 import UpdateUserEmailModal from "../../components/UpdateUserEmailModal";
 import UpdatePasswordModal from "../../components/UpdatePasswordModal";
-import Heading from "../../components/Heading";
 import styles from "./AccountSettingsDrawer.module.css";
+
 
 const AccountSettingsDrawer = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
@@ -60,72 +66,74 @@ const AccountSettingsDrawer = ({ isOpen, onClose }) => {
     return <div>Please login or signup</div>;
   }
   return (
-    <Drawer anchor="right" open={isOpen} onClose={onClose}>
+    <Drawer anchor="top" open={isOpen} onClose={onClose}>
       <Box
         sx={{
           height: "100%",
           backgroundColor: "#f5f5f5",
         }}
-        role="presentation"
         className={styles.settingsDrawer}
       >
-        <Heading heading={"Account Settings"} variant="h2" />
         <List>
-          <ListItem style={{ margin: "1rem" }} textAlign='center'>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              width="100%"
-              height="100%"
-            >
-              <Button onClick={() => setModalType("email")}>
-                Update Email
-              </Button>
-            </Box>
+        <Heading heading={"Account Settings"} variant="h2" />
+          <Divider />
+          <ListItem>
+            <ListItemButton onClick={() => setModalType("email")}>
+              <ListItemIcon>
+                <EmailIcon />
+              </ListItemIcon>
+              <ListItemText primary="Update Email" />
+            </ListItemButton>
           </ListItem>
+          <Divider />
 
-          <Divider />
-          <ListItem style={{ margin: "1rem" }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              width="100%"
-            >
-              <Button onClick={() => setModalType("username")}>
-                Update Username
-              </Button>
-            </Box>
+          <ListItem>
+              <ListItemButton onClick={() => setModalType("username")}>
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary="Update Username" />
+              </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem style={{ margin: "1rem" }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              width="100%"
-            >
-              <Button onClick={() => setModalType("password")}>
-                Update Password
-              </Button>
-            </Box>
+          <ListItem>
+              <ListItemButton onClick={() => setModalType("password")}>
+                <ListItemIcon>
+                  <PasswordIcon />
+                </ListItemIcon>
+               <ListItemText primary="Update Password" />
+              </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem style={{ margin: "1rem" }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              width="100%"
-            >
-              <Button onClick={() => setModalType("delete")}>
-                Delete Account
-              </Button>
-            </Box>
+          <ListItem >
+              <ListItemButton onClick={() => setModalType("delete")}>
+                <ListItemIcon>
+                  <DeleteForeverIcon />
+                </ListItemIcon>
+               <ListItemText primary="Delete Account" />
+              </ListItemButton>
           </ListItem>
           <Divider />
         </List>
+
+        {/* <Grid container spacing={2} justifyContent="center" textAlign="center">
+        <Grid xs={12} >
+          <Button onClick={() => setModalType("email")}>Update Email</Button>
+        </Grid>
+        <Grid xs={12}>
+          <Button onClick={() => setModalType("username")}>
+            Update Username
+          </Button>
+        </Grid>
+        <Grid xs={12} >
+          <Button onClick={() => setModalType("password")}>
+            Update Password
+          </Button>
+        </Grid>
+        <Grid xs={12}>
+          <Button onClick={() => setModalType("delete")}>Delete Account</Button>
+        </Grid>
+      </Grid> */}
 
         {modalType === "delete" && (
           <DeleteAccountModal onClose={() => setModalType("")} />
