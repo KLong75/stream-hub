@@ -1,18 +1,10 @@
 import { useEffect }from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import components
-// import TvLoader from '../components/TvLoader';
-// import GenreSearch from "../components/GenreSearch";
-// import TitleSearch from "../components/TitleSearch";
-// import MixedGenreMovieSearch from "../components/MixedGenreMovieSearch";
-// import MixedGenreTVSearch from "../components/MixedGenreTVSearch";
-// import SearchByGenreSourceType from "../components/SearchByGenreSourceType";
-// import ActorSearch from "../components/ActorSearch";
 import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import Heading from "../../components/Heading";
 import TrendingMovies from "../../components/TrendingMovies";
-// import ParallaxSwiper from "../components/ParallaxSwiper";
 
 import Auth from "../../utils/auth";
 
@@ -49,35 +41,13 @@ const HomePage = () => {
 
   return (
     <>
-      {/* {loggedIn ? ( */}
         <>
         <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
           <section>
-            {/* <h3>Find Something to Watch</h3>
-            <GenreSearch />
-            <TitleSearch />
-            <MixedGenreMovieSearch />
-            <MixedGenreTVSearch />
-            <SearchByGenreSourceType />
-            <ActorSearch /> */}
             <WatchList />
             <TrendingMovies />
-            <Link to="/account_settings">Account Settings</Link>
           </section>
         </>
-      {/* ) : (
-        <>
-          <h2>Welcome to streamHub</h2>
-          <p>Please</p>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-          <p>Or</p>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-        </>
-      )} */}
     </>
   );
 };
