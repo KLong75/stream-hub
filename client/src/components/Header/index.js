@@ -2,7 +2,6 @@ import { useLocation } from "react-router-dom";
 // import from utils
 import Auth from "../../utils/auth";
 // import from mui
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 // import components
@@ -26,20 +25,14 @@ const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <Grid container alignItems="center" justifyContent="center" spacing={2}>
-          <Grid xs={1}>
-            <Box
-              className={styles.tvIcon}
-              component="img"
-              src={tvIcon}
-              alt="TV icon"
-              sx={{ width: "auto", height: "4rem", padding: ".25rem" }}
-            />
+        <Grid container alignItems="center" justifyContent="" spacing={2}>
+          <Grid xs={2}>
+            <img className={styles.tvIcon} src={tvIcon} alt="TV icon" />
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={4}>
             <h1 className={styles.appTitle}>streamHub</h1>
           </Grid>
-          <Grid xs={8}>
+          <Grid xs={6}>
             <Nav />
           </Grid>
         </Grid>

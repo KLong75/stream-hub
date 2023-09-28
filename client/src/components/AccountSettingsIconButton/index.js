@@ -3,6 +3,8 @@ import AccountSettingsDrawer from "../AccountSettingsDrawer";
 import { Link } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 
+import styles from "./AccountSettingsIconButton.module.css";
+
 const AccountSettingsIconButton = () => {
   const [isSettingsDrawerOpen, setSettingsDrawerOpen] = useState(false);
   const handleOpenSettingsDrawer = () => {
@@ -19,14 +21,13 @@ const AccountSettingsIconButton = () => {
         isOpen={isSettingsDrawerOpen}
         onClose={handleCloseSettingsDrawer}
       />
-      <Link underline="none" component="button" onClick={handleOpenSettingsDrawer}>
+      <Link className={styles.settingsButton} underline="none" component="button" onClick={handleOpenSettingsDrawer}>
         <SettingsIcon
           sx={{ marginBottom: "-1.5rem" }}
           onClick={handleOpenSettingsDrawer}
           fontSize="large"
-          style={{ color: "black" }}
         />
-        <h6 style={{color: "black"}}>Account Settings</h6>
+        <h6>Account Settings</h6>
       </Link>
     </>
   );

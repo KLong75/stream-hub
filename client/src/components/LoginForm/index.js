@@ -34,7 +34,7 @@ const LoginForm = ({ switchToSignup }) => {
 
   return (
     <div>
-      <h2 className={styles.login_form_title}>Login</h2>
+      <h2 className={styles.login_form_title}>Log In</h2>
       <form onSubmit={handleFormSubmit}>
         <div>
           <TextField
@@ -64,13 +64,13 @@ const LoginForm = ({ switchToSignup }) => {
           />
         </div>
         <Button className={styles.submit_button}size='small' variant="contained" type="submit">
-          Login
+          Log In
         </Button>
         {/* <Button onClick={switchToSignup}>Sign Up</Button> */}
         {error ? (
           <>
             <p className="error-text font-link" id="log-in-error">
-              Login failed.
+              Log In failed.
             </p>
             <p>Please try again.</p>
             <p>Or</p>

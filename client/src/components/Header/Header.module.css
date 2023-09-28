@@ -9,6 +9,7 @@
   font-weight: 700;
   letter-spacing: .2rem;
   padding: .25rem;
+  margin-left: -9rem;
 }
 
 .header {
@@ -17,7 +18,9 @@
 }
 
 .tvIcon {
-  font-size: 4rem;
-  margin-right: .5rem;
+  height: 4rem;
+  width: auto;
+  margin-left: 2rem;
+  
 }
 

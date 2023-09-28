@@ -5,7 +5,7 @@
   background-clip: text;
   color: transparent;
   -webkit-text-stroke: 1px black;
-  padding: .25rem;
+  /* padding: .25rem; */
 }
 
 .navLink:hover {

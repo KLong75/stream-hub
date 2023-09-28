@@ -17,16 +17,15 @@ const Nav = () => {
   return (
     <>
       <nav>
-        <Grid container alignItems="center" justifyContent="center" spacing={4}>
+        <Grid container alignItems="center"  spacing={4}>
         {/* The following conditionally renders each link based on the current path */}
          {location.pathname !== "/home_page" && (
-          <Grid>
+          <Grid xs={3}>
           <Link
             className={styles.navLink}
             component={RouterLink}
             to="/home_page"
             sx={{
-              marginRight: 2,
               textTransform: "uppercase",
               textDecoration: "none",
             }}
@@ -36,36 +35,36 @@ const Nav = () => {
           </Grid>
         )}
         {location.pathname !== "/search" && (
-          <Grid>
+          <Grid xs={3}>
           <Link
             className={styles.navLink}
             component={RouterLink}
             to="/search"
             underline="none"
-            sx={{ marginRight: 2, textTransform: "uppercase" }}
+            sx={{ textTransform: "uppercase" }}
           >
             Search
           </Link>
           </Grid>
         )}
         {location.pathname !== "/now_trending" && (
-          <Grid>
+          <Grid xs={3}>
           <Link
             className={styles.navLink}
             component={RouterLink}
             to="/now_trending"
             underline="none"
-            sx={{ marginRight: 2, textTransform: "uppercase" }}
+            sx={{ textTransform: "uppercase", justifyContent: "center" }}
           >
-            Trending Titles
+            Trending 
           </Link>
           </Grid>
         )} 
         {/* <Grid container alignItems="center" justifyContent="center" spacing={4}> */}
-          <Grid>
+          <Grid xs={3}>
             <AccountSettingsIconButton />
           </Grid>
-          <Grid>
+          <Grid xs={3}>
             <LogOutButton />
           </Grid>
         </Grid>

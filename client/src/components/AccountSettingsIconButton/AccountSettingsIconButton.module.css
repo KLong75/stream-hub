@@ -1,9 +1,7 @@
-.logOutButton {
+.settingsButton {
   color: black !important;
-
 }
 
-.logOutButton:hover {
+.settingsButton:hover {
   color: white !important;
 }
-

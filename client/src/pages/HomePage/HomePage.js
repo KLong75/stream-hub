@@ -40,15 +40,13 @@ const HomePage = () => {
   }
 
   return (
-    <>
-        <>
+    <main>
         <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
           <section>
             <WatchList />
             <TrendingMovies />
-          </section>
-        </>
-    </>
+          </section> 
+    </main>
   );
 };
 

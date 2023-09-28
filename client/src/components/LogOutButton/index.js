@@ -3,6 +3,8 @@ import Auth from "../../utils/auth";
 // import from mui
 import { Link } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+// import styles
+import styles from "./LogOutButton.module.css";
 
 
 const LogOutButton = () => {
@@ -14,16 +16,14 @@ const LogOutButton = () => {
   return (
     <>
       <Link
+        className={styles.logOutButton}
         component="button"
-       
         underline="none"
         role="button"
         onClick={logout}
-        
       >
-        <LogoutIcon fontSize="large" sx={{  marginBottom: "-1.55rem" }} style={{ color: "black", marginLeft: '.75rem' }} />
-    
-      <h6 style={{color: "black"}}>Sign Out</h6>
+        <LogoutIcon fontSize="large" sx={{  marginBottom: "-1.55rem" }} style={{ marginLeft: '.75rem' }} />
+      <h6>Log Out</h6>
       </Link>
     </>
   );
