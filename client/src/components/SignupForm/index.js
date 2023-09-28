@@ -32,7 +32,7 @@ const SignupForm = () => {
 
   return (
     <div>
-      <h2 className={styles.signup_form_title}>Signup</h2>
+      <h2 className={styles.signup_form_title}>Sign Up</h2>
       <form onSubmit={handleFormSubmit}
         style={{width: ''}}>
         <div>

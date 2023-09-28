@@ -1,20 +1,18 @@
-
-// export default Footer;
-import React from "react";
+// import images
 import filmStrip from "../../assets/images/FilmStrip_PNG.png";
+// import from mui
 import Grid from '@mui/material/Unstable_Grid2';
 import { Link } from "@mui/material";
-
+// import from react-router-dom
 import {useLocation} from 'react-router-dom';
 
 
 const Footer = () => {
+
   const location = useLocation();
   if (location.pathname === '/' ) return null;
-  
 
   return (
-    
     <footer
       style={{ 
         position: "relative", 
@@ -32,7 +30,6 @@ const Footer = () => {
         </Grid>
       </Grid>
     </footer>
-    
   );
 };
 

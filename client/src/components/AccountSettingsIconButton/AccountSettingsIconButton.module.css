@@ -1,0 +1,7 @@
+.settingsButton {
+  color: black !important;
+}
+
+.settingsButton:hover {
+  color: white !important;
+}

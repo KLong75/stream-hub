@@ -122,7 +122,7 @@ const TV = () => {
         <>
           <Grid xs={4}>
             <TVButton modalType={modalType} setModal={setModal} type="login">
-              Login
+              Log In
             </TVButton>
           </Grid>
 

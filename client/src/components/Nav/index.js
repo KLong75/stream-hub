@@ -1,69 +1,74 @@
 import React from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 // import from utils
-import Auth from "../../utils/auth";
+
 // import from mui
 import { Link } from "@mui/material";
-
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+// import components
+import AccountSettingsIconButton from "../AccountSettingsIconButton";
+import LogOutButton from "../LogOutButton";
 
 import styles from "./Nav.module.css";
 
 const Nav = () => {
   const location = useLocation();
-  const logout = (event) => {
-    event.preventDefault();
-    Auth.logout();
-  };
 
   return (
     <>
       <nav>
+        <Grid container alignItems="center"  spacing={4}>
         {/* The following conditionally renders each link based on the current path */}
-        {location.pathname !== "/home_page" && (
+         {location.pathname !== "/home_page" && (
+          <Grid xs={3}>
           <Link
             className={styles.navLink}
             component={RouterLink}
             to="/home_page"
             sx={{
-              marginRight: 2,
               textTransform: "uppercase",
               textDecoration: "none",
             }}
           >
             Home
           </Link>
+          </Grid>
         )}
         {location.pathname !== "/search" && (
+          <Grid xs={3}>
           <Link
             className={styles.navLink}
             component={RouterLink}
             to="/search"
             underline="none"
-            sx={{ marginRight: 2, textTransform: "uppercase" }}
+            sx={{ textTransform: "uppercase" }}
           >
             Search
           </Link>
+          </Grid>
         )}
         {location.pathname !== "/now_trending" && (
+          <Grid xs={3}>
           <Link
             className={styles.navLink}
             component={RouterLink}
             to="/now_trending"
             underline="none"
-            sx={{ marginRight: 2, textTransform: "uppercase" }}
+            sx={{ textTransform: "uppercase", justifyContent: "center" }}
           >
-            Trending Titles
+            Trending 
           </Link>
-        )}
-        <Link
-          className={styles.signOutButton}
-          underline="none"
-          role="button"
-          onClick={logout}
-          sx={{ marginRight: 2, textTransform: "uppercase" }}
-        >
-          Sign Out
-        </Link>
+          </Grid>
+        )} 
+        {/* <Grid container alignItems="center" justifyContent="center" spacing={4}> */}
+          <Grid xs={3}>
+            <AccountSettingsIconButton />
+          </Grid>
+          <Grid xs={3}>
+            <LogOutButton />
+          </Grid>
+        </Grid>
+        
       </nav>
     </>
   );
