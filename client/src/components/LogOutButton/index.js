@@ -3,7 +3,7 @@ import Auth from "../../utils/auth";
 // import from mui
 import { Link } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import styles from "./LogOutButton.module.css";
+
 
 const LogOutButton = () => {
   const logout = (event) => {
@@ -23,7 +23,7 @@ const LogOutButton = () => {
       >
         <LogoutIcon fontSize="large" sx={{  marginBottom: "-1.55rem" }} style={{ color: "black", marginLeft: '.75rem' }} />
     
-      <h6>Sign Out</h6>
+      <h6 style={{color: "black"}}>Sign Out</h6>
       </Link>
     </>
   );

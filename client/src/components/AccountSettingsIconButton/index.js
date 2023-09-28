@@ -26,7 +26,7 @@ const AccountSettingsIconButton = () => {
           fontSize="large"
           style={{ color: "black" }}
         />
-        <h6>Account Settings</h6>
+        <h6 style={{color: "black"}}>Account Settings</h6>
       </Link>
     </>
   );
