@@ -5,6 +5,7 @@ import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import Heading from "../../components/Heading";
 import TrendingMovies from "../../components/TrendingMovies";
+import SearchDrawerIconButton from "../../components/SearchDrawerIconButton";
 
 import Auth from "../../utils/auth";
 
@@ -41,6 +42,7 @@ const HomePage = () => {
 
   return (
     <main>
+          <SearchDrawerIconButton />
         <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
           <section>
             <WatchList />

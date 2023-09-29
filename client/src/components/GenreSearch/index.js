@@ -12,8 +12,6 @@ import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { searchByGenre } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
 
-
-
 const genreOptions = [
   {
     value: "1",
@@ -241,10 +239,10 @@ const GenreSearch = () => {
 
   return (
     <>
-      <h4>Search Movies and TV Shows by Genre From All Available Sources</h4>
-      <Button variant="contained" onClick={() => handleGenreSearchClick()}>
-        Genre Search
-      </Button>
+      {/* <h4>Search Movies and TV Shows by Genre From All Available Sources</h4> */}
+      <span variant="contained" onClick={() => handleGenreSearchClick()}>
+      Search Movies and TV Shows by Genre From All Available Sources
+      </span>
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle>Search by Genre From All Available Sources</DialogTitle>
         <DialogContent>
