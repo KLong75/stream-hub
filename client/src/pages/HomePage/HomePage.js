@@ -5,12 +5,11 @@ import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import Heading from "../../components/Heading";
 import TrendingMovies from "../../components/TrendingMovies";
-import SearchDrawerIconButton from "../../components/SearchDrawerIconButton";
-
+// import from utils
 import Auth from "../../utils/auth";
-
-import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
+
 
 // import styles from "./HomePage.module.css";
 
@@ -42,12 +41,11 @@ const HomePage = () => {
 
   return (
     <main>
-          <SearchDrawerIconButton />
-        <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
-          <section>
-            <WatchList />
-            <TrendingMovies />
-          </section> 
+      <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
+        <section>
+          <WatchList />
+          <TrendingMovies />
+        </section> 
     </main>
   );
 };
