@@ -7,8 +7,9 @@ import { Link } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import components
 import AccountSettingsIconButton from "../AccountSettingsIconButton";
+import SearchDrawerIconButton from "../SearchDrawerIconButton";
 import LogOutButton from "../LogOutButton";
-
+// import styles
 import styles from "./Nav.module.css";
 
 const Nav = () => {
@@ -61,14 +62,16 @@ const Nav = () => {
           </Grid>
         )} 
         {/* <Grid container alignItems="center" justifyContent="center" spacing={4}> */}
-          <Grid xs={3}>
+          <Grid>
+            <SearchDrawerIconButton />
+          </Grid>
+          <Grid xs={2}>
             <AccountSettingsIconButton />
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={2}>
             <LogOutButton />
           </Grid>
         </Grid>
-        
       </nav>
     </>
   );
