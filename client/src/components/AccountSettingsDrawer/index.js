@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
-
-
+// import from mui
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -15,13 +14,15 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
+// import from utils
 import Auth from "../../utils/auth";
-
+// import components
 import Heading from "../../components/Heading";
 import DeleteAccountModal from "../../components/DeleteAccountModal";
 import UpdateUsernameModal from "../../components/UpdateUsernameModal";
 import UpdateUserEmailModal from "../../components/UpdateUserEmailModal";
 import UpdatePasswordModal from "../../components/UpdatePasswordModal";
+// import styles
 import styles from "./AccountSettingsDrawer.module.css";
 
 
@@ -115,25 +116,6 @@ const AccountSettingsDrawer = ({ isOpen, onClose }) => {
           </ListItem>
           <Divider />
         </List>
-
-        {/* <Grid container spacing={2} justifyContent="center" textAlign="center">
-        <Grid xs={12} >
-          <Button onClick={() => setModalType("email")}>Update Email</Button>
-        </Grid>
-        <Grid xs={12}>
-          <Button onClick={() => setModalType("username")}>
-            Update Username
-          </Button>
-        </Grid>
-        <Grid xs={12} >
-          <Button onClick={() => setModalType("password")}>
-            Update Password
-          </Button>
-        </Grid>
-        <Grid xs={12}>
-          <Button onClick={() => setModalType("delete")}>Delete Account</Button>
-        </Grid>
-      </Grid> */}
 
         {modalType === "delete" && (
           <DeleteAccountModal onClose={() => setModalType("")} />
