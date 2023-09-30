@@ -533,10 +533,9 @@ const TitleSearch = () => {
 
   return (
     <>
-      <h4>Search Movies and TV Shows by Title From All Available Sources</h4>
-      <Button variant="contained" onClick={() => handleTitleSearchClick()}>
-        Title Search
-      </Button>
+      <h3 onClick={() => handleTitleSearchClick()}>  
+      Search Movies and TV Shows by Title From All Available Sources
+      </h3>
       <Dialog open={modalOpen} onClose={handleCloseModal}>
         <DialogTitle>Search by Title From All Available Sources</DialogTitle>
         <DialogContent>

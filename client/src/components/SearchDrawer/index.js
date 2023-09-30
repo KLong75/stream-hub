@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
-
+// import from mui
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -49,14 +49,13 @@ const SearchDrawer = ({ isOpen, onClose }) => {
     setIsAuthenticated(Auth.loggedIn());
   }, []);
 
-  const [modalType, setModalType] = useState("");
 
   if (showRedirectMessage) {
     return <div>Please login or signup</div>;
   }
 
   return (
-    <Drawer anchor="top" open={isOpen} onClose={onClose}>
+    <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <Box
         sx={{
           height: "100%",
@@ -68,96 +67,66 @@ const SearchDrawer = ({ isOpen, onClose }) => {
           <Heading heading={"Search Titles"} variant="h2" />
           <Divider />
           <ListItem>
-            <ListItemButton >
+            <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
                 <GenreSearch />
               </ListItemIcon>
-              <ListItemText primary="Search by Genre" />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-
-          <ListItem>
-            <ListItemButton onClick={() => setModalType("title-search")}>
-              <ListItemIcon>
-                <SearchIcon />
-              </ListItemIcon>
-              <ListItemText primary="Search By Title" />
+              <ListItemText />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem>
-            <ListItemButton onClick={() => setModalType("actor-search")}>
+            <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
+                <TitleSearch />
               </ListItemIcon>
-              <ListItemText primary="Search Actors by Name" />
+              <ListItemText />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem>
-            <ListItemButton
-              onClick={() => setModalType("mixed-genre-movie-search")}
-            >
+            <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
+                <MixedGenreMovieSearch />
               </ListItemIcon>
-              <ListItemText primary="Search Movies by Mixed Genres" />
+              <ListItemText />
             </ListItemButton>
           </ListItem>
           <Divider />
-        
-        <Divider />
-        <ListItem>
-          <ListItemButton onClick={() => setModalType("mixed-genre-tv-search")}>
-            <ListItemIcon>
-              <SearchIcon />
-            </ListItemIcon>
-            <ListItemText primary="Search TV Shows by Mixed Genres" />
-          </ListItemButton>
-        </ListItem>
-        <Divider />
-        <Divider />
-        <ListItem>
-          <ListItemButton
-            onClick={() => setModalType("combo-search")}
-          >
-            <ListItemIcon>
-              <SearchIcon />
-            </ListItemIcon>
-            <ListItemText primary="Search by Genre, Source, & Type" />
-          </ListItemButton>
-        </ListItem>
-        <Divider />
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon>
+                <SearchIcon />
+                <MixedGenreTVSearch />
+              </ListItemIcon>
+              <ListItemText />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon>
+                <SearchIcon />
+                <SearchByGenreSourceType />
+              </ListItemIcon>
+              <ListItemText />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <Divider />
+          <ListItem>
+            <ListItemButton >
+              <ListItemIcon>
+                <SearchIcon />
+                <ActorSearch />
+              </ListItemIcon>
+              <ListItemText />
+            </ListItemButton>
+          </ListItem>
         </List>
-
-        {modalType === "genre-search" && (
-          <GenreSearch onClose={() => setModalType("")} />
-        )}
-        {modalType === "title-search" && (
-          <TitleSearch onClose={() => setModalType("")}/>
-        )}
-        {modalType === "actor-search" && (
-          <ActorSearch
-            onClose={() => setModalType("")}
-          />
-        )}
-        {modalType === "mixed-genre-movie-search" && (
-          <MixedGenreMovieSearch
-            onClose={() => setModalType("")}
-          />
-        )}
-        {modalType === "mixed-genre-tv-search" && (
-          <MixedGenreTVSearch
-            onClose={() => setModalType("")}
-          />
-        )}
-        {modalType === "combo-search" && (
-          <SearchByGenreSourceType
-            onClose={() => setModalType("")}
-          />
-        )}
       </Box>
     </Drawer>
   );

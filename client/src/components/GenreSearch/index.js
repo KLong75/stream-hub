@@ -239,10 +239,9 @@ const GenreSearch = () => {
 
   return (
     <>
-      {/* <h4>Search Movies and TV Shows by Genre From All Available Sources</h4> */}
-      <span variant="contained" onClick={() => handleGenreSearchClick()}>
+      <h3 variant="contained" onClick={() => handleGenreSearchClick()}>
       Search Movies and TV Shows by Genre From All Available Sources
-      </span>
+      </h3>
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle>Search by Genre From All Available Sources</DialogTitle>
         <DialogContent>
