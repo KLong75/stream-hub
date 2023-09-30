@@ -11,7 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 // import from utils
 import Auth from "../../utils/auth";
 // import components
@@ -41,7 +41,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
 
   const handleSearchSubmit = () => {
     onClose();
-  }
+  };
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -56,85 +56,78 @@ const SearchDrawer = ({ isOpen, onClose }) => {
     setIsAuthenticated(Auth.loggedIn());
   }, []);
 
-
   if (showRedirectMessage) {
     return <div>Please login or signup</div>;
   }
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
-      <Box
-        sx={{
-          height: "100%",
-          backgroundColor: "#f5f5f5",
-        }}
-        className={styles.settingsDrawer}
-      >
-        <List>
-          <CloseIcon className={styles.closeIcon} onClick={onClose} />
-          <Heading heading={"Search Titles"} variant="h2" />
-          <Divider />
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <SearchIcon />
-                <GenreSearch onSubmit={handleSearchSubmit}/>
-              </ListItemIcon>
-              <ListItemText />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <SearchIcon />
-                <TitleSearch />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <SearchIcon />
-                <MixedGenreMovieSearch />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <SearchIcon />
-                <MixedGenreTVSearch />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <SearchIcon />
-                <SearchByGenreSourceType />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <Divider />
-          <ListItem>
-            <ListItemButton >
-              <ListItemIcon>
-                <SearchIcon />
-                <ActorSearch />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItemButton>
-          </ListItem>
-        </List>
+      <Box className={styles.searchDrawer}>
+      <List className={styles.searchDrawer}>
+        <CloseIcon className={styles.closeIcon} onClick={onClose} />
+        <Heading heading='Find Something To Watch' variant='h2'/>
+        <Divider />
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <SearchIcon />
+              <GenreSearch onSubmit={handleSearchSubmit} />
+            </ListItemIcon>
+            <ListItemText />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <SearchIcon />
+              <TitleSearch onSubmit={handleSearchSubmit} />
+            </ListItemIcon>
+            <ListItemText />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <SearchIcon />
+              <MixedGenreMovieSearch onSubmit={handleSearchSubmit} />
+            </ListItemIcon>
+            <ListItemText />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <SearchIcon />
+              <MixedGenreTVSearch onSubmit={handleSearchSubmit} />
+            </ListItemIcon>
+            <ListItemText />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <SearchIcon />
+              <SearchByGenreSourceType onSubmit={handleSearchSubmit} />
+            </ListItemIcon>
+            <ListItemText />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <SearchIcon />
+              <ActorSearch onSubmit={handleSearchSubmit} />
+            </ListItemIcon>
+            <ListItemText />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+      </List>
       </Box>
     </Drawer>
   );

@@ -186,7 +186,6 @@ const GenreSearch = ({ onSubmit }) => {
         setSelectedGenre("");
         setModalOpen(false);
         onSubmit();
-        return;
       } else {
         localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);
         console.log("Cached Data Expired and Removed");

@@ -19,7 +19,7 @@ import { FormLabel, Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { fetchMixedGenreMovies } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
 
-const MixedGenreMovieSearch = () => {
+const MixedGenreMovieSearch = ({ onSubmit }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const { setMixedGenreSearchResults } = useContext(SearchResultsContext);
@@ -82,7 +82,8 @@ const MixedGenreMovieSearch = () => {
         navigate("/mixed_genre_search_results", {
           state: { titles: data, genres: userInput.genres },
         });
-        return;
+        handleModalClose();
+        onSubmit();
       } else {
         localStorage.removeItem(
           `mixedGenreMovieSearchResults_${searchedGenres}`
@@ -132,6 +133,7 @@ const MixedGenreMovieSearch = () => {
           state: { titles: searchResultsTitleData, genres: userInput.genres },
         });
         handleModalClose();
+        onSubmit();
       } catch (error) {
         console.log(error);
       }

@@ -69,10 +69,6 @@ const AccountSettingsDrawer = ({ isOpen, onClose }) => {
   return (
     <Drawer anchor="top" open={isOpen} onClose={onClose}>
       <Box
-        sx={{
-          height: "100%",
-          backgroundColor: "#f5f5f5",
-        }}
         className={styles.settingsDrawer}
       >
         <List>

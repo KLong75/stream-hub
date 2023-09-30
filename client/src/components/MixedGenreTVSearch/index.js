@@ -23,7 +23,7 @@ import { FormLabel, Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { fetchMixedGenreTV } from "../../utils/apiCalls";
 import { formatDate, CACHE_DURATION } from "../../utils/utils";
 
-const MixedGenreTVSearch = () => {
+const MixedGenreTVSearch = ({ onSubmit }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const { setMixedGenreSearchResults } = useContext( SearchResultsContext );
@@ -88,6 +88,7 @@ const MixedGenreTVSearch = () => {
           state: { titles: data, genres: userInput.genres },
         });
         handleModalClose();
+        onSubmit();
       } else {
         localStorage.removeItem(
           `mixedGenreTvSearchResults_${searchedGenres}`
@@ -132,6 +133,8 @@ const MixedGenreTVSearch = () => {
         navigate("/mixed_genre_search_results", {
           state: { titles: searchResultsTitleData, genres: userInput.genres },
         });
+        handleModalClose();
+        onSubmit();
       } catch (error) {
         console.log(error);
       }

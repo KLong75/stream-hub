@@ -51,7 +51,7 @@ import { CACHE_DURATION, CACHE_DURATION_ONE_DAY } from "../../utils/utils";
 
 const filter = createFilterOptions();
 
-const TitleSearch = () => {
+const TitleSearch = ({ onSubmit }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const { setTitleSearchResults } = useContext(SearchResultsContext); // <- get the context 
@@ -77,7 +77,7 @@ const TitleSearch = () => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION_ONE_DAY) {
         setTopTitlesMovieAndTv(data);
-        console.log("Using data from cache", data);
+        console.log("Using data from cache", data); 
         return;
       } else {
         localStorage.removeItem(`topTitlesMovieAndTv`);
@@ -485,7 +485,9 @@ const TitleSearch = () => {
         setTitleSearchResults(data);
         console.log("Using Cached Data:", data);
         navigate("/title_search_results", { state: { data },});
-        return;
+        setModalOpen(false);
+        onSubmit();
+        // return;
       } else {
         localStorage.removeItem(`titleSearchResults_${userInput}`);
         console.log("Cached Data Expired and Removed");
@@ -523,8 +525,9 @@ const TitleSearch = () => {
           `titleSearchResults_${userInput}`,
           JSON.stringify(cacheData)
         );
-
         navigate("/title_search_results", { state: { data: titleSearchData, searchedTitle: userInput},});
+        setModalOpen(false);
+        onSubmit();
       } catch (err) {
         console.log(err);
       }

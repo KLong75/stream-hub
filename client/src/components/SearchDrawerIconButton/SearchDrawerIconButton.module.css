@@ -1,0 +1,7 @@
+.searchButton {
+  color: black !important;
+}
+
+.searchButton:hover {
+  color: white !important;
+}
