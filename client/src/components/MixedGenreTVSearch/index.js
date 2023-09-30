@@ -87,7 +87,7 @@ const MixedGenreTVSearch = () => {
         navigate("/mixed_genre_search_results", {
           state: { titles: data, genres: userInput.genres },
         });
-        return;
+        handleModalClose();
       } else {
         localStorage.removeItem(
           `mixedGenreTvSearchResults_${searchedGenres}`
@@ -140,10 +140,9 @@ const MixedGenreTVSearch = () => {
 
   return (
     <>
-       <h4>Search TV Shows by a Combination of Genres</h4>
-       <Button variant="contained" onClick={() => handleMixedGenreTvSearchClick()}>
-        Mixed Genre TV
-      </Button>
+       <h3 variant="contained" onClick={() => handleMixedGenreTvSearchClick()}>
+       Search TV Shows by a Combination of Genres
+      </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
       <DialogTitle style={{fontSize: '1.5rem'}}>Mixed Genre TV Search
         <br />

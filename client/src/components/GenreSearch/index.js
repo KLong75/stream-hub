@@ -139,7 +139,7 @@ const genreOptions = [
   },
 ];
 
-const GenreSearch = () => {
+const GenreSearch = ({ onSubmit }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { setGenreSearchResults } = useContext(SearchResultsContext); // <- use the context
   const navigate = useNavigate();
@@ -184,6 +184,8 @@ const GenreSearch = () => {
         console.log("Using Cached Data:", data);
         navigate("/search_results", { state: { titles: data } }); // <- navigate with useNavigate
         setSelectedGenre("");
+        setModalOpen(false);
+        onSubmit();
         return;
       } else {
         localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);
@@ -231,6 +233,8 @@ const GenreSearch = () => {
         navigate("/search_results", {
           state: { titles: titleData, genre: selectedGenreLabel },
         });
+        setModalOpen(false);
+        onSubmit();
       } catch (err) {
         console.error(err);
       }
@@ -239,10 +243,9 @@ const GenreSearch = () => {
 
   return (
     <>
-      {/* <h4>Search Movies and TV Shows by Genre From All Available Sources</h4> */}
-      <span variant="contained" onClick={() => handleGenreSearchClick()}>
+      <h3 variant="contained" onClick={() => handleGenreSearchClick()}>
       Search Movies and TV Shows by Genre From All Available Sources
-      </span>
+      </h3>
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle>Search by Genre From All Available Sources</DialogTitle>
         <DialogContent>

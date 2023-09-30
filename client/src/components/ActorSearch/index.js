@@ -99,7 +99,7 @@ const ActorSearch = () => {
     } catch (error) {
       console.log(error);
     }
-    // console.log(topActors);
+    console.log('topActors', topActors);
   };
 
   const topPeopleNamesPageThree = async () => {
@@ -180,9 +180,10 @@ const ActorSearch = () => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setActorSearchResults(data);
+        handleCloseModal();
         console.log("Using Cached Data:", data);
         navigate('/actor_search_results', { state: { data },});
-        // setSearchTerm("");
+        setSearchTerm("");
         return;
       } else {
         localStorage.removeItem(`actorSearchResults_${searchedName}`);
@@ -245,10 +246,10 @@ const ActorSearch = () => {
 
   return (
     <>
-      <h4>Actor Search</h4>
-      <Button variant="contained" onClick={() => handleActorSearchClick()}>
+      {/* <h4>Actor Search</h4> */}
+      <h3 variant="contained" onClick={() => handleActorSearchClick()}>
         Actor Search
-      </Button>
+      </h3>
       <Dialog open={modalOpen} onClose={handleCloseModal}>
         <DialogTitle style={{ fontSize: "1.5rem", marginTop: 0, marginBottom: 0 }}>Search By Actor Name
           <p style={{ fontSize: "1.25rem", padding: 0, marginBottom: 0 }}>
@@ -287,7 +288,7 @@ const ActorSearch = () => {
               if (inputValue !== "" && !isExisting) {
                 filtered.push({
                   inputValue,
-                  name: `Add "${inputValue}"`,
+                  name: `Search for "${inputValue}"`,
                 });
               }
               // console.log(filtered)

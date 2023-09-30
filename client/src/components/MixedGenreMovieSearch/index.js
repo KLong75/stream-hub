@@ -131,6 +131,7 @@ const MixedGenreMovieSearch = () => {
         navigate("/mixed_genre_search_results", {
           state: { titles: searchResultsTitleData, genres: userInput.genres },
         });
+        handleModalClose();
       } catch (error) {
         console.log(error);
       }
@@ -139,13 +140,13 @@ const MixedGenreMovieSearch = () => {
 
   return (
     <>
-      <h4>Search Movies by a Combination of Genres</h4>
-      <Button
+      {/* <h4>Search Movies by a Combination of Genres</h4> */}
+      <h3
         variant="contained"
         onClick={() => handleMixedGenreMovieSearchClick()}
       >
-        Mixed Genre Movie
-      </Button>
+        Search Movies by a Combination of Genres
+      </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
         <DialogTitle style={{ fontSize: "1.5rem" }}>
           Mixed Genre Movie Search

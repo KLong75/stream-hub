@@ -1,5 +1,5 @@
 // import from react
-import React, { useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 // import from react-router
 import { Link, useLocation } from "react-router-dom";
 // import context
@@ -15,11 +15,12 @@ const GenreSourceTypeResults = () => {
   const loggedIn = Auth.loggedIn();
   const location = useLocation();
   const searchDataFromRouter = location.state || {};
+  const locationStateRef = useRef(location.state);
 
   const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
-  const [searchedGenres] = useState(searchDataFromRouter.genres || "");
-  const [searchedTypes] = useState(searchDataFromRouter.types || "");
-  const [searchedSources] = useState(searchDataFromRouter.sources || "");
+  const [searchedGenres, setSearchedGenres] = useState(searchDataFromRouter.genres || "");
+  const [searchedTypes, setSearchedTypes] = useState(searchDataFromRouter.types || "");
+  const [searchedSources, setSearchedSources] = useState(searchDataFromRouter.sources || "");
   const watchModeGenreList = {
     1: "Action",
     39: "Action & Adventure",
@@ -88,7 +89,15 @@ const GenreSourceTypeResults = () => {
     short_film: "Short Film",
   };
 
-  useEffect(() => {}, [genreSourceTypeSearchResults]);
+  useEffect(() => {
+    if (locationStateRef.current !== location.state) {
+      locationStateRef.current = location.state;
+      const newSearchData = location.state || {};
+      setSearchedGenres(newSearchData.genres || "");
+      setSearchedTypes(newSearchData.types || "");
+      setSearchedSources(newSearchData.sources || "");
+    }
+  }, [location.state]);
   console.log(genreSourceTypeSearchResults);
   const handleTitleSelected = useTitleSelectionTMDBId();
   console.log(searchDataFromRouter);
