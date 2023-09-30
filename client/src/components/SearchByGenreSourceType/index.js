@@ -23,7 +23,7 @@ import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import { fetchTitlesByGenreSourceType } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
 
-const SearchByGenreSourceType = () => {
+const SearchByGenreSourceType = ({ onSubmit }) => {
   const location = useLocation();
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -136,6 +136,7 @@ const SearchByGenreSourceType = () => {
           type: [],
         });
         handleModalClose();
+        onSubmit();
       } else {
         localStorage.removeItem(
           `genreSourceType_${genres}_${sources}_${types}`
@@ -202,6 +203,7 @@ const SearchByGenreSourceType = () => {
             },
           });
           handleModalClose();
+          onSubmit();
         }
       } catch (err) {
         console.error(err);

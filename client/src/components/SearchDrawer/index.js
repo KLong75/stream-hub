@@ -62,7 +62,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
   }
 
   return (
-    <Drawer anchor="right" open={isOpen} onClose={onClose}>
+    <Drawer anchor="top" open={isOpen} onClose={onClose}>
       <Box
         sx={{
           height: "100%",
@@ -88,7 +88,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
-                <TitleSearch />
+                <TitleSearch onSubmit={handleSearchSubmit}/>
               </ListItemIcon>
               <ListItemText />
             </ListItemButton>
@@ -98,7 +98,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
-                <MixedGenreMovieSearch />
+                <MixedGenreMovieSearch onSubmit={handleSearchSubmit}/>
               </ListItemIcon>
               <ListItemText />
             </ListItemButton>
@@ -108,7 +108,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
-                <MixedGenreTVSearch />
+                <MixedGenreTVSearch onSubmit={handleSearchSubmit}/>
               </ListItemIcon>
               <ListItemText />
             </ListItemButton>
@@ -118,7 +118,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
-                <SearchByGenreSourceType />
+                <SearchByGenreSourceType onSubmit={handleSearchSubmit}/>
               </ListItemIcon>
               <ListItemText />
             </ListItemButton>
@@ -129,7 +129,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             <ListItemButton >
               <ListItemIcon>
                 <SearchIcon />
-                <ActorSearch />
+                <ActorSearch onSubmit={handleSearchSubmit}/>
               </ListItemIcon>
               <ListItemText />
             </ListItemButton>
