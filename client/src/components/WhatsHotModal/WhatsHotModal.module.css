@@ -1,0 +1,7 @@
+.hotButton {
+  color: black !important;
+}
+
+.hotButton:hover {
+  color: white !important;
+}

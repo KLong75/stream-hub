@@ -6,7 +6,7 @@ import SearchDrawer from '../../components/SearchDrawer';
 import { Link } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 // import from styles
-
+import styles from './SearchDrawerIconButton.module.css';
 
 
 const SearchDrawerIconButton = () => {
@@ -25,7 +25,7 @@ const SearchDrawerIconButton = () => {
         isOpen={isSearchDrawerOpen}
         onClose={handleCloseSearchDrawer}
       />
-      <Link underline="none" component="button" onClick={handleOpenSearchDrawer}>
+      <Link className={styles.searchButton} underline="none" component="button" onClick={handleOpenSearchDrawer}>
         <SearchIcon
           sx={{ marginBottom: "-1.5rem" }}
           onClick={handleOpenSearchDrawer}

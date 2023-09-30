@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import pages
 import HomePage from "./pages/HomePage/HomePage";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import Search from "./pages/SearchPage/SearchPage";
+// import Search from "./pages/SearchPage/SearchPage";
 import GenreSearchResults from "./pages/GenreSearchResults";
 import MixedGenreSearchSearchResults from "./pages/MixedGenreSearchResults";
 import TitleSearchResults from "./pages/TitleSearchResults";
 import ActorSearchResults from "./pages/ActorSearchResults";
 import TitleDetails from "./pages/TitleDetails";
 import NowTrending from "./pages/NowTrending/NowTrending";
-import AccountSettings from "./pages/AccountSettings";
+// import AccountSettings from "./pages/AccountSettings";
 // import components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -100,7 +100,7 @@ const App = () => {
                             <Routes>
                               <Route path="/" element={<LandingPage />} />
                               <Route path="/home_page" element={<HomePage />} />
-                              <Route path="/search" element={<Search />} />
+                              {/* <Route path="/search" element={<Search />} /> */}
                               <Route
                                 path="/now_trending"
                                 element={<NowTrending />}
@@ -129,10 +129,10 @@ const App = () => {
                                 path="/title_details"
                                 element={<TitleDetails />}
                               />
-                              <Route
+                              {/* <Route
                                 path="/account_settings"
                                 element={<AccountSettings />}
-                              />
+                              /> */}
                               <Route path="*" element={<LandingPage />} />
                             </Routes>
                             <Footer />
