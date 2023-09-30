@@ -1,7 +1,7 @@
 // import from React
 import { useEffect, useState, useContext } from "react";
 // import from react-router
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from Material UI
@@ -24,6 +24,7 @@ import { fetchTitlesByGenreSourceType } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
 
 const SearchByGenreSourceType = () => {
+  const location = useLocation();
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
@@ -188,15 +189,20 @@ const SearchByGenreSourceType = () => {
           `genreSourceType_${genres}_${sources}_${types}`,
           JSON.stringify(cacheData)
         );
-        navigate("/genre_source_type_search_results", {
-          state: {
-            titles: titleData,
-            genres: genres,
-            sources: sources,
-            types: types,
-          },
-        });
-        handleModalClose();
+
+        if (location === "/genre_source_type_search_results") {
+          window.location.reload();
+        } else {
+          navigate("/genre_source_type_search_results", {
+            state: {
+              titles: titleData,
+              genres: genres,
+              sources: sources,
+              types: types,
+            },
+          });
+          handleModalClose();
+        }
       } catch (err) {
         console.error(err);
       }

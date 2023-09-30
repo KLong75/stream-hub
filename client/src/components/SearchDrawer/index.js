@@ -11,6 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from '@mui/icons-material/Close';
 // import from utils
 import Auth from "../../utils/auth";
 // import components
@@ -21,6 +22,8 @@ import SearchByGenreSourceType from "../../components/SearchByGenreSourceType";
 import MixedGenreMovieSearch from "../../components/MixedGenreMovieSearch";
 import MixedGenreTVSearch from "../../components/MixedGenreTVSearch";
 import Heading from "../../components/Heading";
+// import styles
+import styles from "./SearchDrawer.module.css";
 
 const SearchDrawer = ({ isOpen, onClose }) => {
   const loggedIn = Auth.loggedIn();
@@ -35,6 +38,10 @@ const SearchDrawer = ({ isOpen, onClose }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
 
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
+
+  const handleSearchSubmit = () => {
+    onClose();
+  }
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -61,16 +68,17 @@ const SearchDrawer = ({ isOpen, onClose }) => {
           height: "100%",
           backgroundColor: "#f5f5f5",
         }}
-        // className={styles.settingsDrawer}
+        className={styles.settingsDrawer}
       >
         <List>
+          <CloseIcon className={styles.closeIcon} onClick={onClose} />
           <Heading heading={"Search Titles"} variant="h2" />
           <Divider />
           <ListItem>
             <ListItemButton>
               <ListItemIcon>
                 <SearchIcon />
-                <GenreSearch />
+                <GenreSearch onSubmit={handleSearchSubmit}/>
               </ListItemIcon>
               <ListItemText />
             </ListItemButton>

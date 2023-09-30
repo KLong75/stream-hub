@@ -139,7 +139,7 @@ const genreOptions = [
   },
 ];
 
-const GenreSearch = () => {
+const GenreSearch = ({ onSubmit }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { setGenreSearchResults } = useContext(SearchResultsContext); // <- use the context
   const navigate = useNavigate();
@@ -184,6 +184,8 @@ const GenreSearch = () => {
         console.log("Using Cached Data:", data);
         navigate("/search_results", { state: { titles: data } }); // <- navigate with useNavigate
         setSelectedGenre("");
+        setModalOpen(false);
+        onSubmit();
         return;
       } else {
         localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);
@@ -231,6 +233,8 @@ const GenreSearch = () => {
         navigate("/search_results", {
           state: { titles: titleData, genre: selectedGenreLabel },
         });
+        setModalOpen(false);
+        onSubmit();
       } catch (err) {
         console.error(err);
       }
