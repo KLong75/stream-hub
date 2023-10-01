@@ -27,7 +27,7 @@ const AccountSettingsIconButton = () => {
           onClick={handleOpenSettingsDrawer}
           fontSize="large"
         />
-        <h6>Account Settings</h6>
+        <h6>Settings</h6>
       </Link>
     </>
   );
