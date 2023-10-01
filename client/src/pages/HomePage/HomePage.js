@@ -4,11 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import Heading from "../../components/Heading";
-import TrendingMovies from "../../components/TrendingMovies";
+import WhatsHotGallery from "../../components/WhatsHotGallery";
 // import from utils
 import Auth from "../../utils/auth";
 import { QUERY_ME } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
+
 
 
 // import styles from "./HomePage.module.css";
@@ -42,9 +43,11 @@ const HomePage = () => {
   return (
     <main>
       <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
-        <section>
+        <section style={{marginTop: '-2rem'}}>
           <WatchList />
-          <TrendingMovies />
+        </section>
+        <section style={{marginTop: '-8rem'}}>
+          <WhatsHotGallery />
         </section> 
     </main>
   );

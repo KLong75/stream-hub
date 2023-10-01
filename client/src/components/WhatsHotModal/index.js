@@ -1,12 +1,12 @@
-// import from reactr
-import { useState,useEffect } from 'react';
+// import from react
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import from mui
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import { Link } from "@mui/material";
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
 import CloseIcon from "@mui/icons-material/Close";
 // import from utils
 import { genreList } from "../../utils/utils";
@@ -24,26 +24,24 @@ import { TopRatedMoviesContext } from "../../context/TopRatedMoviesContext";
 // import styles
 import styles from "./WhatsHotModal.module.css";
 
-
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80vw', // 80% of the viewport width
-  maxHeight: '80vh', 
-  bgcolor: 'lightgray',
-  border: '2px solid #000',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80vw", // 80% of the viewport width
+  maxHeight: "80vh",
+  bgcolor: "lightgray",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
-  overflow: 'scroll',
+  overflow: "scroll",
 };
 
 const WhatsHotModal = ({ isOpen, onClose }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
   const titleSelectionHandler = useTitleSelectionTMDBId();
 
@@ -65,20 +63,27 @@ const WhatsHotModal = ({ isOpen, onClose }) => {
     }
   }, [loggedIn, navigate]);
 
-
-
+  const galleryData = [
+    { context: TrendingMoviesContext, categoryTitle: "Trending Movies" },
+    { context: PopularMoviesContext, categoryTitle: "Popular Movies" },
+    { context: TopRatedMoviesContext, categoryTitle: "Top Rated Movies" },
+    { context: TrendingTvContext, categoryTitle: "Trending TV Shows" },
+    { context: PopularTvContext, categoryTitle: "Popular TV Shows" },
+    { context: TopRatedTvContext, categoryTitle: "Top Rated TV Shows" },
+  ];
 
   return (
     <div>
-     
-      <Link className={styles.hotButton} underline="none" component="button" onClick={handleOpen}>
-        <WhatshotIcon
-          sx={{ marginBottom: "-1.5rem" }}
-          fontSize="large"
-        />
+      <Link
+        className={styles.hotButton}
+        underline="none"
+        component="button"
+        onClick={handleOpen}
+      >
+        <WhatshotIcon sx={{ marginBottom: "-1.5rem" }} fontSize="large" />
         <h6>What's Hot</h6>
       </Link>
-      
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -87,52 +92,25 @@ const WhatsHotModal = ({ isOpen, onClose }) => {
       >
         <Box sx={style}>
           <CloseIcon className={styles.closeIcon} onClick={handleClose} />
-          <Typography id="modal-modal-title" variant="h6" component="h2" textAlign='center'>
-          <WhatshotIcon fontSize="large" />
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            textAlign="center"
+          >
+            <WhatshotIcon fontSize="large" />
             What's Hot
           </Typography>
-          <VerticalCardSwipeGallery
-        context={TrendingMoviesContext}
-        categoryTitle="Trending Movies"
-        handleTitleSelected={handleTitleSelected}
-        genreList={genreList}
-      />
 
-      <VerticalCardSwipeGallery
-        context={PopularMoviesContext}
-        categoryTitle="Popular Movies"
-        handleTitleSelected={handleTitleSelected}
-        genreList={genreList}
-      />
-
-      <VerticalCardSwipeGallery
-        context={TopRatedMoviesContext}
-        categoryTitle="Top Rated Movies"
-        handleTitleSelected={handleTitleSelected}
-        genreList={genreList}
-      />
-
-      <VerticalCardSwipeGallery
-        context={TrendingTvContext}
-        categoryTitle="Trending TV Shows"
-        handleTitleSelected={handleTitleSelected}
-        genreList={genreList}
-      />
-
-      <VerticalCardSwipeGallery
-        context={PopularTvContext}
-        categoryTitle="Popular TV Shows"
-        handleTitleSelected={handleTitleSelected}
-        genreList={genreList}
-      />
-
-      <VerticalCardSwipeGallery
-        context={TopRatedTvContext}
-        categoryTitle="Top Rated TV Shows"
-        handleTitleSelected={handleTitleSelected}
-        genreList={genreList}
-      />
-       
+          {galleryData.map(({ context, categoryTitle }, index) => (
+            <VerticalCardSwipeGallery
+              key={index}
+              context={context}
+              categoryTitle={categoryTitle}
+              handleTitleSelected={handleTitleSelected}
+              genreList={genreList}
+            />
+          ))}
         </Box>
       </Modal>
     </div>
