@@ -19,7 +19,7 @@ const Nav = () => {
   return (
     <>
       <nav>
-        <Grid container alignItems="center" >
+        <Grid container alignItems="center" justifyContent={'center'} textAlign='center'>
         {/* The following conditionally renders each link based on the current path */}
          {location.pathname !== "/home_page" && (
           <Grid xs={2}>

@@ -32,7 +32,8 @@ const Header = () => {
           <Grid xs={4}>
             <h1 className={styles.appTitle}>streamHub</h1>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={3}></Grid>
+          <Grid xs={3}>
             <Nav />
           </Grid>
         </Grid>
