@@ -85,25 +85,25 @@ const Nav = () => {
                 <List sx={{justifyContent: 'center'}}>
                   {location.pathname !== "/home_page" && (
                     <>
-                      <ListItem sx={{ textAlign: "center" }}>
+                      <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
                         <HomeIconLink />
                       </ListItem>
                       <Divider />
                     </>
                   )}
-                  <ListItem sx={{ textAlign: "center" }}>
+                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
                     <WhatsHotModal />
                   </ListItem>
                   <Divider />
-                  <ListItem sx={{ textAlign: "center" }}>
+                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
                     <SearchDrawerIconButton />
                   </ListItem>
                   <Divider />
-                  <ListItem sx={{ textAlign: "center" }}>
+                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
                     <AccountSettingsIconButton />
                   </ListItem>
                   <Divider />
-                  <ListItem sx={{ textAlign: "center" }}>
+                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
                     <LogOutButton />
                   </ListItem>
                   <Divider />
