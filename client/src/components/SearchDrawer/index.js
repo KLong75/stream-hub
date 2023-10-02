@@ -64,7 +64,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <Box className={styles.searchDrawer}>
       <List className={styles.searchDrawer}>
-        <CloseIcon className={styles.closeIcon} onClick={onClose} />
+        <CloseIcon  onClick={onClose} />
         <Heading heading='Find Something To Watch' variant='h2'/>
         <Divider />
         <ListItem>
