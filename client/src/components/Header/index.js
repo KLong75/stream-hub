@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Auth from "../../utils/auth";
 // import from mui
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-
 // import components
 import Nav from "../Nav";
 // import images
@@ -25,15 +24,15 @@ const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <Grid container alignItems="center" justifyContent="" spacing={2}>
+        <Grid container alignItems="center">
           <Grid xs={2}>
             <img className={styles.tvIcon} src={tvIcon} alt="TV icon" />
           </Grid>
-          <Grid xs={4}>
+          <Grid xs={4} >
             <h1 className={styles.appTitle}>streamHub</h1>
           </Grid>
           <Grid xs={3}></Grid>
-          <Grid xs={3}>
+          <Grid xs={3} sx={{marginBottom: '-.75rem'}}>
             <Nav />
           </Grid>
         </Grid>

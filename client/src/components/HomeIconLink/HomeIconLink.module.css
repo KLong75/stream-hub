@@ -1,0 +1,8 @@
+.homeIconLink {
+  color: black !important;
+  cursor: pointer;
+}
+
+.homeIconLink:hover {
+  color: white !important;
+}

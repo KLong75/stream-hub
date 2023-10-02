@@ -80,7 +80,7 @@ const WhatsHotModal = ({ isOpen, onClose }) => {
         component="button"
         onClick={handleOpen}
       >
-        <WhatshotIcon sx={{ marginBottom: "-1.5rem" }} fontSize="large" />
+        <WhatshotIcon sx={{ marginBottom: "-2rem" }} fontSize="large" />
         <h6>What's Hot</h6>
       </Link>
 
