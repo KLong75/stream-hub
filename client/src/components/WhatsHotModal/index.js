@@ -38,7 +38,7 @@ const style = {
   overflow: "scroll",
 };
 
-const WhatsHotModal = ({ isOpen, onClose }) => {
+const WhatsHotModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -81,7 +81,7 @@ const WhatsHotModal = ({ isOpen, onClose }) => {
         onClick={handleOpen}
       >
         <WhatshotIcon sx={{ marginBottom: "-2rem" }} fontSize="large" />
-        <h6>What's Hot</h6>
+        <h6>Trending</h6>
       </Link>
 
       <Modal
