@@ -23,7 +23,7 @@ const AccountSettingsIconButton = () => {
       />
       <Link className={styles.settingsButton} underline="none" component="button" onClick={handleOpenSettingsDrawer}>
         <SettingsIcon
-          sx={{ marginBottom: "-1.5rem" }}
+          sx={{ marginBottom: "-2rem" }}
           onClick={handleOpenSettingsDrawer}
           fontSize="large"
         />
