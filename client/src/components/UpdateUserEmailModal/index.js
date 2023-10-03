@@ -35,9 +35,11 @@ const UpdateUserEmailModal = ({ onClose, onSuccessfulUpdate }) => {
       if (data && data.updateUser) {
         console.log("Email updated successfully:", data.updateUser);
         onClose();
+       
         // Notify the parent component of the successful update
         if (onSuccessfulUpdate) {
           onSuccessfulUpdate();
+          
         }
       } else {
         console.log("Update failed:", data);

@@ -29,16 +29,17 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "80vw", // 80% of the viewport width
+  width: "85vw", // 80% of the viewport width
   maxHeight: "80vh",
   bgcolor: "lightgray",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
   overflow: "scroll",
+  overflowX: "hidden"
 };
 
-const WhatsHotModal = ({ isOpen, onClose }) => {
+const WhatsHotModal = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -81,25 +82,26 @@ const WhatsHotModal = ({ isOpen, onClose }) => {
         onClick={handleOpen}
       >
         <WhatshotIcon sx={{ marginBottom: "-2rem" }} fontSize="large" />
-        <h6>What's Hot</h6>
+        <h6>Trending</h6>
       </Link>
 
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
+        aria-labelledby="trending-movies-and-tv-shows-modal"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <CloseIcon className={styles.closeIcon} onClick={handleClose} />
           <Typography
             id="modal-modal-title"
-            variant="h6"
+            variant="h2"
             component="h2"
             textAlign="center"
+            sx={{ fontSize: " 1.5rem", marginTop: "1rem"}}
           >
-            <WhatshotIcon fontSize="large" />
-            What's Hot
+            <WhatshotIcon fontSize="large" sx={{marginBottom: '-.25rem'}}/>
+            Trending and Top Titles
           </Typography>
 
           {galleryData.map(({ context, categoryTitle }, index) => (

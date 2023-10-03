@@ -14,6 +14,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
+import CloseIcon from "@mui/icons-material/Close";
 // import from utils
 import Auth from "../../utils/auth";
 // import components
@@ -63,14 +64,21 @@ const AccountSettingsDrawer = ({ isOpen, onClose }) => {
 
   const [modalType, setModalType] = useState("");
 
+ 
+
   if (showRedirectMessage) {
     return <div>Please login or signup</div>;
   }
   return (
     <Drawer anchor="top" open={isOpen} onClose={onClose}>
+      
       <Box
         className={styles.settingsDrawer}
       >
+      <CloseIcon
+        className={styles.closeIcon}          
+        onClick={onClose}
+      />
         <List>
         <Heading heading={"Account Settings"} variant="h2" />
           <Divider />

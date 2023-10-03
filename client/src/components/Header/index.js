@@ -7,8 +7,9 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Nav from "../Nav";
 // import images
 import tvIcon from "../../assets/images/tvIcon.png";
-
+// import styles
 import styles from "./Header.module.css";
+
 
 const Header = () => {
   const location = useLocation();
@@ -21,18 +22,19 @@ const Header = () => {
     return null;
   }
 
+  
   return (
     <>
       <header className={styles.header}>
-        <Grid container alignItems="center">
-          <Grid xs={2}>
+        <Grid container alignItems="center" justifyContent="center">
+          <Grid xs={4} md={2}>
             <img className={styles.tvIcon} src={tvIcon} alt="TV icon" />
           </Grid>
-          <Grid xs={4} >
+          <Grid xs={4} md={4} >
             <h1 className={styles.appTitle}>streamHub</h1>
           </Grid>
-          <Grid xs={3}></Grid>
-          <Grid xs={3} sx={{marginBottom: '-.75rem'}}>
+          <Grid xs={0}md={3}></Grid>
+          <Grid xs={4} md={3} sx={{marginBottom: '-.75rem'}}>
             <Nav />
           </Grid>
         </Grid>
