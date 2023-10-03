@@ -52,7 +52,7 @@ const Nav = () => {
         {isMobile ? (
           <>
             <Grid xs={6}></Grid>
-            <Grid item xs={2}>
+            <Grid xs={2}>
               <IconButton onClick={handleDrawerOpen}>
                 <MenuIcon fontSize="large" />
               </IconButton>

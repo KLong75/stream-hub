@@ -5,3 +5,7 @@
 .hotButton:hover {
   color: white !important;
 }
+
+.closeIcon {
+  cursor: pointer;
+}
