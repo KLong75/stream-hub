@@ -1,6 +1,7 @@
 .searchDrawer {
   background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%);
   padding: 2rem;
+  overflow-y: hidden;
 }
 
 .closeIcon {

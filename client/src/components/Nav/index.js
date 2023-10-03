@@ -15,9 +15,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountSettingsIconButton from "../AccountSettingsIconButton";
 import SearchDrawerIconButton from "../SearchDrawerIconButton";
 import LogOutButton from "../LogOutButton";
-import WhatsHotModal from "../WhatsHotModal";
+// import WhatsHotModal from "../WhatsHotModal";
 import HomeIconLink from "../HomeIconLink";
-
 
 const Nav = () => {
   const location = useLocation();
@@ -40,19 +39,17 @@ const Nav = () => {
     setDrawerOpen(false);
   };
 
-  
   return (
     <nav>
       <Grid
         container
         textAlign={"center"}
         alignItems="center"
-        justifyContent={"center"}
-      >
+        justifyContent={"center"}>
         {isMobile ? (
           <>
             <Grid xs={6}></Grid>
-            <Grid xs={2}>
+            <Grid xs={2} sx={{marginLeft: '-2.5rem'}}>
               <IconButton onClick={handleDrawerOpen}>
                 <MenuIcon fontSize="large" />
               </IconButton>
@@ -71,8 +68,7 @@ const Nav = () => {
                   alignItems: "center",
                   overflow: "hidden",
                 },
-              }}
-            >
+              }}>
               <CloseIcon
                 onClick={handleDrawerClose}
                 sx={{
@@ -82,28 +78,32 @@ const Nav = () => {
                 }}
               />
               <Box sx={{ marginTop: "2rem" }}>
-                <List sx={{justifyContent: 'center'}}>
+                <List sx={{ justifyContent: "center" }}>
                   {location.pathname !== "/home_page" && (
                     <>
-                      <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
+                      <ListItem
+                        sx={{ textAlign: "center", justifyContent: "center" }}>
                         <HomeIconLink />
                       </ListItem>
                       <Divider />
                     </>
                   )}
-                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
+                  {/* <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
                     <WhatsHotModal />
-                  </ListItem>
+                  </ListItem> */}
                   <Divider />
-                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
+                  <ListItem
+                    sx={{ textAlign: "center", justifyContent: "center" }}>
                     <SearchDrawerIconButton />
                   </ListItem>
                   <Divider />
-                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
+                  <ListItem
+                    sx={{ textAlign: "center", justifyContent: "center" }}>
                     <AccountSettingsIconButton />
                   </ListItem>
                   <Divider />
-                  <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
+                  <ListItem
+                    sx={{ textAlign: "center", justifyContent: "center" }}>
                     <LogOutButton />
                   </ListItem>
                   <Divider />
@@ -113,13 +113,10 @@ const Nav = () => {
           </>
         ) : (
           <>
-            {location.pathname !== "/home_page" && (
-              <Grid xs={2}>
-                <HomeIconLink />
-              </Grid>
-            )}
+            <Grid xs={2}></Grid>
+            <Grid xs={2}></Grid>
             <Grid xs={2}>
-              <WhatsHotModal />
+              {location.pathname === "/home_page" ? null : <HomeIconLink />}
             </Grid>
             <Grid xs={2}>
               <SearchDrawerIconButton />

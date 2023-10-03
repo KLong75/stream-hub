@@ -61,7 +61,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
   }
 
   return (
-    <Drawer anchor="right" open={isOpen} onClose={onClose}>
+    <Drawer anchor="top" open={isOpen} onClose={onClose}>
       <Box className={styles.searchDrawer}>
       <List className={styles.searchDrawer}>
         <CloseIcon className={styles.closeIcon} onClick={onClose} />
