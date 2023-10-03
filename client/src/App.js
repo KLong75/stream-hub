@@ -9,7 +9,7 @@ import MixedGenreSearchSearchResults from "./pages/MixedGenreSearchResults";
 import TitleSearchResults from "./pages/TitleSearchResults";
 import ActorSearchResults from "./pages/ActorSearchResults";
 import TitleDetails from "./pages/TitleDetails";
-import NowTrending from "./pages/NowTrending/NowTrending";
+// import NowTrending from "./pages/NowTrending/NowTrending";
 // import AccountSettings from "./pages/AccountSettings";
 // import components
 import Header from "./components/Header";
@@ -101,10 +101,10 @@ const App = () => {
                               <Route path="/" element={<LandingPage />} />
                               <Route path="/home_page" element={<HomePage />} />
                               {/* <Route path="/search" element={<Search />} /> */}
-                              <Route
+                              {/* <Route
                                 path="/now_trending"
                                 element={<NowTrending />}
-                              />
+                              /> */}
                               <Route
                                 path="/search_results"
                                 element={<GenreSearchResults />}

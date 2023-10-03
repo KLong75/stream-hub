@@ -22,5 +22,46 @@
   height: 3.25rem;
   width: auto;
   margin-left: 2rem;
+  margin-top: .25rem;
 }
 
+@media (max-width: 920px) {
+  .appTitle {
+    font-size: 2.25rem;
+    margin-left: -.75rem;
+  }
+  .tvIcon {
+    height: 3rem;
+    width: auto;
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .appTitle {
+    font-size: 2rem;
+    margin-left: -.75rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .appTitle {
+    font-size: 1.75rem;
+  }
+  .tvIcon {
+    height: 2.75rem;
+
+    margin-left: .5rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .appTitle {
+    font-size: 1.5rem;
+  }
+  .tvIcon {
+    height: 2.5rem;
+    width: auto;
+    margin-left: .5rem;
+  }
+}

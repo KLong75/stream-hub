@@ -70,7 +70,7 @@ const AccountSettingsDrawer = ({ isOpen, onClose }) => {
     return <div>Please login or signup</div>;
   }
   return (
-    <Drawer anchor="top" open={isOpen} onClose={onClose}>
+    <Drawer anchor="right" open={isOpen} onClose={onClose}>
       
       <Box
         className={styles.settingsDrawer}

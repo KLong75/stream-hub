@@ -27,14 +27,14 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <Grid container alignItems="center" justifyContent="center">
-          <Grid xs={4} md={2}>
+          <Grid xs={3} md={2}>
             <img className={styles.tvIcon} src={tvIcon} alt="TV icon" />
           </Grid>
-          <Grid xs={4} md={4} >
+          <Grid xs={6} md={4} >
             <h1 className={styles.appTitle}>streamHub</h1>
           </Grid>
-          <Grid xs={0}md={3}></Grid>
-          <Grid xs={4} md={3} sx={{marginBottom: '-.75rem'}}>
+          <Grid xs={0} md={3}></Grid>
+          <Grid xs={3} md={3} sx={{marginBottom: '-.75rem', marginLeft: '-2rem'}}>
             <Nav />
           </Grid>
         </Grid>
