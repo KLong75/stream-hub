@@ -18,7 +18,13 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FormLabel, Dialog, DialogTitle, DialogContent } from "@mui/material";
+import {
+  FormLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 // import from utils
 import { fetchMixedGenreTV } from "../../utils/apiCalls";
 import { formatDate, CACHE_DURATION } from "../../utils/utils";
@@ -26,7 +32,7 @@ import { formatDate, CACHE_DURATION } from "../../utils/utils";
 const MixedGenreTVSearch = ({ onSubmit }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { setMixedGenreSearchResults } = useContext( SearchResultsContext );
+  const { setMixedGenreSearchResults } = useContext(SearchResultsContext);
   const [userInput, setUserInput] = useState({
     genres: [],
   });
@@ -76,9 +82,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
     );
 
     if (cachedMixedGenreTvSearchResults) {
-      const { data, timestamp } = JSON.parse(
-        cachedMixedGenreTvSearchResults
-      );
+      const { data, timestamp } = JSON.parse(cachedMixedGenreTvSearchResults);
 
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
@@ -90,9 +94,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
         handleModalClose();
         onSubmit();
       } else {
-        localStorage.removeItem(
-          `mixedGenreTvSearchResults_${searchedGenres}`
-        );
+        localStorage.removeItem(`mixedGenreTvSearchResults_${searchedGenres}`);
         console.log("Cached Data Expired and Removed");
       }
     }
@@ -112,13 +114,17 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
           id: tvShow.id,
           title: tvShow.name,
           year: formatDate(tvShow.first_air_date),
-          type: 'tv',
+          type: "tv",
           poster_url: "https://image.tmdb.org/t/p/w300/" + tvShow.poster_path,
-          backdrop_url: "https://image.tmdb.org/t/p/w500/" + tvShow.backdrop_path,
+          backdrop_url:
+            "https://image.tmdb.org/t/p/w500/" + tvShow.backdrop_path,
           genres: tvShow.genre_ids,
         }));
 
-        console.log("Mixed Genre Tv Search Title Data: ",searchResultsTitleData);
+        console.log(
+          "Mixed Genre Tv Search Title Data: ",
+          searchResultsTitleData
+        );
 
         setMixedGenreSearchResults(searchResultsTitleData);
 
@@ -143,209 +149,213 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
 
   return (
     <>
-       <h3 variant="contained" onClick={() => handleMixedGenreTvSearchClick()}>
-       Search TV Shows by a Combination of Genres
+      <h3 variant="contained" onClick={() => handleMixedGenreTvSearchClick()}>
+        Search TV Shows by a Combination of Genres
       </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
-      <DialogTitle style={{fontSize: '1.5rem'}}>Mixed Genre TV Search
-        <br />
-        <p style={{fontSize: '1.25rem', padding: '1.5',}}>
-        Looking for a sc-fi adventure series to binge? A family comedy? A news documentary? We'll find what you want.
-        </p> 
-      </DialogTitle> 
-       
-      <DialogContent>
-       
-      <form onSubmit={handleSubmit}>
-        <FormGroup>
-          <FormLabel>Select Genre(s)</FormLabel>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>What are you in the mood for?</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-            <h6 style={{fontSize: '1.2rem', margin: 0}}>
-                <em>
-                 Select any combination of genres to find the perfect show for your next binge.
-                  <br />
-                  <strong>Note: The more genres you select, the fewer results you will get.
-                  </strong>
-                </em>
-              </h6>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={userInput.genres.includes("10759")}
-                    onChange={handleGenreChange}
+        <DialogTitle style={{ fontSize: "1.5rem" }}>
+          Mixed Genre TV Search
+          <br />
+          <p style={{ fontSize: "1.25rem", padding: "1.5" }}>
+            Looking for a sc-fi adventure series to binge? A family comedy? A
+            news documentary? We'll find what you want.
+          </p>
+        </DialogTitle>
+
+        <DialogContent>
+          <form onSubmit={handleSubmit}>
+            <FormGroup>
+              <FormLabel>Select Genre(s)</FormLabel>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header">
+                  <Typography>What are you in the mood for?</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <h6 style={{ fontSize: "1.2rem", margin: 0 }}>
+                    <em>
+                      Select any combination of genres to find the perfect show
+                      for your next binge.
+                      <br />
+                      <strong>
+                        Note: The more genres you select, the fewer results you
+                        will get.
+                      </strong>
+                    </em>
+                  </h6>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={userInput.genres.includes("10759")}
+                        onChange={handleGenreChange}
+                      />
+                    }
+                    value="10759"
+                    label="Action & Adventure"
                   />
-                }
-                value="10759"
-                label="Action & Adventure"
-              />
-              <FormControlLabel
-                value="16"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("16")}
+                  <FormControlLabel
+                    value="16"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("16")}
+                      />
+                    }
+                    label="Animation"
                   />
-                }
-                label="Animation"
-              />
-              <FormControlLabel
-                value="35"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("35")}
+                  <FormControlLabel
+                    value="35"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("35")}
+                      />
+                    }
+                    label="Comedy"
                   />
-                }
-                label="Comedy"
-              />
-              <FormControlLabel
-                value="80"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("80")}
+                  <FormControlLabel
+                    value="80"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("80")}
+                      />
+                    }
+                    label="Crime"
                   />
-                }
-                label="Crime"
-              />
-              <FormControlLabel
-                value="99"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("99")}
+                  <FormControlLabel
+                    value="99"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("99")}
+                      />
+                    }
+                    label="Documentary"
                   />
-                }
-                label="Documentary"
-              />
-              <FormControlLabel
-                value="18"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("18")}
+                  <FormControlLabel
+                    value="18"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("18")}
+                      />
+                    }
+                    label="Drama"
                   />
-                }
-                label="Drama"
-              />
-              <FormControlLabel
-                value="10751"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10751")}
+                  <FormControlLabel
+                    value="10751"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10751")}
+                      />
+                    }
+                    label="Family"
                   />
-                }
-                label="Family"
-              />
-              <FormControlLabel
-                value="10762"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10762")}
+                  <FormControlLabel
+                    value="10762"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10762")}
+                      />
+                    }
+                    label="Kids"
                   />
-                }
-                label="Kids"
-              />      
-              <FormControlLabel
-                value="9648"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("9648")}
+                  <FormControlLabel
+                    value="9648"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("9648")}
+                      />
+                    }
+                    label="Mystery"
                   />
-                }
-                label="Mystery"
-              />
-              <FormControlLabel
-                value="10763"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10763")}
+                  <FormControlLabel
+                    value="10763"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10763")}
+                      />
+                    }
+                    label="News"
                   />
-                }
-                label="News"
-              />
-              <FormControlLabel
-                value="10764"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10764")}
+                  <FormControlLabel
+                    value="10764"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10764")}
+                      />
+                    }
+                    label="Reality"
                   />
-                }
-                label="Reality"
-              />
-              <FormControlLabel
-                value="10765"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10765")}
+                  <FormControlLabel
+                    value="10765"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10765")}
+                      />
+                    }
+                    label="Sci-Fi and Fantasy"
                   />
-                }
-                label="Sci-Fi and Fantasy"
-              />
-              <FormControlLabel
-                value="10766"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10766")}
+                  <FormControlLabel
+                    value="10766"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10766")}
+                      />
+                    }
+                    label="Soap"
                   />
-                }
-                label="Soap"
-              />
-              <FormControlLabel
-                value="10767"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10767")}
+                  <FormControlLabel
+                    value="10767"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10767")}
+                      />
+                    }
+                    label="Talk"
                   />
-                }
-                label="Talk"
-              />
-              <FormControlLabel
-                value="10768"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("10768")}
+                  <FormControlLabel
+                    value="10768"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("10768")}
+                      />
+                    }
+                    label="War & Politics"
                   />
-                }
-                label="War & Politics"
-              />
-              <FormControlLabel
-                value="37"
-                control={
-                  <Checkbox
-                    onChange={handleGenreChange}
-                    checked={userInput.genres.includes("37")}
+                  <FormControlLabel
+                    value="37"
+                    control={
+                      <Checkbox
+                        onChange={handleGenreChange}
+                        checked={userInput.genres.includes("37")}
+                      />
+                    }
+                    label="Western"
                   />
-                }
-                label="Western"
-              />
-            </AccordionDetails>
-          </Accordion>
-        </FormGroup>
-        <Button type="submit" variant="contained">
-          Search
-        </Button>
-      </form>
-      
-      </DialogContent>
-      <Button variant="contained" onClick={handleModalClose}>
+                </AccordionDetails>
+              </Accordion>
+            </FormGroup>
+            <DialogActions>
+              <Button type="submit" variant="contained">
+                Search
+              </Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+        <Button variant="contained" onClick={handleModalClose}>
           Close
         </Button>
       </Dialog>

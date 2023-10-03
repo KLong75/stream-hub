@@ -14,7 +14,13 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FormLabel, Dialog, DialogTitle, DialogContent } from "@mui/material";
+import {
+  FormLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 // import from utils
 import { fetchMixedGenreMovies } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
@@ -145,8 +151,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
       {/* <h4>Search Movies by a Combination of Genres</h4> */}
       <h3
         variant="contained"
-        onClick={() => handleMixedGenreMovieSearchClick()}
-      >
+        onClick={() => handleMixedGenreMovieSearchClick()}>
         Search Movies by a Combination of Genres
       </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
@@ -167,8 +172,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
+                  id="panel1a-header">
                   <Typography>What are you in the mood for?</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -369,9 +373,11 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
                 </AccordionDetails>
               </Accordion>
             </FormGroup>
-            <Button type="submit" variant="contained">
-              Search
-            </Button>
+            <DialogActions>
+              <Button type="submit" variant="contained">
+                Search
+              </Button>
+            </DialogActions>
           </form>
         </DialogContent>
         <Button variant="contained" onClick={handleModalClose}>

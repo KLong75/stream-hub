@@ -18,7 +18,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 // import from utils
 import { fetchTitlesByGenreSourceType } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
@@ -229,7 +229,6 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
           <form onSubmit={handleSubmit}>
             <FormGroup>
               <FormLabel>Select Genre</FormLabel>
-
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -724,10 +723,11 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
                 </AccordionDetails>
               </Accordion>
             </FormGroup>
-
+            <DialogActions>
             <Button type="submit" variant="contained">
               Submit
             </Button>
+            </DialogActions>
           </form>
         </DialogContent>
         <Button variant="contained" onClick={handleModalClose}>
