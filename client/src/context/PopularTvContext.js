@@ -66,27 +66,6 @@ export const PopularTvProvider = ({ children }) => {
             genre: tvShow.genre_ids,
           }));
 
-          // const uniqueIds = new Set();
-          // const uniqueTvShows = combinedData.filter((tvShow) => {
-          //   if (!uniqueIds.has(tvShow.id)) {
-          //     uniqueIds.add(tvShow.id);
-          //     return true;
-          //   }
-          //   return false;
-          // });
-
-          // uniqueTvShows.sort((a, b) => a.name.localeCompare(b.name));
-
-          // const popularTvShows = uniqueTvShows.map((tvShow) => ({
-          //   id: tvShow.id,
-          //   title: tvShow.name,
-          //   poster_path: tvShow.poster_path,
-          //   backdrop_path: tvShow.backdrop_path,
-          //   overview: tvShow.overview,
-          //   release_date: formatDate(tvShow.first_air_date),
-          //   genre: tvShow.genre_ids,
-          // }));
-
           setPopularTv(popularTvShows);
 
           const cacheData = {

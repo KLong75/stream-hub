@@ -7,7 +7,7 @@ import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
 import { TextField, MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 // import from utils
 import { searchByGenre } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
@@ -248,6 +248,7 @@ const GenreSearch = ({ onSubmit }) => {
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle>Search by Genre From All Available Sources</DialogTitle>
         <DialogContent>
+        <DialogActions>
           <TextField
             fullWidth
             required
@@ -265,6 +266,7 @@ const GenreSearch = ({ onSubmit }) => {
               </MenuItem>
             ))}
           </TextField>
+          </DialogActions>
         </DialogContent>
         <Button variant="contained" onClick={handleCloseModal}>
           Close
