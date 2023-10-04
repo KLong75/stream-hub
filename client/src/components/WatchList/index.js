@@ -133,8 +133,7 @@ const WatchList = () => {
             heading={
               userData.savedTitles.length ? (
                 `You have ${userData.savedTitles.length} saved ${
-                  userData.savedTitles.length === 1 ? "title" : "titles"
-                }:`
+                  userData.savedTitles.length === 1 ? "title." : "titles."}`
               ) : (
                 <>
                   You have no saved titles!
@@ -156,7 +155,7 @@ const WatchList = () => {
           />
 
           {userData.savedTitles.length > 0 && (
-            <Box>
+            <Box sx={{marginTop: '-1rem'}}>
               <FilterTitles setFilters={setFilters} />
             </Box>
           )}

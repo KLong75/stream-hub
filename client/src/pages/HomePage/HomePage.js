@@ -43,7 +43,7 @@ const HomePage = () => {
   return (
     <main>
       <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
-        <section style={{marginTop: '-2rem'}}>
+        <section style={{marginTop: '-2.5rem'}}>
           <WatchList />
         </section>
         <section >
