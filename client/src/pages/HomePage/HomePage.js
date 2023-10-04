@@ -43,10 +43,10 @@ const HomePage = () => {
   return (
     <main>
       <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
-        <section style={{marginTop: ''}}>
+        <section>
           <WatchList />
         </section>
-        <section >
+        <section>
           <WhatsHotGallery />
         </section> 
     </main>
