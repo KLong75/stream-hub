@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
+import { IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import FormGroup from "@mui/material/FormGroup";
+import FilterIcon from "@mui/icons-material/Tune";
+import Grid from "@mui/material/Unstable_Grid2";
 import FilterSection from "../FilterSection";
 
 const defaultTypeFilter = {
@@ -100,8 +103,9 @@ const FilterTitles = ({ setFilters }) => {
     const sourceArray = Object.keys(sourceFilter).filter(
       (key) => sourceFilter[key]
     );
-    const genreArray = Object.keys(genreFilter).filter(
-      (key) => genreFilter[key]).map(mapUiGenreToActualGenre);
+    const genreArray = Object.keys(genreFilter)
+      .filter((key) => genreFilter[key])
+      .map(mapUiGenreToActualGenre);
 
     setFilters({
       type: typeArray,
@@ -140,14 +144,19 @@ const FilterTitles = ({ setFilters }) => {
 
   const activeFilters = getActiveFilters();
 
- 
-
-
   return (
     <>
-      <Button variant="contained" onClick={handleOpen}>
-        Filter WatchList
-      </Button>
+      <Grid container>
+      <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center">
+      <IconButton onClick={handleOpen}>
+        <FilterIcon fontSize="large" />
+      </IconButton>
+      </Grid>
+      <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center" sx={{marginTop: '-1.5rem'}}>
+      <h4>Filter Watch List</h4>
+      </Grid>
+      </Grid>
+      
       {activeFilters.length > 0 && (
         <div>
           <h5>Watchlist Filtered For:</h5>
@@ -167,8 +176,7 @@ const FilterTitles = ({ setFilters }) => {
               setTypeFilter(defaultTypeFilter);
               setSourceFilter(defaultSourceFilter);
               setGenreFilter(defaultGenreFilter);
-            }}
-          >
+            }}>
             Clear Filters
           </Button>
           <FormGroup>

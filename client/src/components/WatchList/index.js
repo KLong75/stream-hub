@@ -1,19 +1,29 @@
+// import from react
 import { useState } from "react";
+// import from react-router-dom
 import { Link, useParams } from "react-router-dom";
-import Auth from "../../utils/auth";
+// import from @apollo/client
 import { useQuery, useMutation } from "@apollo/client";
+// import from mui
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
+// import from utils
 import { QUERY_ME } from "../../utils/queries";
 import { REMOVE_TITLE } from "../../utils/mutations";
-import { Button } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import Auth from "../../utils/auth";
 import { useTitleSelection } from "../../utils/useTitleSelection";
+// import swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import styles from "./Watchlist.module.css";
 import { Parallax, Navigation } from "swiper/modules";
+// import components
 import Heading from "../Heading";
+import SearchDrawerIconButton from "../SearchDrawerIconButton"
 import FilterTitles from "../FilterTitles";
+// import styles
+import styles from "./Watchlist.module.css";
+
 
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
@@ -129,23 +139,26 @@ const WatchList = () => {
                 <>
                   You have no saved titles!
                   <br />
-                  <Link
+                  {/* <Link
                     to="/search"
                     style={{ textDecoration: "none", color: "black" }}
-                  >
+                  > */}
                     Find Something To Watch!
-                    <SearchIcon
+                    <SearchDrawerIconButton />
+                    {/* <SearchIcon
                       fontSize="large"
                       style={{ color: "black", marginBottom: "-.25rem" }}
-                    />
-                  </Link>
+                    /> */}
+                  {/* </Link> */}
                 </>
               )
             }
           />
 
           {userData.savedTitles.length > 0 && (
-            <FilterTitles setFilters={setFilters} />
+            <Box>
+              <FilterTitles setFilters={setFilters} />
+            </Box>
           )}
 
           {filters.type.length ||

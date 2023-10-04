@@ -7,7 +7,7 @@ import VerticalCardSwipeGallery from "../VerticalCardSwipeGallery";
 import { TopRatedTvContext } from "../../context/TopRatedTvContext";
 import { TrendingTvContext } from "../../context/TrendingTvContext";
 import { TrendingMoviesContext } from "../../context/TrendingMoviesContext";
-import { PopularTvContext } from "../../context/PopularTvContext";
+// import { PopularTvContext } from "../../context/PopularTvContext";
 import { TopRatedMoviesContext } from "../../context/TopRatedMoviesContext";
 
 const WhatsHotGallery = () => {
@@ -16,7 +16,7 @@ const WhatsHotGallery = () => {
     // { context: PopularMoviesContext, categoryTitle: "Popular Movies" },
     { context: TopRatedMoviesContext, categoryTitle: "Top Rated Movies" },
     { context: TrendingTvContext, categoryTitle: "Trending TV Shows" },
-    { context: PopularTvContext, categoryTitle: "Popular TV Shows" },
+    // { context: PopularTvContext, categoryTitle: "Popular TV Shows" },
     { context: TopRatedTvContext, categoryTitle: "Top Rated TV Shows" },
   ];
 

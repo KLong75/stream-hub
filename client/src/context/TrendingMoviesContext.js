@@ -1,15 +1,27 @@
 import { createContext, useState, useEffect } from "react";
 
-import { fetchTrendingMoviesPageOne, fetchTrendingMoviesPageTwo, fetchTrendingMoviesPageThree, fetchTrendingMoviesPageFour, fetchTrendingMoviesPageFive  } from "../utils/apiCalls";
+import {
+  fetchTrendingMoviesPageOne,
+  fetchTrendingMoviesPageTwo,
+  fetchTrendingMoviesPageThree,
+  fetchTrendingMoviesPageFour,
+  fetchTrendingMoviesPageFive,
+} from "../utils/apiCalls";
 import { CACHE_DURATION_ONE_WEEK, formatDate } from "../utils/utils";
-import { fetchPopularMoviesPageOne, fetchPopularMoviesPageTwo, fetchPopularMoviesPageThree, fetchPopularMoviesPageFour, fetchPopularMoviesPageFive  } from "../utils/apiCalls";
+import {
+  fetchPopularMoviesPageOne,
+  fetchPopularMoviesPageTwo,
+  fetchPopularMoviesPageThree,
+  fetchPopularMoviesPageFour,
+  fetchPopularMoviesPageFive,
+} from "../utils/apiCalls";
 
 export const TrendingMoviesContext = createContext();
 
 export const TrendingMoviesProvider = ({ children }) => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
-  
+
   useEffect(() => {
     const getTrendingMovies = async () => {
       const cachedTrendingMovies = localStorage.getItem("trendingMovies");
@@ -43,7 +55,13 @@ export const TrendingMoviesProvider = ({ children }) => {
           const responseFive = await fetchTrendingMoviesPageFive();
           const dataFive = await responseFive.json();
           // console.log(dataFive);
-          const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
+          const combinedData = [
+            ...dataOne.results,
+            ...dataTwo.results,
+            ...dataThree.results,
+            ...dataFour.results,
+            ...dataFive.results,
+          ];
           // console.log(combinedData);
 
           const topMovies = combinedData.map((movie) => ({
@@ -98,7 +116,13 @@ export const TrendingMoviesProvider = ({ children }) => {
           const responseFive = await fetchPopularMoviesPageFive();
           const dataFive = await responseFive.json();
           // console.log(dataFive);
-          const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
+          const combinedData = [
+            ...dataOne.results,
+            ...dataTwo.results,
+            ...dataThree.results,
+            ...dataFour.results,
+            ...dataFive.results,
+          ];
           // console.log(combinedData);
 
           const popMovies = combinedData.map((movie) => ({
@@ -121,23 +145,26 @@ export const TrendingMoviesProvider = ({ children }) => {
         }
       }
     };
-    getTrendingMovies()
-    getPopularMovies()  
+    getTrendingMovies();
+    getPopularMovies();
   }, []);
-  
-  const uniqueMovieIds = new Set([...popularMovies, ...trendingMovies].map(movie => movie.id));
-  const popularTrendingCombined = [...popularMovies, ...trendingMovies].filter(movie => {
-    if (uniqueMovieIds.has(movie.id)) {
-      uniqueMovieIds.delete(movie.id);
-      return true;
+
+  const uniqueMovieIds = new Set(
+    [...popularMovies, ...trendingMovies].map((movie) => movie.id)
+  );
+  const popularTrendingCombined = [...popularMovies, ...trendingMovies].filter(
+    (movie) => {
+      if (uniqueMovieIds.has(movie.id)) {
+        uniqueMovieIds.delete(movie.id);
+        return true;
+      }
+      return false;
     }
-    return false;
-  });
-  
+  );
+
   return (
     <TrendingMoviesContext.Provider value={popularTrendingCombined}>
       {children}
     </TrendingMoviesContext.Provider>
   );
 };
-
