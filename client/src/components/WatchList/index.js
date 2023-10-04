@@ -5,8 +5,8 @@ import { Link, useParams } from "react-router-dom";
 // import from @apollo/client
 import { useQuery, useMutation } from "@apollo/client";
 // import from mui
-import { Button } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, Box } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from utils
 import { QUERY_ME } from "../../utils/queries";
 import { REMOVE_TITLE } from "../../utils/mutations";
@@ -19,11 +19,10 @@ import "swiper/css/navigation";
 import { Parallax, Navigation } from "swiper/modules";
 // import components
 import Heading from "../Heading";
-import SearchDrawerIconButton from "../SearchDrawerIconButton"
+import SearchDrawerIconButton from "../SearchDrawerIconButton";
 import FilterTitles from "../FilterTitles";
 // import styles
 import styles from "./Watchlist.module.css";
-
 
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
@@ -133,8 +132,8 @@ const WatchList = () => {
             heading={
               userData.savedTitles.length ? (
                 `You have ${userData.savedTitles.length} saved ${
-                  userData.savedTitles.length === 1 ? "title" : "titles"
-                }:`
+                  userData.savedTitles.length === 1 ? "title." : "titles."
+                }`
               ) : (
                 <>
                   You have no saved titles!
@@ -143,9 +142,9 @@ const WatchList = () => {
                     to="/search"
                     style={{ textDecoration: "none", color: "black" }}
                   > */}
-                    Find Something To Watch!
-                    <SearchDrawerIconButton />
-                    {/* <SearchIcon
+                  Find Something To Watch!
+                  <SearchDrawerIconButton />
+                  {/* <SearchIcon
                       fontSize="large"
                       style={{ color: "black", marginBottom: "-.25rem" }}
                     /> */}
@@ -154,13 +153,11 @@ const WatchList = () => {
               )
             }
           />
-
           {userData.savedTitles.length > 0 && (
-            <Box>
+            <Box sx={{ marginTop: "-1rem" }}>
               <FilterTitles setFilters={setFilters} />
             </Box>
           )}
-
           {filters.type.length ||
           filters.source.length ||
           filters.genre.length ? (
@@ -178,26 +175,55 @@ const WatchList = () => {
             parallax={true}
             navigation={true}
             modules={[Parallax, Navigation]}
-            className={styles.swiper}
-          >
+            className={styles.swiper}>
             {filteredTitles?.map((title) => (
               <SwiperSlide
+                className={styles.swiperSlide}
                 key={title.id}
-                style={{
-                  backgroundImage: `url(${title.backdrop})`,
-                  backgroundSize: "auto",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
+                // style={{
+                //   backgroundImage: `url(${title.backdrop})`,
+                //   backgroundSize: "cover",
+                //   backgroundPosition: "center",
+                //   backgroundRepeat: "no-repeat",
+                // }}
               >
-                <div className={styles.title} data-swiper-parallax="-300">
-                  {title.title}
-                </div>
-                <div className={styles.subtitle} data-swiper-parallax="-200">
-                  {title.year}
-                </div>
+                <Box
+                  className={styles.backdropBox}
+                  style={{
+                    backgroundImage: `url(${title.backdrop})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+          
+                    position: "absolute", // make it absolute
+                    top: 0, // stick it to the top
+                    left: 0, // stick it to the left
+                    right: 0, // stretch it to the right
+                    zIndex: -1,
+                  }}></Box>
+                <Grid
+                  container
+                  spacing={2}
+                  justifyContent="center"
+                  alignItems="center"
+                  textAlign="center">
+                  <Grid xs={12}>
+                    <h5 className={styles.title} data-swiper-parallax="-300">
+                      {title.title}
+                    </h5>
+                  </Grid>
+                  <Grid xs={12}>
+                    <div
+                      className={styles.subtitle}
+                      data-swiper-parallax="-200">
+                      {title.year}
+                    </div>
+                  </Grid>
+                  <Grid xs={12}>
+                    <img src={title.poster} alt={title.title} />
+                  </Grid>
+                </Grid>
                 <div className={styles.text} data-swiper-parallax="-100">
-                  <img src={title.poster} alt={title.title} />
                   <p>
                     <strong>Genres: </strong> {title.genre_names.join(", ")}
                   </p>
@@ -215,10 +241,10 @@ const WatchList = () => {
                         : "Unknown Type"}
                     </p>
                   )}
-                  <p>
+                  {/* <p>
                     <strong>Plot Overview: </strong>
                     {title.plot_overview}
-                  </p>
+                  </p> */}
                   <div>
                     {title.sources && title.sources.length > 0 && (
                       <>
@@ -231,8 +257,7 @@ const WatchList = () => {
                               <a
                                 href={source.web_url}
                                 target="_blank"
-                                rel="noreferrer"
-                              >
+                                rel="noreferrer">
                                 <p>{source.name}</p>
                               </a>
                             </div>
@@ -253,8 +278,7 @@ const WatchList = () => {
                               <a
                                 href={buy_source.web_url}
                                 target="_blank"
-                                rel="noreferrer"
-                              >
+                                rel="noreferrer">
                                 <p>{buy_source.name}</p>
                               </a>
                             </div>
@@ -266,15 +290,13 @@ const WatchList = () => {
                   <div className="watchlist-item-buttons">
                     <Button
                       variant="contained"
-                      onClick={() => handleDeleteTitle(title.id)}
-                    >
+                      onClick={() => handleDeleteTitle(title.id)}>
                       Remove
                     </Button>
                     <Button
                       variant="contained"
                       value={title.id}
-                      onClick={handleTitleSelected}
-                    >
+                      onClick={handleTitleSelected}>
                       More Details
                     </Button>
                   </div>
