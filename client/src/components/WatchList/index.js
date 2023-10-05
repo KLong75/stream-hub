@@ -146,7 +146,7 @@ const WatchList = () => {
             }
           />
           {userData.savedTitles.length > 0 && (
-            <Box sx={{ marginTop: "-2rem" }}>
+            <Box sx={{ marginTop: "-1.5rem" }}>
               <FilterTitles setFilters={setFilters} />
             </Box>
           )}
