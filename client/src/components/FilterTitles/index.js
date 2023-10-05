@@ -63,9 +63,9 @@ const mapUiGenreToActualGenre = (uiGenre) => {
   const map = {
     ActionAdventure: "Action & Adventure",
   };
-
   return map[uiGenre] || uiGenre;
 };
+
 
 const FilterTitles = ({ setFilters }) => {
   const [typeFilter, setTypeFilter] = useState(defaultTypeFilter);
@@ -103,6 +103,7 @@ const FilterTitles = ({ setFilters }) => {
     const sourceArray = Object.keys(sourceFilter).filter(
       (key) => sourceFilter[key]
     );
+   
     const genreArray = Object.keys(genreFilter)
       .filter((key) => genreFilter[key])
       .map(mapUiGenreToActualGenre);
@@ -190,7 +191,7 @@ const FilterTitles = ({ setFilters }) => {
               title="Source"
               items={[
                 "AmazonPrime",
-                "AppleTV",
+                "AppleTV+",
                 "DisneyPlus",
                 "Hulu",
                 "Max",

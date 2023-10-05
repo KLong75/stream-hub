@@ -12,6 +12,7 @@ import { QUERY_ME } from "../../utils/queries";
 import { REMOVE_TITLE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useTitleSelection } from "../../utils/useTitleSelection";
+import { sourceLogos } from "../../utils/sourceLogos";
 // import swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -66,9 +67,6 @@ const WatchList = () => {
     source: [],
     genre: [],
   });
-  console.log("filters.type", filters.type);
-  console.log("filters.source", filters.source);
-  console.log("filters.genre", filters.genre);
 
   const filteredTitles = userData.savedTitles?.filter((title) => {
     if (filters.type.length) {
@@ -79,6 +77,7 @@ const WatchList = () => {
           return [type];
         })
         .flat();
+      console.log(typeFilter);
 
       if (!typeFilter.includes(title.type)) {
         return false;
@@ -88,20 +87,22 @@ const WatchList = () => {
     if (filters.source.length) {
       const sourceFilter = filters.source
         .map((source) => {
-          if (source === "AmazonPrime") return "Amazon Prime";
-          if (source === "AppleTV") return "AppleTV+";
-          if (source === "DisneyPlus") return "Disney+";
+          if (source === "AmazonPrime") return "Prime Video";
+          if (source === "AppleTV+") return "Apple TV+";
+          if (source === "Disney+") return "Disney+";
           if (source === "Hulu") return "Hulu";
           if (source === "Max") return "Max";
           if (source === "Netflix") return "Netflix";
           if (source === "ParamountPlus") return "Paramount+";
-          if (source === "Peacock") return "Peacock Premium";
+          if (source === "Peacock Premium") return "Peacock";
           if (source === "Starz") return "STARZ";
           return source;
         })
         .flat();
 
       const titleSources = title.sources.map((source) => source.name);
+     
+
       if (!sourceFilter.some((filter) => titleSources.includes(filter))) {
         return false;
       }
@@ -113,7 +114,6 @@ const WatchList = () => {
     ) {
       return false;
     }
-
     return true;
   });
 
@@ -178,15 +178,14 @@ const WatchList = () => {
                 //   backgroundPosition: "center",
                 //   backgroundRepeat: "no-repeat",
                 // }}
-                style={{height: '100%', width: 'auto'}}
-              >
+                style={{ height: "100%", width: "auto" }}>
                 <Grid
                   container
                   spacing={2}
                   justifyContent="center"
                   alignItems="center"
                   textAlign="center">
-                  <Grid xs={12} >
+                  <Grid xs={12}>
                     <img src={title.poster} alt={title.title} />
                   </Grid>
                   <Grid xs={12}>
@@ -202,7 +201,11 @@ const WatchList = () => {
                     </div>
                   </Grid>
                   <Grid xs={12} className={styles.backdropBox}>
-                    <img src={title.backdrop} alt={title.title} className={styles.backdrop}/>
+                    <img
+                      src={title.backdrop}
+                      alt={title.title}
+                      className={styles.backdrop}
+                    />
                   </Grid>
                 </Grid>
                 <div className={styles.text} data-swiper-parallax="-100">
@@ -235,11 +238,15 @@ const WatchList = () => {
                         </p>
                         {title.sources.map((source) => {
                           return (
-                            <div key={`${title.id}-${source.source_id}`}>
+                            <div key={`${title.id}-${source.source_id}`} style={{ width: "6rem", height: "auto", overflow: "hidden" }}>
                               <a
                                 href={source.web_url}
                                 target="_blank"
                                 rel="noreferrer">
+                                <img
+                                  src={sourceLogos[source.name]}
+                                  alt={source.name}
+                                  style={{ maxWidth: "100%", maxHeight: "100%" }} />
                                 <p>{source.name}</p>
                               </a>
                             </div>
