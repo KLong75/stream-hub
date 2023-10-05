@@ -25,6 +25,7 @@ import { TopRatedMoviesProvider } from "./context/TopRatedMoviesContext";
 import { TrendingTvProvider } from "./context/TrendingTvContext";
 import { PopularTvProvider } from "./context/PopularTvContext";
 import { TopRatedTvProvider } from "./context/TopRatedTvContext";
+import { ComingSoonProvider } from "./context/ComingSoonContext";
 // import from apollo
 import {
   ApolloProvider,
@@ -93,6 +94,7 @@ const App = () => {
                     <TrendingTvProvider>
                       <PopularTvProvider>
                         <TopRatedTvProvider>
+                          <ComingSoonProvider>
                           <CssBaseline />
                           <Router>
                             <ScrollToTop />
@@ -137,6 +139,7 @@ const App = () => {
                             </Routes>
                             <Footer />
                           </Router>
+                          </ComingSoonProvider>
                         </TopRatedTvProvider>
                       </PopularTvProvider>
                     </TrendingTvProvider>

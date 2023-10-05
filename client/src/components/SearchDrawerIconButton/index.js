@@ -27,7 +27,7 @@ const SearchDrawerIconButton = () => {
       />
       <Link className={styles.searchButton} underline="none" component="button" onClick={handleOpenSearchDrawer}>
         <SearchIcon
-          sx={{ marginBottom: "-2rem" }}
+          sx={{ marginBottom: "-1.85rem" }}
           onClick={handleOpenSearchDrawer}
           fontSize="large"
         />

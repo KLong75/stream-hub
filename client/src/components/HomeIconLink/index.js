@@ -9,7 +9,7 @@ const HomeIconLink = () => {
   return (
     <>
       <Link className={styles.homeIconLink} underline="none" to="/home_page">
-        <HomeIcon fontSize="large" sx={{ marginBottom: "-2rem" }} />
+        <HomeIcon fontSize="large" sx={{ marginBottom: "-1.85rem" }} />
         <h6>Home</h6>
       </Link>
     </>

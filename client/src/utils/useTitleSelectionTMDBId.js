@@ -32,7 +32,7 @@ export const useTitleSelectionTMDBId = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
         navigate("/title_details");
         return;
       } else {
@@ -107,7 +107,7 @@ export const useTitleSelectionTMDBId = () => {
           JSON.stringify(cacheData)
         );
         // window.scrollTo(0, 0);
-        navigate("/title_details", { replace: true });
+        navigate("/title_details");
         console.log('navitgated to title details')
       } catch (error) {
         console.log(error);

@@ -9,6 +9,7 @@ import { TrendingTvContext } from "../../context/TrendingTvContext";
 import { TrendingMoviesContext } from "../../context/TrendingMoviesContext";
 // import { PopularTvContext } from "../../context/PopularTvContext";
 import { TopRatedMoviesContext } from "../../context/TopRatedMoviesContext";
+import { ComingSoonContext } from "../../context/ComingSoonContext";
 
 const WhatsHotGallery = () => {
   const galleryData = [
@@ -18,6 +19,7 @@ const WhatsHotGallery = () => {
     { context: TrendingTvContext, categoryTitle: "Trending TV Shows" },
     // { context: PopularTvContext, categoryTitle: "Popular TV Shows" },
     { context: TopRatedTvContext, categoryTitle: "Top Rated TV Shows" },
+    { context: ComingSoonContext, categoryTitle: "Coming Soon" },
   ];
 
   const titleSelectionHandler = useTitleSelectionTMDBId();
