@@ -33,6 +33,18 @@ main {
   min-height: 100vh;
 }
 
+/* @media (max-width: 768px) {
+   html {
+    font-size: 14px;
+   }
+}
+
+@media (max-width: 600px) {
+   html {
+    font-size: 12px;
+   }
+} */
+
 /* @media (max-width: 1445px) {
   .tv-button-container {
     right: 33% !important;
@@ -102,7 +114,7 @@ main {
   
 }
 
-@media (max-width: 900px) {
+@media (max-width: 920px) {
   .tv-button-container {
     right: 22% !important;
     top: 51% !important;

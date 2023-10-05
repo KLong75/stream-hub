@@ -138,23 +138,15 @@ const WatchList = () => {
                 <>
                   You have no saved titles!
                   <br />
-                  {/* <Link
-                    to="/search"
-                    style={{ textDecoration: "none", color: "black" }}
-                  > */}
                   Find Something To Watch!
+                  <br />
                   <SearchDrawerIconButton />
-                  {/* <SearchIcon
-                      fontSize="large"
-                      style={{ color: "black", marginBottom: "-.25rem" }}
-                    /> */}
-                  {/* </Link> */}
                 </>
               )
             }
           />
           {userData.savedTitles.length > 0 && (
-            <Box sx={{ marginTop: "-1rem" }}>
+            <Box sx={{ marginTop: "-2rem" }}>
               <FilterTitles setFilters={setFilters} />
             </Box>
           )}
@@ -182,31 +174,21 @@ const WatchList = () => {
                 key={title.id}
                 // style={{
                 //   backgroundImage: `url(${title.backdrop})`,
-                //   backgroundSize: "cover",
+                //   backgroundSize: "auto",
                 //   backgroundPosition: "center",
                 //   backgroundRepeat: "no-repeat",
                 // }}
+                style={{height: '100%', width: 'auto'}}
               >
-                <Box
-                  className={styles.backdropBox}
-                  style={{
-                    backgroundImage: `url(${title.backdrop})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-          
-                    position: "absolute", // make it absolute
-                    top: 0, // stick it to the top
-                    left: 0, // stick it to the left
-                    right: 0, // stretch it to the right
-                    zIndex: -1,
-                  }}></Box>
                 <Grid
                   container
                   spacing={2}
                   justifyContent="center"
                   alignItems="center"
                   textAlign="center">
+                  <Grid xs={12} >
+                    <img src={title.poster} alt={title.title} />
+                  </Grid>
                   <Grid xs={12}>
                     <h5 className={styles.title} data-swiper-parallax="-300">
                       {title.title}
@@ -219,8 +201,8 @@ const WatchList = () => {
                       {title.year}
                     </div>
                   </Grid>
-                  <Grid xs={12}>
-                    <img src={title.poster} alt={title.title} />
+                  <Grid xs={12} className={styles.backdropBox}>
+                    <img src={title.backdrop} alt={title.title} className={styles.backdrop}/>
                   </Grid>
                 </Grid>
                 <div className={styles.text} data-swiper-parallax="-100">

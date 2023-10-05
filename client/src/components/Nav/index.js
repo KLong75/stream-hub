@@ -88,9 +88,6 @@ const Nav = () => {
                       <Divider />
                     </>
                   )}
-                  {/* <ListItem sx={{ textAlign: "center", justifyContent: 'center'}}>
-                    <WhatsHotModal />
-                  </ListItem> */}
                   <Divider />
                   <ListItem
                     sx={{ textAlign: "center", justifyContent: "center" }}>
