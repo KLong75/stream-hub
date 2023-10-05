@@ -146,7 +146,7 @@ const WatchList = () => {
             }
           />
           {userData.savedTitles.length > 0 && (
-            <Box sx={{ marginTop: "-1rem" }}>
+            <Box sx={{ marginTop: "-2rem" }}>
               <FilterTitles setFilters={setFilters} />
             </Box>
           )}
@@ -172,12 +172,13 @@ const WatchList = () => {
               <SwiperSlide
                 className={styles.swiperSlide}
                 key={title.id}
-                style={{
-                  backgroundImage: `url(${title.backdrop})`,
-                  backgroundSize: "auto",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
+                // style={{
+                //   backgroundImage: `url(${title.backdrop})`,
+                //   backgroundSize: "auto",
+                //   backgroundPosition: "center",
+                //   backgroundRepeat: "no-repeat",
+                // }}
+                style={{height: '100%', width: 'auto'}}
               >
                 <Grid
                   container
@@ -185,6 +186,9 @@ const WatchList = () => {
                   justifyContent="center"
                   alignItems="center"
                   textAlign="center">
+                  <Grid xs={12} >
+                    <img src={title.poster} alt={title.title} />
+                  </Grid>
                   <Grid xs={12}>
                     <h5 className={styles.title} data-swiper-parallax="-300">
                       {title.title}
@@ -197,8 +201,8 @@ const WatchList = () => {
                       {title.year}
                     </div>
                   </Grid>
-                  <Grid xs={12}>
-                    <img src={title.poster} alt={title.title} />
+                  <Grid xs={12} className={styles.backdropBox}>
+                    <img src={title.backdrop} alt={title.title} className={styles.backdrop}/>
                   </Grid>
                 </Grid>
                 <div className={styles.text} data-swiper-parallax="-100">
