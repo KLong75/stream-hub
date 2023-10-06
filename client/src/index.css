@@ -32,6 +32,27 @@ code {
 main {
   min-height: 100vh;
 }
+h2 {
+  margin: .25rem;
+}
+
+h3 {
+  margin: .25rem;
+}
+
+h6 {
+  margin: .25rem;
+}
+
+.swiper-button-next {
+  margin-top: -16rem!important;
+}
+
+.swiper-button-prev {
+  margin-top: -16rem!important;
+}
+
+
 
 /* @media (max-width: 768px) {
    html {

@@ -10,8 +10,8 @@
   font-family: monospace;
   font-weight: 700;
   letter-spacing: .2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  /* margin-top: 1rem; */
+  /* margin-bottom: 1rem; */
 }
 
 .subHeading {

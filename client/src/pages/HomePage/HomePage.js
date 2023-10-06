@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 // import components
 import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
-import Heading from "../../components/Heading";
 import WhatsHotGallery from "../../components/WhatsHotGallery";
 // import from utils
 import Auth from "../../utils/auth";
@@ -12,7 +11,7 @@ import { useQuery } from "@apollo/client";
 
 
 
-// import styles from "./HomePage.module.css";
+import styles from "./HomePage.module.css";
 
 
 const HomePage = () => {
@@ -42,7 +41,7 @@ const HomePage = () => {
 
   return (
     <main>
-      <Heading heading={`Welcome back ${user.username}`} subHeading={''} variant='h2'/>
+      <h2 className={styles.greeting}>Welcome back {user.username}</h2>
         <section style={{marginTop: '0rem', marginBottom: '0rem'}}>
           <WatchList  />
         </section>
