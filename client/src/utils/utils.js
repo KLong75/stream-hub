@@ -1,3 +1,4 @@
+
 export const CACHE_DURATION = 30*24*60*60*1000; // 30 days
 
 export const CACHE_DURATION_ONE_DAY = 1000 * 60 * 60 * 24 * 1; // 1 day
@@ -19,7 +20,9 @@ export function formatDate(release_date) {
   return `${monthNames[monthIndex]}, ${day}, ${year}`;
 }
 
-export  const genreList = {
+
+
+export const genreList = {
   28: "Action",
   12: "Adventure",
   16: "Animation",

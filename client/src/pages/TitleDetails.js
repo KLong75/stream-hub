@@ -16,15 +16,16 @@ import {
 import Button from "@mui/material/Button";
 // import from utils
 import { CACHE_DURATION, formatDate } from "../utils/utils";
-
 import Auth from "../utils/auth";
-
-import { useMutation, useQuery } from "@apollo/client";
+import { useTitleSelection } from "../utils/useTitleSelection";
 import { SAVE_TITLE } from "../utils/mutations";
 import { QUERY_ME } from "../utils/queries";
-import { useTitleSelection } from "../utils/useTitleSelection";
-
+// import from apollo client
+import { useMutation, useQuery } from "@apollo/client";
+// import components
 import LoadingClapBoard from "../components/LoadingClapBoard";
+// import source logos
+import DisneyPlusLogo from "../assets/icons/DisneyPlusLogo.png";
 
 const TitleDetails = () => {
   const loggedIn = Auth.loggedIn();
@@ -52,6 +53,7 @@ const TitleDetails = () => {
   // console.log("savedTitleIds", savedTitleIds);
 
   const title = useContext(TitleDetailsContext);
+  console.log("title", title);
   const { selectedTitleDetails } = useContext(TitleDetailsContext);
   // console.log("selectedTitleDetails", selectedTitleDetails);
   const { setActorSearchResults } = useContext(SearchResultsContext);
@@ -414,7 +416,6 @@ const TitleDetails = () => {
       const similarTitles = selectedTitleDetails.similar_titles.slice(0, 5); // Adjust # of similar titles to fetch here
       // console.log(similarTitles)
       
-
       for (const similarTitleId of similarTitles) {
         const cachedSimilarTitles = localStorage.getItem(
           `similarTitles-${similarTitleId}`
@@ -790,15 +791,9 @@ const TitleDetails = () => {
           )}
           {/* Disney Plus button */}
           {disneyPlusUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={disneyPlusUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Watch on Disney Plus
-            </Button>
+            <a href={disneyPlusUrl} target="_blank" rel="noopener noreferrer" >
+              <img style={{height: '4rem'}} src={DisneyPlusLogo} alt="Disney+ Logo" />
+            </a>
           )}
           {/* Apple TV button */}
           {appleTvUrl && (
