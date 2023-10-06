@@ -43,8 +43,8 @@
 
 .backdrop {
   height: auto;
-  width: 99.9%;
-  opacity: 0.7;
+  width: 60%;
+  /* opacity: 0.7; */
     /* filter: blur(3px); */
 }
 

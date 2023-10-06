@@ -172,20 +172,21 @@ const WatchList = () => {
               <SwiperSlide
                 className={styles.swiperSlide}
                 key={title.id}
-                style={{ height: "100%", width: "auto" }}>
+                style={{ height: "100%", width: "auto" }}
+                >
                 <Grid
                   container
                   spacing={1}
                   justifyContent="center"
                   alignItems="center"
                   textAlign="center"
-                  //   style={{
-                  //     backgroundImage: `url(${title.backdrop})`,
-                  //     backgroundSize: "auto",
-                  //     backgroundPosition: "center",
-                  //     backgroundRepeat: "no-repeat",
-                  //     height: "100vh",
-                  //   }}
+                    // style={{
+                    //   backgroundImage: `url(${title.backdrop})`,
+                    //   backgroundSize: "auto",
+                    //   backgroundPosition: "center",
+                    //   backgroundRepeat: "no-repeat",
+                    //   height: "100vh",
+                    // }}
                 >
                   <Grid xs={12}>
                     <img src={title.poster} alt={title.title} />
