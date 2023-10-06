@@ -13,6 +13,7 @@ import { REMOVE_TITLE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useTitleSelection } from "../../utils/useTitleSelection";
 import { sourceLogos } from "../../utils/sourceLogos";
+import { buySourceLogos } from "../../utils/buySourceLogos";
 // import swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -101,7 +102,6 @@ const WatchList = () => {
         .flat();
 
       const titleSources = title.sources.map((source) => source.name);
-     
 
       if (!sourceFilter.some((filter) => titleSources.includes(filter))) {
         return false;
@@ -172,19 +172,21 @@ const WatchList = () => {
               <SwiperSlide
                 className={styles.swiperSlide}
                 key={title.id}
-                // style={{
-                //   backgroundImage: `url(${title.backdrop})`,
-                //   backgroundSize: "auto",
-                //   backgroundPosition: "center",
-                //   backgroundRepeat: "no-repeat",
-                // }}
                 style={{ height: "100%", width: "auto" }}>
                 <Grid
                   container
-                  spacing={2}
+                  spacing={1}
                   justifyContent="center"
                   alignItems="center"
-                  textAlign="center">
+                  textAlign="center"
+                  //   style={{
+                  //     backgroundImage: `url(${title.backdrop})`,
+                  //     backgroundSize: "auto",
+                  //     backgroundPosition: "center",
+                  //     backgroundRepeat: "no-repeat",
+                  //     height: "100vh",
+                  //   }}
+                >
                   <Grid xs={12}>
                     <img src={title.poster} alt={title.title} />
                   </Grid>
@@ -200,96 +202,132 @@ const WatchList = () => {
                       {title.year}
                     </div>
                   </Grid>
-                  <Grid xs={12} className={styles.backdropBox}>
+                  <Grid xs={12}>
                     <img
                       src={title.backdrop}
                       alt={title.title}
                       className={styles.backdrop}
                     />
                   </Grid>
-                </Grid>
-                <div className={styles.text} data-swiper-parallax="-100">
-                  <p>
-                    <strong>Genres: </strong> {title.genre_names.join(", ")}
-                  </p>
-                  {title.type && (
-                    <p>
-                      <strong>Type: </strong>
-                      {title.type === "movie"
-                        ? "Movie"
-                        : title.type === "tv_series"
-                        ? "TV Series"
-                        : title.type === "tv_miniseries"
-                        ? "TV Miniseries"
-                        : title.type === "short_film"
-                        ? "Short Film"
-                        : "Unknown Type"}
+
+                  {/* <div className={styles.text} > */}
+                  <Grid xs={12}>
+                    <p data-swiper-parallax="-100">
+                      <strong>Genres: </strong> {title.genre_names.join(", ")}
                     </p>
+                  </Grid>
+                  {title.type && (
+                    <Grid xs={12}>
+                      <p>
+                        <strong>Type: </strong>
+                        {title.type === "movie"
+                          ? "Movie"
+                          : title.type === "tv_series"
+                          ? "TV Series"
+                          : title.type === "tv_miniseries"
+                          ? "TV Miniseries"
+                          : title.type === "short_film"
+                          ? "Short Film"
+                          : "Unknown Type"}
+                      </p>
+                    </Grid>
                   )}
                   {/* <p>
                     <strong>Plot Overview: </strong>
                     {title.plot_overview}
                   </p> */}
-                  <div>
-                    {title.sources && title.sources.length > 0 && (
-                      <>
+                  {/* <div> */}
+                  {title.sources && title.sources.length > 0 && (
+                    <>
+                      <Grid xs={12}>
                         <p>
                           <strong>Watch On:</strong>
                         </p>
-                        {title.sources.map((source) => {
-                          return (
-                            <div key={`${title.id}-${source.source_id}`} style={{ width: "6rem", height: "auto", overflow: "hidden" }}>
-                              <a
-                                href={source.web_url}
-                                target="_blank"
-                                rel="noreferrer">
-                                <img
-                                  src={sourceLogos[source.name]}
-                                  alt={source.name}
-                                  style={{ maxWidth: "100%", maxHeight: "100%" }} />
-                                <p>{source.name}</p>
-                              </a>
-                            </div>
-                          );
-                        })}
-                      </>
-                    )}
-                  </div>
-                  <div>
-                    {title.buy_sources && title.buy_sources.length > 0 && (
-                      <>
+                      </Grid>
+                      {title.sources.map((source) => {
+                        return (
+                          <Grid
+                            xs={12}
+                            key={`${title.id}-${source.source_id}`}
+                            style={{
+                              width: "6rem",
+                              height: "auto",
+                              overflow: "hidden",
+                            }}>
+                            <a
+                              href={source.web_url}
+                              target="_blank"
+                              rel="noreferrer">
+                              <img
+                                src={sourceLogos[source.name]}
+                                alt={source.name}
+                                style={{ maxWidth: "100%", maxHeight: "100%" }}
+                              />
+                              {/* <p>{source.name}</p> */}
+                            </a>
+                          </Grid>
+                        );
+                      })}
+                    </>
+                  )}
+                  {/* </div> */}
+
+                  {/* <div> */}
+                  {title.buy_sources && title.buy_sources.length > 0 && (
+                    <>
+                      <Grid xs={12}>
                         <p>
                           <strong>Rent or buy on:</strong>
                         </p>
-                        {title.buy_sources.map((buy_source) => {
-                          return (
-                            <div key={`${title.id}-${buy_source.source_id}`}>
-                              <a
-                                href={buy_source.web_url}
-                                target="_blank"
-                                rel="noreferrer">
-                                <p>{buy_source.name}</p>
-                              </a>
-                            </div>
-                          );
-                        })}
-                      </>
-                    )}
-                  </div>
-                  <div className="watchlist-item-buttons">
+                      </Grid>
+                      {title.buy_sources.map((buy_source) => {
+                        return (
+                          <Grid
+                            xs={6}
+                            md={3}
+                            key={`${title.id}-${buy_source.source_id}`}
+                            style={{
+                              width: "6rem",
+                              height: "auto",
+                              overflow: "hidden",
+                              marginLeft: "1rem",
+                              marginRight: "1rem",
+                            }}  >
+                            <a
+                              href={buy_source.web_url}
+                              target="_blank"
+                              rel="noreferrer">
+                              <img
+                                src={buySourceLogos[buy_source.name]}
+                                alt={buy_source.name}
+                                style={{ maxWidth: "100%", maxHeight: "100%" }}
+                              />
+                              {/* <p>{buy_source.name}</p> */}
+                            </a>
+                          </Grid>
+                        );
+                      })}
+                    </>
+                  )}
+                  {/* </div> */}
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      value={title.id}
+                      onClick={handleTitleSelected}>
+                      Details
+                    </Button>
+                  </Grid>
+                  <Grid xs={12}>
                     <Button
                       variant="contained"
                       onClick={() => handleDeleteTitle(title.id)}>
                       Remove
                     </Button>
-                    <Button
-                      variant="contained"
-                      value={title.id}
-                      onClick={handleTitleSelected}>
-                      More Details
-                    </Button>
-                  </div>
-                </div>
+                  </Grid>
+
+                  {/* </div> */}
+                </Grid>
               </SwiperSlide>
             ))}
           </Swiper>
