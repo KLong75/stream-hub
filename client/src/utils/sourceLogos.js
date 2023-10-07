@@ -8,11 +8,14 @@ import PeacockLogo from "../assets/icons/peacockLogo.png";
 import ParamountPlusLogo from "../assets/icons/ParamountPlusLogo.png";
 import ShowtimeLogo from "../assets/icons/ShowtimeLogo.png";
 import StarzLogo from "../assets/icons/StarzLogo.png";
+import FuboTVLogo from "../assets/icons/FuboTVLogo.png";
+import DirecTVLogo from "../assets/icons/DirecTVLogo.png";
 
 export const sourceLogos = {
   'AppleTV+': AppleTVLogo,
   'Prime Video': PrimeVideoLogo,
   'Disney+': DisneyPlusLogo,
+  'DirecTV On Demand': DirecTVLogo,
   'Hulu': HuluLogo,
   'Netflix': NetflixLogo,
   'Max': MaxLogo,
@@ -33,5 +36,5 @@ export const sourceLogos = {
   // 'Hulu With Showtime': HuluWithShowtimeLogo,
   // 'YouTube Premium': YouTubePremiumLogo,
   // 'Showtime Amazon': ShowtimeAmazonLogo,
-  // 'Fubo TV': FuboTVLogo,
+  'fuboTV': FuboTVLogo,
 };

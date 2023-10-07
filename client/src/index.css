@@ -21,7 +21,7 @@ body {
   position: relative;
   min-height: 100%;
   overflow-x: hidden; 
-  /* background-color: lightgray!important; */
+  background-color: lightgray!important;
 }
 
 code {
@@ -32,6 +32,27 @@ code {
 main {
   min-height: 100vh;
 }
+h2 {
+  margin: .25rem;
+}
+
+h3 {
+  margin: .25rem;
+}
+
+h6 {
+  margin: .25rem;
+}
+
+.swiper-button-next {
+  margin-top: -10rem!important;
+}
+
+.swiper-button-prev {
+  margin-top: -10rem!important;
+}
+
+
 
 /* @media (max-width: 768px) {
    html {

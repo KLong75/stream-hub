@@ -66,7 +66,6 @@ const mapUiGenreToActualGenre = (uiGenre) => {
   return map[uiGenre] || uiGenre;
 };
 
-
 const FilterTitles = ({ setFilters }) => {
   const [typeFilter, setTypeFilter] = useState(defaultTypeFilter);
 
@@ -103,7 +102,7 @@ const FilterTitles = ({ setFilters }) => {
     const sourceArray = Object.keys(sourceFilter).filter(
       (key) => sourceFilter[key]
     );
-   
+
     const genreArray = Object.keys(genreFilter)
       .filter((key) => genreFilter[key])
       .map(mapUiGenreToActualGenre);
@@ -148,16 +147,29 @@ const FilterTitles = ({ setFilters }) => {
   return (
     <>
       <Grid container>
-      <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center">
-      <IconButton onClick={handleOpen}>
-        <FilterIcon fontSize="large" />
-      </IconButton>
+        <Grid
+          xs={12}
+          display="flex"
+          justifyContent="center"
+          textAlign="center"
+          alignItems="center"
+          sx={{ marginTop: "-.85rem"}}
+        >
+          <IconButton onClick={handleOpen}>
+            <FilterIcon fontSize="large" />
+          </IconButton>
+        </Grid>
+        {/* <Grid
+          xs={12}
+          display="flex"
+          justifyContent="center"
+          textAlign="center"
+          alignItems="center"
+          sx={{ marginTop: "-1.75rem" }}>
+          <h4>Filter Watch List</h4>
+        </Grid> */}
       </Grid>
-      <Grid xs={12} display="flex" justifyContent="center" textAlign="center" alignItems="center" sx={{marginTop: '-1.5rem'}}>
-      <h4>Filter Watch List</h4>
-      </Grid>
-      </Grid>
-      
+
       {activeFilters.length > 0 && (
         <div>
           <h5>Watchlist Filtered For:</h5>
