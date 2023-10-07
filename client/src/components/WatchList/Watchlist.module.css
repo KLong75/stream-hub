@@ -54,6 +54,17 @@
   margin: 0;
 }
 
+.sourceLogos:hover {
+  opacity: 0.5;
+  /* filter: brightness(180%) contrast(90%); */
+}
+
+.buySourceLogos:hover {
+  opacity: 0.5;
+  /* filter: brightness(120%) contrast(90%); */
+}
+
+
 .backdropBox{ 
  /* background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%); */
  height: 100vh;
@@ -64,7 +75,7 @@
 .backdrop {
   height: auto;
   width: 100%;
-  opacity: 0.5;
+  opacity: 0.4;
     /* filter: blur(3px); */
   padding: 8rem;
   position: relative;
