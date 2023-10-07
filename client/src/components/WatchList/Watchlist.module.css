@@ -40,17 +40,17 @@
 }
 
 .year {
-  font-size: 1rem;
+  font-size: .85rem;
   margin: 0;
 }
 
 .genre {
-  font-size: 1rem;
+  font-size: .85rem;
   margin: 0;
 }
 
 .type {
-  font-size: 1rem;
+  font-size: .85rem;
   margin: 0;
 }
 
@@ -73,11 +73,11 @@
 
 
 .backdrop {
-  height: auto;
+  height: 100%;
   width: 100%;
-  opacity: 0.4;
+  opacity: 0.6;
     /* filter: blur(3px); */
-  padding: 8rem;
+  padding: 12rem;
   position: relative;
 }
 

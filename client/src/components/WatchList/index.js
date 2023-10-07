@@ -7,6 +7,9 @@ import { useQuery, useMutation } from "@apollo/client";
 // import from mui
 import { Button, Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import RemoveIcon from '@mui/icons-material/Remove';
+import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
 // import from utils
 import { QUERY_ME } from "../../utils/queries";
 import { REMOVE_TITLE } from "../../utils/mutations";
@@ -174,40 +177,62 @@ const WatchList = () => {
                   spacing={1}
                   justifyContent="center"
                   alignItems="end"
-                  textAlign="center"
-                  // style={{
-                  //   backgroundImage: `url(${title.backdrop})`,
-                  //   backgroundSize: "auto",
-                  //   backgroundPosition: "center",
-                  //   backgroundRepeat: "no-repeat",
-                  //   height: "100vh",
-                  // }}
-                >
-                  <Grid
-                    xs={12}
-                    sx={{
-                      marginTop: "",
-                      top: "2%",
-                      position: "fixed",
-                      padding: ".35rem",
-                    }}>
-                    <h5 className={styles.title} data-swiper-parallax="-300">
-                      {title.title}
-                    </h5>
+                  textAlign="center">
+                  <Grid xs={3}></Grid>
+                  <Grid container xs={12}>
+                    <Grid
+                      xs={12}
+                      sx={{
+                        marginTop: "",
+                        // top: "2%",
+                        // position: "fixed",
+                        padding: ".35rem",
+                      }}>
+
+                      <h5 className={styles.title} data-swiper-parallax="-300">
+                        {title.title}
+                      </h5>
+                    </Grid>
+                    <Grid
+                      xs={12}
+                      sx={{
+                        marginTop: "-.25rem",
+                        padding: ".35rem",
+                      }}>
+                      <h6 data-swiper-parallax="-200" className={styles.genre}>
+                        {title.genre_names.join(", ")}
+                      </h6>
+                    </Grid>
+                    {/* {title.type && (
+                      <Grid xs={12}>
+                        <h6 className={styles.type}>
+                          {title.type === "movie"
+                            ? "Movie"
+                            : title.type === "tv_series"
+                            ? "TV Series"
+                            : title.type === "tv_miniseries"
+                            ? "TV Miniseries"
+                            : title.type === "short_film"
+                            ? "Short Film"
+                            : "Unknown Type"}
+                        </h6>
+                      </Grid>
+                    )}
+                    <Grid xs={12}>
+                      <h6 className={styles.year} data-swiper-parallax="-200">
+                        {title.year}
+                      </h6>
+                    </Grid> */}
                   </Grid>
 
-                  <Grid
-                    xs={12}
-                    sx={{
-                      marginTop: "",
-                      top: "6%",
-                      position: "fixed",
-                      padding: ".35rem",
-                    }}>
-                    <h6 data-swiper-parallax="-200" className={styles.genre}>
-                      {title.genre_names.join(", ")}
-                    </h6>
-                  </Grid>
+                  <Grid xs={12} md={2} sx={{ position: "relative", marginTop: '.25rem' }}>
+                    <img
+                      
+                      src={title.poster}
+                      alt={title.title}
+                      data-swiper-parallax="-100"
+                    />
+                  </Grid> 
 
                   {title.sources && title.sources.length > 0 && (
                     <>
@@ -229,7 +254,7 @@ const WatchList = () => {
                             xs={12}
                             key={`${title.id}-${source.source_id}`}
                             style={{
-                              height: "5rem",
+                              height: "3.5rem",
                               overflow: "hidden",
                               zIndex: "100",
                               padding: "0",
@@ -262,7 +287,7 @@ const WatchList = () => {
                               xs={12}
                               key={`placeholder-${index}`}
                               style={{
-                                height: "5rem",
+                                height: "3.5rem",
                                 overflow: "hidden",
                                 zIndex: "100",
                                 padding: "0",
@@ -273,7 +298,7 @@ const WatchList = () => {
                                   height: "2.5rem",
                                   display: "block",
                                   margin: "0 auto",
-                                  border: "1px dashed #ccc",
+                                  // border: "1px dashed #ccc",
                                 }}
                               />
                             </Grid>
@@ -282,17 +307,9 @@ const WatchList = () => {
                     </>
                   )}
 
-                  <Grid xs={12} md={2} sx={{ position: "relative" }}>
-                    <img
-                      src={title.poster}
-                      alt={title.title}
-                      data-swiper-parallax="-100"
-                    />
-                  </Grid>
-
                   {title.buy_sources && title.buy_sources.length > 0 && (
                     <Grid
-                      sx={{ padding: ".25rem" }}
+                      sx={{ padding: ".25rem",  }}
                       container
                       spacing={0}
                       xs={12}
@@ -309,7 +326,7 @@ const WatchList = () => {
                           xs={12}
                           key={`${title.id}-${buy_source.source_id}`}
                           style={{
-                            height: "5rem",
+                            height: "3.5rem",
                             overflow: "hidden",
                             zIndex: "100",
                             padding: "0",
@@ -336,45 +353,34 @@ const WatchList = () => {
                     </Grid>
                   )}
 
-                  {/* {title.type && (
-                    <Grid xs={12}>
-                      <h6 className={styles.type}>
-                        {title.type === "movie"
-                          ? "Movie"
-                          : title.type === "tv_series"
-                          ? "TV Series"
-                          : title.type === "tv_miniseries"
-                          ? "TV Miniseries"
-                          : title.type === "short_film"
-                          ? "Short Film"
-                          : "Unknown Type"}
-                      </h6>
+                  <Grid container xs={12} >  
+                    <Grid xs={0} md={2}></Grid>                 
+                    <Grid xs={12} md={4}>
+                      <IconButton
+                        sx={{color: 'black'}}
+                        data-swiper-parallax="-200"
+                        value={title.id}
+                        onClick={handleTitleSelected}>
+                        <InfoIcon fontSize="large"/>
+                       Details
+                      </IconButton>
                     </Grid>
-                  )}
-
-                  <Grid xs={12} sx={{ marginTop: "" }}>
-                    <h6 className={styles.year} data-swiper-parallax="-200">
-                      {title.year}
-                    </h6>
-                  </Grid> */}
-
-                  {/* </Grid>
-                  </Grid> */}
-                  {/* <Grid xs={12}>
-                    <Grid
-                      container
-                      justifyContent="center"
-                      sx={{ marginTop: "", zIndex: "100" }}> */}
-
-                  {/* </Grid>
-                  </Grid> */}
+                    <Grid xs={12} md={4}>
+                      <IconButton
+                        sx={{color: 'black'}}
+                        data-swiper-parallax="-200"
+                        variant="contained"
+                        onClick={() => handleDeleteTitle(title.id)}>
+                        <RemoveIcon fontSize="large"/>
+                        Remove
+                      </IconButton>
+                    </Grid>
+                    <Grid xs={0} md={2}></Grid> 
+                  </Grid>
 
                   {title.backdrop && (
-                    <Grid xs={12} sx={{ marginTop: "-33.5rem", zIndex: "-1" }}>
-                      <Grid
-                        container
-                        justifyContent="center"
-                        sx={{ marginTop: "", zIndex: "100" }}>
+                    <Grid xs={12} sx={{ marginTop: "-40rem", zIndex: "-1" }}>
+                      <Grid container justifyContent="center">
                         <Grid xs={12}>
                           <img
                             data-swiper-parallax="-400"
@@ -387,7 +393,7 @@ const WatchList = () => {
                     </Grid>
                   )}
 
-                  <Grid container xs={12} sx={{ marginTop: "-14rem" }}>
+                  {/* <Grid container xs={12} >
                     <Grid xs={12} md={6}>
                       <Button
                         data-swiper-parallax="-200"
@@ -406,7 +412,7 @@ const WatchList = () => {
                         Remove
                       </Button>
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </SwiperSlide>
             ))}
