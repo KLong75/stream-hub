@@ -214,7 +214,7 @@ const WatchList = () => {
                       <Grid
                         sx={{ padding: ".25rem" }}
                         container
-                        spacing={1}
+                        spacing={0}
                         xs={12}
                         md={2}>
                         <Grid xs={12}>
@@ -294,7 +294,7 @@ const WatchList = () => {
                     <Grid
                       sx={{ padding: ".25rem" }}
                       container
-                      spacing={1}
+                      spacing={0}
                       xs={12}
                       md={2}>
                       <Grid xs={12}>
