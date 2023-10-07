@@ -34,7 +34,7 @@ const Header = () => {
             <h1 className={styles.appTitle}>streamHub</h1>
           </Grid>
           <Grid xs={0} md={3}></Grid>
-          <Grid xs={3} md={3} sx={{marginBottom: '-.75rem', marginLeft: '-2rem'}}>
+          <Grid xs={3} md={3} sx={{marginBottom: '-.5rem', marginLeft: '-2rem'}}>
             <Nav />
           </Grid>
         </Grid>

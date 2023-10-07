@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AccountSettingsDrawer from "../AccountSettingsDrawer";
-import { Link } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import styles from "./AccountSettingsIconButton.module.css";
@@ -21,13 +20,15 @@ const AccountSettingsIconButton = () => {
         isOpen={isSettingsDrawerOpen}
         onClose={handleCloseSettingsDrawer}
       />
-      <Link className={styles.settingsButton} underline="none" component="button" onClick={handleOpenSettingsDrawer}>
+      {/* <Link className={styles.settingsButton} underline="none"> */}
         <SettingsIcon
-          sx={{ marginBottom: "-1.85rem" }}
+          className={styles.settingsButton}
+          onClick={handleOpenSettingsDrawer}
+          sx={{ marginBottom: "-.85rem", cursor: "pointer" }}
           fontSize="large"
         />
         <h6>Settings</h6>
-      </Link>
+      {/* </Link> */}
     </>
   );
 };
