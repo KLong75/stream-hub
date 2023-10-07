@@ -183,29 +183,41 @@ const WatchList = () => {
                   //   height: "100vh",
                   // }}
                 >
-                
-                  <Grid xs={12} sx={{ marginTop: "", top: '2%', position: 'fixed', padding: '.35rem' }}>
+                  <Grid
+                    xs={12}
+                    sx={{
+                      marginTop: "",
+                      top: "2%",
+                      position: "fixed",
+                      padding: ".35rem",
+                    }}>
                     <h5 className={styles.title} data-swiper-parallax="-300">
                       {title.title}
                     </h5>
                   </Grid>
 
-                  <Grid xs={12} sx={{ marginTop: "", top: '6%', position: 'fixed', padding: '.35rem' }}>
+                  <Grid
+                    xs={12}
+                    sx={{
+                      marginTop: "",
+                      top: "6%",
+                      position: "fixed",
+                      padding: ".35rem",
+                    }}>
                     <h6 data-swiper-parallax="-200" className={styles.genre}>
                       {title.genre_names.join(", ")}
                     </h6>
                   </Grid>
-              
 
                   {title.sources && title.sources.length > 0 && (
                     <>
                       <Grid
-                        sx={{ padding: '.25rem' }}
+                        sx={{ padding: ".25rem" }}
                         container
                         spacing={1}
                         xs={12}
                         md={2}>
-                        <Grid xs={12} >
+                        <Grid xs={12}>
                           <h6
                             style={{ fontSize: "1rem" }}
                             data-swiper-parallax="-300">
@@ -220,7 +232,7 @@ const WatchList = () => {
                               height: "5rem",
                               overflow: "hidden",
                               zIndex: "100",
-                              padding: '0',
+                              padding: "0",
                             }}>
                             <a
                               href={source.web_url}
@@ -245,7 +257,7 @@ const WatchList = () => {
                         {Array(4 - title.sources.length)
                           .fill()
                           .map((_, index) => (
-                            <Grid  
+                            <Grid
                               item
                               xs={12}
                               key={`placeholder-${index}`}
@@ -253,7 +265,7 @@ const WatchList = () => {
                                 height: "5rem",
                                 overflow: "hidden",
                                 zIndex: "100",
-                                padding: '0',
+                                padding: "0",
                               }}>
                               <div
                                 style={{
@@ -262,7 +274,6 @@ const WatchList = () => {
                                   display: "block",
                                   margin: "0 auto",
                                   border: "1px dashed #ccc",
-                                 
                                 }}
                               />
                             </Grid>
@@ -280,49 +291,49 @@ const WatchList = () => {
                   </Grid>
 
                   {title.buy_sources && title.buy_sources.length > 0 && (
-                    <>
-                      <Grid container xs={12} md={2}>
-                        <Grid xs={12}>
-                          <h6
-                            style={{ fontSize: "1rem" }}
-                            data-swiper-parallax="-300">
-                            Click to rent or buy:
-                          </h6>
-                        </Grid>
-                        {title.buy_sources.map((buy_source) => {
-                          return (
-                            <Grid
-                              xs={12}
-                              key={`${title.id}-${buy_source.source_id}`}
-                              style={{
-                                height: "auto",
-                                overflow: "hidden",
-                                zIndex: "100",
-                              }}>
-                              <a
-                                href={buy_source.web_url}
-                                target="_blank"
-                                rel="noreferrer">
-                                <img
-                                  className={styles.buySourceLogos}
-                                  data-swiper-parallax="-200"
-                                  src={buySourceLogos[buy_source.name]}
-                                  alt={buy_source.name}
-                                  style={{
-                                    maxWidth: "6rem",
-                                    maxHeight: "auto",
-                                    display: "block",
-                                    margin: "0 auto",
-                                    marginTop: "0.5rem",
-                                    marginBottom: "0.5rem",
-                                  }}
-                                />
-                              </a>
-                            </Grid>
-                          );
-                        })}
+                    <Grid
+                      sx={{ padding: ".25rem" }}
+                      container
+                      spacing={1}
+                      xs={12}
+                      md={2}>
+                      <Grid xs={12}>
+                        <h6
+                          style={{ fontSize: "1rem" }}
+                          data-swiper-parallax="-300">
+                          Click to rent or buy:
+                        </h6>
                       </Grid>
-                    </>
+                      {title.buy_sources.map((buy_source) => (
+                        <Grid
+                          xs={12}
+                          key={`${title.id}-${buy_source.source_id}`}
+                          style={{
+                            height: "5rem",
+                            overflow: "hidden",
+                            zIndex: "100",
+                            padding: "0",
+                          }}>
+                          <a
+                            href={buy_source.web_url}
+                            target="_blank"
+                            rel="noreferrer">
+                            <img
+                              className={styles.buySourceLogos}
+                              data-swiper-parallax="-200"
+                              src={buySourceLogos[buy_source.name]}
+                              alt={buy_source.name}
+                              style={{
+                                maxWidth: "6rem",
+                                maxHeight: "auto",
+                                display: "block",
+                                margin: "0 auto",
+                              }}
+                            />
+                          </a>
+                        </Grid>
+                      ))}
+                    </Grid>
                   )}
 
                   {/* {title.type && (
