@@ -173,7 +173,7 @@ const WatchList = () => {
                   container
                   spacing={1}
                   justifyContent="center"
-                  alignItems="center"
+                  alignItems="end"
                   textAlign="center"
                   // style={{
                   //   backgroundImage: `url(${title.backdrop})`,
@@ -183,79 +183,44 @@ const WatchList = () => {
                   //   height: "100vh",
                   // }}
                 >
-                  <Grid xs={12} sx={{ marginTop: "" }}>
+                
+                  <Grid xs={12} sx={{ marginTop: "", top: '2%', position: 'fixed', padding: '.35rem' }}>
                     <h5 className={styles.title} data-swiper-parallax="-300">
                       {title.title}
                     </h5>
                   </Grid>
 
-                  <Grid xs={12}>
+                  <Grid xs={12} sx={{ marginTop: "", top: '6%', position: 'fixed', padding: '.35rem' }}>
                     <h6 data-swiper-parallax="-200" className={styles.genre}>
                       {title.genre_names.join(", ")}
                     </h6>
                   </Grid>
-
-                  {/* {title.sources && title.sources.length > 0 && (
-                    <>
-                      <Grid container xs={12} md={2} >
-                      <Grid xs={12}>
-                        <h6 style={{ fontSize: "1rem" }} data-swiper-parallax="-100"> Click to watch:</h6>
-                      </Grid>
-                      {title.sources.map((source) => {
-                        return (
-                          <Grid
-                            xs={12}
-                            key={`${title.id}-${source.source_id}`}
-                            style={{
-                              height: "auto",
-                              overflow: "hidden",
-                              zIndex: "100",
-                            }}>
-                            <a
-                              href={source.web_url}
-                              target="_blank"
-                              rel="noreferrer">
-                              <img
-                                className={styles.sourceLogos}                                
-                                data-swiper-parallax="-100"
-                                src={sourceLogos[source.name]}
-                                alt={source.name}
-                                style={{
-                                  maxWidth: "6rem",
-                                  maxHeight: "auto",
-                                  display: "block",
-                                  margin: "0 auto",
-                                  marginTop: "0.5rem",
-                                  marginBottom: "0.5rem",
-                                }}
-                              />
-                            </a>
-                          </Grid>
-                        );
-                      })}
-                      </Grid>
-                    </>
-                  )} */}
+              
 
                   {title.sources && title.sources.length > 0 && (
                     <>
-                      <Grid container xs={12} md={2}>
-                        <Grid item xs={12}>
+                      <Grid
+                        sx={{ padding: '.25rem' }}
+                        container
+                        spacing={1}
+                        xs={12}
+                        md={2}>
+                        <Grid xs={12} >
                           <h6
                             style={{ fontSize: "1rem" }}
-                            data-swiper-parallax="-100">
+                            data-swiper-parallax="-300">
                             Click to watch:
                           </h6>
                         </Grid>
                         {title.sources.map((source) => (
                           <Grid
-                            item
                             xs={12}
                             key={`${title.id}-${source.source_id}`}
                             style={{
-                              height: "auto",
+                              height: "5rem",
                               overflow: "hidden",
                               zIndex: "100",
+                              padding: '0',
                             }}>
                             <a
                               href={source.web_url}
@@ -263,7 +228,7 @@ const WatchList = () => {
                               rel="noreferrer">
                               <img
                                 className={styles.sourceLogos}
-                                data-swiper-parallax="-100"
+                                data-swiper-parallax="-200"
                                 src={sourceLogos[source.name]}
                                 alt={source.name}
                                 style={{
@@ -271,8 +236,6 @@ const WatchList = () => {
                                   maxHeight: "auto",
                                   display: "block",
                                   margin: "0 auto",
-                                  marginTop: "0.5rem",
-                                  marginBottom: "0.5rem",
                                 }}
                               />
                             </a>
@@ -282,14 +245,15 @@ const WatchList = () => {
                         {Array(4 - title.sources.length)
                           .fill()
                           .map((_, index) => (
-                            <Grid
+                            <Grid  
                               item
                               xs={12}
                               key={`placeholder-${index}`}
                               style={{
-                                height: "auto",
+                                height: "5rem",
                                 overflow: "hidden",
                                 zIndex: "100",
+                                padding: '0',
                               }}>
                               <div
                                 style={{
@@ -297,9 +261,8 @@ const WatchList = () => {
                                   height: "2.5rem",
                                   display: "block",
                                   margin: "0 auto",
-                                  marginTop: "0.5rem",
-                                  marginBottom: "0.5rem",
-                                  // border: "1px dashed #ccc",
+                                  border: "1px dashed #ccc",
+                                 
                                 }}
                               />
                             </Grid>
@@ -312,7 +275,7 @@ const WatchList = () => {
                     <img
                       src={title.poster}
                       alt={title.title}
-                      data-swiper-parallax="-200"
+                      data-swiper-parallax="-100"
                     />
                   </Grid>
 
@@ -342,12 +305,10 @@ const WatchList = () => {
                                 rel="noreferrer">
                                 <img
                                   className={styles.buySourceLogos}
-                                  data-swiper-parallax="-400"
+                                  data-swiper-parallax="-200"
                                   src={buySourceLogos[buy_source.name]}
                                   alt={buy_source.name}
                                   style={{
-                                    // maxWidth: "100%",
-                                    // maxHeight: "100%",
                                     maxWidth: "6rem",
                                     maxHeight: "auto",
                                     display: "block",
@@ -398,13 +359,14 @@ const WatchList = () => {
                   </Grid> */}
 
                   {title.backdrop && (
-                    <Grid xs={12} sx={{ marginTop: "-32rem", zIndex: "-1" }}>
+                    <Grid xs={12} sx={{ marginTop: "-33.5rem", zIndex: "-1" }}>
                       <Grid
                         container
                         justifyContent="center"
                         sx={{ marginTop: "", zIndex: "100" }}>
                         <Grid xs={12}>
                           <img
+                            data-swiper-parallax="-400"
                             src={title.backdrop}
                             alt={title.title}
                             className={styles.backdrop}
@@ -417,6 +379,7 @@ const WatchList = () => {
                   <Grid container xs={12} sx={{ marginTop: "-14rem" }}>
                     <Grid xs={12} md={6}>
                       <Button
+                        data-swiper-parallax="-200"
                         variant="contained"
                         value={title.id}
                         onClick={handleTitleSelected}>
@@ -426,6 +389,7 @@ const WatchList = () => {
 
                     <Grid xs={12} md={6}>
                       <Button
+                        data-swiper-parallax="-200"
                         variant="contained"
                         onClick={() => handleDeleteTitle(title.id)}>
                         Remove
