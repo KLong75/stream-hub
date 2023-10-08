@@ -7,8 +7,11 @@ import { useQuery, useMutation } from "@apollo/client";
 // import from mui
 import { Button, Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import RemoveIcon from '@mui/icons-material/Remove';
-import InfoIcon from '@mui/icons-material/Info';
+// import RemoveIcon from '@mui/icons-material/Remove';
+// import InfoIcon from '@mui/icons-material/Info';
+import ButtonBase from '@mui/material/ButtonBase';
+// import DeleteIcon from '@mui/icons-material/Delete';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IconButton from '@mui/material/IconButton';
 // import from utils
 import { QUERY_ME } from "../../utils/queries";
@@ -28,6 +31,7 @@ import FilterTitles from "../FilterTitles";
 // import styles
 import styles from "./Watchlist.module.css";
 
+
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
   const { username: userParam } = useParams();
@@ -37,6 +41,7 @@ const WatchList = () => {
   const userData = data?.me || {};
   // console.log(userData)
   const handleTitleSelected = useTitleSelection();
+ 
   const [removeTitle] = useMutation(REMOVE_TITLE);
 
   const handleDeleteTitle = async (id) => {
@@ -226,12 +231,14 @@ const WatchList = () => {
                   </Grid>
 
                   <Grid xs={12} md={2} sx={{ position: "relative", marginTop: '.25rem' }}>
+                  <ButtonBase onClick={(event) => handleTitleSelected(title.id, event)} >
                     <img
-                      
+                      className={styles.poster}
                       src={title.poster}
                       alt={title.title}
                       data-swiper-parallax="-100"
                     />
+                    </ButtonBase>
                   </Grid> 
 
                   {title.sources && title.sources.length > 0 && (
@@ -354,32 +361,22 @@ const WatchList = () => {
                   )}
 
                   <Grid container xs={12} >  
-                    <Grid xs={0} md={2}></Grid>                 
-                    <Grid xs={12} md={4}>
-                      <IconButton
-                        sx={{color: 'black'}}
-                        data-swiper-parallax="-200"
-                        value={title.id}
-                        onClick={handleTitleSelected}>
-                        <InfoIcon fontSize="large"/>
-                       Details
-                      </IconButton>
-                    </Grid>
+                    <Grid xs={0} md={3}></Grid>                 
+                    <Grid xs={0} md={4}></Grid>
                     <Grid xs={12} md={4}>
                       <IconButton
                         sx={{color: 'black'}}
                         data-swiper-parallax="-200"
                         variant="contained"
                         onClick={() => handleDeleteTitle(title.id)}>
-                        <RemoveIcon fontSize="large"/>
-                        Remove
+                        <HighlightOffIcon fontSize="large"/>
                       </IconButton>
                     </Grid>
-                    <Grid xs={0} md={2}></Grid> 
+                    <Grid xs={0} md={1}></Grid> 
                   </Grid>
 
                   {title.backdrop && (
-                    <Grid xs={12} sx={{ marginTop: "-40rem", zIndex: "-1" }}>
+                    <Grid xs={12} sx={{ marginTop: "-39rem", zIndex: "-1" }}>
                       <Grid container justifyContent="center">
                         <Grid xs={12}>
                           <img
@@ -393,7 +390,7 @@ const WatchList = () => {
                     </Grid>
                   )}
 
-                  {/* <Grid container xs={12} >
+                  <Grid container xs={12} >
                     <Grid xs={12} md={6}>
                       <Button
                         data-swiper-parallax="-200"
@@ -412,7 +409,7 @@ const WatchList = () => {
                         Remove
                       </Button>
                     </Grid>
-                  </Grid> */}
+                  </Grid>
                 </Grid>
               </SwiperSlide>
             ))}

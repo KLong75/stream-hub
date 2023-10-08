@@ -54,6 +54,15 @@
   margin: 0;
 }
 
+.poster {
+  
+}
+
+.poster:hover {
+  opacity: .6;
+  
+}
+
 .sourceLogos:hover {
   opacity: 0.5;
   /* filter: brightness(180%) contrast(90%); */
