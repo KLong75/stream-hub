@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import WhatsHotGallery from "../../components/WhatsHotGallery";
-import CategoryLinks from "../../components/CategoryLinks";
+import TrendingCategoryLinks from "../../components/TrendingCategoryLinks";
 // import from utils
 import Auth from "../../utils/auth";
 import { QUERY_ME } from "../../utils/queries";
@@ -42,7 +42,7 @@ const HomePage = () => {
 
   return (
     <main>
-      <CategoryLinks />      
+      <TrendingCategoryLinks />      
       <h2 className={styles.greeting}>Welcome back {user.username}</h2>
         <section style={{marginTop: '0rem', marginBottom: '0rem'}}>
           <WatchList  />

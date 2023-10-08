@@ -16,6 +16,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GenreSourceTypeResults from "./pages/GenreSourceTypeResults";
 import ScrollToTop from "./components/ScrollToTop.js";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 // import context providers
 import { SearchResultsProvider } from "./context/SearchResultsContext";
 import { TitleDetailsProvider } from "./context/TitleDetailsContext";
@@ -59,6 +60,17 @@ const client = new ApolloClient({
 
 const theme = createTheme({
   components: {
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: 'black', '&:hover': {
+            color: 'white',
+            // opacity: '0.5'
+          }
+        },
+
+    },
+  },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -137,6 +149,7 @@ const App = () => {
                               /> */}
                               <Route path="*" element={<LandingPage />} />
                             </Routes>
+                            <ScrollToTopButton />
                             <Footer />
                           </Router>
                           </ComingSoonProvider>

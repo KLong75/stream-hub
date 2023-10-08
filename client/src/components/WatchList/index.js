@@ -185,15 +185,7 @@ const WatchList = () => {
                   textAlign="center">
                   <Grid xs={3}></Grid>
                   <Grid container xs={12}>
-                    <Grid
-                      xs={12}
-                      sx={{
-                        marginTop: "",
-                        // top: "2%",
-                        // position: "fixed",
-                        padding: ".35rem",
-                      }}>
-
+                    <Grid xs={12} sx={{ marginTop: "", padding: ".35rem" }}>
                       <h5 className={styles.title} data-swiper-parallax="-300">
                         {title.title}
                       </h5>
@@ -251,7 +243,7 @@ const WatchList = () => {
                         md={2}>
                         <Grid xs={12}>
                           <h6
-                            style={{ fontSize: "1rem" }}
+                            style={{ fontSize: "1.25rem" }}
                             data-swiper-parallax="-300">
                             Click to watch:
                           </h6>
@@ -323,7 +315,7 @@ const WatchList = () => {
                       md={2}>
                       <Grid xs={12}>
                         <h6
-                          style={{ fontSize: "1rem" }}
+                          style={{ fontSize: "1.25rem" }}
                           data-swiper-parallax="-300">
                           Click to rent or buy:
                         </h6>
@@ -390,7 +382,7 @@ const WatchList = () => {
                     </Grid>
                   )}
 
-                  <Grid container xs={12} >
+                  {/* <Grid container xs={12} >
                     <Grid xs={12} md={6}>
                       <Button
                         data-swiper-parallax="-200"
@@ -409,7 +401,7 @@ const WatchList = () => {
                         Remove
                       </Button>
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </SwiperSlide>
             ))}

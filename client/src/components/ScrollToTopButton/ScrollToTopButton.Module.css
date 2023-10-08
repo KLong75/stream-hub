@@ -1,0 +1,13 @@
+/* src/ScrollToTop.module.css */
+.button {
+  /* position: fixed;
+  bottom: 2%;
+  right: 2%; */
+  background-color: #3f51b5; /* adjust to your preference */
+  z-index: 1000;
+}
+
+.button:hover {
+  background-color: #2e40a4; /* adjust to your preference */
+}
+
