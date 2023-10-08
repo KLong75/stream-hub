@@ -22,7 +22,7 @@ const LogOutButton = () => {
         role="button"
         onClick={logout}
       >
-        <LogoutIcon fontSize="large" sx={{  marginBottom: "-.85rem" }} style={{ marginLeft: '.75rem' }} />
+        <LogoutIcon fontSize="large" sx={{  marginBottom: "-.5rem" }} style={{ marginLeft: '.75rem' }} />
       <h6>Log Out</h6>
       </Link>
     </>

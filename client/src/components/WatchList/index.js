@@ -358,7 +358,7 @@ const WatchList = () => {
                     <Grid xs={12} md={4}>
                       <IconButton
                         sx={{color: 'black'}}
-                        data-swiper-parallax="-200"
+                        data-swiper-parallax="-100"
                         variant="contained"
                         onClick={() => handleDeleteTitle(title.id)}>
                         <HighlightOffIcon fontSize="large"/>

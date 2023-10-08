@@ -17,7 +17,6 @@ const ScrollToTopButton = () => {
 
   // Scroll smoothly to the top
   const scrollToTop = () => {
-    console.log("scroll up clicked");
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -41,7 +40,7 @@ const ScrollToTopButton = () => {
           right: "2%",
           zIndex: 1000,
           backgroundImage: "linear-gradient(315deg, #43cea2 0%, #185a9d 75%)",
-          color: "black", // Since you wanted the icon color to be black
+          color: "black", 
           "&:hover": {
             opacity: 1,
             transform: "scale(1.05)",
