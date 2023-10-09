@@ -8,9 +8,10 @@ export const useTitleSelection = () => {
   const navigate = useNavigate();
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
-  const handleTitleSelected = async (event) => {
-    event.preventDefault();
-    const selectedTitleId = event.target.value;
+  const handleTitleSelected = async (id, event) => {
+    if (event) event.preventDefault();
+    // const selectedTitleId = event.target.value;
+    const selectedTitleId = id;
     // console.log(selectedTitleId);
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`

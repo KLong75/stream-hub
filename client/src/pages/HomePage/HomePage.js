@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import WhatsHotGallery from "../../components/WhatsHotGallery";
+import TrendingCategoryLinks from "../../components/TrendingCategoryLinks";
 // import from utils
 import Auth from "../../utils/auth";
 import { QUERY_ME } from "../../utils/queries";
@@ -41,11 +42,12 @@ const HomePage = () => {
 
   return (
     <main>
+      <TrendingCategoryLinks />      
       <h2 className={styles.greeting}>Welcome back {user.username}</h2>
         <section style={{marginTop: '0rem', marginBottom: '0rem'}}>
           <WatchList  />
         </section>
-        <section style={{marginTop: '-4rem'}}>
+        <section style={{marginTop: '-10rem'}}>
           <WhatsHotGallery />
         </section> 
     </main>

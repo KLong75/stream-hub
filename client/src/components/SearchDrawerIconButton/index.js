@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SearchDrawer from '../../components/SearchDrawer';
 // import from mui
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from "@mui/material";
 // import from styles
 import styles from './SearchDrawerIconButton.module.css';
 
@@ -24,15 +25,15 @@ const SearchDrawerIconButton = () => {
         isOpen={isSearchDrawerOpen}
         onClose={handleCloseSearchDrawer}
       />
-      {/* <Link className={styles.searchButton} underline="none" component="button" onClick={handleOpenSearchDrawer}> */}
+      <Link className={styles.searchButton} underline="none" component="button" onClick={handleOpenSearchDrawer}>
         <SearchIcon
           className={styles.searchButton}
-          sx={{ marginBottom: "-.85rem", cursor: "pointer" }}
-          onClick={handleOpenSearchDrawer}
+          sx={{ marginBottom: "-.5rem", cursor: "pointer" }}
+          // onClick={handleOpenSearchDrawer}
           fontSize="large"
         />
-        <h6 styles={{margin: ''}}>Search</h6>
-      {/* </Link> */}
+        <h6 styles={{margin: '3rem'}}>Search</h6>
+      </Link>
     </>
   );
 };
