@@ -1,15 +1,15 @@
 
 .tvScreen {
   background: #262424;
-  border: 10px solid #555;
+  border: 6px solid #555;
   border-radius: 70px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   width: 20rem;  /* or whatever size you want */
-  height: 14rem;
+  height: 16rem;
   z-index: 1;
   position: fixed;
-  top: 56%;
+  top: 55.8%;
   left: 42%;
   transform: translate(-50%, -50%);
 }
@@ -23,7 +23,7 @@
   animation: fadeIn 2.5s;
 }
 
-.landing_page_modal {
+.landingPageModal {
   animation: fadeIn 2s;
 }
 
@@ -31,3 +31,297 @@
   0% { opacity: 0; }
   100% { opacity: 1.5; }
 }
+
+@media (max-width: 1445px) {
+  .tvButtonContainer {
+    right: 33% !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .tvButtonContainer {
+    right: 32.5% !important;
+  }
+}
+
+@media (max-width: 1300px) {
+  .tvButtonContainer {
+    right: 31% !important;
+  }
+  .titleContainer {
+    left: 46.8% !important;
+  }
+  .landingPageModal {
+    left: 47%!important;
+  }
+}
+@media (max-width: 1200px) {
+  .tvButtonContainer {
+    right: 30% !important;
+  }
+  .titleContainer {
+    left: 46.5% !important;
+  }
+  .landingPageModal {
+    left: 46.4%!important;
+  }
+}
+@media (max-width: 1100px) {
+  .tvButtonContainer {
+    right: 26% !important;
+  }
+  .titleContainer {
+    left: 46.2% !important;
+  }
+
+}
+@media (max-width: 1000px) {
+  .tvButtonContainer {
+    right: 24% !important;
+  }
+  .titleContainer {
+    left: 46% !important;
+  }
+  .landingPageModal {
+    left: 46%!important;
+  }
+}
+
+@media (max-width: 950px) {
+  .tvButtonContainer {
+    top: 51% !important;
+  }
+  .landing-page-modal {
+    top: 50%!important;
+  }
+  .tvButtonContainer {
+    right: 24% !important;
+    top: 50.5% !important;
+  }
+  
+}
+
+@media (max-width: 920px) {
+  .tvButtonContainer {
+    right: 22% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 45.2% !important;
+  }
+  .landingPageModal {
+    left: 45%!important;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .tvButtonContainer {
+    right: 21% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 45% !important;
+  }
+  .landingPageModal {
+    left: 44.8%!important;
+  }
+}
+
+@media (max-width: 850px) {
+  .tvButtonContainer {
+    right: 20% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 44.8% !important;
+  }
+  .landingPageModal {
+    left: 44.6%!important;
+  }
+}
+
+@media (max-width: 800px) {
+  .tvScreen{
+    top: 55.8%;
+  }
+  .tvButtonContainer {
+    right: 18% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 44.6% !important;
+  }
+  .landingPageModal {
+    left: 44.4%!important;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+   font-size: 14px;
+  }
+}
+
+@media (max-width: 750px) {
+ 
+  .tvButtonContainer {
+    right: 18% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 44.4% !important;
+  }
+  .landingPageModal {
+    left: 44.2%!important;
+  }
+}
+
+@media (max-width: 700px) {
+  .tvButtonContainer {
+    right: 17% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 44.2% !important;
+  }
+  .landingPageModal {
+    left: 44%!important;
+  }
+}
+
+@media (max-width: 650px) {
+  .tvButtonContainer {
+    right: 16% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 44% !important;
+  }
+  .landingPageModal {
+    left: 43.8%!important;
+  }
+}
+
+@media (max-width: 600px) {
+  .tvButtonContainer {
+    right: 16% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 44% !important;
+  }
+  .landingPageModal {
+    left: 43.8%!important;
+  }
+  html {
+    font-size: 12px;
+   }
+}
+
+
+@media (max-width: 550px) {
+  .tvButtonContainer {
+    right: 12% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 43.8% !important;
+  }
+  .landingPageModal {
+    left: 43.6%!important;
+  }
+}
+
+@media (max-width: 500px) {
+  .tvButtonContainer {
+    right: 10% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 43.6% !important;
+  }
+  .landingPageModal {
+    left: 43.4%!important;
+  }
+}
+
+@media (max-width: 450px) {
+  .tvButtonContainer {
+    right: 6% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 42.5% !important;
+  }
+  .landingPageModal {
+    left: 43.2%!important;
+  }
+}
+
+@media (max-width: 400px) {
+  .tvButtonContainer {
+    right: 0% !important;
+    top: 51% !important;
+  }
+  .titleContainer {
+    left: 42.2% !important;
+  }
+  .landingPageModal {
+    left: 43%!important;
+  }
+}
+
+@media (max-width: 375px){
+  .tvButtonContainer {
+    right: 5% !important;
+  }
+  html {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 350px){
+  .tvButtonContainer {
+    right: 2% !important;
+  }
+  html {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 320px){
+  .tvButtonContainer {
+    right: -2% !important;
+  }
+  html {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 300px){
+  .tvButtonContainer {
+    top: 50.5% !important;
+    right: 5% !important;
+  }
+  html {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 280px){
+  .tvButtonContainer {
+   
+    right: 2% !important;
+  }
+  html {
+    /* font-size: 6px; */
+  }
+}
+
+
+
+
+
+
+
