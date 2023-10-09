@@ -32,7 +32,7 @@ const SearchDrawerIconButton = () => {
           // onClick={handleOpenSearchDrawer}
           fontSize="large"
         />
-        <h6 styles={{margin: '3rem'}}>Search</h6>
+        <h6 className={styles.searchLabel} styles={{margin: '3rem'}}>Search</h6>
       </Link>
     </>
   );

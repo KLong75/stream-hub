@@ -27,7 +27,7 @@ const AccountSettingsIconButton = () => {
           sx={{ marginBottom: "-.5rem", cursor: "pointer" }}
           fontSize="large"
         />
-        <h6>Settings</h6>
+        <h6 className={styles.settingsLabel}>Settings</h6>
       </Link>
     </>
   );

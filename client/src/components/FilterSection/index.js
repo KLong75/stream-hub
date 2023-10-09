@@ -8,6 +8,10 @@ const FilterSection = ({ title, items, filterState, handleChange }) => {
 
   const displayLabels = {
     ActionAdventure: "Action & Adventure",
+    AppleTV: "Apple TV+",
+    PrimeVideo: "Prime Video",
+    DisneyPlus: "Disney+",
+
   };
 
   return (

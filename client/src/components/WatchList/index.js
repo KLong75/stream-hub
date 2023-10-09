@@ -95,14 +95,14 @@ const WatchList = () => {
     if (filters.source.length) {
       const sourceFilter = filters.source
         .map((source) => {
-          if (source === "AmazonPrime") return "Prime Video";
-          if (source === "AppleTV+") return "Apple TV+";
-          if (source === "Disney+") return "Disney+";
+          if (source === "Prime Video") return "Prime Video";
+          if (source === "AppleTV") return "AppleTV+";
+          if (source === "DisneyPlus") return "Disney+";
           if (source === "Hulu") return "Hulu";
           if (source === "Max") return "Max";
           if (source === "Netflix") return "Netflix";
-          if (source === "ParamountPlus") return "Paramount+";
-          if (source === "Peacock Premium") return "Peacock";
+          if (source === "Paramount") return "Paramount+";
+          if (source === "Peacock") return "Peacock";
           if (source === "Starz") return "STARZ";
           return source;
         })
