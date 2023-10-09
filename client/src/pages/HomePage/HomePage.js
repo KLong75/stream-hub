@@ -47,7 +47,7 @@ const HomePage = () => {
         <section style={{marginTop: '0rem', marginBottom: '0rem'}}>
           <WatchList  />
         </section>
-        <section style={{marginTop: '-10rem'}}>
+        <section style={{marginTop: '-10rem', marginBottom: '3rem'}}>
           <WhatsHotGallery />
         </section> 
     </main>
