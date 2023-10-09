@@ -1,41 +1,40 @@
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import { Link } from "@mui/material";
 
 
 const TrendingCategoryLinks = () => {
 
   return (
-
-    <Grid container  justifyContent='center' spacing={2} sx={{marginTop: '.25rem'}} textAlign='center'>
-      <Grid lg={1}></Grid>
-      <Grid item xs={12} sm={6} md={4} lg={2}>
-        <Link href="#Trending Movies" underline="none" sx={{color: "black"}}>
-          Trending Movies
-        </Link>
+    <div className='category-links-container'>
+    <Grid container justifyContent='center' spacing={2} sx={{marginTop: '.25rem'}} textAlign='center'>
+      <Grid md={0} lg={1}></Grid>
+      <Grid item  sm={6} md={4} lg={2}>
+        <a className='category-links' href="#Trending Movies" >
+         Trending Movies
+        </a>
       </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={2}>
-        <Link href="#Top Rated Movies" underline="none" sx={{color: 'black'}}>
+      <Grid item  sm={6} md={4} lg={2}>
+        <a className='category-links' href="#Top Rated Movies">
         Top Rated Movies
-        </Link>
+        </a>
       </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={2}>
-        <Link href="#Trending TV Shows" underline="none" sx={{color: 'black'}}>
+      <Grid item  sm={6} md={4} lg={2}>
+        <a href="#Trending TV Shows" className='category-links' >
         Trending TV 
-        </Link>
+        </a>
       </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={2}>
-        <Link href="#Top Rated TV Shows" underline="none" sx={{color: 'black'}}>
+      <Grid item  sm={6} md={4} lg={2}>
+        <a href="#Top Rated TV Shows" className='category-links'>
         Top Rated TV
-        </Link>
+        </a>
       </Grid>
-      <Grid item xs={12} sm={6} md={4} lg={2}>
-        <Link href="#Coming Soon" underline="none" >
+      <Grid item  sm={6} md={4} lg={2}>
+        <a href="#Coming Soon" className='category-links' >
         Coming Soon
-        </Link>
+        </a>
       </Grid>  
-      <Grid lg={1}></Grid>
+      <Grid md={0} lg={1}></Grid>
     </Grid>
-
+</div>
   )
 
 

@@ -9,7 +9,7 @@ import tvIcon from "../../assets/images/tvIcon.png";
 import TVButton from "../TVButton";
 import LoginForm from "../../components/LoginForm";
 import SignupForm from "../../components/SignupForm";
-
+// import styles
 import styles from "./TV.module.css";
 
 const TV = () => {
@@ -31,7 +31,7 @@ const TV = () => {
     <main className={styles.landingPageContainer}>
       {modalType === "" && (
         <Grid
-          className="title-container"
+        className={styles.titleContainer}
           container
           justifyContent="center"
           style={{
@@ -39,7 +39,7 @@ const TV = () => {
             top: "50%",
             left: "47.4%",
             transform: "translate(-50%, -50%)",
-            zIndex: 1001,
+            zIndex: '1001',
           }}
         >
           <Grid>
@@ -95,7 +95,7 @@ const TV = () => {
         </Grid>
         <Grid>
           <img
-            className="landing_page_tv"
+            // className="landing_page_tv"
             src={Tv}
             alt="tv"
             style={{ height: "32rem" }}
@@ -106,7 +106,7 @@ const TV = () => {
       <Grid
         direction={"column"}
         spacing={2}
-        className="tv-button-container"
+        className={styles.tvButtonContainer}
         container
         justifyContent="center"
         style={{
@@ -146,7 +146,7 @@ const TV = () => {
 
       {modalType === "login" && (
         <section
-          className={styles.landing_page_modal}
+          className={styles.landingPageModal}
           style={{
             position: "fixed",
             top: "50%",
@@ -160,7 +160,7 @@ const TV = () => {
       )}
       {modalType === "signup" && (
         <section
-          className={styles.landing_page_modal}
+          className={styles.landingPageModal}
           style={{
             position: "fixed",
             top: "51.2%",

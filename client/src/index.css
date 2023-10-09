@@ -44,12 +44,40 @@ h6 {
   margin: .25rem;
 }
 
+.category-links {
+  color: black;
+  font-size: 1rem;
+  text-decoration: none;
+  
+  
+  font-family: monospace;
+  font-weight: 700;
+  letter-spacing: .1rem;
+}
+
+.category-links:hover{
+  background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .swiper-button-next {
   margin-top: -10rem!important;
 }
 
 .swiper-button-prev {
   margin-top: -10rem!important;
+}
+
+
+@media (max-width: 920px) {
+  .category-links {
+    display: none;
+  }
+  .category-links-container {
+    display: none;
+  }
 }
 
 

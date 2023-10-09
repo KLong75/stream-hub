@@ -49,7 +49,7 @@ const Nav = () => {
         {isMobile ? (
           <>
             <Grid xs={6}></Grid>
-            <Grid xs={2} sx={{marginLeft: '-2.5rem'}}>
+            <Grid xs={2} sx={{ marginLeft: "-2.5rem" }}>
               <IconButton onClick={handleDrawerOpen}>
                 <MenuIcon fontSize="large" />
               </IconButton>
@@ -73,7 +73,7 @@ const Nav = () => {
                 onClick={handleDrawerClose}
                 sx={{
                   marginTop: ".75rem",
-                  marginRight: "12rem",
+                  marginRight: "16rem",
                   cursor: "pointer",
                 }}
               />
@@ -93,6 +93,7 @@ const Nav = () => {
                     sx={{ textAlign: "center", justifyContent: "center" }}>
                     <SearchDrawerIconButton />
                   </ListItem>
+                  <Divider />
                   <Divider />
                   <ListItem
                     sx={{ textAlign: "center", justifyContent: "center" }}>

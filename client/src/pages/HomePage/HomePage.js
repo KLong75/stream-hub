@@ -42,7 +42,9 @@ const HomePage = () => {
 
   return (
     <main>
-      <TrendingCategoryLinks />      
+      <section style={{marginBottom: '.5rem'}}>
+        <TrendingCategoryLinks />  
+      </section>    
       <h2 className={styles.greeting}>Welcome back {user.username}</h2>
         <section style={{marginTop: '0rem', marginBottom: '0rem'}}>
           <WatchList  />

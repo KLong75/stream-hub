@@ -5,3 +5,10 @@
 .searchButton:hover {
   color: white !important;
 }
+
+
+@media(max-width: 920px) {
+  .searchLabel {
+    font-size: 1.25rem !important;
+  }
+}

@@ -26,7 +26,7 @@ const Footer = () => {
     >
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid style={{ position: "relative", marginTop: '-1.75rem' }}>
-          <span >©2023 <Link target='_blank' rel='noreferrer' href="https://kevinlong.dev/">www.kevinlong.dev</Link></span>  
+          <span >©2023 <Link underline= 'none' target='_blank' rel='noreferrer' href="https://kevinlong.dev/">www.kevinlong.dev</Link></span>  
         </Grid>
       </Grid>
     </footer>

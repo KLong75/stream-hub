@@ -7,3 +7,8 @@
   color: white !important;
 }
 
+@media(max-width: 920px) {
+  .logOutLabel{
+    font-size: 1.25rem !important;
+  }
+}

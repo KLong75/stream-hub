@@ -15,13 +15,14 @@ const defaultTypeFilter = {
 };
 
 const defaultSourceFilter = {
-  AmazonPrime: false,
+  // AmazonPrime: false,
+  PrimeVideo: false,
   AppleTV: false,
   DisneyPlus: false,
   Hulu: false,
   Max: false,
   Netflix: false,
-  ParamountPlus: false,
+  Paramount: false,
   Peacock: false,
   Starz: false,
 };
@@ -66,6 +67,16 @@ const mapUiGenreToActualGenre = (uiGenre) => {
   return map[uiGenre] || uiGenre;
 };
 
+const mapUiSourceToActualSource = (uiSource) => {
+  const map = {
+    AppleTV: "AppleTV+",
+    PrimeVideo: "Prime Video",
+    DisneyPlus: "Disney+",
+    Paramount: "Paramount+",
+  };
+  return map[uiSource] || uiSource;
+};
+
 const FilterTitles = ({ setFilters }) => {
   const [typeFilter, setTypeFilter] = useState(defaultTypeFilter);
 
@@ -99,9 +110,10 @@ const FilterTitles = ({ setFilters }) => {
 
   useEffect(() => {
     const typeArray = Object.keys(typeFilter).filter((key) => typeFilter[key]);
-    const sourceArray = Object.keys(sourceFilter).filter(
-      (key) => sourceFilter[key]
-    );
+
+    const sourceArray = Object.keys(sourceFilter)
+      .filter((key) => sourceFilter[key])
+      .map(mapUiSourceToActualSource);
 
     const genreArray = Object.keys(genreFilter)
       .filter((key) => genreFilter[key])
@@ -159,15 +171,6 @@ const FilterTitles = ({ setFilters }) => {
             <FilterIcon fontSize="large" />
           </IconButton>
         </Grid>
-        {/* <Grid
-          xs={12}
-          display="flex"
-          justifyContent="center"
-          textAlign="center"
-          alignItems="center"
-          sx={{ marginTop: "-1.75rem" }}>
-          <h4>Filter Watch List</h4>
-        </Grid> */}
       </Grid>
 
       {activeFilters.length > 0 && (
@@ -202,13 +205,13 @@ const FilterTitles = ({ setFilters }) => {
             <FilterSection
               title="Source"
               items={[
-                "AmazonPrime",
-                "AppleTV+",
+                "PrimeVideo",
+                "AppleTV",
                 "DisneyPlus",
                 "Hulu",
                 "Max",
                 "Netflix",
-                "ParamountPlus",
+                "Paramount",
                 "Peacock",
                 "Starz",
               ]}
@@ -219,7 +222,7 @@ const FilterTitles = ({ setFilters }) => {
               title="Genre"
               items={[
                 "Action",
-                "ActionAdventure",
+                "Action & Adventure",
                 "Adventure",
                 "Animation",
                 "Comedy",
