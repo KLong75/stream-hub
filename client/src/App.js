@@ -73,13 +73,6 @@ const theme = createTheme({
     //     },
     // },
     },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundImage: 'linear-gradient(315deg, #3bb77a 0%, #144874 75%)',
-        }
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {
