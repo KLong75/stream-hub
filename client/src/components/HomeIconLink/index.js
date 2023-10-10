@@ -9,8 +9,8 @@ const HomeIconLink = () => {
   return (
     <>
       <Link className={styles.homeIconLink} underline="none" to="/home_page">
-        <HomeIcon fontSize="large" sx={{ marginBottom: "-1.85rem" }} />
-        <h6>Home</h6>
+        <HomeIcon fontSize="large" sx={{ marginBottom: "-.5rem" }} />
+        <h6 className={styles.homeLabel}>Home</h6>
       </Link>
     </>
   );

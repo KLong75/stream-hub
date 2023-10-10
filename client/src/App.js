@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 // import Search from "./pages/SearchPage/SearchPage";
-import GenreSearchResults from "./pages/GenreSearchResults";
+import GenreSearchResults from "./pages/GenreSearchResults/GenreSearchResults";
 import MixedGenreSearchSearchResults from "./pages/MixedGenreSearchResults";
 import TitleSearchResults from "./pages/TitleSearchResults";
 import ActorSearchResults from "./pages/ActorSearchResults";
@@ -72,7 +72,14 @@ const theme = createTheme({
     //       }
     //     },
     // },
-  },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'linear-gradient(315deg, #3bb77a 0%, #144874 75%)',
+        }
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

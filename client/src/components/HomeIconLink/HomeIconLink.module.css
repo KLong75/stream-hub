@@ -1,8 +1,15 @@
 .homeIconLink {
   color: black !important;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .homeIconLink:hover {
   color: white !important;
+}
+
+@media(max-width: 920px) {
+  .homeLabel {
+    font-size: 1.25rem !important;
+  }
 }

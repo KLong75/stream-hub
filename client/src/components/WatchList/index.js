@@ -282,7 +282,6 @@ const WatchList = () => {
                           .fill()
                           .map((_, index) => (
                             <Grid
-                              item
                               xs={12}
                               key={`placeholder-${index}`}
                               style={{
