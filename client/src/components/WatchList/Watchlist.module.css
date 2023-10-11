@@ -91,9 +91,9 @@
 }
 
 
-@media(max-width: 920px) {
-  .backdropBox {
-    /* height: 80vh; */
+@media(max-width: 900px) {
+  .backdrop {
+    display: none;
   }
 }
 

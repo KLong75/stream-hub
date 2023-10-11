@@ -1,23 +1,28 @@
 // import from react
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // import from mui
-import Button from "@mui/material/Button";
+import { Button, ButtonBase } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
 // import context
-import { SearchResultsContext } from "../context/SearchResultsContext";
-
-import { useTitleSelection } from "../utils/useTitleSelection";
-import Auth from "../utils/auth";
-
-import { QUERY_ME } from "../utils/queries";
+import { SearchResultsContext } from "../../context/SearchResultsContext";
+// import from utils
+import { useTitleSelection } from "../../utils/useTitleSelection";
+import Auth from "../../utils/auth";
+import { QUERY_ME } from "../../utils/queries";
+// import from apollo
 import { useQuery } from "@apollo/client";
-import LoadingClapBoard from "../components/LoadingClapBoard";
+// import components
+import LoadingClapBoard from "../../components/LoadingClapBoard";
+
 
 const TitleSearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
   const { data, loading } = useQuery(QUERY_ME);
@@ -29,7 +34,7 @@ const TitleSearchResults = () => {
   const { titleSearchResults } = useContext(SearchResultsContext); // Get the data from context
   console.log(titleSearchResults);
   const handleTitleSelected = useTitleSelection();
-  
+
   useEffect(() => {
     if (!isAuthenticated) {
       setShowRedirectMessage(true);
@@ -43,8 +48,6 @@ const TitleSearchResults = () => {
     setIsAuthenticated(Auth.loggedIn());
   }, [titleSearchResults]);
 
-  
-
   if (showRedirectMessage) {
     return <div>Please login or signup</div>;
   }
@@ -52,12 +55,44 @@ const TitleSearchResults = () => {
   if (loading) {
     return <LoadingClapBoard />;
   }
+
   
   return (
-    <>
-      <h3>Results For:</h3>
-      <h4>'{searchedTitle}'</h4>
-      <div>
+    <Grid container sx={{ textAlign: "center", marginBottom: '4rem' }} >
+      <Grid xs={12}>
+        <h3
+          style={{
+            background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+            fontFamily: "monospace",
+            fontWeight: "700",
+            letterSpacing: ".2rem",
+            fontSize: "2rem",
+            marginTop: "1rem",
+            marginBottom: "1rem",
+            padding: ".5rem",
+          }}>
+          Title Search Results
+        </h3>
+        <h4
+          style={{
+            fontSize: "1.75rem",
+            margin: "0",
+            padding: ".5rem",
+            background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+            fontFamily: "monospace",
+            fontWeight: "700",
+            letterSpacing: ".2rem",
+          }}>
+          Searched For: '{searchedTitle}'
+        </h4>
+      </Grid>
+      <Grid xs={12} container sx={{marginTop: '2rem'}}>
         {titleSearchResults
           .filter(
             (result) =>
@@ -65,7 +100,9 @@ const TitleSearchResults = () => {
           ) // Filter out titles with null year
 
           .map((result) => (
-            <div key={result.id}>
+            
+            <Grid xs={12} sm={6} md={4} lg={3} key={result.id} sx={{marginBottom: '4rem'}}>
+            
               {result.title && <p>{result.title}</p>}
 
               {result.type && (
@@ -83,21 +120,22 @@ const TitleSearchResults = () => {
               )}
               {result.year && <p>{result.year}</p>}
               {result.image_url && (
+                <ButtonBase
+                  onClick={(event) => handleTitleSelected(result.id, event)}>
                 <img src={result.image_url} alt={result.title} />
+                </ButtonBase>
               )}
-              <Button
+              {/* <Button
                 variant="contained"
                 value={result.id}
-                onClick={handleTitleSelected}
-              >
+                onClick={handleTitleSelected}>
                 More Details
-              </Button>
-            </div>
+              </Button> */}           
+            </Grid>         
           ))}
-      </div>
-    </>
+      </Grid>
+    </Grid>
   );
-
 };
 
 export default TitleSearchResults;

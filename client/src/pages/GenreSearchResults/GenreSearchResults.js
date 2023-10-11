@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles';
 import { useTitleSelection } from "../../utils/useTitleSelection";
 import Auth from "../../utils/auth";
 // import styles
-import styles from "./GenreSearchResults.Module.css";
+import styles from "./GenreSearchResults.module.css";
 
 
 const GenreSearchResults = () => {
@@ -60,7 +60,7 @@ const GenreSearchResults = () => {
         </div>
       ) : (
         <Grid container style={{textAlign: 'center'}}>
-          <Grid xs={12} >
+          <Grid xs={12}>
             <h3 className={styles.searchResultsLabel} style={{background: 'linear-gradient(315deg, #185a9d 0%, #43cea2 85%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', fontFamily: 'monospace', fontWeight: '700', letterSpacing: '.2rem', fontSize: '2rem', marginTop: '1rem', marginBottom: '1rem', padding: '.5rem'}}>Genre Search Results</h3>
             <h4 className={styles.searchResultsLabel} style={{fontSize: '1.75rem', margin: '0', padding: '.5rem', background: 'linear-gradient(315deg, #185a9d 0%, #43cea2 85%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', fontFamily: 'monospace', fontWeight: '700', letterSpacing: '.2rem'}}>{searchedGenreLabel}</h4>
           </Grid>

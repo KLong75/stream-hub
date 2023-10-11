@@ -296,7 +296,7 @@ const WatchList = () => {
                                   height: "2.5rem",
                                   display: "block",
                                   margin: "0 auto",
-                                  // border: "1px dashed #ccc",
+                                  border: "1px dashed #ccc",
                                 }}
                               />
                             </Grid>
@@ -380,27 +380,6 @@ const WatchList = () => {
                       </Grid>
                     </Grid>
                   )}
-
-                  {/* <Grid container xs={12} >
-                    <Grid xs={12} md={6}>
-                      <Button
-                        data-swiper-parallax="-200"
-                        variant="contained"
-                        value={title.id}
-                        onClick={handleTitleSelected}>
-                        Details
-                      </Button>
-                    </Grid>
-
-                    <Grid xs={12} md={6}>
-                      <Button
-                        data-swiper-parallax="-200"
-                        variant="contained"
-                        onClick={() => handleDeleteTitle(title.id)}>
-                        Remove
-                      </Button>
-                    </Grid>
-                  </Grid> */}
                 </Grid>
               </SwiperSlide>
             ))}
@@ -426,120 +405,27 @@ const WatchList = () => {
 
 export default WatchList;
 
-{
-  /* {title.sources && title.sources.length > 0 && (
-                    <>
-                      <Grid container xs={12}>
-                      <Grid xs={12}>
-                        <h6 style={{ fontSize: "1rem" }}>Watch On:</h6>
-                      </Grid>
-                      {title.sources.map((source) => {
-                        return (
-                          <Grid
-                            xs={12}
-                            key={`${title.id}-${source.source_id}`}
-                            style={{
-                              // width: "6rem",
-                              height: "auto",
-                              overflow: "hidden",
-                              marginLeft: "1rem",
-                              marginRight: "1rem",
-                            }}>
-                            <a
-                              href={source.web_url}
-                              target="_blank"
-                              rel="noreferrer">
-                              <img
-                                src={sourceLogos[source.name]}
-                                alt={source.name}
-                                style={{ 
-                                   maxWidth: "100%",
-                                   maxHeight: "100%",
-                                   maxWidth: "6rem",
-                                  maxHeight: "auto",
-                                  display: "block",
-                                  margin: "0 auto",
-                                }}
-                              /> */
-}
-{
-  /* <p>{source.name}</p> */
-}
-{
-  /* </a>
-                          </Grid>
-                        );
-                      })}
-                      </Grid>
-                    </>
-                  )}
 
-                  {title.buy_sources && title.buy_sources.length > 0 && (
-                    <>
-                      <Grid container xs={12}>
-                      <Grid xs={12}>
-                        <h6 style={{ fontSize: "1rem" }}>
-                          <strong>Rent or buy on:</strong>
-                        </h6>
-                      </Grid>
-                      {title.buy_sources.map((buy_source) => {
-                        return (
-                          <Grid
-                            xs={12}
-                            key={`${title.id}-${buy_source.source_id}`}
-                            style={{ 
-                               width: "6rem",
-                               height: "auto",
-                              overflow: "hidden",
-                              marginLeft: "1rem",
-                              marginRight: "1rem",
-                            }}>
-                            <a
-                              href={buy_source.web_url}
-                              target="_blank"
-                              rel="noreferrer">
-                              <img
-                                src={buySourceLogos[buy_source.name]}
-                                alt={buy_source.name}
-                                style={{ 
-                                   maxWidth: "100%",
-                                   maxHeight: "100%",
-                                   maxWidth: "6rem",
-                                  maxHeight: "auto",
-                                  display: "block",
-                                  margin: "0 auto",
-                                }}
-                              /> */
-}
-{
-  /* <p>{buy_source.name}</p> */
-}
-{
-  /* </a>
-                          </Grid>
-                        );
-                      })}
-                      </Grid>
-                    </>
-                  )} */
-}
 
-{
-  /* <Grid xs={12}>
-                    <Grid
-                      container
-                      justifyContent="center"
-                      sx={{ marginTop: "", zIndex: "100" }}>  */
-}
 
-{
-  /* </Grid>
-                  </Grid> */
-}
-{
-  /* <Grid xs={12}>
-                    <Grid
-                      container
-                      justifyContent="center"
-                      sx={{ marginTop: "", zIndex: "100" }}> */
-}
+ {/* <Grid container xs={12} >
+                    <Grid xs={12} md={6}>
+                      <Button
+                        data-swiper-parallax="-200"
+                        variant="contained"
+                        value={title.id}
+                        onClick={handleTitleSelected}>
+                        Details
+                      </Button>
+                    </Grid>
+
+                    <Grid xs={12} md={6}>
+                      <Button
+                        data-swiper-parallax="-200"
+                        variant="contained"
+                        onClick={() => handleDeleteTitle(title.id)}>
+                        Remove
+                      </Button>
+                    </Grid>
+                  </Grid> */}
+

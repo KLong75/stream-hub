@@ -72,7 +72,7 @@ const Nav = () => {
               <CloseIcon
                 onClick={handleDrawerClose}
                 sx={{
-                  marginTop: ".75rem",
+                  marginTop: ".85rem",
                   marginRight: "16rem",
                   cursor: "pointer",
                 }}

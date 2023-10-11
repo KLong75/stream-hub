@@ -1,0 +1,77 @@
+.main {
+  min-height: 100vh;
+}
+
+.backdrop {
+  /* height: 100rem; */
+  /* width: 100%; */
+  /* opacity: 0.6; */
+  /* padding: 18rem; */
+  /* position: relative; */
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  opacity: 0.4;
+  z-index: -100;
+  position: relative;
+  margin-bottom: 8rem;
+
+}
+
+.poster {
+ /* padding: 2rem; */
+ height: 18rem;
+}
+
+.poster:hover {
+  opacity: .6;
+}
+
+.titleDetailsContainer {
+  /* margin-top: 2rem!important; */
+  /* margin-bottom: 2rem; */
+}
+
+@media (max-width: 1500px) {
+  .titleDetailsContainer{
+    margin-top: 6rem!important;
+  }
+}
+
+@media (max-width: 1150px) {
+  .titleDetailsContainer{
+    margin-top: 8rem!important;
+  }
+}
+@media (max-width: 1050px) {
+  .titleDetailsContainer{
+    margin-top: 10rem!important;
+  }
+}
+
+@media (max-width: 950px) {
+  .titleDetailsContainer{
+    margin-top: 12rem!important;
+  }
+}
+
+@media (max-width: 850px) {
+  .titleDetailsContainer{
+    margin-top: 14rem!important;
+  }
+}
+
+@media (max-width: 700px) {
+  .backdrop {
+    display: none!important;
+  }
+  .titleDetailsContainer{
+    margin-top: 36rem!important;
+  }
+}
+
+@media (max-width: 550px) {
+  .titleDetailsContainer{
+    margin-top: 38rem!important;
+  }
+}
