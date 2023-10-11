@@ -408,24 +408,5 @@ export default WatchList;
 
 
 
- {/* <Grid container xs={12} >
-                    <Grid xs={12} md={6}>
-                      <Button
-                        data-swiper-parallax="-200"
-                        variant="contained"
-                        value={title.id}
-                        onClick={handleTitleSelected}>
-                        Details
-                      </Button>
-                    </Grid>
-
-                    <Grid xs={12} md={6}>
-                      <Button
-                        data-swiper-parallax="-200"
-                        variant="contained"
-                        onClick={() => handleDeleteTitle(title.id)}>
-                        Remove
-                      </Button>
-                    </Grid>
-                  </Grid> */}
+ 
 

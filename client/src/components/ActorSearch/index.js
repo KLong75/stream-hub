@@ -10,7 +10,6 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
-// import FormLabel from '@mui/material/FormLabel';
 // import from utils
 import {
   searchByName,
@@ -25,9 +24,9 @@ import { CACHE_DURATION } from "../../utils/utils";
 
 const filter = createFilterOptions();
 
-const ActorSearch = () => {
+const ActorSearch = ({onSubmit}) => {
   const navigate = useNavigate();
-  const { setActorSearchResults } = useContext(SearchResultsContext); // <- get the function from context
+  const { setActorSearchResults } = useContext(SearchResultsContext); 
   const [topActors, setTopActors] = useState([]);
   const [searchTerm, setSearchTerm] = useState(null);
   const [sortedActors, setSortedActors] = useState([]);
@@ -39,6 +38,7 @@ const ActorSearch = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
+    setSearchTerm(null);
   };
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const ActorSearch = () => {
         id: person.id,
       }));
       setTopActors(actors);
-      // console.log(actors);
+      console.log(actors);
     } catch (error) {
       console.log(error);
     }
@@ -154,6 +154,7 @@ const ActorSearch = () => {
     const sorted = [...topActors].sort((a, b) =>
       a.name.localeCompare(b.name)
     );
+    console.log(sorted)
     setSortedActors(sorted);
 
     const cacheData = {
@@ -184,11 +185,13 @@ const ActorSearch = () => {
         console.log("Using Cached Data:", data);
         navigate('/actor_search_results', { state: { data },});
         setSearchTerm("");
-        return;
+        // return;
+        
       } else {
         localStorage.removeItem(`actorSearchResults_${searchedName}`);
         console.log("Cached Data Expired and Removed");
       }
+      onSubmit();
     }
 
     if (!cachedActorSearchResults) {
@@ -226,7 +229,7 @@ const ActorSearch = () => {
           image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
         }));
         console.log(actorSearchData);
-        // setSearchTerm("");
+        setSearchTerm("");
         setActorSearchResults(actorSearchData);
         const cacheData = {
           data: actorSearchData,
@@ -237,10 +240,12 @@ const ActorSearch = () => {
           JSON.stringify(cacheData)
         );
         console.log(searchedName);
+        handleCloseModal();
         navigate('/actor_search_results', {state: {data: actorSearchData},});
       } catch (err) {
         console.log(err.message);
       }
+      onSubmit();
     }
   };
 

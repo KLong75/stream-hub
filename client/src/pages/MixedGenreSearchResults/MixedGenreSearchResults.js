@@ -4,9 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
-import Paper from "@mui/material/Paper";
+// import Paper from "@mui/material/Paper";
 import { ButtonBase } from "@mui/material";
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,24 +21,24 @@ import { genreList } from "../../utils/utils";
 // import styles
 import styles from "./MixedGenreSearchResults.module.css";
 
-const TitleBox = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  margin: theme.spacing(4),
-  textAlign: 'center',
-  color: 'black',
-  marginBottom: "4rem",
-  width: "24rem",
-  height: "36rem",
-  // borderRadius: "20%",
-  fontSize: '1rem',
-  fontWeight: 'bold',
-  backgroundImage: "linear-gradient(315deg, #185a9d 0%, #43cea2 100%)",
-        "&:hover": {
-          backgroundImage:
-            "linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)",
-          transform: 'scale(1.05)',
-        },
-}));
+// const TitleBox = styled(Paper)(({ theme }) => ({
+//   padding: theme.spacing(4),
+//   margin: theme.spacing(4),
+//   textAlign: 'center',
+//   color: 'black',
+//   marginBottom: "4rem",
+//   width: "24rem",
+//   height: "36rem",
+//   // borderRadius: "20%",
+//   fontSize: '1rem',
+//   fontWeight: 'bold',
+//   backgroundImage: "linear-gradient(315deg, #185a9d 0%, #43cea2 100%)",
+//         "&:hover": {
+//           backgroundImage:
+//             "linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)",
+//           transform: 'scale(1.05)',
+//         },
+// }));
 
 
 const MixedGenreSearchResults = () => {
@@ -246,11 +246,3 @@ const MixedGenreSearchResults = () => {
 
 export default MixedGenreSearchResults;
 
-{
-  /* <Button
-                      variant="contained"
-                      value={title.type + "-" + title.id}
-                      onClick={handleTitleSelected}>
-                      More Details
-                    </Button> */
-}

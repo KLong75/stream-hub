@@ -3,10 +3,10 @@ import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // import from mui
-import { Button, ButtonBase } from "@mui/material";
+import { ButtonBase } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
+// import Paper from "@mui/material/Paper";
+// import { styled } from "@mui/material/styles";
 // import context
 import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from utils
