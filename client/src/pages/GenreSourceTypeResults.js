@@ -1,11 +1,15 @@
 // import from react
-import React, { useRef, useEffect, useState, useContext } from "react";
+import  { useRef, useEffect, useState, useContext } from "react";
 // import from react-router
 import { Link, useLocation } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
 // import from mui
 import Button from "@mui/material/Button";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import Paper from "@mui/material/Paper";
+import { ButtonBase } from "@mui/material";
+import { styled } from '@mui/material/styles';
 // import from utils
 import { useTitleSelectionTMDBId } from "../utils/useTitleSelectionTMDBId";
 
@@ -125,6 +129,26 @@ const GenreSourceTypeResults = () => {
     return typeLabelsArray.join(", ");
   };
 
+  const TitleBox = styled(Paper)(({ theme }) => ({
+    padding: theme.spacing(4),
+    margin: theme.spacing(4),
+    textAlign: 'center',
+    color: 'black',
+    marginBottom: "4rem",
+    width: "12rem",
+    height: "12rem",
+    borderRadius: "20%",
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    backgroundImage: "linear-gradient(315deg, #185a9d 0%, #43cea2 100%)",
+          "&:hover": {
+            backgroundImage:
+              "linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)",
+            transform: 'scale(1.05)',
+          },
+  }));
+
+
   return (
     <>
       {!loggedIn ? (
@@ -140,7 +164,8 @@ const GenreSourceTypeResults = () => {
           </Link>
         </div>
       ) : (
-        <div>
+        <Grid container style={{textAlign: 'center'}}>
+          <Grid xs={12}>
           <h3>Genre Source Type Search Results</h3>
           <h4>Results For: </h4>
           <h5>Genre(s): {getGenreLabels(searchedGenres) || "None Selected"}</h5>
@@ -149,9 +174,25 @@ const GenreSourceTypeResults = () => {
             {getStreamingSourceLabels(searchedSources) || "None Selected"}
           </h5>
           <h5>Type: {getTypeLabels(searchedTypes) || "None Selected"}</h5>
-          <div>
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+          >
             {genreSourceTypeSearchResults.map((title) => (
-              <div key={title.id}>
+              <Grid 
+              container
+                justifyContent="center"
+                xs={6}
+                md={4}
+                lg={3}
+                key={title.id}
+                alignItems="center">
+                <ButtonBase onClick={(event) => handleTitleSelected(title.id, event)} value={title.id}>
+                  <TitleBox
+                  elevation={12}
+                  >
                 {title.title && <p>{title.title}</p>}
                 {title.genres && (
                   <p>
@@ -175,18 +216,22 @@ const GenreSourceTypeResults = () => {
                   </p>
                 )}
                 {title.year && <p>{title.year}</p>}
-                <Button
+                {/* <Button
                   variant="contained"
                   // value={title.type + '-' + title.id}
                   value={title.id}
                   onClick={handleTitleSelected}
                 >
                   More Details
-                </Button>
-              </div>
+                </Button> */}
+                </TitleBox>
+                </ButtonBase>
+                </Grid>
+           
             ))}
-          </div>
-        </div>
+          </Grid>
+
+        </Grid>
       )}
     </>
   );

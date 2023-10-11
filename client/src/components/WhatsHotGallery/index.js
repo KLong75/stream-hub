@@ -31,6 +31,7 @@ const WhatsHotGallery = () => {
     };
     titleSelectionHandler(customEvent);
   };
+  
 
   return (
     <>

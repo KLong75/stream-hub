@@ -160,10 +160,18 @@ const GenreSearch = ({ onSubmit }) => {
 
   const handleChange = async (event) => {
     event.preventDefault();
-    setSelectedGenre(event.target.value);
-    setSelectedGenreCode(event.target.value);
-    console.log(event.target.value);
     const selectedGenreCode = event.target.value;
+    const selectedGenreLabel = genreOptions.find(
+      (option) => option.value === selectedGenreCode
+    )?.label;
+  
+    setSelectedGenreCode(selectedGenreCode);
+    setSelectedGenre(selectedGenreLabel);
+
+    // setSelectedGenre(event.target.value);
+    // setSelectedGenreCode(event.target.value);
+    // console.log(event.target.value);
+    // const selectedGenreCode = event.target.value;
 
     const cachedGenreSearchResults = localStorage.getItem(
       `genreSearchResults_${selectedGenreCode}`
@@ -175,6 +183,12 @@ const GenreSearch = ({ onSubmit }) => {
 
     if (cachedGenreSearchResults) {
       const { data, timestamp } = JSON.parse(cachedGenreSearchResults);
+
+      const selectedGenreLabel = genreOptions.find(
+        (option) => option.value === selectedGenreCode
+      )?.label;
+
+
       console.log("Stored Data Retrieved:", data);
       console.log("Stored Timestamp:", timestamp);
       console.log("Current Time:", Date.now());
@@ -182,7 +196,7 @@ const GenreSearch = ({ onSubmit }) => {
       if (now - timestamp < CACHE_DURATION) {
         setGenreSearchResults(data);
         console.log("Using Cached Data:", data);
-        navigate("/search_results", { state: { titles: data } }); // <- navigate with useNavigate
+        navigate("/search_results", { state: { titles: data, genre: selectedGenreLabel } }); // <- navigate with useNavigate
         setSelectedGenre("");
         setModalOpen(false);
         onSubmit();

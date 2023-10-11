@@ -11,6 +11,7 @@ import { TopRatedTvContext } from "../../context/TopRatedTvContext";
 import { TrendingTvContext } from "../../context/TrendingTvContext";
 import { PopularTvContext } from "../../context/PopularTvContext";
 // import from material-ui
+import SearchIcon from '@mui/icons-material/Search';
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
@@ -99,7 +100,7 @@ const TitleSearch = ({ onSubmit }) => {
       if (now - timestamp < CACHE_DURATION) {
         setTitleSearchResults(data);
         console.log("Using Cached Data:", data);
-        navigate("/title_search_results", { state: { data } });
+        navigate("/title_search_results", { state: { data, searchedTitle: userInput } });
         setModalOpen(false);
         onSubmit();
         // return;
@@ -156,14 +157,14 @@ const TitleSearch = ({ onSubmit }) => {
       <h3 onClick={() => handleTitleSearchClick()}>
         Search Movies and TV Shows by Title From All Available Sources
       </h3>
-      <Dialog open={modalOpen} onClose={handleCloseModal}>
+      <Dialog open={modalOpen} onClose={handleCloseModal} >
         <DialogTitle>Search by Title From All Available Sources</DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{width: '100%'}}  >
           <h5>
             Don't see your title in the menu? Enter it anyway! If it exists,
             we'll find it.
           </h5>
-          <form onSubmit={searchByUserInput}>
+          <form onSubmit={searchByUserInput} style={{overflowX: 'hidden'}}>
             <FormControl>
               <Autocomplete
                 size="small"
@@ -218,10 +219,11 @@ const TitleSearch = ({ onSubmit }) => {
                 renderOption={(props, option) => (
                   <li {...props}>{option.title}</li>
                 )}
-                sx={{ width: 300 }}
+
                 freeSolo
                 renderInput={(params) => (
                   <TextField
+                  sx={{ width: '20rem', marginTop: '1rem' }}
                     {...params}
                     required
                     label="Enter Title of Movie or TV Show"
@@ -231,15 +233,15 @@ const TitleSearch = ({ onSubmit }) => {
               <DialogActions>
                 <Button
                   type="submit"
-                  style={{ width: "60%" }}
+                  sx={{ borderRadius: "4px" }}
                   variant="contained">
-                  Search By Title
+                  <SearchIcon />
                 </Button>
               </DialogActions>
             </FormControl>
           </form>
         </DialogContent>
-        <Button variant="contained" onClick={handleCloseModal}>
+        <Button variant="contained" onClick={handleCloseModal} sx={{borderRadius: '4px'}}>
           Close
         </Button>
       </Dialog>
