@@ -9,7 +9,8 @@ import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 // import from utils
 import {
   searchByName,
@@ -260,7 +261,7 @@ const ActorSearch = ({onSubmit}) => {
           </p>
         </DialogTitle>
         <DialogContent>
-      <h5 style={{fontSize: '1.5rem', marginTop: 0, marginBottom: '1rem' }} >Don't see the name you are looking for in the menu? Enter it anyway! We'll find them.</h5>
+      <h5 style={{fontSize: '1rem', marginTop: 0, marginBottom: '1rem' }} >Don't see the name you are looking for in the menu? Enter it anyway! We'll find them.</h5>
       <form onSubmit={searchByEnteredName}>
         <FormControl>
           <Autocomplete
@@ -321,9 +322,11 @@ const ActorSearch = ({onSubmit}) => {
               <TextField {...params} label="Enter Actor Name" />
             )}
           />
-          <Button type="submit" style={{ width: "60%" }} variant="contained">
-            Search By Actor
+          <DialogActions>
+          <Button type="submit" style={{  }} variant="contained">
+            <SearchIcon />
           </Button>
+          </DialogActions>
         </FormControl>
       </form>
       </DialogContent>

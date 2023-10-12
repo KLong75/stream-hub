@@ -28,7 +28,7 @@ const TVButton = ({
       {iconSrc && (
         <img
           src={iconSrc}
-          style={{ width: "auto", height: "3rem" }}
+          style={{ width: "auto", height: "3em" }}
           alt="tv icon"
         />
       )}

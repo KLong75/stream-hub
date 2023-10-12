@@ -13,6 +13,7 @@ import styles from './ParallaxSwiper.module.css';
 // import required modules
 import { Parallax, Pagination, Navigation } from 'swiper/modules';
 
+
 export default function ParallaxSwiper() {
   return (
     <>

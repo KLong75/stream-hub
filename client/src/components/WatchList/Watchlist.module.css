@@ -82,8 +82,6 @@
  height: 100vh;
 }
 
-
-
 .backdrop {
   height: 100%;
   width: 100%;
@@ -93,18 +91,29 @@
   position: relative;
 }
 
+.removeLabel {
+  margin-top: -.5rem;
+  display: none;
+} 
+
 
 @media(max-width: 900px) {
   .backdrop {
     display: none;
   }
+  .logoPlaceholderGrid {
+    display: none;
+  }
+  .removeLabel {
+    display: block;
+  } 
 }
 
-@media(max-width: 768px) {
+/* @media(max-width: 768px) {
   .backdropBox {
-    /* height: 60vh; */
+   
   }
-}
+} */
 
 @media(max-width: 500px) {
   .backdropBox {

@@ -1,7 +1,6 @@
 .swiper {
   width: 100%;
   height: auto;
-  /* padding-top: 2rem; */
   padding-bottom: 3rem;
 }
 
@@ -26,11 +25,11 @@
   margin-bottom: 2rem;
   margin-top: 2rem;
   padding: .5rem;
-  /* background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
+  background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; */
-  color: black;
+  color: transparent;
+  /* color: black; */
 }
 
 .title{

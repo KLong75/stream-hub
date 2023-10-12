@@ -18,6 +18,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SearchIcon from '@mui/icons-material/Search';
 import {
   FormLabel,
   Dialog,
@@ -350,7 +351,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
             </FormGroup>
             <DialogActions>
               <Button type="submit" variant="contained">
-                Search
+                <SearchIcon />
               </Button>
             </DialogActions>
           </form>

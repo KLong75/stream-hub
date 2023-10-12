@@ -19,6 +19,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 // import from utils
 import { fetchTitlesByGenreSourceType } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
@@ -725,7 +726,7 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
             </FormGroup>
             <DialogActions>
             <Button type="submit" variant="contained">
-              Submit
+              <SearchIcon />
             </Button>
             </DialogActions>
           </form>
