@@ -360,7 +360,9 @@ const WatchList = () => {
                         data-swiper-parallax="-100"
                         variant="contained"
                         onClick={() => handleDeleteTitle(title.id)}>
-                        <HighlightOffIcon fontSize="large"/>
+                        <HighlightOffIcon 
+                          className={styles.removeButton}
+                          fontSize="large"/>
                       </IconButton>
                     </Grid>
                     <Grid xs={0} md={1}></Grid> 

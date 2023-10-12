@@ -60,7 +60,7 @@
 
 .poster:hover {
   opacity: .6;
-  
+  transform: scale(1.1);
 }
 
 .sourceLogos:hover {
@@ -73,6 +73,9 @@
   /* filter: brightness(120%) contrast(90%); */
 }
 
+.removeButton:hover {
+  transform: scale(1.1);
+}
 
 .backdropBox{ 
  /* background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%); */

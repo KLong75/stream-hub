@@ -161,12 +161,12 @@ const GenreSearch = ({ onSubmit }) => {
   const handleChange = async (event) => {
     event.preventDefault();
     const selectedGenreCode = event.target.value;
-    const selectedGenreLabel = genreOptions.find(
-      (option) => option.value === selectedGenreCode
-    )?.label;
+    // const selectedGenreLabel = genreOptions.find(
+    //   (option) => option.value === selectedGenreCode
+    // )?.label;
   
     setSelectedGenreCode(selectedGenreCode);
-    setSelectedGenre(selectedGenreLabel);
+    // setSelectedGenre(selectedGenreLabel);
 
     // setSelectedGenre(event.target.value);
     // setSelectedGenreCode(event.target.value);

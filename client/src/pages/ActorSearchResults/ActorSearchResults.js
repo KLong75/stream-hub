@@ -1,18 +1,29 @@
 // import from react
 import React, { useState, useEffect,  useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 // import context
-import { SearchResultsContext } from "../context/SearchResultsContext";
+import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
-import Button from "@mui/material/Button";
+import { ButtonBase, Button } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+// import from swiper.js
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow, Navigation, Pagination, Parallax } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+// import components
+import VerticalCardSwipeGallery from "../../components/VerticalCardSwipeGallery";
 // import images
-import imageNotAvailable from "../assets/images/no_image_available.jpg";
+import imageNotAvailable from "../../assets/images/no_image_available.jpg";
 // import from utils
-import { useTitleSelectionTMDBId } from '../utils/useTitleSelectionTMDBId';
+import { useTitleSelectionTMDBId } from '../../utils/useTitleSelectionTMDBId';
 
 const ActorSearchResults = () => {
+  const location = useLocation();
+const searchTerm = location.state.searchTerm;
   const navigate = useNavigate();
   const { actorSearchResults } = useContext(SearchResultsContext); // Get the data from context
   // const [actorSearchResults, setActorSearchResults] = useState([]);
@@ -43,7 +54,42 @@ const ActorSearchResults = () => {
 
   return (
     <>
-      <h3>Actor Search Results</h3>
+      <Grid container sx={{ textAlign: "center" }}>
+            <Grid xs={12}>
+              <h3
+                style={{
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                  fontSize: "2rem",
+                  marginTop: "0",
+                  marginBottom: "0",
+                  padding: ".5rem",
+                }}>Actor Search Results</h3>
+                 <h4
+                style={{
+                  fontSize: "1.75rem",
+                  margin: "0",
+                  padding: ".5rem",
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                }}>
+                Searched for: "{searchTerm}"
+              </h4>
+            </Grid>
+          </Grid>
+                
       <div className="search-results-container">
         {actorSearchResults
           .filter((result) => result.known_for.length > 0)
@@ -71,6 +117,12 @@ const ActorSearchResults = () => {
               {result.known_for.map((knownForItem) => (
                 <div key={knownForItem.id}>
                   <p>{knownForItem.title}</p>
+                  <ButtonBase                
+                          onClick={() =>
+                            handleTitleSelected(
+                              `${knownForItem.media_type + "-" + knownForItem.id}`
+                            )
+                          }>
                   <img
                     src={
                       "https://image.tmdb.org/t/p/w200/" +
@@ -78,14 +130,15 @@ const ActorSearchResults = () => {
                     }
                     alt={knownForItem.title}
                   />
+                  </ButtonBase>
                   <p>{knownForItem.overview}</p>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     value={knownForItem.media_type + "-" + knownForItem.id}
                     onClick={handleTitleSelected}
                   >
                     More Details
-                  </Button>
+                  </Button> */}
                 </div>
               ))}
             </div>

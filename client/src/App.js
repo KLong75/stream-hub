@@ -7,7 +7,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import GenreSearchResults from "./pages/GenreSearchResults/GenreSearchResults";
 import MixedGenreSearchSearchResults from "./pages/MixedGenreSearchResults/MixedGenreSearchResults";
 import TitleSearchResults from "./pages/TitleSearchResults/TitleSearchResults";
-import ActorSearchResults from "./pages/ActorSearchResults";
+import ActorSearchResults from "./pages/ActorSearchResults/ActorSearchResults";
 import TitleDetails from "./pages/TitleDetails";
 // import NowTrending from "./pages/NowTrending/NowTrending";
 // import AccountSettings from "./pages/AccountSettings";
@@ -116,11 +116,6 @@ const App = () => {
                             <Routes>
                               <Route path="/" element={<LandingPage />} />
                               <Route path="/home_page" element={<HomePage />} />
-                              {/* <Route path="/search" element={<Search />} /> */}
-                              {/* <Route
-                                path="/now_trending"
-                                element={<NowTrending />}
-                              /> */}
                               <Route
                                 path="/search_results"
                                 element={<GenreSearchResults />}
@@ -145,10 +140,6 @@ const App = () => {
                                 path="/title_details"
                                 element={<TitleDetails />}
                               />
-                              {/* <Route
-                                path="/account_settings"
-                                element={<AccountSettings />}
-                              /> */}
                               <Route path="*" element={<LandingPage />} />
                             </Routes>
                             <ScrollToTopButton />

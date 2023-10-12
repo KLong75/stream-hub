@@ -59,6 +59,86 @@ const ActorSearch = ({onSubmit}) => {
       }
     }
 
+    const topPeopleNamesPageOne = async () => {
+      try {
+        const response = await fetchTopPeoplePageOne();
+        const data = await response.json();
+        console.log(data);
+        const actors = data.results.map((person) => ({
+          name: person.name,
+          id: person.id,
+        }));
+        setTopActors(actors);
+        console.log(actors);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const topPeopleNamesPageTwo = async () => {
+      try {
+        const response = await fetchTopPeoplePageTwo();
+        const data = await response.json();
+        console.log(data);
+        const newActors = data.results.map((person) => ({
+          name: person.name,
+          id: person.id,
+        }));
+        setTopActors((prevActors) => [...prevActors, ...newActors]);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log('topActors', topActors);
+    };
+
+    const topPeopleNamesPageThree = async () => {
+      try {
+        const response = await fetchTopPeoplePageThree();
+        const data = await response.json();
+        console.log(data);
+        const newActors = data.results.map((person) => ({
+          name: person.name,
+          id: person.id,
+        }));
+        setTopActors((prevActors) => [...prevActors, ...newActors]);
+      } catch (error) {
+        console.log(error);
+      }
+      // console.log(topActors);
+    };
+  
+    const topPeopleNamesPageFour = async () => {
+      try {
+        const response = await fetchTopPeoplePageFour();
+        const data = await response.json();
+        console.log(data);
+        const newActors = data.results.map((person) => ({
+          name: person.name,
+          id: person.id,
+        }));
+        setTopActors((prevActors) => [...prevActors, ...newActors]);
+      } catch (error) {
+        console.log(error);
+      }
+      // console.log(topActors);
+    };
+  
+    const topPeopleNamesPageFive = async () => {
+      try {
+        const response = await fetchTopPeoplePageFive();
+        const data = await response.json();
+        console.log(data);
+        const newActors = data.results.map((person) => ({
+          name: person.name,
+          id: person.id,
+        }));
+        setTopActors((prevActors) => [...prevActors, ...newActors]);
+      } catch (error) {
+        console.log(error);
+      }
+      // console.log(topActors);
+    };
+
     const fetchData = async () => {
       await topPeopleNamesPageOne();
       await topPeopleNamesPageTwo();
@@ -68,87 +148,7 @@ const ActorSearch = ({onSubmit}) => {
     };
 
     fetchData();
-  }, []);
-
-  const topPeopleNamesPageOne = async () => {
-    try {
-      const response = await fetchTopPeoplePageOne();
-      const data = await response.json();
-      console.log(data);
-      const actors = data.results.map((person) => ({
-        name: person.name,
-        id: person.id,
-      }));
-      setTopActors(actors);
-      console.log(actors);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const topPeopleNamesPageTwo = async () => {
-    try {
-      const response = await fetchTopPeoplePageTwo();
-      const data = await response.json();
-      console.log(data);
-      const newActors = data.results.map((person) => ({
-        name: person.name,
-        id: person.id,
-      }));
-      setTopActors((prevActors) => [...prevActors, ...newActors]);
-    } catch (error) {
-      console.log(error);
-    }
-    console.log('topActors', topActors);
-  };
-
-  const topPeopleNamesPageThree = async () => {
-    try {
-      const response = await fetchTopPeoplePageThree();
-      const data = await response.json();
-      console.log(data);
-      const newActors = data.results.map((person) => ({
-        name: person.name,
-        id: person.id,
-      }));
-      setTopActors((prevActors) => [...prevActors, ...newActors]);
-    } catch (error) {
-      console.log(error);
-    }
-    // console.log(topActors);
-  };
-
-  const topPeopleNamesPageFour = async () => {
-    try {
-      const response = await fetchTopPeoplePageFour();
-      const data = await response.json();
-      console.log(data);
-      const newActors = data.results.map((person) => ({
-        name: person.name,
-        id: person.id,
-      }));
-      setTopActors((prevActors) => [...prevActors, ...newActors]);
-    } catch (error) {
-      console.log(error);
-    }
-    // console.log(topActors);
-  };
-
-  const topPeopleNamesPageFive = async () => {
-    try {
-      const response = await fetchTopPeoplePageFive();
-      const data = await response.json();
-      console.log(data);
-      const newActors = data.results.map((person) => ({
-        name: person.name,
-        id: person.id,
-      }));
-      setTopActors((prevActors) => [...prevActors, ...newActors]);
-    } catch (error) {
-      console.log(error);
-    }
-    // console.log(topActors);
-  };
+  }, [] );
 
   useEffect(() => {
     const sorted = [...topActors].sort((a, b) =>
@@ -170,7 +170,7 @@ const ActorSearch = ({onSubmit}) => {
     // console.log(searchTerm.name);
     const searchedName = searchTerm.name;
     // check on this line below 'setSearchTerm(searchedName)'. it might not be needed and might cause an issue
-    setSearchTerm(searchedName)
+    // setSearchTerm(searchedName)
     const cachedActorSearchResults = localStorage.getItem(
       `actorSearchResults_${searchedName}`
     );
@@ -183,10 +183,8 @@ const ActorSearch = ({onSubmit}) => {
         setActorSearchResults(data);
         handleCloseModal();
         console.log("Using Cached Data:", data);
-        navigate('/actor_search_results', { state: { data },});
+        navigate('/actor_search_results', { state: { data, searchTerm: searchedName },});
         setSearchTerm("");
-        // return;
-        
       } else {
         localStorage.removeItem(`actorSearchResults_${searchedName}`);
         console.log("Cached Data Expired and Removed");
@@ -241,7 +239,7 @@ const ActorSearch = ({onSubmit}) => {
         );
         console.log(searchedName);
         handleCloseModal();
-        navigate('/actor_search_results', {state: {data: actorSearchData},});
+        navigate('/actor_search_results', {state: {data: actorSearchData, searchTerm: searchedName},});
       } catch (err) {
         console.log(err.message);
       }
