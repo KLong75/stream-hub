@@ -1,16 +1,21 @@
-// import from 
+// import from react
 import { useContext } from "react";
+// import swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+// import from utils
+import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
+// import styles
 import styles from "./VerticalCardSwipeGallery.module.css";
+
 
 const VerticalCardSwipeGallery = ({
   context,
   categoryTitle,
-  handleTitleSelected,
+  // handleTitleSelected,
   genreList,
 }) => {
   const rawData = useContext(context);
@@ -24,6 +29,9 @@ const VerticalCardSwipeGallery = ({
     }
     return false;
   });
+
+  const handleTitleSelected = useTitleSelectionTMDBId();
+
 
   return (
     <>

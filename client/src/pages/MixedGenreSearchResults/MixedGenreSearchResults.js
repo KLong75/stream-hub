@@ -21,25 +21,6 @@ import { genreList } from "../../utils/utils";
 // import styles
 import styles from "./MixedGenreSearchResults.module.css";
 
-// const TitleBox = styled(Paper)(({ theme }) => ({
-//   padding: theme.spacing(4),
-//   margin: theme.spacing(4),
-//   textAlign: 'center',
-//   color: 'black',
-//   marginBottom: "4rem",
-//   width: "24rem",
-//   height: "36rem",
-//   // borderRadius: "20%",
-//   fontSize: '1rem',
-//   fontWeight: 'bold',
-//   backgroundImage: "linear-gradient(315deg, #185a9d 0%, #43cea2 100%)",
-//         "&:hover": {
-//           backgroundImage:
-//             "linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)",
-//           transform: 'scale(1.05)',
-//         },
-// }));
-
 
 const MixedGenreSearchResults = () => {
   const loggedIn = Auth.loggedIn();

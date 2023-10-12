@@ -297,7 +297,7 @@ const WatchList = () => {
                                   height: "2.5rem",
                                   display: "block",
                                   margin: "0 auto",
-                                  border: "1px dashed red",
+                                  // border: "1px dashed red",
                                 }}
                               />
                             </Grid>
