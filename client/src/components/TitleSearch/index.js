@@ -160,7 +160,7 @@ const TitleSearch = ({ onSubmit }) => {
       <Dialog open={modalOpen} onClose={handleCloseModal} >
         <DialogTitle>Search by Title From All Available Sources</DialogTitle>
         <DialogContent sx={{width: '100%'}}  >
-          <h5>
+          <h5 style={{fontSize: '1.25rem'}}>
             Don't see your title in the menu? Enter it anyway! If it exists,
             we'll find it.
           </h5>

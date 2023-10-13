@@ -1,11 +1,10 @@
 .tvButton {
   border: 1px solid black;
-  /* background-color: orange; */
   font-weight: bold;
   color: black;
-  font-size: .88rem;
-  height: 4rem;
-  width: 4rem;
+  font-size: .88em;
+  height: 5em;
+  width: 5em;
   border-radius: 50%;
   padding: 0;
   font-weight: bold;

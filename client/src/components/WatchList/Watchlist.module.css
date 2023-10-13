@@ -60,7 +60,7 @@
 
 .poster:hover {
   opacity: .6;
-  
+  transform: scale(1.1);
 }
 
 .sourceLogos:hover {
@@ -73,13 +73,14 @@
   /* filter: brightness(120%) contrast(90%); */
 }
 
+.removeButton:hover {
+  transform: scale(1.1);
+}
 
 .backdropBox{ 
  /* background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%); */
  height: 100vh;
 }
-
-
 
 .backdrop {
   height: 100%;
@@ -90,18 +91,32 @@
   position: relative;
 }
 
+.removeLabel {
+  margin-top: -.5rem;
+  display: none;
+} 
+
 
 @media(max-width: 900px) {
   .backdrop {
     display: none;
   }
+  .logoPlaceholderGrid {
+    display: none;
+  }
+  .removeButton {
+    margin-top: -.75em;
+  }
+  .removeLabel {
+    display: block;
+  } 
 }
 
-@media(max-width: 768px) {
+/* @media(max-width: 768px) {
   .backdropBox {
-    /* height: 60vh; */
+   
   }
-}
+} */
 
 @media(max-width: 500px) {
   .backdropBox {

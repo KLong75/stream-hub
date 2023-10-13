@@ -10,3 +10,14 @@
   font-weight: 700;
   letter-spacing: .2rem;
 }
+
+.gallerySection{
+  margin-top: -10em;
+  margin-bottom: 3em;
+}
+
+@media (max-width: 768px) {
+  .gallerySection{
+    margin-top: -8em;
+  }
+}

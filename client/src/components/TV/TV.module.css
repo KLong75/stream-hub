@@ -5,8 +5,11 @@
   border-radius: 70px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
-  width: 20rem;  /* or whatever size you want */
-  height: 16rem;
+  width: 20em;  
+  height: 16em;
+  /* width: 60%;  
+  height: 48%; */
+  min-width: 12em;
   z-index: 1;
   position: fixed;
   top: 55.8%;
@@ -15,7 +18,7 @@
 }
 
 .appTitle {
-  font-size: 3rem;
+  font-size: 3em;
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -27,7 +30,8 @@
   animation: fadeIn 2s;
 }
 
-@keyframes fadeIn {
+
+/* @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1.5; }
 }
@@ -77,7 +81,8 @@
 }
 @media (max-width: 1000px) {
   .tvButtonContainer {
-    right: 24% !important;
+    right: 26% !important;
+    top: 51% !important;
   }
   .titleContainer {
     left: 46% !important;
@@ -88,22 +93,19 @@
 }
 
 @media (max-width: 950px) {
-  .tvButtonContainer {
-    top: 51% !important;
-  }
   .landing-page-modal {
     top: 50%!important;
   }
   .tvButtonContainer {
-    right: 24% !important;
-    top: 50.5% !important;
+    right: 26% !important;
+    top: 51% !important;
   }
   
 }
 
 @media (max-width: 920px) {
   .tvButtonContainer {
-    right: 22% !important;
+    right: 26% !important;
     top: 51% !important;
   }
   .titleContainer {
@@ -117,7 +119,7 @@
 
 @media (max-width: 900px) {
   .tvButtonContainer {
-    right: 21% !important;
+    right: 25% !important;
     top: 51% !important;
   }
   .titleContainer {
@@ -130,8 +132,8 @@
 
 @media (max-width: 850px) {
   .tvButtonContainer {
-    right: 20% !important;
-    top: 51% !important;
+    right: 24% !important;
+    top: 50.75% !important;
   }
   .titleContainer {
     left: 44.8% !important;
@@ -146,7 +148,6 @@
     top: 55.8%;
   }
   .tvButtonContainer {
-    right: 18% !important;
     top: 51% !important;
   }
   .titleContainer {
@@ -158,16 +159,18 @@
 }
 
 @media (max-width: 768px) {
-  html {
-   font-size: 14px;
+
+  .tvButtonContainer {
+    right: 21.5% !important;
+    top: 50.65% !important;
   }
 }
 
 @media (max-width: 750px) {
  
   .tvButtonContainer {
-    right: 18% !important;
-    top: 51% !important;
+    right: 21% !important;
+    top: 50.75% !important;
   }
   .titleContainer {
     left: 44.4% !important;
@@ -179,8 +182,8 @@
 
 @media (max-width: 700px) {
   .tvButtonContainer {
-    right: 17% !important;
-    top: 51% !important;
+    right: 18% !important;
+    top: 50.75% !important;
   }
   .titleContainer {
     left: 44.2% !important;
@@ -193,7 +196,7 @@
 @media (max-width: 650px) {
   .tvButtonContainer {
     right: 16% !important;
-    top: 51% !important;
+    top: 50.75% !important;
   }
   .titleContainer {
     left: 44% !important;
@@ -205,7 +208,7 @@
 
 @media (max-width: 600px) {
   .tvButtonContainer {
-    right: 16% !important;
+    right: 13% !important;
     top: 51% !important;
   }
   .titleContainer {
@@ -214,15 +217,13 @@
   .landingPageModal {
     left: 43.8%!important;
   }
-  html {
-    font-size: 12px;
-   }
+
 }
 
 
 @media (max-width: 550px) {
   .tvButtonContainer {
-    right: 12% !important;
+    right: 9% !important;
     top: 51% !important;
   }
   .titleContainer {
@@ -235,8 +236,8 @@
 
 @media (max-width: 500px) {
   .tvButtonContainer {
-    right: 10% !important;
-    top: 51% !important;
+    right: 6% !important;
+    top: 50.75% !important;
   }
   .titleContainer {
     left: 43.6% !important;
@@ -248,8 +249,8 @@
 
 @media (max-width: 450px) {
   .tvButtonContainer {
-    right: 6% !important;
-    top: 51% !important;
+    right: -2% !important;
+    top: 50.75% !important;
   }
   .titleContainer {
     left: 42.5% !important;
@@ -261,7 +262,7 @@
 
 @media (max-width: 400px) {
   .tvButtonContainer {
-    right: 0% !important;
+    right: -5% !important;
     top: 51% !important;
   }
   .titleContainer {
@@ -274,51 +275,38 @@
 
 @media (max-width: 375px){
   .tvButtonContainer {
-    right: 5% !important;
-  }
-  html {
-    font-size: 10px;
+    right: -8% !important;
+    top: 51.25% !important;
   }
 }
 
 @media (max-width: 350px){
   .tvButtonContainer {
-    right: 2% !important;
+    right: -12% !important;
   }
-  html {
-    font-size: 10px;
-  }
+ 
 }
 
 @media (max-width: 320px){
   .tvButtonContainer {
-    right: -2% !important;
-  }
-  html {
-    font-size: 10px;
+    right: -14% !important;
   }
 }
 
 @media (max-width: 300px){
   .tvButtonContainer {
     top: 50.5% !important;
-    right: 5% !important;
-  }
-  html {
-    font-size: 8px;
+    right: -15% !important;
   }
 }
 
 @media (max-width: 280px){
   .tvButtonContainer {
    
-    right: 2% !important;
-  }
-  html {
-    /* font-size: 6px; */
+    right: -16% !important;
   }
 }
-
+ */
 
 
 

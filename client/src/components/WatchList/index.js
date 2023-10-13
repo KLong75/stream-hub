@@ -282,13 +282,14 @@ const WatchList = () => {
                           .fill()
                           .map((_, index) => (
                             <Grid
+                            className={styles.logoPlaceholderGrid}
                               xs={12}
                               key={`placeholder-${index}`}
                               style={{
                                 height: "3.5rem",
                                 overflow: "hidden",
                                 zIndex: "100",
-                                padding: "0",
+                                padding: "0", 
                               }}>
                               <div
                                 style={{
@@ -296,7 +297,7 @@ const WatchList = () => {
                                   height: "2.5rem",
                                   display: "block",
                                   margin: "0 auto",
-                                  border: "1px dashed #ccc",
+                                  // border: "1px dashed red",
                                 }}
                               />
                             </Grid>
@@ -360,8 +361,11 @@ const WatchList = () => {
                         data-swiper-parallax="-100"
                         variant="contained"
                         onClick={() => handleDeleteTitle(title.id)}>
-                        <HighlightOffIcon fontSize="large"/>
+                        <HighlightOffIcon 
+                          className={styles.removeButton}
+                          fontSize="large"/>
                       </IconButton>
+                      <p className={styles.removeLabel}>Remove from watchlist</p>
                     </Grid>
                     <Grid xs={0} md={1}></Grid> 
                   </Grid>

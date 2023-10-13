@@ -2,6 +2,7 @@
 import { useState } from "react";
 // impoirt from mui
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import styled from "@emotion/styled";
 // import images
 import Tv from "../../assets/images/TvNew2.png";
 import tvIcon from "../../assets/images/tvIcon.png";
@@ -11,6 +12,25 @@ import LoginForm from "../../components/LoginForm";
 import SignupForm from "../../components/SignupForm";
 // import styles
 import styles from "./TV.module.css";
+
+const TVWrapper = styled.div`
+font-size: 16px;
+
+@media (max-width: 768px) {
+  font-size: 14px;
+}
+@media (max-width: 600px) {
+  font-size: 12px;
+}
+@media (max-width: 480px) {
+  font-size: 10px;
+}
+@media (max-width: 320px) {
+  font-size: 9px;
+}
+
+`
+
 
 const TV = () => {
   const [modalType, setModalType] = useState("");
@@ -28,7 +48,8 @@ const TV = () => {
 
 
   return (
-    <main className={styles.landingPageContainer}>
+    <main>
+    <TVWrapper>
       {modalType === "" && (
         <Grid
         className={styles.titleContainer}
@@ -81,7 +102,7 @@ const TV = () => {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <Grid>
+        {/* <Grid> */}
           <Grid>
             <div
               className={styles.tvScreen}
@@ -92,13 +113,14 @@ const TV = () => {
               }}
             ></div>
           </Grid>
-        </Grid>
+        {/* </Grid> */}
         <Grid>
           <img
             // className="landing_page_tv"
             src={Tv}
             alt="tv"
-            style={{ height: "32rem" }}
+            style={{ height: "32em", width: "auto" }}
+            // style={{ width: "100%", height: "auto", maxWidth: "32rem", minWidth: "24rem" }}
           />
         </Grid>
       </Grid>
@@ -114,8 +136,8 @@ const TV = () => {
           marginRight: "0",
           zIndex: 1000,
           position: "fixed",
-          top: "52.5%",
-          right: "34%",
+          top: "52%",
+          right: "33.25%",
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -172,6 +194,7 @@ const TV = () => {
           <SignupForm />
         </section>
       )}
+    </TVWrapper>
     </main>
   );
 };
