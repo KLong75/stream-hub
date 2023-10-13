@@ -2,8 +2,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import context
-import { TitleDetailsContext } from "../context/TitleDetailsContext";
-import { SearchResultsContext } from "../context/SearchResultsContext";
+import { TitleDetailsContext } from "../../context/TitleDetailsContext";
+import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import api calls
 import {
   fetchMoreTitleDetailsMovie,
@@ -11,27 +11,33 @@ import {
   searchByName,
   fetchMoreTitleDetailsTV,
   fetchTvTitle,
-} from "../utils/apiCalls";
+} from "../../utils/apiCalls";
 // import from material-ui
 import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import { ButtonBase } from "@mui/material";
+// import { styled } from '@mui/material/styles';
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from utils
-import { CACHE_DURATION, formatDate } from "../utils/utils";
-import Auth from "../utils/auth";
-import { useTitleSelection } from "../utils/useTitleSelection";
-import { SAVE_TITLE } from "../utils/mutations";
-import { QUERY_ME } from "../utils/queries";
+import { CACHE_DURATION, formatDate } from "../../utils/utils";
+import Auth from "../../utils/auth";
+import { useTitleSelection } from "../../utils/useTitleSelection";
+import { SAVE_TITLE } from "../../utils/mutations";
+import { QUERY_ME } from "../../utils/queries";
 // import from apollo client
 import { useMutation, useQuery } from "@apollo/client";
 // import components
-import LoadingClapBoard from "../components/LoadingClapBoard";
+import LoadingClapBoard from "../../components/LoadingClapBoard";
 // import source logos
-import DisneyPlusLogo from "../assets/icons/DisneyPlusLogo.png";
+import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
+// import styles
+import styles from "./TitleDetails.module.css";
+
+
 
 const TitleDetails = () => {
   const loggedIn = Auth.loggedIn();
   const navigate = useNavigate();
-
-  // here
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
   useEffect(() => {
@@ -45,7 +51,6 @@ const TitleDetails = () => {
   useEffect(() => {
     setIsAuthenticated(Auth.loggedIn());
   }, []);
-  // *****
 
   const { data, loading } = useQuery(QUERY_ME);
 
@@ -631,537 +636,652 @@ const TitleDetails = () => {
   return (
     <>
       {!loggedIn ? (
-        <div>
-          <h2>Welcome to streamHub</h2>
-          <p>Please</p>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-          <p>Or</p>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-        </div>
+        navigate("/")
       ) : (
-        <div>
-          <h2>{selectedTitleDetails.title}</h2>
-          {selectedTitleDetails.poster && (
-            <img src={selectedTitleDetails.poster} alt="show poster" />
-          )}
-
-          {selectedTitleDetails.type && (
-            <p>
-              {selectedTitleDetails.type === "movie"
-                ? "Movie"
-                : selectedTitleDetails.type === "tv_series"
-                ? "TV Series"
-                : selectedTitleDetails.type === "tv_miniseries"
-                ? "TV Miniseries"
-                : selectedTitleDetails.type === "short_film"
-                ? "Short Film"
-                : "Unknown Type"}
-            </p>
-          )}
-          {selectedTitleDetails.release_date && (
-            <p>Released on {formatDate(selectedTitleDetails.release_date)}</p>
-          )}
-          {selectedTitleDetails.runtime && (
-            <p>Runtime: {selectedTitleDetails.runtime} minutes</p>
-          )}
-          {selectedTitleDetails.us_rating && (
-            <p>Rated {selectedTitleDetails.us_rating}</p>
-          )}
-
-          {selectedTitleDetails.genre_names &&
-            selectedTitleDetails.genre_names.length > 0 && (
-              <div>
-                <p>Genres:</p>
-                {selectedTitleDetails.genre_names.map((genre) => (
-                  <p key={genre}>{genre}</p>
-                ))}
-              </div>
-            )}
-          {selectedTitleDetails.network_names &&
-            selectedTitleDetails.network_names.length > 0 && (
-              <p>Network: {selectedTitleDetails.network_names}</p>
-            )}
-
-          {selectedTitleDetails.backdrop && (
-            <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
-          )}
-
-          {selectedTitleDetails.plot_overview && (
-            <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
-          )}
-          <div>
-            {moreDetails && moreDetails.cast && moreDetails.cast.length > 0 && (
-              <p>Cast:</p>
-            )}
-            {moreDetails &&
-              moreDetails.cast &&
-              moreDetails.cast.length > 0 &&
-              moreDetails.cast
-                .slice(0, Math.min(10, moreDetails.cast.length))
-                .map((castMember) => (
-                  <p key={castMember.id} style={{ fontSize: "1rem" }}>
-                    <Button
-                      value={castMember.name}
-                      onClick={(e) => {
-                        console.log("Button clicked:", e.currentTarget.value);
-                        handleActorNameClicked(e);
-                      }}
-                      style={{
-                        color: "black",
-                        textTransform: "none",
-                        fontSize: "1rem",
-                      }}
-                      type="submit">
-                      {castMember.name}
-                    </Button>
-                    as {castMember.character}
-                  </p>
-                ))}
-          </div>
-          <div>
-            {moreDetails &&
-              moreDetails.crew &&
-              moreDetails.crew.some(
-                (crewMember) => crewMember.job === "Director"
-              ) && (
-                <>
-                  <p>Directed by:</p>
-                  {moreDetails.crew
-                    .filter((crewMember) => crewMember.job === "Director")
-                    .map((crewMember) => (
-                      <p key={crewMember.id}>{crewMember.name}</p>
-                    ))}
-                </>
-              )}
-          </div>
-
-          {selectedTitleDetails.sources && <p>Subscription Streaming:</p>}
-
-          {/* Not Available} */}
-          {notAvailable && <span>{notAvailable}</span>}
-
-          {/* Netflix button */}
-          {netflixUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={netflixUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Netflix
-            </Button>
-          )}
-          {/* Amazon Prime button */}
-          {amazonPrimeUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={amazonPrimeUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Amazon Prime
-            </Button>
-          )}
-          {/* Hulu button */}
-          {huluUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={huluUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Hulu
-            </Button>
-          )}
-          {/* Max button */}
-          {maxUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={maxUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Max
-            </Button>
-          )}
-          {/* Disney Plus button */}
-          {disneyPlusUrl && (
-            <a href={disneyPlusUrl} target="_blank" rel="noopener noreferrer">
-              <img
-                style={{ height: "4rem" }}
-                src={DisneyPlusLogo}
-                alt="Disney+ Logo"
-              />
-            </a>
-          )}
-          {/* Apple TV button */}
-          {appleTvUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={appleTvUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Apple TV
-            </Button>
-          )}
-          {/* Peacock Button */}
-          {peacockUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={peacockUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Peacock
-            </Button>
-          )}
-          {/* Hayu Button */}
-          {hayuUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={hayuUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Hayu
-            </Button>
-          )}
-
-          {/* Paramount Plus Button */}
-          {paramountPlusUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={paramountPlusUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Paramount+
-            </Button>
-          )}
-
-          {/* Showtime Button */}
-          {showtimeUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={showtimeUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Showtime
-            </Button>
-          )}
-
-          {/* Crave Button */}
-          {craveUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={craveUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Crave
-            </Button>
-          )}
-
-          {/* Crave Starz Button */}
-          {craveStarzUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={craveStarzUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Crave Starz
-            </Button>
-          )}
-
-          {/* Stan Button */}
-          {stanUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={stanUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Stan
-            </Button>
-          )}
-
-          {/* Starz Button */}
-          {starzUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={starzUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Starz
-            </Button>
-          )}
-
-          {/* Foxtel Now Button */}
-          {foxtelNowUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={foxtelNowUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Foxtel Now
-            </Button>
-          )}
-
-          {/* Sky Go Button */}
-          {skyGoUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={skyGoUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Sky Go
-            </Button>
-          )}
-
-          {/*MGM Plus Button */}
-          {mgmPlusUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={mgmPlusUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on MGM Plus
-            </Button>
-          )}
-
-          {/* Now TV Button */}
-          {nowTvUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={nowTvUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Now TV
-            </Button>
-          )}
-
-          {/* Binge Button */}
-          {bingeUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={bingeUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on BINGE
-            </Button>
-          )}
-
-          {/* Britbox Button */}
-          {britboxUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={britboxUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Britbox UK
-            </Button>
-          )}
-
-          {/* Kanopy Button */}
-          {kanopyUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={kanopyUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Kanopy
-            </Button>
-          )}
-
-          {/* Hulu With Showtime Button */}
-          {huluWithShowtimeUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={huluWithShowtimeUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Hulu With Showtime
-            </Button>
-          )}
-
-          {/* Youtube Premium Button */}
-          {youTubePremiumUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={youTubePremiumUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Youtube Premium
-            </Button>
-          )}
-
-          {/* Showtime via Amazon Prime Button */}
-          {showtimeAmazonPrimeUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={showtimeAmazonPrimeUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on Showtime via Amazon Prime
-            </Button>
-          )}
-
-          {/* fuboTV Button */}
-          {fuboTvUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={fuboTvUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Watch on fuboTV
-            </Button>
-          )}
-
-          {/*purchase buttons*/}
-          {selectedTitleDetails.buy_sources && (
-            <p>Available to Rent or Buy on:</p>
-          )}
-
-          {/* Not Available} */}
-          {buyNotAvailable && <span>{buyNotAvailable}</span>}
-          {/* Buy on Amazon Button */}
-          {buyAmazonUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={buyAmazonUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Amazon
-            </Button>
-          )}
-
-          {/* Buy on iTunes Button */}
-          {buyItunesUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={buyItunesUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              iTunes
-            </Button>
-          )}
-          {/* buy on google play button */}
-          {buyGooglePlayUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={buyGooglePlayUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Google Play
-            </Button>
-          )}
-          {/* buy on youtube button */}
-          {buyYouTubeUrl && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={buyYouTubeUrl}
-              target="_blank"
-              rel="noopener noreferrer">
-              Youtube
-            </Button>
-          )}
-          {selectedTitleDetails.trailer && (
-            <>
-              <p>Trailer:</p>{" "}
-              {selectedTitleDetails.trailer.includes("youtube") ? (
-                <iframe
-                  width="560rem"
-                  height="315rem"
-                  src={selectedTitleDetails.trailer}
-                  title="YouTube video player"
+        <main
+          style={{
+            backgroundImage: `url(${selectedTitleDetails.backdrop})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundAttachment: "fixed",
+            minHeight: "100vh",
+            minWidth: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+        
+          <Grid
+            container
+            justifyContent="center"
+            textAlign="center"
+            alignItems="center">
+            <Grid xs={4}></Grid>
+            <Grid xs={4}>
+            <Paper>
+              <h2
+                style={{
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                  fontSize: "2rem",
+                  marginTop: "0",
+                  marginBottom: "-1rem",
+                  padding: ".25rem",
+                }}
+              
+              >{selectedTitleDetails.title}</h2>
+              </Paper>
+            </Grid>
+            <Grid xs={4}></Grid>
+            {selectedTitleDetails.type && (
+              
+              <Grid xs={12}>
+                <h3
                   style={{
-                    border: "2px",
-                    borderStyle: "solid",
-                    borderColor: "black",
-                  }}
-                  allowFullScreen={true}></iframe>
-              ) : (
-                <a
-                  href={selectedTitleDetails.trailer}
-                  target="_blank"
-                  rel="noreferrer">
-                  <img
-                    width="560"
-                    height="315"
-                    src={selectedTitleDetails.trailer_thumbnail}
-                    alt="trailer thumbnail"
-                  />
-                </a>
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                  fontSize: "1.5rem",
+                  marginTop: "0",
+                  marginBottom: "0",
+                  padding: ".5rem",
+                }}
+                >
+                  {selectedTitleDetails.type === "movie"
+                    ? "Movie"
+                    : selectedTitleDetails.type === "tv_series"
+                    ? "TV Series"
+                    : selectedTitleDetails.type === "tv_miniseries"
+                    ? "TV Miniseries"
+                    : selectedTitleDetails.type === "short_film"
+                    ? "Short Film"
+                    : "Unknown Type"}
+                </h3>
+              </Grid>
+            )}
+
+            {selectedTitleDetails.genre_names &&
+              selectedTitleDetails.genre_names.length > 0 && (
+                <Grid xs={12}>
+                  {selectedTitleDetails.genre_names.map((genre) => (
+                    <h4 key={genre}>{genre}</h4>
+                  ))}
+                </Grid>
               )}
-            </>
-          )}
-          <Button
-            disabled={savedTitleIds.includes(selectedTitleDetails.id)}
-            variant="contained"
-            onClick={() => handleSaveTitle(title)}>
-            {savedTitleIds.includes(selectedTitleDetails.id)
-              ? "Title Saved!"
-              : "Save to Watchlist"}
-          </Button>
-          <p>Related Titles: </p>
-          {similarTitlesDetails.map((similarTitle) => (
-            <React.Fragment key={similarTitle.id}>
-              <p>{similarTitle.title}</p>
-              <img src={similarTitle.poster} alt="similar title poster" />
-              <p>{similarTitle.plot_overview}</p>
 
-              {similarTitle.trailer &&
-              similarTitle.trailer.trim() !== "" &&
-              similarTitle.trailer.includes("youtube") ? (
-                <iframe
-                  width="560rem"
-                  height="315rem"
-                  src={similarTitle.trailer}
-                  title="YouTube video player"
-                  style={{
-                    border: "2px",
-                    borderStyle: "solid",
-                    borderColor: "black",
-                  }}
-                  allowFullScreen={true}></iframe>
-              ) : similarTitle.trailer && similarTitle.trailer.trim() !== "" ? (
-                <a href={similarTitle.trailer} target="_blank" rel="noreferrer">
-                  Watch Trailer
-                </a>
-              ) : null}
+            {selectedTitleDetails.poster && (
+              <Grid xs={12}>
+                <img src={selectedTitleDetails.poster} alt="show poster" />
+              </Grid>
+            )}
 
+            {selectedTitleDetails.release_date && (
+              <Grid xs={12}>
+                <h5>
+                  Released on {formatDate(selectedTitleDetails.release_date)}
+                </h5>
+              </Grid>
+            )}
+
+            {selectedTitleDetails.network_names &&
+              selectedTitleDetails.network_names.length > 0 && (
+                <Grid xs={12}>
+                  <h6>Network: {selectedTitleDetails.network_names}</h6>
+                </Grid>
+              )}
+
+            {selectedTitleDetails.us_rating && (
+              <Grid xs={12}>
+                <h6>Rated {selectedTitleDetails.us_rating}</h6>
+              </Grid>
+            )}
+
+            {/* {selectedTitleDetails.backdrop && (
+              <Grid xs={12}>
+                <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
+              </Grid>
+            )} */}
+
+            {selectedTitleDetails.plot_overview && (
+              <Grid xs={12}>
+                <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
+              </Grid>
+            )}
+            <section>
+              {moreDetails &&
+                moreDetails.cast &&
+                moreDetails.cast.length > 0 &&
+                moreDetails.cast
+                  .slice(0, Math.min(10, moreDetails.cast.length))
+                  .map((castMember) => (
+                    <Grid xs={12} key={castMember.id} style={{ fontSize: "1rem" }}>
+                      
+                        <Button
+                          value={castMember.name}
+                          onClick={(e) => {
+                            console.log(
+                              "Button clicked:",
+                              e.currentTarget.value
+                            );
+                            handleActorNameClicked(e);
+                          }}
+                          style={{
+                            color: "black",
+                            textTransform: "none",
+                            fontSize: "1rem",
+                          }}
+                          type="submit">
+                          {castMember.name}
+                        </Button>
+                        as {castMember.character}
+                    </Grid>
+                  ))}
+            </section>
+            
+            <Grid xs={12}>
+              {moreDetails &&
+                moreDetails.crew &&
+                moreDetails.crew.some(
+                  (crewMember) => crewMember.job === "Director"
+                ) && (
+                  <>
+                    <p>Directed by:</p>
+                    {moreDetails.crew
+                      .filter((crewMember) => crewMember.job === "Director")
+                      .map((crewMember) => (
+                        <p key={crewMember.id}>{crewMember.name}</p>
+                      ))}
+                  </>
+                )}
+            </Grid>
+
+            {selectedTitleDetails.sources && <p>Watch on:</p>}
+
+            {/* Not Available} */}
+            {notAvailable && 
+            <Grid xs={12}>
+            <span>{notAvailable}</span>
+            </Grid>
+            }
+
+            {/* Netflix button */}
+            {netflixUrl && (
+              <Grid xs={12}>
               <Button
                 variant="contained"
-                value={similarTitle.id}
-                onClick={handleTitleSelected}>
-                More Details
+                color="primary"
+                href={netflixUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Netflix
               </Button>
-            </React.Fragment>
-          ))}
-        </div>
+              </Grid>
+            )}
+            {/* Amazon Prime button */}
+            {amazonPrimeUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={amazonPrimeUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Amazon Prime
+              </Button>
+              </Grid>
+            )}
+            {/* Hulu button */}
+            {huluUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={huluUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Hulu
+              </Button>
+              </Grid>
+            )}
+            {/* Max button */}
+            {maxUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={maxUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Max
+              </Button>
+              </Grid>
+            )}
+            {/* Disney Plus button */}
+            {disneyPlusUrl && (
+              <Grid xs={12}>
+              <a href={disneyPlusUrl} target="_blank" rel="noopener noreferrer">
+                <img
+                  style={{ height: "4rem" }}
+                  src={DisneyPlusLogo}
+                  alt="Disney+ Logo"
+                />
+              </a>
+              </Grid>
+            )}
+            {/* Apple TV button */}
+            {appleTvUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={appleTvUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Apple TV
+              </Button>
+              </Grid>
+            )}
+            {/* Peacock Button */}
+            {peacockUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={peacockUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Peacock
+              </Button>
+              </Grid>
+            )}
+            {/* Hayu Button */}
+            {hayuUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={hayuUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Hayu
+              </Button>
+              </Grid>
+            )}
+
+            {/* Paramount Plus Button */}
+            {paramountPlusUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={paramountPlusUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Paramount+
+              </Button>
+              </Grid>
+            )}
+
+            {/* Showtime Button */}
+            {showtimeUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={showtimeUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Showtime
+              </Button>
+              </Grid>
+            )}
+
+            {/* Crave Button */}
+            {craveUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={craveUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Crave
+              </Button>
+              </Grid>
+            )}
+
+            {/* Crave Starz Button */}
+            {craveStarzUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={craveStarzUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Crave Starz
+              </Button>
+              </Grid>
+            )}
+
+            {/* Stan Button */}
+            {stanUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={stanUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Stan
+              </Button>
+              </Grid>
+            )}
+
+            {/* Starz Button */}
+            {starzUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={starzUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Starz
+              </Button>
+              </Grid>
+            )}
+
+            {/* Foxtel Now Button */}
+            {foxtelNowUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={foxtelNowUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Foxtel Now
+              </Button>
+              </Grid>
+            )}
+
+            {/* Sky Go Button */}
+            {skyGoUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={skyGoUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Sky Go
+              </Button>
+              </Grid>
+            )}
+
+            {/*MGM Plus Button */}
+            {mgmPlusUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={mgmPlusUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on MGM Plus
+              </Button>
+              </Grid>
+            )}
+
+            {/* Now TV Button */}
+            {nowTvUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={nowTvUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Now TV
+              </Button>
+              </Grid>
+            )}
+
+            
+            {/* {bingeUrl && (
+              <Button
+                variant="contained"
+                color="primary"
+                href={bingeUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on BINGE
+              </Button>
+            )}
+
+            {britboxUrl && (
+              <Button
+                variant="contained"
+                color="primary"
+                href={britboxUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Britbox UK
+              </Button>
+            )}
+
+            {kanopyUrl && (
+              <Button
+                variant="contained"
+                color="primary"
+                href={kanopyUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Kanopy
+              </Button>
+            )}
+
+           
+            {youTubePremiumUrl && (
+              <Button
+                variant="contained"
+                color="primary"
+                href={youTubePremiumUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on Youtube Premium
+              </Button>
+            )}
+
+            
+            {fuboTvUrl && (
+              <Button
+                variant="contained"
+                color="primary"
+                href={fuboTvUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Watch on fuboTV
+              </Button>
+            )} */}
+
+            {/*purchase buttons*/}
+            {selectedTitleDetails.buy_sources && (
+              <Grid xs={12}>
+              <p>Rent or Buy:</p>
+              </Grid>
+            )}
+
+            {/* Not Available} */}
+            {buyNotAvailable && (
+              <Grid xs={12}>
+              <span>{buyNotAvailable}
+              </span>
+              </Grid>
+            )}
+            {/* Buy on Amazon Button */}
+            {buyAmazonUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={buyAmazonUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Amazon
+              </Button>
+              </Grid>
+            )}
+
+            {/* Buy on iTunes Button */}
+            {buyItunesUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={buyItunesUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                iTunes
+              </Button>
+              </Grid>
+            )}
+            {/* buy on google play button */}
+            {buyGooglePlayUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={buyGooglePlayUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Google Play
+              </Button>
+              </Grid>
+            )}
+            {/* buy on youtube button */}
+            {buyYouTubeUrl && (
+              <Grid xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                href={buyYouTubeUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Youtube
+              </Button>
+              </Grid>
+            )}
+            {selectedTitleDetails.trailer && (
+              <Grid xs={12}>
+                <p>Trailer:</p>{" "}
+                {selectedTitleDetails.trailer.includes("youtube") ? (
+                  <iframe
+                    width="560rem"
+                    height="315rem"
+                    src={selectedTitleDetails.trailer}
+                    title="YouTube video player"
+                    style={{
+                      border: "2px",
+                      borderStyle: "solid",
+                      borderColor: "black",
+                    }}
+                    allowFullScreen={true}></iframe>
+                ) : (
+                  <a
+                    href={selectedTitleDetails.trailer}
+                    target="_blank"
+                    rel="noreferrer">
+                    <img
+                      width="560"
+                      height="315"
+                      src={selectedTitleDetails.trailer_thumbnail}
+                      alt="trailer thumbnail"
+                    />
+                  </a>
+                )}
+              </Grid>
+            )}
+            <Grid xs={12}>
+            <Button
+              disabled={savedTitleIds.includes(selectedTitleDetails.id)}
+              variant="contained"
+              onClick={() => handleSaveTitle(title)}>
+              {savedTitleIds.includes(selectedTitleDetails.id)
+                ? "Title Saved!"
+                : "Save to Watchlist"}
+            </Button>
+            </Grid>
+
+            <Grid xs={12}>
+            <p>Related Titles: </p>
+            </Grid>
+            {similarTitlesDetails.map((similarTitle) => (
+              <Grid container xs={12} key={similarTitle.id}>
+              <Grid xs={12}>
+                <h6 style={{fontSize: '1rem'}}>{similarTitle.title}</h6>
+                </Grid>
+                <Grid xs={12}>
+                <img src={similarTitle.poster} alt="similar title poster" />
+                </Grid>
+                <Grid xs={12}>
+                <p>{similarTitle.plot_overview}</p>
+                </Grid>
+
+                {similarTitle.trailer &&
+                similarTitle.trailer.trim() !== "" &&
+                similarTitle.trailer.includes("youtube") ? (
+                  <Grid xs={12}>
+                  <iframe
+                    width="560rem"
+                    height="315rem"
+                    src={similarTitle.trailer}
+                    title="YouTube video player"
+                    style={{
+                      border: "2px",
+                      borderStyle: "solid",
+                      borderColor: "black",
+                    }}
+                    allowFullScreen={true}>  
+                    </iframe>
+                    </Grid>
+                ) : similarTitle.trailer &&
+                  similarTitle.trailer.trim() !== "" ? (
+                  <Grid xs={12}>
+                  <a
+                    href={similarTitle.trailer}
+                    target="_blank"
+                    rel="noreferrer">
+                    Watch Trailer
+                  </a>
+                  </Grid>
+                ) : null}
+                <Grid xs={12}>
+                <Button
+                  variant="contained"
+                  value={similarTitle.id}
+                  onClick={handleTitleSelected}>
+                  More Details
+                </Button>
+                </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        </main>
       )}
     </>
   );

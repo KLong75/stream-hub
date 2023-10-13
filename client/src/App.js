@@ -8,7 +8,7 @@ import GenreSearchResults from "./pages/GenreSearchResults/GenreSearchResults";
 import MixedGenreSearchSearchResults from "./pages/MixedGenreSearchResults/MixedGenreSearchResults";
 import TitleSearchResults from "./pages/TitleSearchResults/TitleSearchResults";
 import ActorSearchResults from "./pages/ActorSearchResults/ActorSearchResults";
-import TitleDetails from "./pages/TitleDetails";
+import TitleDetails from "./pages/TitleDetails/TitleDetails";
 // import NowTrending from "./pages/NowTrending/NowTrending";
 // import AccountSettings from "./pages/AccountSettings";
 // import components
@@ -60,6 +60,16 @@ const client = new ApolloClient({
 
 const theme = createTheme({
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent black
+          color: '#fff', // white text for contrast
+          padding: '.25rem', // inner spacing
+          backdropFilter: 'blur(3px)', // Optional: frosted glass effect
+        },
+      },
+    },
     MuiLink: {
     //   styleOverrides: {
     //     root: {

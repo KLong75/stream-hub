@@ -17,6 +17,8 @@ import { QUERY_ME } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 // import components
 import LoadingClapBoard from "../../components/LoadingClapBoard";
+// import styles
+import styles from "./TitleSearchResults.module.css";
 
 
 const TitleSearchResults = () => {
@@ -122,7 +124,7 @@ const TitleSearchResults = () => {
               {result.image_url && (
                 <ButtonBase
                   onClick={(event) => handleTitleSelected(result.id, event)}>
-                <img src={result.image_url} alt={result.title} />
+                <img className={styles.poster} src={result.image_url} alt={result.title} />
                 </ButtonBase>
               )}
               {/* <Button
