@@ -92,7 +92,8 @@ const TitleDetails = () => {
   const [buyYouTubeUrl, setBuyYouTubeUrl] = useState("");
   const [buyNotAvailable, setBuyNotAvailable] = useState("");
 
-  const [setSelectedActorName] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [selectedActorName, setSelectedActorName] = useState("");
 
   useEffect(() => {
     if (selectedTitleDetails) {
@@ -405,7 +406,7 @@ const TitleDetails = () => {
 
   useEffect(() => {
     const getSimilarTitles = async () => {
-       const fetchedSimilarTitles = [];
+      const fetchedSimilarTitles = [];
       if (
         !selectedTitleDetails.similar_titles ||
         selectedTitleDetails.similar_titles.length === 0
@@ -415,7 +416,7 @@ const TitleDetails = () => {
 
       const similarTitles = selectedTitleDetails.similar_titles.slice(0, 5); // Adjust # of similar titles to fetch here
       // console.log(similarTitles)
-      
+
       for (const similarTitleId of similarTitles) {
         const cachedSimilarTitles = localStorage.getItem(
           `similarTitles-${similarTitleId}`
@@ -528,7 +529,10 @@ const TitleDetails = () => {
 
         const actorSearchData = results.results
           .filter((actor) => {
-            if (actor.known_for_department !== "Acting") {
+            if (
+              actor.known_for_department !== "Acting" ||
+              actor.name !== searchedName
+            ) {
               return false;
             }
             // Check the 'known_for' array for any object where 'adult' is true
@@ -711,8 +715,7 @@ const TitleDetails = () => {
                         textTransform: "none",
                         fontSize: "1rem",
                       }}
-                      type="submit"
-                    >
+                      type="submit">
                       {castMember.name}
                     </Button>
                     as {castMember.character}
@@ -748,8 +751,7 @@ const TitleDetails = () => {
               color="primary"
               href={netflixUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Netflix
             </Button>
           )}
@@ -760,8 +762,7 @@ const TitleDetails = () => {
               color="primary"
               href={amazonPrimeUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Amazon Prime
             </Button>
           )}
@@ -772,8 +773,7 @@ const TitleDetails = () => {
               color="primary"
               href={huluUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Hulu
             </Button>
           )}
@@ -784,15 +784,18 @@ const TitleDetails = () => {
               color="primary"
               href={maxUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Max
             </Button>
           )}
           {/* Disney Plus button */}
           {disneyPlusUrl && (
-            <a href={disneyPlusUrl} target="_blank" rel="noopener noreferrer" >
-              <img style={{height: '4rem'}} src={DisneyPlusLogo} alt="Disney+ Logo" />
+            <a href={disneyPlusUrl} target="_blank" rel="noopener noreferrer">
+              <img
+                style={{ height: "4rem" }}
+                src={DisneyPlusLogo}
+                alt="Disney+ Logo"
+              />
             </a>
           )}
           {/* Apple TV button */}
@@ -802,8 +805,7 @@ const TitleDetails = () => {
               color="primary"
               href={appleTvUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Apple TV
             </Button>
           )}
@@ -814,8 +816,7 @@ const TitleDetails = () => {
               color="primary"
               href={peacockUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Peacock
             </Button>
           )}
@@ -826,8 +827,7 @@ const TitleDetails = () => {
               color="primary"
               href={hayuUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Hayu
             </Button>
           )}
@@ -839,8 +839,7 @@ const TitleDetails = () => {
               color="primary"
               href={paramountPlusUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Paramount+
             </Button>
           )}
@@ -852,8 +851,7 @@ const TitleDetails = () => {
               color="primary"
               href={showtimeUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Showtime
             </Button>
           )}
@@ -865,8 +863,7 @@ const TitleDetails = () => {
               color="primary"
               href={craveUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Crave
             </Button>
           )}
@@ -878,8 +875,7 @@ const TitleDetails = () => {
               color="primary"
               href={craveStarzUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Crave Starz
             </Button>
           )}
@@ -891,8 +887,7 @@ const TitleDetails = () => {
               color="primary"
               href={stanUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Stan
             </Button>
           )}
@@ -904,8 +899,7 @@ const TitleDetails = () => {
               color="primary"
               href={starzUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Starz
             </Button>
           )}
@@ -917,8 +911,7 @@ const TitleDetails = () => {
               color="primary"
               href={foxtelNowUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Foxtel Now
             </Button>
           )}
@@ -930,8 +923,7 @@ const TitleDetails = () => {
               color="primary"
               href={skyGoUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Sky Go
             </Button>
           )}
@@ -943,8 +935,7 @@ const TitleDetails = () => {
               color="primary"
               href={mgmPlusUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on MGM Plus
             </Button>
           )}
@@ -956,8 +947,7 @@ const TitleDetails = () => {
               color="primary"
               href={nowTvUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Now TV
             </Button>
           )}
@@ -969,8 +959,7 @@ const TitleDetails = () => {
               color="primary"
               href={bingeUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on BINGE
             </Button>
           )}
@@ -982,8 +971,7 @@ const TitleDetails = () => {
               color="primary"
               href={britboxUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Britbox UK
             </Button>
           )}
@@ -995,8 +983,7 @@ const TitleDetails = () => {
               color="primary"
               href={kanopyUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Kanopy
             </Button>
           )}
@@ -1008,8 +995,7 @@ const TitleDetails = () => {
               color="primary"
               href={huluWithShowtimeUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Hulu With Showtime
             </Button>
           )}
@@ -1021,8 +1007,7 @@ const TitleDetails = () => {
               color="primary"
               href={youTubePremiumUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Youtube Premium
             </Button>
           )}
@@ -1034,8 +1019,7 @@ const TitleDetails = () => {
               color="primary"
               href={showtimeAmazonPrimeUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on Showtime via Amazon Prime
             </Button>
           )}
@@ -1047,8 +1031,7 @@ const TitleDetails = () => {
               color="primary"
               href={fuboTvUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Watch on fuboTV
             </Button>
           )}
@@ -1067,8 +1050,7 @@ const TitleDetails = () => {
               color="primary"
               href={buyAmazonUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Amazon
             </Button>
           )}
@@ -1080,8 +1062,7 @@ const TitleDetails = () => {
               color="primary"
               href={buyItunesUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               iTunes
             </Button>
           )}
@@ -1092,8 +1073,7 @@ const TitleDetails = () => {
               color="primary"
               href={buyGooglePlayUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Google Play
             </Button>
           )}
@@ -1104,8 +1084,7 @@ const TitleDetails = () => {
               color="primary"
               href={buyYouTubeUrl}
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               Youtube
             </Button>
           )}
@@ -1123,14 +1102,12 @@ const TitleDetails = () => {
                     borderStyle: "solid",
                     borderColor: "black",
                   }}
-                  allowFullScreen={true}
-                ></iframe>
+                  allowFullScreen={true}></iframe>
               ) : (
                 <a
                   href={selectedTitleDetails.trailer}
                   target="_blank"
-                  rel="noreferrer"
-                >
+                  rel="noreferrer">
                   <img
                     width="560"
                     height="315"
@@ -1144,8 +1121,7 @@ const TitleDetails = () => {
           <Button
             disabled={savedTitleIds.includes(selectedTitleDetails.id)}
             variant="contained"
-            onClick={() => handleSaveTitle(title)}
-          >
+            onClick={() => handleSaveTitle(title)}>
             {savedTitleIds.includes(selectedTitleDetails.id)
               ? "Title Saved!"
               : "Save to Watchlist"}
@@ -1170,8 +1146,7 @@ const TitleDetails = () => {
                     borderStyle: "solid",
                     borderColor: "black",
                   }}
-                  allowFullScreen={true}
-                ></iframe>
+                  allowFullScreen={true}></iframe>
               ) : similarTitle.trailer && similarTitle.trailer.trim() !== "" ? (
                 <a href={similarTitle.trailer} target="_blank" rel="noreferrer">
                   Watch Trailer
@@ -1181,8 +1156,7 @@ const TitleDetails = () => {
               <Button
                 variant="contained"
                 value={similarTitle.id}
-                onClick={handleTitleSelected}
-              >
+                onClick={handleTitleSelected}>
                 More Details
               </Button>
             </React.Fragment>
