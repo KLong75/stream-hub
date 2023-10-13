@@ -170,8 +170,6 @@ const ActorSearch = ({onSubmit}) => {
     event.preventDefault();
     // console.log(searchTerm.name);
     const searchedName = searchTerm.name;
-    // check on this line below 'setSearchTerm(searchedName)'. it might not be needed and might cause an issue
-    // setSearchTerm(searchedName)
     const cachedActorSearchResults = localStorage.getItem(
       `actorSearchResults_${searchedName}`
     );
@@ -203,7 +201,7 @@ const ActorSearch = ({onSubmit}) => {
         }
 
         const results = await response.json();
-        console.log(results);
+        console.log('actor search results', results);
 
         const actorSearchData = results.results.filter((actor) => {
           if (actor.known_for_department !== "Acting") {
