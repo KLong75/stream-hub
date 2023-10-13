@@ -73,6 +73,7 @@ const MixedGenreSearchResults = () => {
                 style={{
                   fontSize: "1.75rem",
                   margin: "0",
+                  marginBottom: '-1em',
                   padding: ".5rem",
                   background:
                     "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
@@ -98,10 +99,10 @@ const MixedGenreSearchResults = () => {
                 marginBottom: "6rem",
                 marginTop: "3rem",
               }}
-              speed={600}
+              speed={1000}
               parallax={true}
               navigation={true}
-              pagination={true}
+              // pagination={true}
               modules={[Parallax, Navigation, Pagination]}>
               {mixedGenreSearchResults.map((title) => (
                 <SwiperSlide
@@ -122,42 +123,26 @@ const MixedGenreSearchResults = () => {
                     }}>
                     {title.backdrop_url && (
                       <img
+                        data-swiper-parallax="-900"
                         className={styles.backdrop}
                         src={title.backdrop_url}
                         alt={title.title}
-                        // style={{
-                        //   width: "100%",
-                        //   height: "auto", 
-                        //   objectFit: "cover",
-                        //   opacity: '.4',
-                        //   zIndex: '-100',
-                        //   position: 'relative',
-                        //   marginBottom: '8rem'
-                        // }}
                       />
                     )}
                   </div>
 
                   <Grid
                     className={styles.titleDetailsContainer}
-                    sx={{
-                      // marginBottom: "2rem",
-                      // marginTop: "2rem",
-                      // backgroundImage: `url(${title.backdrop_url})`,
-                      // backgroundSize: "cover",
-                      // backgroundPosition: "center",
-                      // backgroundRepeat: "no-repeat",
-                    }}
                     container
                     spacing={1}
                     justifyContent="center"
                     alignItems="end"
-                    textAlign="center">
-                    
+                    textAlign="center"
+                  >                   
                     {title.title && (
                       <Grid xs={12}>
                         <h4 position='relative' style={{ fontSize: "1.5rem", margin: "0", fontWeight: 'bold', zIndex: '100' }}
-                         data-swiper-parallax="-300">
+                         data-swiper-parallax="-800">
                           {title.title}
                         </h4>
                       </Grid>
@@ -165,7 +150,7 @@ const MixedGenreSearchResults = () => {
                     {title.genres && (
                       <Grid xs={12}>
                         <h5 style={{ fontSize: "1.25rem", margin: "0" }}
-                         data-swiper-parallax="-200"
+                         data-swiper-parallax="-700"
                         >
                           {title.genres
                             .map((id) => genreList[id])
@@ -183,26 +168,37 @@ const MixedGenreSearchResults = () => {
                               `${title.type + "-" + title.id}`
                             )
                           }>
-                          <img  data-swiper-parallax="-100" className={styles.poster}  src={title.poster_url} alt={title.title} />
+                          <img  data-swiper-parallax="-600" className={styles.poster}  src={title.poster_url} alt={title.title} />
                         </ButtonBase>
                       </Grid>
                     )}
 
                     {title.type && (
                       <Grid xs={12}>
-                        <h6  data-swiper-parallax="-200" style={{ fontSize: "1.2rem", margin: "0" }}>
+                        <h6  data-swiper-parallax="-500" style={{ fontSize: "1.2rem", margin: "0" }}>
                           {title.type.charAt(0).toUpperCase() +
                             title.type.slice(1)}
                         </h6>
                       </Grid>
                     )}
                     {title.year && (
-                      <Grid xs={12} sx={{marginBottom: '6rem'}}>
-                        <h6  data-swiper-parallax="-300" style={{ fontSize: "1.1rem", margin: "0" }}>
+                      <Grid xs={12} sx={{marginBottom: '0'}}>
+                        <h6  data-swiper-parallax="-400" style={{ fontSize: "1.1rem", margin: "0" }}>
                           {title.year}
                         </h6>
+                        
                       </Grid>
                     )}
+                    {title.overview && (
+                      <>
+                      <Grid xs={3}></Grid>
+                      <Grid xs={6}>
+                      <p data-swiper-parallax="-300" style={{marginBottom: '-4em'}}>{title.overview}</p>
+                      </Grid>
+                      <Grid xs={3}></Grid>
+                      </>
+                    )}
+                     
                     {/* {title.backdrop_url && (
                       <Grid xs={12}>
                         <Grid container justifyContent="center">

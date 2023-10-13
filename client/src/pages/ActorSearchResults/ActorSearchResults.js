@@ -66,7 +66,7 @@ const ActorSearchResults = () => {
           .filter((result) => result.known_for.length > 0)
           .map((result) => (
             <Grid xs={12} key={result.id} className={styles.actorSlide}>
-              <h5 className={styles.actorName}>{`${result.name}`}</h5>
+              <h2 className={styles.actorName}>{`${result.name}`}</h2>
               {/* <p>{`${result.job}`}</p> */}
               {result.image_url ? (
                 <img
@@ -82,6 +82,7 @@ const ActorSearchResults = () => {
                   <img src={imageNotAvailable} alt="Unavailable" />
                 </div>
               )}
+              
               <Grid xs={12}>
                 <Swiper
                   effect={"coverflow"}
@@ -120,6 +121,7 @@ const ActorSearchResults = () => {
                 </Swiper>
               </Grid>
             </Grid>
+            
           ))}
       </Grid>
     </>
