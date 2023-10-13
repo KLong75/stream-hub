@@ -1,13 +1,21 @@
-// import from 
+// import from react
 import { useContext } from "react";
+// import from swiperjs
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Navigation } from "swiper/modules";
+import { EffectCoverflow, Navigation, Parallax, Pagination, } from "swiper/modules";
+
+// import swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import styles from "./VerticalCardSwipeGallery.module.css";
+import 'swiper/css/navigation';
+// import styles
+import cardSwiperStyles from "./VerticalCardSwipeGallery.module.css";
+import styles from './ParallaxSwiper.module.css';
 
-const VerticalCardSwipeGallery = ({
+
+
+const SearchResultsSwipeGallery = ({
   context,
   categoryTitle,
   handleTitleSelected,
@@ -79,4 +87,4 @@ const VerticalCardSwipeGallery = ({
   );
 };
 
-export default VerticalCardSwipeGallery;
+export default SearchResultsSwipeGallery;

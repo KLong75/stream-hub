@@ -1,0 +1,123 @@
+/* parallasx swiper */
+/* actor swiper */
+.actorSwiper {
+  width: 100%;
+  height: 120%;
+  /* background: #000; */
+}
+
+.actorSlide { 
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 60px;
+  height: 100vh;
+  width: auto;
+  position: relative;
+  margin-bottom: 8em;
+}
+
+/* vertical swiper */
+/* titles actor known for swiper */
+.knownForSwiper {
+  width: 100%;
+  height: auto;
+  /* padding-bottom: 3rem; */
+  --swiper-navigation-color: black;
+}
+
+.knownForSlide {
+  width: 16em;
+  height: 24em;
+  margin-top: 4em;
+  margin-bottom: 8em;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+ 
+}
+
+.knownForSlide:hover {
+  transform: scale(1.25); 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .category {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  padding: .5rem;
+  background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+.title{
+  font-size: 1.2rem;
+  margin-bottom: 0;
+  margin-top: 0rem;
+  margin-left: .5rem;
+  padding: .3rem;
+  padding-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
+.genres{
+  font-size: .8rem;
+  margin-bottom: 0;
+  margin-top: 19.4rem;
+  padding-left: .3rem;
+  margin-left: .6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.releaseDate {
+  font-size: .8rem;
+  margin-bottom: 0;
+  margin-top: -.2rem;
+  padding-bottom: .5rem;
+  padding-left: .3rem;
+  margin-left: .6rem;
+} */
+
+/* .overviewTitle{
+  font-size: 2rem!important;
+
+}
+
+.overviewText {
+ font-size: 1.5rem;
+ margin-top: .5rem;
+ margin-bottom: 0;
+} */
+
