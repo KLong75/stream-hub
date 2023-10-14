@@ -8,7 +8,7 @@ import GenreSearchResults from "./pages/GenreSearchResults/GenreSearchResults";
 import MixedGenreSearchSearchResults from "./pages/MixedGenreSearchResults/MixedGenreSearchResults";
 import TitleSearchResults from "./pages/TitleSearchResults/TitleSearchResults";
 import ActorSearchResults from "./pages/ActorSearchResults/ActorSearchResults";
-import TitleDetails from "./pages/TitleDetails";
+import TitleDetails from "./pages/TitleDetails/TitleDetails";
 // import NowTrending from "./pages/NowTrending/NowTrending";
 // import AccountSettings from "./pages/AccountSettings";
 // import components
@@ -60,6 +60,39 @@ const client = new ApolloClient({
 
 const theme = createTheme({
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // semi-transparent black
+          color: '#fff', // white text for contrast
+          padding: '.25rem', // inner spacing
+          backdropFilter: 'blur(3px)', // Optional: frosted glass effect
+          borderRadius: '.5rem', // rounded corners
+          border: '1px solid #333', // thin border
+          // optional: animate box growing and shrinking
+          // transition: 'all 0.25s ease-in-out',
+          // '&:hover': {
+          //   transform: 'scale(1.05)',
+          // },
+        //  set width to follow content inside container but keep container centered
+          width: 'fit-content',
+          margin: 'auto',
+          // set min width to prevent container from shrinking too small
+          minWidth: '50%',
+          // set max width to prevent container from growing too large
+          maxWidth: '80%',
+          // set min height to prevent container from shrinking too small
+          minHeight: '50%',
+          // set max height to prevent container from growing too large
+          maxHeight: '80%',
+          // center container horizontally and vertically
+          justifyContent: 'center',
+          alignItems: 'center',
+          display: 'flex',
+          textAlign: 'center',
+        },
+      },
+    },
     MuiLink: {
     //   styleOverrides: {
     //     root: {

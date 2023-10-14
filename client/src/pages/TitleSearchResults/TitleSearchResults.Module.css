@@ -1,0 +1,15 @@
+.poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* border-radius: 2px; */
+    box-shadow: 0 0 35px black;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+
+.poster:hover {
+    transform: scale(1.05);
+    opacity: 0.6;
+}

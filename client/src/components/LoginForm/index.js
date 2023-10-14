@@ -61,7 +61,7 @@ const LoginForm = ({ switchToSignup }) => {
             onChange={handleChanges}
           />
         </div>
-        <Button className={styles.submit_button}size='small' variant="contained" type="submit">
+        <Button sx={{marginTop: '.25rem'}} className={styles.submitButton}size='small' variant="contained" type="submit">
           Log In
         </Button>
         {/* <Button onClick={switchToSignup}>Sign Up</Button> */}

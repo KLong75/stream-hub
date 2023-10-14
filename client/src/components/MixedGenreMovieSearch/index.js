@@ -115,6 +115,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
           title: movie.title,
           year: movie.release_date.slice(0, 4),
           type: "movie",
+          overview: movie.overview,
           poster_url: "https://image.tmdb.org/t/p/w300/" + movie.poster_path,
           backdrop_url:
             "https://image.tmdb.org/t/p/w500/" + movie.backdrop_path,

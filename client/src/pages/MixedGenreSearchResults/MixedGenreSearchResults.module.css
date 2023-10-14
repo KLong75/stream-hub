@@ -27,11 +27,6 @@
   opacity: .6;
 }
 
-.titleDetailsContainer {
-  /* margin-top: 2rem!important; */
-  /* margin-bottom: 2rem; */
-}
-
 @media (max-width: 1500px) {
   .titleDetailsContainer{
     margin-top: 6rem!important;

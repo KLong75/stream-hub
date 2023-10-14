@@ -115,6 +115,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
           id: tvShow.id,
           title: tvShow.name,
           year: formatDate(tvShow.first_air_date),
+          overview: tvShow.overview,
           type: "tv",
           poster_url: "https://image.tmdb.org/t/p/w300/" + tvShow.poster_path,
           backdrop_url:
