@@ -62,11 +62,13 @@ h6 {
 }
 
 .swiper-button-next {
-  margin-top: -10rem!important;
+  margin-top: -4rem!important;
+  
 }
 
 .swiper-button-prev {
-  margin-top: -10rem!important;
+  margin-top: -4rem!important;
+  color: black;
 }
 
 
