@@ -1,6 +1,6 @@
 // import from react
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import context
 import { TitleDetailsContext } from "../../context/TitleDetailsContext";
 import { SearchResultsContext } from "../../context/SearchResultsContext";
@@ -15,14 +15,23 @@ import {
 // import from material-ui
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
-import { ButtonBase } from "@mui/material";
 // import { styled } from '@mui/material/styles';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
+// import from swiper.js
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  EffectCoverflow,
+  Navigation,
+  // Pagination,
+  // Parallax,
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
 // import from utils
 import { CACHE_DURATION, formatDate } from "../../utils/utils";
 import Auth from "../../utils/auth";
 import { useTitleSelection } from "../../utils/useTitleSelection";
-import { genreList } from "../../utils/utils";
 import { SAVE_TITLE } from "../../utils/mutations";
 import { QUERY_ME } from "../../utils/queries";
 // import from apollo client
@@ -34,8 +43,6 @@ import LoadingClapBoard from "../../components/LoadingClapBoard";
 import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
 // import styles
 import styles from "./TitleDetails.module.css";
-
-
 
 const TitleDetails = () => {
   const loggedIn = Auth.loggedIn();
@@ -421,7 +428,7 @@ const TitleDetails = () => {
         return; // Don't proceed if there are no similar titles
       }
 
-      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 5); // Adjust # of similar titles to fetch here
+      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 20); // Adjust # of similar titles to fetch here
       // console.log(similarTitles)
 
       for (const similarTitleId of similarTitles) {
@@ -644,7 +651,7 @@ const TitleDetails = () => {
           style={{
             backgroundImage: `url(${selectedTitleDetails.backdrop})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center-top",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
             minHeight: "100vh",
@@ -717,13 +724,12 @@ const TitleDetails = () => {
                 <Grid xs={5}></Grid>
               </>
             )}
-
             {selectedTitleDetails.genre_names &&
               selectedTitleDetails.genre_names.length > 0 && (
                 <Grid container xs={12} justifyContent="center">
                   {selectedTitleDetails.genre_names.map((genre) => (
                     <>
-                      <Grid xs={2}>
+                      <Grid xs={2} key={genre}>
                         <Paper sx={{ marginTop: "1rem" }}>
                           <h4 style={{ margin: "0" }} key={genre}>
                             {genre}
@@ -735,10 +741,13 @@ const TitleDetails = () => {
                 </Grid>
               )}
             <Grid xs={2}></Grid>
-            <Grid container xs={2}>
+            <Grid xs={2} container >
+            
+            
               {selectedTitleDetails.sources && (
+                
                 <Grid xs={12}>
-                  <p>Watch on:</p>
+                  <p style={{ marginTop: "0" }}>Watch on:</p>
                 </Grid>
               )}
 
@@ -855,22 +864,26 @@ const TitleDetails = () => {
                     Watch on Paramount+
                   </Button>
                 </Grid>
-              )}
+              )}             
             </Grid>
             {selectedTitleDetails.poster && (
               <Grid xs={4} sx={{ marginTop: "2rem" }}>
                 <img
+                  style={{ border: "2px solid #333" }}
                   className={styles.poster}
                   src={selectedTitleDetails.poster}
                   alt="show poster"
                 />
               </Grid>
             )}
-            <Grid container xs={2}>
+            <Grid
+              container
+              xs={2}
+              >
               {/*purchase buttons*/}
               {selectedTitleDetails.buy_sources && (
                 <Grid xs={12}>
-                  <p>Rent or Buy:</p>
+                  <p style={{ marginTop: "0" }}>Rent or Buy:</p>
                 </Grid>
               )}
 
@@ -935,32 +948,52 @@ const TitleDetails = () => {
               )}
             </Grid>
             <Grid xs={2}></Grid>
+
+            <Grid xs={12}>
+              <Button
+                disabled={savedTitleIds.includes(selectedTitleDetails.id)}
+                variant="contained"
+                onClick={() => handleSaveTitle(title)}>
+                {savedTitleIds.includes(selectedTitleDetails.id)
+                  ? "Title Saved!"
+                  : "Save to Watchlist"}
+              </Button>
+            </Grid>
+
+
+           
             {selectedTitleDetails.us_rating && (
-              <>
-                <Grid xs={5}></Grid>
-                <Grid xs={2}>
-                  <Paper sx={{ marginTop: "1rem" }}>
-                    <h5 style={{ margin: "0", padding: "0" }}>
-                      Rated {selectedTitleDetails.us_rating}
-                    </h5>
-                  </Paper>
-                </Grid>
-                <Grid xs={5}></Grid>
+              <>               
+                <Grid xs={12} >                 
+                  <h5
+                    style={{
+                      marginTop: "0",
+                      marginBottom: "0",
+                      marginLeft: ".25rem",
+                      marginRight: ".25rem",
+                    }}>
+                    Rated {selectedTitleDetails.us_rating}
+                  </h5>                
+                </Grid>     
+                        
               </>
             )}
-
             {selectedTitleDetails.release_date && (
               <>
-                <Grid xs={4}></Grid>
-                <Grid xs={4}>
-                  <Paper sx={{ marginTop: "1rem" }}>
-                    <h5 style={{ margin: "0" }}>
-                      Released on{" "}
-                      {formatDate(selectedTitleDetails.release_date)}
-                    </h5>
-                  </Paper>
+            
+                <Grid xs={12}>
+                  <h5
+                    style={{
+                      marginTop: "0",
+                      marginBottom: "0",
+                      marginLeft: ".25rem",
+                      marginRight: ".25rem",
+                    }}>
+                    Released on {formatDate(selectedTitleDetails.release_date)}
+                  </h5>
                 </Grid>
-                <Grid xs={4}></Grid>
+               
+                
               </>
             )}
 
@@ -979,13 +1012,13 @@ const TitleDetails = () => {
 
             {selectedTitleDetails.plot_overview && (
               <>
-                <Grid xs={1}></Grid>
-                <Grid xs={10}>
+                
+                <Grid xs={12}>
                   <Paper sx={{ marginTop: "1rem" }}>
                     <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
                   </Paper>
                 </Grid>
-                <Grid xs={1}></Grid>
+                
               </>
             )}
             {/* <section style={{ marginTop: "1rem" }}> */}
@@ -1016,7 +1049,6 @@ const TitleDetails = () => {
                 moreDetails.cast
                   .slice(0, Math.min(10, moreDetails.cast.length))
                   .map((castMember) => (
-                    
                     <Grid
                       xs={12}
                       sm={6}
@@ -1046,7 +1078,6 @@ const TitleDetails = () => {
                         as {castMember.character}
                       </span>
                     </Grid>
-                   
                   ))}
             </Grid>
             {/* </section> */}
@@ -1479,18 +1510,13 @@ const TitleDetails = () => {
 
             {selectedTitleDetails.trailer && (
               <Grid xs={12}>
-                <p>Trailer:</p>{" "}
                 {selectedTitleDetails.trailer.includes("youtube") ? (
                   <iframe
-                    width="560rem"
-                    height="315rem"
+                    className={styles.trailerIframe}
+                    // width="560px"
+                    // height="315px"
                     src={selectedTitleDetails.trailer}
                     title="YouTube video player"
-                    style={{
-                      border: "2px",
-                      borderStyle: "solid",
-                      borderColor: "black",
-                    }}
                     allowFullScreen={true}></iframe>
                 ) : (
                   <a
@@ -1517,13 +1543,51 @@ const TitleDetails = () => {
                   : "Save to Watchlist"}
               </Button>
             </Grid>
+          </Grid>
 
-       
-
-            <Grid xs={12}>
-              <p>Related Titles: </p>
-            </Grid>
+          {/* <Grid xs={12}> */}
+          <h6 className={styles.swiperTitle}>You might also like:</h6>
+          <Swiper
+            style={{ "--swiper-navigation-color": "#000000" }}
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            navigation={true}
+            modules={[EffectCoverflow, Navigation]}
+            className={styles.similarTitleSwiper}>
             {similarTitlesDetails.map((similarTitle) => (
+              <SwiperSlide
+                onClick={() => handleTitleSelected(similarTitle.id)}
+                key={similarTitle.id}
+                className={styles.similarTitleSlide}
+                style={{
+                  backgroundImage: `url(${similarTitle.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                }}>
+                <h6 className={styles.similarTitleSlideTitle}>
+                  {similarTitle.title}
+                </h6>
+                <h6 className={styles.similarTitleSlideType}>
+                  {similarTitle.type}
+                </h6>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          {/* </Grid> */}
+
+          {/* <Grid xs={12}>
+              <p>Related Titles: </p>
+            </Grid> */}
+          {/* {similarTitlesDetails.map((similarTitle) => (
               <Grid container xs={12} key={similarTitle.id}>
                 <Grid xs={12}>
                   <h6 style={{ fontSize: "1rem" }}>{similarTitle.title}</h6>
@@ -1571,8 +1635,8 @@ const TitleDetails = () => {
                   </Button>
                 </Grid>
               </Grid>
-            ))}
-          </Grid>
+            ))} */}
+          {/* </Grid> */}
         </main>
       )}
     </>
