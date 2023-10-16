@@ -22,16 +22,20 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { CACHE_DURATION, formatDate } from "../../utils/utils";
 import Auth from "../../utils/auth";
 import { useTitleSelection } from "../../utils/useTitleSelection";
+import { genreList } from "../../utils/utils";
 import { SAVE_TITLE } from "../../utils/mutations";
 import { QUERY_ME } from "../../utils/queries";
 // import from apollo client
 import { useMutation, useQuery } from "@apollo/client";
 // import components
 import LoadingClapBoard from "../../components/LoadingClapBoard";
+
 // import source logos
 import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
 // import styles
 import styles from "./TitleDetails.module.css";
+
+
 
 const TitleDetails = () => {
   const loggedIn = Auth.loggedIn();
@@ -1513,6 +1517,8 @@ const TitleDetails = () => {
                   : "Save to Watchlist"}
               </Button>
             </Grid>
+
+       
 
             <Grid xs={12}>
               <p>Related Titles: </p>
