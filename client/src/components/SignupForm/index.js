@@ -37,7 +37,7 @@ const SignupForm = () => {
         style={{width: ''}}>
         <div>
           <TextField
-            color="info"
+            color="formOutline"  
             size="small"
             required
             label="Username"
@@ -50,7 +50,7 @@ const SignupForm = () => {
         </div>
         <div style={{marginTop: '.5rem'}}>
           <TextField
-            color="info"
+            color="formOutline"  
             size="small" 
             required
             label="Email"
@@ -63,7 +63,7 @@ const SignupForm = () => {
         </div>
         <div style={{marginTop: '.5rem'}}>
           <TextField   
-            color="info"    
+            color="formOutline"    
             size="small"
             required
             label="Password"

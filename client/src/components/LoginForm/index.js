@@ -38,7 +38,7 @@ const LoginForm = ({ switchToSignup }) => {
       <form onSubmit={handleFormSubmit}>
         <div>
           <TextField
-            color="info"      
+            color="formOutline"      
             size="small"
             required
             label="Email"
@@ -52,7 +52,7 @@ const LoginForm = ({ switchToSignup }) => {
         </div>
         <div style={{marginTop: '.5rem'}}>
           <TextField
-           color="info"
+            color="formOutline"  
             size="small"
             required
             label="Password"

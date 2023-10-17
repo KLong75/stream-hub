@@ -60,7 +60,7 @@ const client = new ApolloClient({
 
 const theme = createTheme({
   palette: {
-    info: {
+    formOutline: {
       main: "#000000",
     },
   },
