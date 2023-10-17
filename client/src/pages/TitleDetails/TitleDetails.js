@@ -692,8 +692,8 @@ const TitleDetails = () => {
             <Grid xs={2}></Grid>
             {selectedTitleDetails.type && (
               <>
-                <Grid xs={5}></Grid>
-                <Grid xs={2}>
+                <Grid xs={3}></Grid>
+                <Grid xs={6}>
                   <Paper sx={{ marginTop: "1rem" }}>
                     <h3
                       style={{
@@ -722,7 +722,7 @@ const TitleDetails = () => {
                     </h3>
                   </Paper>
                 </Grid>
-                <Grid xs={5}></Grid>
+                <Grid xs={3}></Grid>
               </>
             )}
 
@@ -731,17 +731,17 @@ const TitleDetails = () => {
                 <Grid container xs={12} justifyContent="center">
                   {selectedTitleDetails.genre_names.map((genre) => (
                     <>
-                      <Grid xs={2}>
+                      <Grid key={genre} xs={12} md={3}>                       
                         <Paper sx={{ marginTop: "1rem" }}>
                           <h4 style={{ margin: "0" }} key={genre}>
                             {genre}
                           </h4>
-                        </Paper>
+                        </Paper>                     
                       </Grid>
                     </>
                   ))}
                 </Grid>
-              )}
+           )}
             <Grid xs={0} md={2}></Grid>
             <Grid container xs={12} md={2}>
               <Paper sx={{marginTop: '1rem'}}>
@@ -980,7 +980,7 @@ const TitleDetails = () => {
                 <Grid xs={1}></Grid>
                 <Grid xs={10}>
                   <Paper sx={{ marginTop: "1rem" }}>
-                    <p>{selectedTitleDetails.plot_overview}</p>
+                    <p style={{marginLeft: '.5rem', marginRight: '.5rem'}}>{selectedTitleDetails.plot_overview}</p>
                   </Paper>
                 </Grid>
                 <Grid xs={1}></Grid>
@@ -991,7 +991,7 @@ const TitleDetails = () => {
                 <Grid xs={5}></Grid>
                 <Grid xs={2}>
                   <Paper sx={{ marginTop: "1rem" }}>
-                    <h5 style={{ margin: "0", padding: "0" }}>
+                    <h5 style={{marginLeft: '.5rem', marginRight: '.5rem', marginTop: '0', marginBottom: '0'}}>
                       Rated {selectedTitleDetails.us_rating}
                     </h5>
                   </Paper>
@@ -1005,7 +1005,7 @@ const TitleDetails = () => {
                 <Grid xs={4}></Grid>
                 <Grid xs={4}>
                   <Paper sx={{ marginTop: "1rem" }}>
-                    <h5 style={{ margin: "0" }}>
+                    <h5 style={{marginLeft: '.5rem', marginRight: '.5rem', marginTop: '0', marginBottom: '0'}}>
                       Released on{" "}
                       {formatDate(selectedTitleDetails.release_date)}
                     </h5>
@@ -1058,7 +1058,7 @@ const TitleDetails = () => {
                               {castMember.name}
                             </span>
                           </Button>
-                          <span style={{ display: "block" }}>
+                          <span style={{ display: "block", marginBottom: '.25rem' }}>
                             as {castMember.character}
                           </span>
                         </Grid>
