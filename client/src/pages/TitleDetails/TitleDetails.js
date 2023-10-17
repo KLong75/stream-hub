@@ -742,8 +742,8 @@ const TitleDetails = () => {
                   ))}
                 </Grid>
               )}
-            <Grid xs={1}></Grid>
-            <Grid container xs={3}>
+            <Grid xs={0} md={2}></Grid>
+            <Grid container xs={12} md={2}>
               {selectedTitleDetails.sources && (
                 <Grid xs={12}>
                   <p>Watch on:</p>
@@ -764,7 +764,7 @@ const TitleDetails = () => {
                     href={netflixUrl}
                     target="_blank"
                     rel="noopener noreferrer">
-                    Watch on Netflix
+                    Netflix
                   </Button>
                 </Grid>
               )}
@@ -865,15 +865,25 @@ const TitleDetails = () => {
             </Grid>
 
             {selectedTitleDetails.poster && (
-              <Grid xs={4} sx={{ marginTop: "2rem" }}>
+              <Grid xs={12} md={4} sx={{ marginTop: "2rem" }}>
                 <img
                   className={styles.poster}
                   src={selectedTitleDetails.poster}
                   alt="show poster"
                 />
+                <Grid xs={12} sx={{ marginTop: ".5rem" }}>
+                  <Button
+                    disabled={savedTitleIds.includes(selectedTitleDetails.id)}
+                    variant="contained"
+                    onClick={() => handleSaveTitle(title)}>
+                    {savedTitleIds.includes(selectedTitleDetails.id)
+                      ? "Title Saved!"
+                      : "Save to Watchlist"}
+                  </Button>
+                </Grid>
               </Grid>
             )}
-            <Grid container xs={3}>
+            <Grid container xs={12} md={2}>
               {/*purchase buttons*/}
               {selectedTitleDetails.buy_sources && (
                 <Grid xs={12}>
@@ -941,9 +951,9 @@ const TitleDetails = () => {
                 </Grid>
               )}
             </Grid>
-            <Grid xs={1}></Grid>
+            <Grid xs={0} md={2}></Grid>
 
-            <Grid xs={12} sx={{ marginTop: ".5rem" }}>
+            {/* <Grid xs={12} sx={{ marginTop: ".5rem" }}>
               <Button
                 disabled={savedTitleIds.includes(selectedTitleDetails.id)}
                 variant="contained"
@@ -952,27 +962,14 @@ const TitleDetails = () => {
                   ? "Title Saved!"
                   : "Save to Watchlist"}
               </Button>
-            </Grid>
-
-            {/* {selectedTitleDetails.network_names &&
-              selectedTitleDetails.network_names.length > 0 && (
-                <Grid xs={12}>
-                  <h6>Network: {selectedTitleDetails.network_names}</h6>
-                </Grid>
-              )} */}
-
-            {/* {selectedTitleDetails.backdrop && (
-              <Grid xs={12}>
-                <img src={selectedTitleDetails.backdrop} alt="show backdrop" />
-              </Grid>
-            )} */}
+            </Grid> */}
 
             {selectedTitleDetails.plot_overview && (
               <>
                 <Grid xs={1}></Grid>
                 <Grid xs={10}>
                   <Paper sx={{ marginTop: "1rem" }}>
-                    <p>Plot: {selectedTitleDetails.plot_overview}</p>
+                    <p>{selectedTitleDetails.plot_overview}</p>
                   </Paper>
                 </Grid>
                 <Grid xs={1}></Grid>
@@ -1070,18 +1067,18 @@ const TitleDetails = () => {
                   <Grid xs={2}>
                     <Paper sx={{ marginTop: "1rem" }}>
                       <Grid xs={12} container>
-                      <Grid xs={12}>
-                        <h5 style={{ margin: "0" }}>Directed By:</h5>
-                      </Grid>
-                      {moreDetails.crew
-                        .filter((crewMember) => crewMember.job === "Director")
-                        .map((crewMember) => (
-                          <Grid xs={12}>
-                            <h5 style={{ margin: "0" }} key={crewMember.id}>
-                              {crewMember.name}
-                            </h5>
+                        <Grid xs={12}>
+                          <h5 style={{ margin: "0" }}>Directed By:</h5>
+                        </Grid>
+                        {moreDetails.crew
+                          .filter((crewMember) => crewMember.job === "Director")
+                          .map((crewMember) => (
+                            <Grid xs={12}>
+                              <h5 style={{ margin: "0" }} key={crewMember.id}>
+                                {crewMember.name}
+                              </h5>
                             </Grid>
-                        ))}
+                          ))}
                       </Grid>
                     </Paper>
                   </Grid>
@@ -1089,21 +1086,116 @@ const TitleDetails = () => {
                 </>
               )}
 
-            {/* {selectedTitleDetails.sources && (
+            {selectedTitleDetails.trailer && (
+              <Grid xs={12}>
+                {selectedTitleDetails.trailer.includes("youtube") ? (
+                  <iframe
+                    width="560rem"
+                    height="315rem"
+                    src={selectedTitleDetails.trailer}
+                    title="YouTube video player"
+                    className={styles.trailerIframe}
+                    allowFullScreen={true}></iframe>
+                ) : (
+                  <a
+                    href={selectedTitleDetails.trailer}
+                    target="_blank"
+                    rel="noreferrer">
+                    <img
+                      width="560"
+                      height="315"
+                      src={selectedTitleDetails.trailer_thumbnail}
+                      alt="trailer thumbnail"
+                    />
+                  </a>
+                )}
+              </Grid>
+            )}
+          </Grid>
+
+          <Paper sx={{ marginTop: "3rem" }}>
+            <h6 className={styles.swiperTitle}>You Might Also Like:</h6>
+          </Paper>
+
+          <Swiper
+            style={{
+              "--swiper-navigation-color": "#000000",
+              marginBottom: "6rem",
+              marginTop: "1rem",
+            }}
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            navigation={true}
+            modules={[EffectCoverflow, Navigation]}
+            className={styles.similarTitleSwiper}>
+            {similarTitlesDetails.map((similarTitle) => (
+              <SwiperSlide
+                key={similarTitle.id}
+                className={styles.similarTitleSlide}
+                style={{
+                  backgroundImage: `url(${similarTitle.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                }}
+                onClick={() => handleTitleSelected(similarTitle.id)}>
+                <h6 className={styles.similarTitleSlideTitle}>
+                  {similarTitle.title}
+                </h6>
+                <h6 className={styles.similarTitleSlideType}>
+                  {similarTitle.type === "movie"
+                    ? "Movie"
+                    : similarTitle.type === "tv_series"
+                    ? "TV Series"
+                    : similarTitle.type === "tv_miniseries"
+                    ? "TV Miniseries"
+                    : similarTitle.type === "short_film"
+                    ? "Short Film"
+                    : "Unknown Type"}
+                </h6>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </main>
+      )}
+    </>
+  );
+};
+
+export default TitleDetails;
+
+{
+  /* {selectedTitleDetails.sources && (
               <Grid xs={12}>
                 <p>Watch on:</p>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Not Available} */}
-            {/* {notAvailable && (
+{
+  /* Not Available} */
+}
+{
+  /* {notAvailable && (
               <Grid xs={12}>
                 <span>{notAvailable}</span>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Netflix button */}
-            {/* {netflixUrl && (
+{
+  /* Netflix button */
+}
+{
+  /* {netflixUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1114,9 +1206,13 @@ const TitleDetails = () => {
                   Watch on Netflix
                 </Button>
               </Grid>
-            )} */}
-            {/* Amazon Prime button */}
-            {/* {amazonPrimeUrl && (
+            )} */
+}
+{
+  /* Amazon Prime button */
+}
+{
+  /* {amazonPrimeUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1127,9 +1223,13 @@ const TitleDetails = () => {
                   Watch on Amazon Prime
                 </Button>
               </Grid>
-            )} */}
-            {/* Hulu button */}
-            {/* {huluUrl && (
+            )} */
+}
+{
+  /* Hulu button */
+}
+{
+  /* {huluUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1140,9 +1240,13 @@ const TitleDetails = () => {
                   Watch on Hulu
                 </Button>
               </Grid>
-            )} */}
-            {/* Max button */}
-            {/* {maxUrl && (
+            )} */
+}
+{
+  /* Max button */
+}
+{
+  /* {maxUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1153,9 +1257,13 @@ const TitleDetails = () => {
                   Watch on Max
                 </Button>
               </Grid>
-            )} */}
-            {/* Disney Plus button */}
-            {/* {disneyPlusUrl && (
+            )} */
+}
+{
+  /* Disney Plus button */
+}
+{
+  /* {disneyPlusUrl && (
               <Grid xs={12}>
                 <a
                   href={disneyPlusUrl}
@@ -1168,9 +1276,13 @@ const TitleDetails = () => {
                   />
                 </a>
               </Grid>
-            )} */}
-            {/* Apple TV button */}
-            {/* {appleTvUrl && (
+            )} */
+}
+{
+  /* Apple TV button */
+}
+{
+  /* {appleTvUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1181,9 +1293,13 @@ const TitleDetails = () => {
                   Watch on Apple TV
                 </Button>
               </Grid>
-            )} */}
-            {/* Peacock Button */}
-            {/* {peacockUrl && (
+            )} */
+}
+{
+  /* Peacock Button */
+}
+{
+  /* {peacockUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1194,10 +1310,14 @@ const TitleDetails = () => {
                   Watch on Peacock
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Paramount Plus Button */}
-            {/* {paramountPlusUrl && (
+{
+  /* Paramount Plus Button */
+}
+{
+  /* {paramountPlusUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1208,10 +1328,14 @@ const TitleDetails = () => {
                   Watch on Paramount+
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Hayu Button */}
-            {/* {hayuUrl && (
+{
+  /* Hayu Button */
+}
+{
+  /* {hayuUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1222,10 +1346,14 @@ const TitleDetails = () => {
                   Watch on Hayu
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Showtime Button */}
-            {/* {showtimeUrl && (
+{
+  /* Showtime Button */
+}
+{
+  /* {showtimeUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1236,10 +1364,14 @@ const TitleDetails = () => {
                   Watch on Showtime
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Crave Button */}
-            {/* {craveUrl && (
+{
+  /* Crave Button */
+}
+{
+  /* {craveUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1250,10 +1382,14 @@ const TitleDetails = () => {
                   Watch on Crave
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Crave Starz Button */}
-            {/* {craveStarzUrl && (
+{
+  /* Crave Starz Button */
+}
+{
+  /* {craveStarzUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1264,10 +1400,14 @@ const TitleDetails = () => {
                   Watch on Crave Starz
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Stan Button */}
-            {/* {stanUrl && (
+{
+  /* Stan Button */
+}
+{
+  /* {stanUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1278,10 +1418,14 @@ const TitleDetails = () => {
                   Watch on Stan
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Starz Button */}
-            {/* {starzUrl && (
+{
+  /* Starz Button */
+}
+{
+  /* {starzUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1292,10 +1436,14 @@ const TitleDetails = () => {
                   Watch on Starz
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Foxtel Now Button */}
-            {/* {foxtelNowUrl && (
+{
+  /* Foxtel Now Button */
+}
+{
+  /* {foxtelNowUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1306,10 +1454,14 @@ const TitleDetails = () => {
                   Watch on Foxtel Now
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Sky Go Button */}
-            {/* {skyGoUrl && (
+{
+  /* Sky Go Button */
+}
+{
+  /* {skyGoUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1320,10 +1472,14 @@ const TitleDetails = () => {
                   Watch on Sky Go
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/*MGM Plus Button */}
-            {/* {mgmPlusUrl && (
+{
+  /*MGM Plus Button */
+}
+{
+  /* {mgmPlusUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1334,9 +1490,11 @@ const TitleDetails = () => {
                   Watch on MGM Plus
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* {nowTvUrl && (
+{
+  /* {nowTvUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1347,9 +1505,11 @@ const TitleDetails = () => {
                   Watch on Now TV
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* {bingeUrl && (
+{
+  /* {bingeUrl && (
               <Button
                 variant="contained"
                 color="primary"
@@ -1404,23 +1564,35 @@ const TitleDetails = () => {
                 rel="noopener noreferrer">
                 Watch on fuboTV
               </Button>
-            )} */}
+            )} */
+}
 
-            {/*purchase buttons*/}
-            {/* {selectedTitleDetails.buy_sources && (
+{
+  /*purchase buttons*/
+}
+{
+  /* {selectedTitleDetails.buy_sources && (
               <Grid xs={12}>
                 <p>Rent or Buy:</p>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Not Available} */}
-            {/* {buyNotAvailable && (
+{
+  /* Not Available} */
+}
+{
+  /* {buyNotAvailable && (
               <Grid xs={12}>
                 <span>{buyNotAvailable}</span>
               </Grid>
-            )} */}
-            {/* Buy on Amazon Button */}
-            {/* {buyAmazonUrl && (
+            )} */
+}
+{
+  /* Buy on Amazon Button */
+}
+{
+  /* {buyAmazonUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1431,10 +1603,14 @@ const TitleDetails = () => {
                   Amazon
                 </Button>
               </Grid>
-            )} */}
+            )} */
+}
 
-            {/* Buy on iTunes Button */}
-            {/* {buyItunesUrl && (
+{
+  /* Buy on iTunes Button */
+}
+{
+  /* {buyItunesUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1445,9 +1621,13 @@ const TitleDetails = () => {
                   iTunes
                 </Button>
               </Grid>
-            )} */}
-            {/* buy on google play button */}
-            {/* {buyGooglePlayUrl && (
+            )} */
+}
+{
+  /* buy on google play button */
+}
+{
+  /* {buyGooglePlayUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1458,9 +1638,13 @@ const TitleDetails = () => {
                   Google Play
                 </Button>
               </Grid>
-            )} */}
-            {/* buy on youtube button */}
-            {/* {buyYouTubeUrl && (
+            )} */
+}
+{
+  /* buy on youtube button */
+}
+{
+  /* {buyYouTubeUrl && (
               <Grid xs={12}>
                 <Button
                   variant="contained"
@@ -1471,134 +1655,5 @@ const TitleDetails = () => {
                   Youtube
                 </Button>
               </Grid>
-            )} */}
-
-            {selectedTitleDetails.trailer && (
-              <Grid xs={12}>
-                {selectedTitleDetails.trailer.includes("youtube") ? (
-                  <iframe
-                    width="560rem"
-                    height="315rem"
-                    src={selectedTitleDetails.trailer}
-                    title="YouTube video player"
-                    className={styles.trailerIframe}
-                    allowFullScreen={true}></iframe>
-                ) : (
-                  <a
-                    href={selectedTitleDetails.trailer}
-                    target="_blank"
-                    rel="noreferrer">
-                    <img
-                      width="560"
-                      height="315"
-                      src={selectedTitleDetails.trailer_thumbnail}
-                      alt="trailer thumbnail"
-                    />
-                  </a>
-                )}
-              </Grid>
-            )}
-          </Grid>
-
-          <Paper>
-            <h6 className={styles.swiperTitle}>You Might Also Like:</h6>
-          </Paper>
-
-          <Swiper
-            style={{
-              "--swiper-navigation-color": "#000000",
-              marginBottom: "12rem",
-            }}
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={"auto"}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            navigation={true}
-            modules={[EffectCoverflow, Navigation]}
-            className={styles.similarTitleSwiper}>
-            {similarTitlesDetails.map((similarTitle) => (
-              <SwiperSlide
-                key={similarTitle.id}
-                className={styles.similarTitleSlide}
-                style={{
-                  backgroundImage: `url(${similarTitle.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                }}></SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* <Grid xs={12}>
-              <Button
-                disabled={savedTitleIds.includes(selectedTitleDetails.id)}
-                variant="contained"
-                onClick={() => handleSaveTitle(title)}>
-                {savedTitleIds.includes(selectedTitleDetails.id)
-                  ? "Title Saved!"
-                  : "Save to Watchlist"}
-              </Button>
-            </Grid> */}
-
-          {/* {similarTitlesDetails.map((similarTitle) => (
-              <Grid container xs={12} key={similarTitle.id}>
-                <Grid xs={12}>
-                  <h6 style={{ fontSize: "1rem" }}>{similarTitle.title}</h6>
-                </Grid>
-                <Grid xs={12}>
-                  <img src={similarTitle.poster} alt="similar title poster" />
-                </Grid>
-                <Grid xs={12}>
-                  <p>{similarTitle.plot_overview}</p>
-                </Grid>
-
-                {similarTitle.trailer &&
-                similarTitle.trailer.trim() !== "" &&
-                similarTitle.trailer.includes("youtube") ? (
-                  <Grid xs={12}>
-                    <iframe
-                      width="560rem"
-                      height="315rem"
-                      src={similarTitle.trailer}
-                      title="YouTube video player"
-                      style={{
-                        border: "2px",
-                        borderStyle: "solid",
-                        borderColor: "black",
-                      }}
-                      allowFullScreen={true}></iframe>
-                  </Grid>
-                ) : similarTitle.trailer &&
-                  similarTitle.trailer.trim() !== "" ? (
-                  <Grid xs={12}>
-                    <a
-                      href={similarTitle.trailer}
-                      target="_blank"
-                      rel="noreferrer">
-                      Watch Trailer
-                    </a>
-                  </Grid>
-                ) : null}
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    value={similarTitle.id}
-                    onClick={handleTitleSelected}>
-                    More Details
-                  </Button>
-                </Grid>
-              </Grid>
-            ))} */}
-        </main>
-      )}
-    </>
-  );
-};
-
-export default TitleDetails;
+            )} */
+}

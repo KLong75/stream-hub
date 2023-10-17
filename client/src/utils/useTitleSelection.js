@@ -30,7 +30,7 @@ export const useTitleSelection = () => {
         // console.log("cached data retrieved, parsed, time checked", data);
         // window.scrollTo(0, 0);
         navigate("/title_details");
-        return;
+        window.scrollTo(0, 0);
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
         // console.log("Cached Data Expired and Removed");
@@ -104,6 +104,7 @@ export const useTitleSelection = () => {
         );
         // window.scrollTo(0, 0);
         navigate("/title_details");
+        window.scrollTo(0, 0);
       } catch (error) {
         console.log(error);
       }
