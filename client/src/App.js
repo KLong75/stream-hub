@@ -59,7 +59,22 @@ const client = new ApolloClient({
 });
 
 const theme = createTheme({
+  palette: {
+    info: {
+      main: "#000000",
+    },
+  },
+  
   components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          
+        },
+      },
+    },
+
+
     MuiPaper: {
       styleOverrides: {
         root: {

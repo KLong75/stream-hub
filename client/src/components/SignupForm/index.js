@@ -37,6 +37,7 @@ const SignupForm = () => {
         style={{width: ''}}>
         <div>
           <TextField
+            color="info"
             size="small"
             required
             label="Username"
@@ -47,8 +48,9 @@ const SignupForm = () => {
             onChange={handleChanges}
           />
         </div>
-        <div>
+        <div style={{marginTop: '.5rem'}}>
           <TextField
+            color="info"
             size="small" 
             required
             label="Email"
@@ -59,9 +61,9 @@ const SignupForm = () => {
             onChange={handleChanges}
           />
         </div>
-        <div>
-          <TextField
-          
+        <div style={{marginTop: '.5rem'}}>
+          <TextField   
+            color="info"    
             size="small"
             required
             label="Password"
@@ -72,7 +74,7 @@ const SignupForm = () => {
             onChange={handleChanges}
           />
         </div>
-        <Button size='small' variant="contained" type="submit">
+        <Button sx={{marginTop: '.5rem'}} size='small' variant="contained" type="submit">
           Sign Up
         </Button>
         {/* <Button onClick={switchToLogin}>Login</Button> */}
