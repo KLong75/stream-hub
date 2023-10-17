@@ -744,17 +744,21 @@ const TitleDetails = () => {
               )}
             <Grid xs={0} md={2}></Grid>
             <Grid container xs={12} md={2}>
-              {selectedTitleDetails.sources && (
-                <Grid xs={12}>
-                  <p>Watch on:</p>
-                </Grid>
-              )}
+              <Paper sx={{marginTop: '1rem'}}>
+                <Grid container justifyContent='center' alignItems='center'>
               {/* Not Available} */}
               {notAvailable && (
                 <Grid xs={12}>
                   <span>{notAvailable}</span>
                 </Grid>
               )}
+
+              {selectedTitleDetails.sources && (               
+                <Grid xs={12}>
+                  <h6 style={{fontSize: '1rem'}}>Watch on:</h6>
+                </Grid>
+              )}
+                           
               {/* Netflix button */}
               {netflixUrl && (
                 <Grid xs={12}>
@@ -860,8 +864,10 @@ const TitleDetails = () => {
                     rel="noopener noreferrer">
                     Watch on Paramount+
                   </Button>
-                </Grid>
-              )}
+                </Grid>               
+              )}  
+              </Grid>
+              </Paper>          
             </Grid>
 
             {selectedTitleDetails.poster && (
@@ -884,10 +890,12 @@ const TitleDetails = () => {
               </Grid>
             )}
             <Grid container xs={12} md={2}>
+            <Paper sx={{marginTop: '1rem'}}>
+                <Grid container justifyContent='center' alignItems='center'>
               {/*purchase buttons*/}
               {selectedTitleDetails.buy_sources && (
                 <Grid xs={12}>
-                  <p>Rent or Buy:</p>
+                  <h6 style={{fontSize: '1rem'}}>Rent or Buy:</h6>
                 </Grid>
               )}
 
@@ -950,6 +958,9 @@ const TitleDetails = () => {
                   </Button>
                 </Grid>
               )}
+              </Grid>
+              </Paper>
+
             </Grid>
             <Grid xs={0} md={2}></Grid>
 
