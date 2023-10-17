@@ -741,8 +741,7 @@ const TitleDetails = () => {
                     </>
                   ))}
                 </Grid>
-              )
-            }
+              )}
             <Grid xs={1}></Grid>
             <Grid container xs={3}>
               {selectedTitleDetails.sources && (
@@ -944,7 +943,7 @@ const TitleDetails = () => {
             </Grid>
             <Grid xs={1}></Grid>
 
-            <Grid xs={12} sx={{marginTop: '.5rem'}}>
+            <Grid xs={12} sx={{ marginTop: ".5rem" }}>
               <Button
                 disabled={savedTitleIds.includes(selectedTitleDetails.id)}
                 variant="contained"
@@ -954,8 +953,6 @@ const TitleDetails = () => {
                   : "Save to Watchlist"}
               </Button>
             </Grid>
-
-            
 
             {/* {selectedTitleDetails.network_names &&
               selectedTitleDetails.network_names.length > 0 && (
@@ -1009,98 +1006,88 @@ const TitleDetails = () => {
                 <Grid xs={4}></Grid>
               </>
             )}
+
             <Grid xs={2}></Grid>
             <Grid xs={8}>
-            <Paper sx={{ marginTop: "1rem" }}>
-            <Grid
-              container
-              justifyContent={"center"}
-              alignItems={"center"}
-              textAlign={"center"}
-              xs={12}
-              >
-              {moreDetails &&
-                moreDetails.cast &&
-                moreDetails.cast.length > 0 &&
-                moreDetails.cast
-                  .slice(0, Math.min(10, moreDetails.cast.length))
-                  .map((castMember) => (
-                    <Grid
-                      xs={12}
-                      sm={6}
-                      // md={4}
-                      // lg={3}
-                      // xl={2}
-                      key={castMember.id}
-                      style={{ fontSize: "1rem" }}>
-                      <Button
-                        value={castMember.name}
-                        onClick={(e) => {
-                          console.log("Button clicked:", e.currentTarget.value);
-                          handleActorNameClicked(e);
-                        }}
-                        style={{
-                          color: "black",
-                          textTransform: "none",
-                          fontSize: "1rem",
-                          marginTop: ".5rem",
-                        }}
-                        type="submit">
-                        <span style={{ display: "" }}>
-                          {castMember.name}
-                        </span>
-                      </Button>
-                      <span style={{ display: "block" }}>
-                        as {castMember.character}
-                      </span>
-                    </Grid>
-                  ))}
-            </Grid>
-            </Paper>
+              <Paper sx={{ marginTop: "1rem" }}>
+                <Grid
+                  container
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  textAlign={"center"}
+                  xs={12}>
+                  {moreDetails &&
+                    moreDetails.cast &&
+                    moreDetails.cast.length > 0 &&
+                    moreDetails.cast
+                      .slice(0, Math.min(10, moreDetails.cast.length))
+                      .map((castMember) => (
+                        <Grid
+                          xs={12}
+                          sm={6}
+                          // md={4}
+                          // lg={3}
+                          // xl={2}
+                          key={castMember.id}
+                          style={{ fontSize: "1rem" }}>
+                          <Button
+                            value={castMember.name}
+                            onClick={(e) => {
+                              console.log(
+                                "Button clicked:",
+                                e.currentTarget.value
+                              );
+                              handleActorNameClicked(e);
+                            }}
+                            style={{
+                              color: "black",
+                              textTransform: "none",
+                              fontSize: "1rem",
+                              marginTop: ".5rem",
+                            }}
+                            type="submit">
+                            <span style={{ display: "" }}>
+                              {castMember.name}
+                            </span>
+                          </Button>
+                          <span style={{ display: "block" }}>
+                            as {castMember.character}
+                          </span>
+                        </Grid>
+                      ))}
+                </Grid>
+              </Paper>
             </Grid>
             <Grid xs={2}></Grid>
-           
-            <Grid xs={4}></Grid>
-            <Grid xs={4} sx={{}}>
-              {moreDetails &&
-                moreDetails.crew &&
-                moreDetails.crew.some(
-                  (crewMember) => crewMember.job === "Director"
-                ) && (
-                  <>
-                    {moreDetails.crew
-                      .filter((crewMember) => crewMember.job === "Director")
-                      .map((crewMember) => (
-                        <div
-                          style={{
-                            backgroundColor: "rgba(0, 0, 0, 0.5)", // semi-transparent black
-                            color: "#fff", // white text for contrast
-                            padding: ".25rem", // inner spacing
-                            backdropFilter: "blur(3px)", // Optional: frosted glass effect
-                            borderRadius: ".5rem", // rounded corners
-                            border: "1px solid #333", // thin border
-                            width: "fit-content",
-                            margin: "auto",
-                            marginTop: "1rem",
-                            minWidth: "50%",
-                            maxWidth: "80%",
-                            minHeight: "50%",
-                            maxHeight: "80%",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            display: "flex",
-                            textAlign: "center",
-                          }}>
-                          <h5 style={{ margin: "0" }} key={crewMember.id}>
-                            Directed by: {crewMember.name}
-                          </h5>
-                        </div>
-                      ))}
-                  </>
-                )}
-            </Grid>
-            <Grid xs={4}></Grid>
-            
+
+            {moreDetails &&
+              moreDetails.crew &&
+              moreDetails.crew.some(
+                (crewMember) => crewMember.job === "Director"
+              ) && (
+                <>
+                  <Grid xs={5}></Grid>
+                  <Grid xs={2}>
+                    <Paper sx={{ marginTop: "1rem" }}>
+                      <Grid xs={12} container>
+                      <Grid xs={12}>
+                        <h5 style={{ margin: "0" }}>Directed By:</h5>
+                      </Grid>
+                      {moreDetails.crew
+                        .filter((crewMember) => crewMember.job === "Director")
+                        .map((crewMember) => (
+                          <Grid xs={12}>
+                            <h5 style={{ margin: "0" }} key={crewMember.id}>
+                              {crewMember.name}
+                            </h5>
+                            </Grid>
+                        ))}
+                      </Grid>
+                    </Paper>
+                  </Grid>
+                  <Grid xs={5}></Grid>
+                </>
+              )}
 
             {/* {selectedTitleDetails.sources && (
               <Grid xs={12}>
@@ -1511,7 +1498,44 @@ const TitleDetails = () => {
                 )}
               </Grid>
             )}
-            {/* <Grid xs={12}>
+          </Grid>
+
+          <Paper>
+            <h6 className={styles.swiperTitle}>You Might Also Like:</h6>
+          </Paper>
+
+          <Swiper
+            style={{
+              "--swiper-navigation-color": "#000000",
+              marginBottom: "12rem",
+            }}
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            navigation={true}
+            modules={[EffectCoverflow, Navigation]}
+            className={styles.similarTitleSwiper}>
+            {similarTitlesDetails.map((similarTitle) => (
+              <SwiperSlide
+                key={similarTitle.id}
+                className={styles.similarTitleSlide}
+                style={{
+                  backgroundImage: `url(${similarTitle.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                }}></SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* <Grid xs={12}>
               <Button
                 disabled={savedTitleIds.includes(selectedTitleDetails.id)}
                 variant="contained"
@@ -1521,18 +1545,8 @@ const TitleDetails = () => {
                   : "Save to Watchlist"}
               </Button>
             </Grid> */}
-             
-            <Grid xs={4}></Grid>
-            <Grid xs={4} sx={{marginTop: '1rem'}}>
-              <Paper>
-              <h6 className={styles.swiperTitle}>You Might Also Like: </h6>
-              </Paper>
-            </Grid>
-            <Grid xs={4}></Grid>
 
-
-
-            {similarTitlesDetails.map((similarTitle) => (
+          {/* {similarTitlesDetails.map((similarTitle) => (
               <Grid container xs={12} key={similarTitle.id}>
                 <Grid xs={12}>
                   <h6 style={{ fontSize: "1rem" }}>{similarTitle.title}</h6>
@@ -1580,8 +1594,7 @@ const TitleDetails = () => {
                   </Button>
                 </Grid>
               </Grid>
-            ))}
-          </Grid>
+            ))} */}
         </main>
       )}
     </>
