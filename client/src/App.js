@@ -78,7 +78,7 @@ const theme = createTheme({
           width: 'fit-content',
           margin: 'auto',
           // set min width to prevent container from shrinking too small
-          minWidth: '50%',
+          minWidth: '20%',
           // set max width to prevent container from growing too large
           maxWidth: '80%',
           // set min height to prevent container from shrinking too small

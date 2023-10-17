@@ -15,6 +15,7 @@ import {
 // import from material-ui
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
+
 // import { styled } from '@mui/material/styles';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from swiper.js
@@ -651,7 +652,7 @@ const TitleDetails = () => {
           style={{
             backgroundImage: `url(${selectedTitleDetails.backdrop})`,
             backgroundSize: "cover",
-            backgroundPosition: "center-top",
+            backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
             minHeight: "100vh",
@@ -724,12 +725,13 @@ const TitleDetails = () => {
                 <Grid xs={5}></Grid>
               </>
             )}
+
             {selectedTitleDetails.genre_names &&
               selectedTitleDetails.genre_names.length > 0 && (
                 <Grid container xs={12} justifyContent="center">
                   {selectedTitleDetails.genre_names.map((genre) => (
                     <>
-                      <Grid xs={2} key={genre}>
+                      <Grid xs={2}>
                         <Paper sx={{ marginTop: "1rem" }}>
                           <h4 style={{ margin: "0" }} key={genre}>
                             {genre}
@@ -739,25 +741,21 @@ const TitleDetails = () => {
                     </>
                   ))}
                 </Grid>
-              )}
-            <Grid xs={2}></Grid>
-            <Grid xs={2} container >
-            
-            
+              )
+            }
+            <Grid xs={1}></Grid>
+            <Grid container xs={3}>
               {selectedTitleDetails.sources && (
-                
                 <Grid xs={12}>
-                  <p style={{ marginTop: "0" }}>Watch on:</p>
+                  <p>Watch on:</p>
                 </Grid>
               )}
-
               {/* Not Available} */}
               {notAvailable && (
                 <Grid xs={12}>
                   <span>{notAvailable}</span>
                 </Grid>
               )}
-
               {/* Netflix button */}
               {netflixUrl && (
                 <Grid xs={12}>
@@ -780,7 +778,7 @@ const TitleDetails = () => {
                     href={amazonPrimeUrl}
                     target="_blank"
                     rel="noopener noreferrer">
-                    Watch on Amazon Prime
+                    Prime Video
                   </Button>
                 </Grid>
               )}
@@ -864,26 +862,23 @@ const TitleDetails = () => {
                     Watch on Paramount+
                   </Button>
                 </Grid>
-              )}             
+              )}
             </Grid>
+
             {selectedTitleDetails.poster && (
               <Grid xs={4} sx={{ marginTop: "2rem" }}>
                 <img
-                  style={{ border: "2px solid #333" }}
                   className={styles.poster}
                   src={selectedTitleDetails.poster}
                   alt="show poster"
                 />
               </Grid>
             )}
-            <Grid
-              container
-              xs={2}
-              >
+            <Grid container xs={3}>
               {/*purchase buttons*/}
               {selectedTitleDetails.buy_sources && (
                 <Grid xs={12}>
-                  <p style={{ marginTop: "0" }}>Rent or Buy:</p>
+                  <p>Rent or Buy:</p>
                 </Grid>
               )}
 
@@ -947,9 +942,9 @@ const TitleDetails = () => {
                 </Grid>
               )}
             </Grid>
-            <Grid xs={2}></Grid>
+            <Grid xs={1}></Grid>
 
-            <Grid xs={12}>
+            <Grid xs={12} sx={{marginTop: '.5rem'}}>
               <Button
                 disabled={savedTitleIds.includes(selectedTitleDetails.id)}
                 variant="contained"
@@ -960,42 +955,7 @@ const TitleDetails = () => {
               </Button>
             </Grid>
 
-
-           
-            {selectedTitleDetails.us_rating && (
-              <>               
-                <Grid xs={12} >                 
-                  <h5
-                    style={{
-                      marginTop: "0",
-                      marginBottom: "0",
-                      marginLeft: ".25rem",
-                      marginRight: ".25rem",
-                    }}>
-                    Rated {selectedTitleDetails.us_rating}
-                  </h5>                
-                </Grid>     
-                        
-              </>
-            )}
-            {selectedTitleDetails.release_date && (
-              <>
             
-                <Grid xs={12}>
-                  <h5
-                    style={{
-                      marginTop: "0",
-                      marginBottom: "0",
-                      marginLeft: ".25rem",
-                      marginRight: ".25rem",
-                    }}>
-                    Released on {formatDate(selectedTitleDetails.release_date)}
-                  </h5>
-                </Grid>
-               
-                
-              </>
-            )}
 
             {/* {selectedTitleDetails.network_names &&
               selectedTitleDetails.network_names.length > 0 && (
@@ -1012,37 +972,53 @@ const TitleDetails = () => {
 
             {selectedTitleDetails.plot_overview && (
               <>
-                
-                <Grid xs={12}>
+                <Grid xs={1}></Grid>
+                <Grid xs={10}>
                   <Paper sx={{ marginTop: "1rem" }}>
-                    <p>Plot Overview: {selectedTitleDetails.plot_overview}</p>
+                    <p>Plot: {selectedTitleDetails.plot_overview}</p>
                   </Paper>
                 </Grid>
-                
+                <Grid xs={1}></Grid>
               </>
             )}
-            {/* <section style={{ marginTop: "1rem" }}> */}
+            {selectedTitleDetails.us_rating && (
+              <>
+                <Grid xs={5}></Grid>
+                <Grid xs={2}>
+                  <Paper sx={{ marginTop: "1rem" }}>
+                    <h5 style={{ margin: "0", padding: "0" }}>
+                      Rated {selectedTitleDetails.us_rating}
+                    </h5>
+                  </Paper>
+                </Grid>
+                <Grid xs={5}></Grid>
+              </>
+            )}
+
+            {selectedTitleDetails.release_date && (
+              <>
+                <Grid xs={4}></Grid>
+                <Grid xs={4}>
+                  <Paper sx={{ marginTop: "1rem" }}>
+                    <h5 style={{ margin: "0" }}>
+                      Released on{" "}
+                      {formatDate(selectedTitleDetails.release_date)}
+                    </h5>
+                  </Paper>
+                </Grid>
+                <Grid xs={4}></Grid>
+              </>
+            )}
+            <Grid xs={2}></Grid>
+            <Grid xs={8}>
+            <Paper sx={{ marginTop: "1rem" }}>
             <Grid
               container
               justifyContent={"center"}
               alignItems={"center"}
               textAlign={"center"}
               xs={12}
-              sx={{
-                backgroundColor: "rgba(0, 0, 0, 0.5)", // semi-transparent black
-                color: "#fff", // white text for contrast
-                padding: ".25rem", // inner spacing
-                backdropFilter: "blur(3px)", // Optional: frosted glass effect
-                borderRadius: ".5rem", // rounded corners
-                border: "1px solid #333", // thin border
-                width: "fit-content",
-                margin: "auto",
-                marginTop: "1rem",
-                // minWidth: "20%",
-                maxWidth: "80%",
-                minHeight: "50%",
-                maxHeight: "80%",
-              }}>
+              >
               {moreDetails &&
                 moreDetails.cast &&
                 moreDetails.cast.length > 0 &&
@@ -1052,9 +1028,9 @@ const TitleDetails = () => {
                     <Grid
                       xs={12}
                       sm={6}
-                      md={4}
-                      lg={3}
-                      xl={2}
+                      // md={4}
+                      // lg={3}
+                      // xl={2}
                       key={castMember.id}
                       style={{ fontSize: "1rem" }}>
                       <Button
@@ -1070,7 +1046,7 @@ const TitleDetails = () => {
                           marginTop: ".5rem",
                         }}
                         type="submit">
-                        <span style={{ display: "block" }}>
+                        <span style={{ display: "" }}>
                           {castMember.name}
                         </span>
                       </Button>
@@ -1080,8 +1056,10 @@ const TitleDetails = () => {
                     </Grid>
                   ))}
             </Grid>
-            {/* </section> */}
-            {/* <section> */}
+            </Paper>
+            </Grid>
+            <Grid xs={2}></Grid>
+           
             <Grid xs={4}></Grid>
             <Grid xs={4} sx={{}}>
               {moreDetails &&
@@ -1122,7 +1100,7 @@ const TitleDetails = () => {
                 )}
             </Grid>
             <Grid xs={4}></Grid>
-            {/* </section> */}
+            
 
             {/* {selectedTitleDetails.sources && (
               <Grid xs={12}>
@@ -1512,11 +1490,11 @@ const TitleDetails = () => {
               <Grid xs={12}>
                 {selectedTitleDetails.trailer.includes("youtube") ? (
                   <iframe
-                    className={styles.trailerIframe}
-                    // width="560px"
-                    // height="315px"
+                    width="560rem"
+                    height="315rem"
                     src={selectedTitleDetails.trailer}
                     title="YouTube video player"
+                    className={styles.trailerIframe}
                     allowFullScreen={true}></iframe>
                 ) : (
                   <a
@@ -1533,7 +1511,7 @@ const TitleDetails = () => {
                 )}
               </Grid>
             )}
-            <Grid xs={12}>
+            {/* <Grid xs={12}>
               <Button
                 disabled={savedTitleIds.includes(selectedTitleDetails.id)}
                 variant="contained"
@@ -1542,52 +1520,19 @@ const TitleDetails = () => {
                   ? "Title Saved!"
                   : "Save to Watchlist"}
               </Button>
-            </Grid>
-          </Grid>
-
-          {/* <Grid xs={12}> */}
-          <h6 className={styles.swiperTitle}>You might also like:</h6>
-          <Swiper
-            style={{ "--swiper-navigation-color": "#000000" }}
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={"auto"}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            navigation={true}
-            modules={[EffectCoverflow, Navigation]}
-            className={styles.similarTitleSwiper}>
-            {similarTitlesDetails.map((similarTitle) => (
-              <SwiperSlide
-                onClick={() => handleTitleSelected(similarTitle.id)}
-                key={similarTitle.id}
-                className={styles.similarTitleSlide}
-                style={{
-                  backgroundImage: `url(${similarTitle.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                }}>
-                <h6 className={styles.similarTitleSlideTitle}>
-                  {similarTitle.title}
-                </h6>
-                <h6 className={styles.similarTitleSlideType}>
-                  {similarTitle.type}
-                </h6>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          {/* </Grid> */}
-
-          {/* <Grid xs={12}>
-              <p>Related Titles: </p>
             </Grid> */}
-          {/* {similarTitlesDetails.map((similarTitle) => (
+             
+            <Grid xs={4}></Grid>
+            <Grid xs={4} sx={{marginTop: '1rem'}}>
+              <Paper>
+              <h6 className={styles.swiperTitle}>You Might Also Like: </h6>
+              </Paper>
+            </Grid>
+            <Grid xs={4}></Grid>
+
+
+
+            {similarTitlesDetails.map((similarTitle) => (
               <Grid container xs={12} key={similarTitle.id}>
                 <Grid xs={12}>
                   <h6 style={{ fontSize: "1rem" }}>{similarTitle.title}</h6>
@@ -1635,8 +1580,8 @@ const TitleDetails = () => {
                   </Button>
                 </Grid>
               </Grid>
-            ))} */}
-          {/* </Grid> */}
+            ))}
+          </Grid>
         </main>
       )}
     </>
