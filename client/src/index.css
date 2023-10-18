@@ -31,7 +31,7 @@ code {
 
 /* styles.css */
 .gradientBackground {
-  background: linear-gradient(315deg, #2c3e50  15%, #bdc3c7 75%);
+  background: linear-gradient(315deg, #2c3e50  5%, #bdc3c7 75%);
   /* background: linear-gradient(315deg, #185a9d 15%, #43cea2 85%); */
 }
 

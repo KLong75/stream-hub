@@ -97,7 +97,7 @@ const MixedGenreSearchResults = () => {
                 "--swiper-navigation-color": "#000000",
                 "--swiper-pagination-color": "#000000",
                 marginBottom: "6rem",
-                marginTop: "3rem",
+                marginTop: "2rem",
               }}
               speed={1000}
               parallax={true}
@@ -193,7 +193,7 @@ const MixedGenreSearchResults = () => {
                       <>
                       <Grid xs={3}></Grid>
                       <Grid xs={6}>
-                      <p data-swiper-parallax="-300" style={{marginBottom: '-4em'}}>{title.overview}</p>
+                        <p data-swiper-parallax="-300" style={{marginBottom: '0'}}>{title.overview}</p>
                       </Grid>
                       <Grid xs={3}></Grid>
                       </>

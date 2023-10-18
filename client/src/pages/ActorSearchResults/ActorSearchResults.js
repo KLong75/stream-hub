@@ -96,7 +96,7 @@ const ActorSearchResults = () => {
                     modifier: 1,
                     slideShadows: true,
                   }}
-                  // navigation={true}
+                  navigation={true}
                   modules={[EffectCoverflow, Navigation]}
                   className={styles.knownForSwiper}>
                   {result.known_for.map((titleKnownFor) => (
