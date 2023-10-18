@@ -149,6 +149,8 @@ const ActorSearch = ({onSubmit}) => {
     };
 
     fetchData();
+    // watch this line below
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [] );
 
   useEffect(() => {
