@@ -20,7 +20,7 @@ const server = new ApolloServer({
 
 const app = express();
 
-app.use(express.urlencoded({ extended: false })); //true or false?
+app.use(express.urlencoded({ extended: true})); //true or false?
 app.use(express.json());
 
 
