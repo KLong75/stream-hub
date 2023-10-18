@@ -1,0 +1,17 @@
+.paperUnderlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: "#fff";
+  padding: ".25rem";
+  backdrop-filter: "blur(3px)";
+  border-radius: ".5rem";
+  border: "1px solid #333";
+  width: fit-content;
+  margin: auto;
+  min-width: 20%;
+  max-width: 80%;
+  min-height: 50%;
+  max-height: 80%;
+  align-items: center;
+  display: flex;
+  text-align: center;
+}

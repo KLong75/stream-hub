@@ -35,7 +35,7 @@ const MixedGenreSearchResults = () => {
   const handleTitleSelected = useTitleSelectionTMDBId();
 
   return (
-    <main className={styles.mixedGenreSearchResultsMain}>
+    <main className="gradientBackground" >
       {!loggedIn ? (
         <div>
           <h2>Welcome to streamHub</h2>

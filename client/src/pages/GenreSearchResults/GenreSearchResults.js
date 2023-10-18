@@ -8,6 +8,9 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
 import { ButtonBase } from "@mui/material";
 import { styled } from '@mui/material/styles';
+// import components
+// import LoadingClapboard from "../../components/LoadingClapBoard";
+// import { PaperUnderlay } from "../../components/PaperUnderlay";
 // import from utils
 import { useTitleSelection } from "../../utils/useTitleSelection";
 import Auth from "../../utils/auth";
@@ -59,6 +62,7 @@ const GenreSearchResults = () => {
           </Link>
         </div>
       ) : (
+        <main className="gradientBackground">
         <Grid container style={{textAlign: 'center'}}>
           <Grid xs={12}>
             <h3 className={styles.searchResultsLabel} style={{background: 'linear-gradient(315deg, #185a9d 0%, #43cea2 85%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', fontFamily: 'monospace', fontWeight: '700', letterSpacing: '.2rem', fontSize: '2rem', marginTop: '1rem', marginBottom: '1rem', padding: '.5rem'}}>Genre Search Results</h3>
@@ -120,6 +124,7 @@ const GenreSearchResults = () => {
             ))}
           </Grid>
         </Grid>
+      </main>
       )}
     </>
   );

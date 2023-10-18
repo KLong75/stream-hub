@@ -17,6 +17,7 @@ import { QUERY_ME } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 // import components
 import LoadingClapBoard from "../../components/LoadingClapBoard";
+import { PaperUnderlay } from "../../components/PaperUnderlay";
 // import styles
 import styles from "./TitleSearchResults.module.css";
 
@@ -60,8 +61,10 @@ const TitleSearchResults = () => {
 
   
   return (
+    <main className="gradientBackground">
     <Grid container sx={{ textAlign: "center", marginBottom: '4rem' }} >
       <Grid xs={12}>
+      <PaperUnderlay sx={{marginTop: '1rem'}}>
         <h3
           style={{
             background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
@@ -78,6 +81,10 @@ const TitleSearchResults = () => {
           }}>
           Title Search Results
         </h3>
+        </PaperUnderlay>
+      </Grid>
+      <Grid xs={12}>
+        <PaperUnderlay>
         <h4
           style={{
             fontSize: "1.75rem",
@@ -93,6 +100,7 @@ const TitleSearchResults = () => {
           }}>
           Searched For: '{searchedTitle}'
         </h4>
+        </PaperUnderlay>
       </Grid>
       <Grid xs={12} container sx={{marginTop: '2rem'}}>
         {titleSearchResults
@@ -137,6 +145,7 @@ const TitleSearchResults = () => {
           ))}
       </Grid>
     </Grid>
+    </main>
   );
 };
 

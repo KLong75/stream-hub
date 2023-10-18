@@ -29,6 +29,19 @@ code {
     monospace;
 }
 
+/* styles.css */
+.gradientBackground {
+  background: linear-gradient(315deg, #2c3e50  25%, #bdc3c7 75%);
+  /* background: linear-gradient(315deg, #185a9d 15%, #43cea2 85%); */
+}
+
+.glassBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  /* color: '#fff', // white text for contrast */
+  backdrop-filter: blur(3px);
+}
+
+
 main {
   min-height: 100vh;
 }
@@ -63,7 +76,6 @@ h6 {
 
 .swiper-button-next {
   margin-top: -4rem!important;
-  
 }
 
 .swiper-button-prev {

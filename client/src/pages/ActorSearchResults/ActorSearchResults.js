@@ -56,7 +56,7 @@ const ActorSearchResults = () => {
   }
 
   return (
-    <>
+    <main className="gradientBackground">
       <Grid
         container
         justifyContent="center"
@@ -124,7 +124,7 @@ const ActorSearchResults = () => {
             
           ))}
       </Grid>
-    </>
+    </main>
   );
 };
 

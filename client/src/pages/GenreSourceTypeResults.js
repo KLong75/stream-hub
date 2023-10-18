@@ -1,7 +1,7 @@
 // import from react
 import  { useRef, useEffect, useState, useContext } from "react";
 // import from react-router
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../context/SearchResultsContext";
 // import from mui
@@ -15,6 +15,7 @@ import { useTitleSelectionTMDBId } from "../utils/useTitleSelectionTMDBId";
 import Auth from "../utils/auth";
 
 const GenreSourceTypeResults = () => {
+  const navigate = useNavigate();
   const loggedIn = Auth.loggedIn();
   const location = useLocation();
   const searchDataFromRouter = location.state || {};
@@ -151,17 +152,7 @@ const GenreSourceTypeResults = () => {
   return (
     <>
       {!loggedIn ? (
-        <div>
-          <h2>Welcome to streamHub</h2>
-          <p>Please</p>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-          <p>Or</p>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-        </div>
+        navigate("/")
       ) : (
         <Grid container style={{textAlign: 'center'}}>
           <Grid xs={12}>

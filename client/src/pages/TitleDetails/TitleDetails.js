@@ -14,9 +14,6 @@ import {
 } from "../../utils/apiCalls";
 // import from material-ui
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-
-// import { styled } from '@mui/material/styles';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -39,7 +36,7 @@ import { QUERY_ME } from "../../utils/queries";
 import { useMutation, useQuery } from "@apollo/client";
 // import components
 import LoadingClapBoard from "../../components/LoadingClapBoard";
-
+import { PaperUnderlay } from "../../components/PaperUnderlay";
 // import source logos
 import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
 // import styles
@@ -669,7 +666,7 @@ const TitleDetails = () => {
             alignItems="center">
             <Grid xs={2}></Grid>
             <Grid xs={8}>
-              <Paper sx={{ marginTop: "2rem" }}>
+              <PaperUnderlay sx={{ marginTop: "2rem" }}>
                 <h2
                   style={{
                     background:
@@ -687,18 +684,17 @@ const TitleDetails = () => {
                   }}>
                   {selectedTitleDetails.title}
                 </h2>
-              </Paper>
+              </PaperUnderlay>
             </Grid>
             <Grid xs={2}></Grid>
             {selectedTitleDetails.type && (
               <>
                 <Grid xs={3}></Grid>
                 <Grid xs={6}>
-                  <Paper sx={{ marginTop: "1rem" }}>
+                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
                     <h3
                       style={{
-                        background:
-                          "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                        background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
                         backgroundClip: "text",
                         WebkitBackgroundClip: "text",
                         color: "transparent",
@@ -720,31 +716,29 @@ const TitleDetails = () => {
                         ? "Short Film"
                         : "Unknown Type"}
                     </h3>
-                  </Paper>
+                  </PaperUnderlay>
                 </Grid>
                 <Grid xs={3}></Grid>
               </>
             )}
 
             {selectedTitleDetails.genre_names &&
-              selectedTitleDetails.genre_names.length > 0 && (
-                <Grid container xs={12} justifyContent="center">
-                  {selectedTitleDetails.genre_names.map((genre) => (
-                    <>
-                      <Grid key={genre} xs={12} md={3}>                       
-                        <Paper sx={{ marginTop: "1rem" }}>
-                          <h4 style={{ margin: "0" }} key={genre}>
-                            {genre}
-                          </h4>
-                        </Paper>                     
-                      </Grid>
-                    </>
+             selectedTitleDetails.genre_names.length > 0 && (
+               <Grid container xs={12} justifyContent="center">
+                 {selectedTitleDetails.genre_names.map((genre) => (
+                    <Grid key={genre} xs={12} md={3}>                       
+                      <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                        <h4 style={{ margin: "0", marginLeft: '.5rem', marginRight: '.5rem'  }} key={genre}>
+                          {genre}
+                        </h4>
+                      </PaperUnderlay>                     
+                    </Grid>         
                   ))}
-                </Grid>
-           )}
+              </Grid>
+            )}
             <Grid xs={0} md={2}></Grid>
             <Grid container xs={12} md={2}>
-              <Paper sx={{marginTop: '1rem'}}>
+              <PaperUnderlay sx={{marginTop: '1rem'}}>
                 <Grid container justifyContent='center' alignItems='center'>
               {/* Not Available} */}
               {notAvailable && (
@@ -867,7 +861,7 @@ const TitleDetails = () => {
                 </Grid>               
               )}  
               </Grid>
-              </Paper>          
+              </PaperUnderlay>          
             </Grid>
 
             {selectedTitleDetails.poster && (
@@ -890,7 +884,7 @@ const TitleDetails = () => {
               </Grid>
             )}
             <Grid container xs={12} md={2}>
-            <Paper sx={{marginTop: '1rem'}}>
+            <PaperUnderlay sx={{marginTop: '1rem'}}>
                 <Grid container justifyContent='center' alignItems='center'>
               {/*purchase buttons*/}
               {selectedTitleDetails.buy_sources && (
@@ -959,7 +953,7 @@ const TitleDetails = () => {
                 </Grid>
               )}
               </Grid>
-              </Paper>
+              </PaperUnderlay>
 
             </Grid>
             <Grid xs={0} md={2}></Grid>
@@ -979,9 +973,9 @@ const TitleDetails = () => {
               <>
                 <Grid xs={1}></Grid>
                 <Grid xs={10}>
-                  <Paper sx={{ marginTop: "1rem" }}>
+                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
                     <p style={{marginLeft: '.5rem', marginRight: '.5rem'}}>{selectedTitleDetails.plot_overview}</p>
-                  </Paper>
+                  </PaperUnderlay>
                 </Grid>
                 <Grid xs={1}></Grid>
               </>
@@ -990,11 +984,11 @@ const TitleDetails = () => {
               <>
                 <Grid xs={5}></Grid>
                 <Grid xs={2}>
-                  <Paper sx={{ marginTop: "1rem" }}>
+                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
                     <h5 style={{marginLeft: '.5rem', marginRight: '.5rem', marginTop: '0', marginBottom: '0'}}>
                       Rated {selectedTitleDetails.us_rating}
                     </h5>
-                  </Paper>
+                  </PaperUnderlay>
                 </Grid>
                 <Grid xs={5}></Grid>
               </>
@@ -1004,12 +998,12 @@ const TitleDetails = () => {
               <>
                 <Grid xs={4}></Grid>
                 <Grid xs={4}>
-                  <Paper sx={{ marginTop: "1rem" }}>
+                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
                     <h5 style={{marginLeft: '.5rem', marginRight: '.5rem', marginTop: '0', marginBottom: '0'}}>
                       Released on{" "}
                       {formatDate(selectedTitleDetails.release_date)}
                     </h5>
-                  </Paper>
+                  </PaperUnderlay>
                 </Grid>
                 <Grid xs={4}></Grid>
               </>
@@ -1017,7 +1011,7 @@ const TitleDetails = () => {
 
             <Grid xs={2}></Grid>
             <Grid xs={8}>
-              <Paper sx={{ marginTop: "1rem" }}>
+              <PaperUnderlay sx={{ marginTop: "1rem" }}>
                 <Grid
                   container
                   justifyContent={"center"}
@@ -1064,7 +1058,7 @@ const TitleDetails = () => {
                         </Grid>
                       ))}
                 </Grid>
-              </Paper>
+              </PaperUnderlay>
             </Grid>
             <Grid xs={2}></Grid>
 
@@ -1076,7 +1070,7 @@ const TitleDetails = () => {
                 <>
                   <Grid xs={5}></Grid>
                   <Grid xs={2}>
-                    <Paper sx={{ marginTop: "1rem" }}>
+                    <PaperUnderlay sx={{ marginTop: "1rem" }}>
                       <Grid xs={12} container>
                         <Grid xs={12}>
                           <h5 style={{ margin: "0" }}>Directed By:</h5>
@@ -1084,14 +1078,14 @@ const TitleDetails = () => {
                         {moreDetails.crew
                           .filter((crewMember) => crewMember.job === "Director")
                           .map((crewMember) => (
-                            <Grid xs={12}>
+                            <Grid xs={12} key={crewMember.id}>
                               <h5 style={{ margin: "0" }} key={crewMember.id}>
                                 {crewMember.name}
                               </h5>
                             </Grid>
                           ))}
                       </Grid>
-                    </Paper>
+                    </PaperUnderlay>
                   </Grid>
                   <Grid xs={5}></Grid>
                 </>
@@ -1124,9 +1118,9 @@ const TitleDetails = () => {
             )}
           </Grid>
 
-          <Paper sx={{ marginTop: "3rem" }}>
+          <PaperUnderlay sx={{ marginTop: "3rem", marginBottom: "2rem" }}>
             <h6 className={styles.swiperTitle}>You Might Also Like:</h6>
-          </Paper>
+          </PaperUnderlay>
 
           <Swiper
             style={{
