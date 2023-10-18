@@ -5,7 +5,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import styled from "@emotion/styled";
 // import images
 import Tv from "../../assets/images/TvNew2.png";
-import tvIcon from "../../assets/images/tvIcon.png";
+import tvIcon from "../../assets/images/TvIcon.png";
 // import components
 import TVButton from "../TVButton";
 import LoginForm from "../../components/LoginForm";
