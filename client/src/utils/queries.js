@@ -72,3 +72,4 @@ export const QUERY_USER_BASIC = gql`
     }
   }
 `;
+

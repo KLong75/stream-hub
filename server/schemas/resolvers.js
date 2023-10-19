@@ -23,6 +23,9 @@ const resolvers = {
       return User.findOne({ username })
         .select('-__v -password');
     },
+  
+
+
   },
   Mutation: {
     addUser: async (parent, args) => {
