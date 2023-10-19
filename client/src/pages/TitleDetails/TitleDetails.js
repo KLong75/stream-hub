@@ -614,12 +614,6 @@ const TitleDetails = () => {
         web_url: source.web_url,
         type: source.type,
       })),
-      related_titles: title.fetchedSimilarTitles.map((title) => ({
-        id: title.id,
-        title: title.title,
-        type: title.type,
-        poster: title.poster,
-      })),
     };
     // console.log("title to save", input);
     // const titleToSave = titleId;
