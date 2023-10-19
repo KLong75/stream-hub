@@ -433,7 +433,7 @@ const TitleDetails = () => {
         const cachedSimilarTitles = localStorage.getItem(
           `similarTitles-${similarTitleId}`
         );
-        // console.log("cached data retrieved: cachedSimilarTitles", cachedSimilarTitles);
+        console.log("cached data retrieved: cachedSimilarTitles", cachedSimilarTitles);
 
         if (cachedSimilarTitles) {
           const { data, timestamp } = JSON.parse(cachedSimilarTitles);
@@ -441,7 +441,7 @@ const TitleDetails = () => {
 
           if (now - timestamp < CACHE_DURATION) {
             fetchedSimilarTitles.push(data);
-            // console.log("cached data retrieved, parsed, time checked", data);
+            console.log("cached data retrieved, parsed, time checked", data);
             continue;
           } else {
             localStorage.removeItem(`similarTitles-${similarTitleId}`);
@@ -613,6 +613,12 @@ const TitleDetails = () => {
         name: source.name,
         web_url: source.web_url,
         type: source.type,
+      })),
+      related_titles: title.fetchedSimilarTitles.map((title) => ({
+        id: title.id,
+        title: title.title,
+        type: title.type,
+        poster: title.poster,
       })),
     };
     // console.log("title to save", input);
