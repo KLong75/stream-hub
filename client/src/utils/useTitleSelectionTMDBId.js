@@ -83,7 +83,7 @@ export const useTitleSelectionTMDBId = () => {
           release_date: titleDetails.release_date,
           runtime: titleDetails.runtime,
           similar_titles: titleDetails.similar_titles
-            ? titleDetails.similar_titles.slice(0, 5)
+            ? titleDetails.similar_titles.slice(0, 3) // adjust # of similar titles here
             : [],
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"

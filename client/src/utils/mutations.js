@@ -101,10 +101,15 @@ export const SAVE_TITLE = gql`
           web_url
           type
         }
-        similar_titles
-      }
+        similar_titles {
+          id
+          title
+          type
+          poster
+        }  
     }
   }
+}
 `;
 
 export const REMOVE_TITLE = gql`
@@ -137,8 +142,13 @@ export const REMOVE_TITLE = gql`
           web_url
           type
         }
-        similar_titles
+        similar_titles {
+          id
+          title
+          type
+          poster
       }
     }
   }
+}
 `;

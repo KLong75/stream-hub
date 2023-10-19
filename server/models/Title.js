@@ -52,18 +52,14 @@ const titleSchema = new Schema({
       type: Object,
     },
   ],
-  similar_titles: [Number],
-  // cast: [
-  //   {
-  //     type: Object,
-  //   },
-  // ],
-  // director: [
-  //   {
-  //     type: Object,
-  //   },
-  // ],
- 
+  similar_titles: [
+    {
+      type: Object,
+    },
+  ],
+  more_details: {
+    type: Object,
+  },
 });
 
 module.exports = titleSchema;

@@ -326,7 +326,7 @@ const TitleDetails = () => {
           const moreDetailsFetched = await response.json();
           setMoreDetails(moreDetailsFetched);
 
-          // console.log(moreDetailsFetched);
+          console.log(moreDetailsFetched);
 
           const cacheData = {
             data: moreDetailsFetched,
@@ -426,14 +426,17 @@ const TitleDetails = () => {
         return; // Don't proceed if there are no similar titles
       }
 
-      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 20); // Adjust # of similar titles to fetch here
+      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 3); // Adjust # of similar titles to fetch here
       // console.log(similarTitles)
 
       for (const similarTitleId of similarTitles) {
         const cachedSimilarTitles = localStorage.getItem(
           `similarTitles-${similarTitleId}`
         );
-        console.log("cached data retrieved: cachedSimilarTitles", cachedSimilarTitles);
+        console.log(
+          "cached data retrieved: cachedSimilarTitles",
+          cachedSimilarTitles
+        );
 
         if (cachedSimilarTitles) {
           const { data, timestamp } = JSON.parse(cachedSimilarTitles);
@@ -614,6 +617,7 @@ const TitleDetails = () => {
         web_url: source.web_url,
         type: source.type,
       })),
+      similar_titles: similarTitlesDetails,
     };
     // console.log("title to save", input);
     // const titleToSave = titleId;
@@ -694,7 +698,8 @@ const TitleDetails = () => {
                   <PaperUnderlay sx={{ marginTop: "1rem" }}>
                     <h3
                       style={{
-                        background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                        background:
+                          "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
                         backgroundClip: "text",
                         WebkitBackgroundClip: "text",
                         color: "transparent",
@@ -723,145 +728,148 @@ const TitleDetails = () => {
             )}
 
             {selectedTitleDetails.genre_names &&
-             selectedTitleDetails.genre_names.length > 0 && (
-               <Grid container xs={12} justifyContent="center">
-                 {selectedTitleDetails.genre_names.map((genre) => (
-                    <Grid key={genre} xs={12} md={3}>                       
+              selectedTitleDetails.genre_names.length > 0 && (
+                <Grid container xs={12} justifyContent="center">
+                  {selectedTitleDetails.genre_names.map((genre) => (
+                    <Grid key={genre} xs={12} md={3}>
                       <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                        <h4 style={{ margin: "0", marginLeft: '.5rem', marginRight: '.5rem'  }} key={genre}>
+                        <h4
+                          style={{
+                            margin: "0",
+                            marginLeft: ".5rem",
+                            marginRight: ".5rem",
+                          }}
+                          key={genre}>
                           {genre}
                         </h4>
-                      </PaperUnderlay>                     
-                    </Grid>         
+                      </PaperUnderlay>
+                    </Grid>
                   ))}
-              </Grid>
-            )}
+                </Grid>
+              )}
             <Grid xs={0} md={2}></Grid>
             <Grid container xs={12} md={2}>
-              <PaperUnderlay sx={{marginTop: '1rem'}}>
-                <Grid container justifyContent='center' alignItems='center'>
-              {/* Not Available} */}
-              {notAvailable && (
-                <Grid xs={12}>
-                  <span>{notAvailable}</span>
-                </Grid>
-              )}
+              <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                <Grid container justifyContent="center" alignItems="center">
+                  {selectedTitleDetails.sources && (
+                    <Grid xs={12}>
+                      <h6 style={{ fontSize: "1rem" }}>Watch on:</h6>
+                    </Grid>
+                  )}
+                  {notAvailable && (
+                    <Grid xs={12}>
+                      <span>{notAvailable}</span>
+                    </Grid>
+                  )}
+                  {/* Netflix button */}
+                  {netflixUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={netflixUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Netflix
+                      </Button>
+                    </Grid>
+                  )}
+                  {/* Amazon Prime button */}
+                  {amazonPrimeUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={amazonPrimeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Prime Video
+                      </Button>
+                    </Grid>
+                  )}
+                  {/* Hulu button */}
+                  {huluUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={huluUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Watch on Hulu
+                      </Button>
+                    </Grid>
+                  )}
+                  {/* Max button */}
+                  {maxUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={maxUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Watch on Max
+                      </Button>
+                    </Grid>
+                  )}
+                  {/* Disney Plus button */}
+                  {disneyPlusUrl && (
+                    <Grid xs={12}>
+                      <a
+                        href={disneyPlusUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <img
+                          style={{ height: "4rem" }}
+                          src={DisneyPlusLogo}
+                          alt="Disney+ Logo"
+                        />
+                      </a>
+                    </Grid>
+                  )}
+                  {/* Apple TV button */}
+                  {appleTvUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={appleTvUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Watch on Apple TV
+                      </Button>
+                    </Grid>
+                  )}
+                  {/* Peacock Button */}
+                  {peacockUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={peacockUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Watch on Peacock
+                      </Button>
+                    </Grid>
+                  )}
 
-              {selectedTitleDetails.sources && (               
-                <Grid xs={12}>
-                  <h6 style={{fontSize: '1rem'}}>Watch on:</h6>
+                  {/* Paramount Plus Button */}
+                  {paramountPlusUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={paramountPlusUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Watch on Paramount+
+                      </Button>
+                    </Grid>
+                  )}
                 </Grid>
-              )}
-                           
-              {/* Netflix button */}
-              {netflixUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={netflixUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Netflix
-                  </Button>
-                </Grid>
-              )}
-              {/* Amazon Prime button */}
-              {amazonPrimeUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={amazonPrimeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Prime Video
-                  </Button>
-                </Grid>
-              )}
-              {/* Hulu button */}
-              {huluUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={huluUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Watch on Hulu
-                  </Button>
-                </Grid>
-              )}
-              {/* Max button */}
-              {maxUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={maxUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Watch on Max
-                  </Button>
-                </Grid>
-              )}
-              {/* Disney Plus button */}
-              {disneyPlusUrl && (
-                <Grid xs={12}>
-                  <a
-                    href={disneyPlusUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    <img
-                      style={{ height: "4rem" }}
-                      src={DisneyPlusLogo}
-                      alt="Disney+ Logo"
-                    />
-                  </a>
-                </Grid>
-              )}
-              {/* Apple TV button */}
-              {appleTvUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={appleTvUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Watch on Apple TV
-                  </Button>
-                </Grid>
-              )}
-              {/* Peacock Button */}
-              {peacockUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={peacockUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Watch on Peacock
-                  </Button>
-                </Grid>
-              )}
-
-              {/* Paramount Plus Button */}
-              {paramountPlusUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={paramountPlusUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Watch on Paramount+
-                  </Button>
-                </Grid>               
-              )}  
-              </Grid>
-              </PaperUnderlay>          
+              </PaperUnderlay>
             </Grid>
 
             {selectedTitleDetails.poster && (
@@ -884,77 +892,76 @@ const TitleDetails = () => {
               </Grid>
             )}
             <Grid container xs={12} md={2}>
-            <PaperUnderlay sx={{marginTop: '1rem'}}>
-                <Grid container justifyContent='center' alignItems='center'>
-              {/*purchase buttons*/}
-              {selectedTitleDetails.buy_sources && (
-                <Grid xs={12}>
-                  <h6 style={{fontSize: '1rem'}}>Rent or Buy:</h6>
-                </Grid>
-              )}
+              <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                <Grid container justifyContent="center" alignItems="center">
+                  {/*purchase buttons*/}
+                  {selectedTitleDetails.buy_sources && (
+                    <Grid xs={12}>
+                      <h6 style={{ fontSize: "1rem" }}>Rent or Buy:</h6>
+                    </Grid>
+                  )}
 
-              {/* Not Available} */}
-              {buyNotAvailable && (
-                <Grid xs={12}>
-                  <span>{buyNotAvailable}</span>
-                </Grid>
-              )}
-              {/* Buy on Amazon Button */}
-              {buyAmazonUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={buyAmazonUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Amazon
-                  </Button>
-                </Grid>
-              )}
+                  {/* Not Available} */}
+                  {buyNotAvailable && (
+                    <Grid xs={12}>
+                      <span>{buyNotAvailable}</span>
+                    </Grid>
+                  )}
+                  {/* Buy on Amazon Button */}
+                  {buyAmazonUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={buyAmazonUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Amazon
+                      </Button>
+                    </Grid>
+                  )}
 
-              {/* Buy on iTunes Button */}
-              {buyItunesUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={buyItunesUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    iTunes
-                  </Button>
+                  {/* Buy on iTunes Button */}
+                  {buyItunesUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={buyItunesUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        iTunes
+                      </Button>
+                    </Grid>
+                  )}
+                  {/* buy on google play button */}
+                  {buyGooglePlayUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={buyGooglePlayUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Google Play
+                      </Button>
+                    </Grid>
+                  )}
+                  {/* buy on youtube button */}
+                  {buyYouTubeUrl && (
+                    <Grid xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={buyYouTubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Youtube
+                      </Button>
+                    </Grid>
+                  )}
                 </Grid>
-              )}
-              {/* buy on google play button */}
-              {buyGooglePlayUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={buyGooglePlayUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Google Play
-                  </Button>
-                </Grid>
-              )}
-              {/* buy on youtube button */}
-              {buyYouTubeUrl && (
-                <Grid xs={12}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={buyYouTubeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Youtube
-                  </Button>
-                </Grid>
-              )}
-              </Grid>
               </PaperUnderlay>
-
             </Grid>
             <Grid xs={0} md={2}></Grid>
 
@@ -974,7 +981,9 @@ const TitleDetails = () => {
                 <Grid xs={1}></Grid>
                 <Grid xs={10}>
                   <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <p style={{marginLeft: '.5rem', marginRight: '.5rem'}}>{selectedTitleDetails.plot_overview}</p>
+                    <p style={{ marginLeft: ".5rem", marginRight: ".5rem" }}>
+                      {selectedTitleDetails.plot_overview}
+                    </p>
                   </PaperUnderlay>
                 </Grid>
                 <Grid xs={1}></Grid>
@@ -985,7 +994,13 @@ const TitleDetails = () => {
                 <Grid xs={5}></Grid>
                 <Grid xs={2}>
                   <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <h5 style={{marginLeft: '.5rem', marginRight: '.5rem', marginTop: '0', marginBottom: '0'}}>
+                    <h5
+                      style={{
+                        marginLeft: ".5rem",
+                        marginRight: ".5rem",
+                        marginTop: "0",
+                        marginBottom: "0",
+                      }}>
                       Rated {selectedTitleDetails.us_rating}
                     </h5>
                   </PaperUnderlay>
@@ -999,7 +1014,13 @@ const TitleDetails = () => {
                 <Grid xs={4}></Grid>
                 <Grid xs={4}>
                   <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <h5 style={{marginLeft: '.5rem', marginRight: '.5rem', marginTop: '0', marginBottom: '0'}}>
+                    <h5
+                      style={{
+                        marginLeft: ".5rem",
+                        marginRight: ".5rem",
+                        marginTop: "0",
+                        marginBottom: "0",
+                      }}>
                       Released on{" "}
                       {formatDate(selectedTitleDetails.release_date)}
                     </h5>
@@ -1052,7 +1073,11 @@ const TitleDetails = () => {
                               {castMember.name}
                             </span>
                           </Button>
-                          <span style={{ display: "block", marginBottom: '.25rem' }}>
+                          <span
+                            style={{
+                              display: "block",
+                              marginBottom: ".25rem",
+                            }}>
                             as {castMember.character}
                           </span>
                         </Grid>
@@ -1176,4 +1201,3 @@ const TitleDetails = () => {
 };
 
 export default TitleDetails;
-
