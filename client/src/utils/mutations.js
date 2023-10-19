@@ -65,7 +65,12 @@ export const DELETE_USER = gql`
           web_url
           type
         }
-        similar_titles
+        similar_titles {
+          id
+          title
+          type
+          poster
+        }  
       }
     }
   }
@@ -101,7 +106,8 @@ export const SAVE_TITLE = gql`
           web_url
           type
         }
-        similar_titles {
+        similar_title_ids
+        similar_title_data {
           id
           title
           type

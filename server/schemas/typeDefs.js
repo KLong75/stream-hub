@@ -26,7 +26,8 @@ const typeDefs = gql`
     us_rating: String
     sources: [Source]
     buy_sources: [BuySource]
-    similar_titles: [SimilarTitle]
+    similar_title_ids: [Int]
+    similar_title_data: [SimilarTitleData]
   }
 
   type Actor {
@@ -60,7 +61,7 @@ const typeDefs = gql`
     type: String
   }
 
-  type SimilarTitle {
+  type SimilarTitleData {
     id: Int
     title: String
     type: String
@@ -69,8 +70,6 @@ const typeDefs = gql`
     trailer: String
     trailer_thumbnail: String
   }
-
- 
 
   input SourceInput {
     source_id: Int
@@ -85,7 +84,7 @@ const typeDefs = gql`
     type: String
   }
 
-  input SimilarTitleInput {
+  input SimilarTitleDataInput {
     id: Int
     title: String
     type: String
@@ -94,9 +93,6 @@ const typeDefs = gql`
     trailer: String
     trailer_thumbnail: String
   }
-
- 
-
 
   input TitleInput {
     id: Int!
@@ -113,7 +109,8 @@ const typeDefs = gql`
     trailer_thumbnail: String
     sources: [SourceInput]
     buy_sources: [BuySourceInput]
-    similar_titles: [SimilarTitleInput]
+    similar_title_ids: [Int]
+    similar_title_data: [SimilarTitleDataInput]
   }
 
   type Mutation {

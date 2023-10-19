@@ -52,14 +52,12 @@ const titleSchema = new Schema({
       type: Object,
     },
   ],
-  similar_titles: [
+  similar_title_ids: [Number],
+  similar_title_data: [
     {
       type: Object,
     },
   ],
-  more_details: {
-    type: Object,
-  },
 });
 
 module.exports = titleSchema;

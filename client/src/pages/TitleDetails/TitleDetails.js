@@ -617,7 +617,8 @@ const TitleDetails = () => {
         web_url: source.web_url,
         type: source.type,
       })),
-      similar_titles: similarTitlesDetails,
+      similar_title_ids: title.selectedTitleDetails.similar_titles,
+      similar_title_data: similarTitlesDetails,
     };
     // console.log("title to save", input);
     // const titleToSave = titleId;

@@ -31,13 +31,13 @@ export const QUERY_ME = gql`
           web_url
           type
         }
-        similar_titles {
+        similar_title_ids
+        similar_title_data {
           id
           title
           type
           poster
         }
-
       }
     }
   }

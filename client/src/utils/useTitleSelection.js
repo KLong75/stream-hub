@@ -27,7 +27,7 @@ export const useTitleSelection = () => {
       // console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
-        // console.log("cached data retrieved, parsed, time checked", data);
+        console.log("cached data retrieved for selectedTitleDetails, parsed, time checked", data);
         // window.scrollTo(0, 0);
         navigate("/title_details");
         window.scrollTo(0, 0);
@@ -76,9 +76,10 @@ export const useTitleSelection = () => {
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
           runtime: titleDetails.runtime,
-          similar_titles: titleDetails.similar_titles
+          similar_title_ids: titleDetails.similar_titles
             ? titleDetails.similar_titles.slice(0, 3)
             : [],
+          similar_title_data: [],
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
