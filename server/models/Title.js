@@ -52,7 +52,6 @@ const titleSchema = new Schema({
       type: Object,
     },
   ],
-  similar_title_ids: [Number],
   similar_title_data: [
     {
       type: Object,

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { TitleDetailsContext } from "../context/TitleDetailsContext";
 // import fetch
 import { searchTitlesByTMDBId } from "./apiCalls";
+import { fetchTitleDetails } from "./apiCalls";
 // impor from utils
 import { CACHE_DURATION } from "./utils";
 
@@ -34,9 +35,8 @@ export const useTitleSelectionTMDBId = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log("cached data retrieved, parsed, time checked", data);
-        // window.scrollTo(0, 0);
         navigate("/title_details");
-        return;
+        window.scrollTo(0, 0);
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
         console.log("Cached Data Expired and Removed");
@@ -69,6 +69,65 @@ export const useTitleSelectionTMDBId = () => {
             }
           }
         });
+
+        // Fetch similar titles and update the state
+        const similarTitleIds = titleDetails.similar_titles
+          ? titleDetails.similar_titles.slice(0, 3)
+          : [];
+        const fetchedSimilarTitles = [];
+
+        for (const similarTitleId of similarTitleIds) {
+          // const cachedSimilarTitles = localStorage.getItem(
+          //   `similarTitles-${similarTitleId}`
+          // );
+
+          // if (cachedSimilarTitles) {
+          //   // Handle cached similar title data here
+          //   const { data, timestamp } = JSON.parse(cachedSimilarTitles);
+          //   const now = Date.now();
+          //   if (now - timestamp < CACHE_DURATION) {
+          //     fetchedSimilarTitles.push(data);
+          //     console.log('similar title data retrieved from cache', data)
+          //     continue;
+          //   } else {
+          //     localStorage.removeItem(`similarTitles-${similarTitleId}`);
+          //   }
+          // }
+
+          try {
+            const response = await fetchTitleDetails(similarTitleId);
+
+            if (!response.ok) {
+              throw new Error("Something went wrong");
+            }
+
+            const similarTitleData = await response.json();
+            // Process similar title data as needed
+
+            const similarTitleDetails = {
+              id: similarTitleData.id,
+              title: similarTitleData.title,
+              type: similarTitleData.type,
+              poster: similarTitleData.poster,
+            };
+
+            fetchedSimilarTitles.push(similarTitleDetails);
+
+            // Cache similar title data
+            const cacheData = {
+              data: similarTitleDetails,
+              timestamp: Date.now(),
+            };
+            localStorage.setItem(
+              `similarTitles-${similarTitleId}`,
+              JSON.stringify(cacheData)
+            );
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
+
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -82,9 +141,7 @@ export const useTitleSelectionTMDBId = () => {
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
           runtime: titleDetails.runtime,
-          similar_titles: titleDetails.similar_titles
-            ? titleDetails.similar_titles.slice(0, 3) // adjust # of similar titles here
-            : [],
+          similar_title_data: fetchedSimilarTitles,
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
@@ -107,9 +164,9 @@ export const useTitleSelectionTMDBId = () => {
         localStorage.setItem(
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
-        );
-        // window.scrollTo(0, 0);
+        ); 
         navigate("/title_details");
+        window.scrollTo(0, 0);
         console.log('navitgated to title details')
       } catch (error) {
         console.log(error);

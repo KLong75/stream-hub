@@ -26,7 +26,6 @@ const typeDefs = gql`
     us_rating: String
     sources: [Source]
     buy_sources: [BuySource]
-    similar_title_ids: [Int]
     similar_title_data: [SimilarTitleData]
   }
 
@@ -109,7 +108,6 @@ const typeDefs = gql`
     trailer_thumbnail: String
     sources: [SourceInput]
     buy_sources: [BuySourceInput]
-    similar_title_ids: [Int]
     similar_title_data: [SimilarTitleDataInput]
   }
 

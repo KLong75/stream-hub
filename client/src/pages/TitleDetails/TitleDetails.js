@@ -7,7 +7,7 @@ import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import api calls
 import {
   fetchMoreTitleDetailsMovie,
-  fetchTitleDetails,
+  // fetchTitleDetails,
   searchByName,
   fetchMoreTitleDetailsTV,
   fetchTvTitle,
@@ -43,7 +43,6 @@ import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
 import styles from "./TitleDetails.module.css";
 
 const TitleDetails = () => {
-  const loggedIn = Auth.loggedIn();
   const navigate = useNavigate();
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
@@ -71,7 +70,6 @@ const TitleDetails = () => {
   const { setActorSearchResults } = useContext(SearchResultsContext);
   const [saveTitle] = useMutation(SAVE_TITLE);
   const [moreDetails, setMoreDetails] = useState({});
-  const [similarTitlesDetails, setSimilarTitlesDetails] = useState([]);
   const [appleTvUrl, setAppleTvUrl] = useState("");
   const [netflixUrl, setNetflixUrl] = useState("");
   const [huluUrl, setHuluUrl] = useState("");
@@ -303,7 +301,7 @@ const TitleDetails = () => {
 
         const now = Date.now();
 
-        if (now - timestamp < 86400000) {
+        if (now - timestamp < CACHE_DURATION) {
           setMoreDetails(data);
           console.log("cached data retrieved, parsed, time checked", data);
           return;
@@ -414,89 +412,6 @@ const TitleDetails = () => {
     ) {
       getMoreDetailsTV();
     }
-  }, [selectedTitleDetails]);
-
-  useEffect(() => {
-    const getSimilarTitles = async () => {
-      const fetchedSimilarTitles = [];
-      if (
-        !selectedTitleDetails.similar_titles ||
-        selectedTitleDetails.similar_titles.length === 0
-      ) {
-        return; // Don't proceed if there are no similar titles
-      }
-
-      const similarTitles = selectedTitleDetails.similar_titles.slice(0, 3); // Adjust # of similar titles to fetch here
-      // console.log(similarTitles)
-
-      for (const similarTitleId of similarTitles) {
-        const cachedSimilarTitles = localStorage.getItem(
-          `similarTitles-${similarTitleId}`
-        );
-        console.log(
-          "cached data retrieved: cachedSimilarTitles",
-          cachedSimilarTitles
-        );
-
-        if (cachedSimilarTitles) {
-          const { data, timestamp } = JSON.parse(cachedSimilarTitles);
-          const now = Date.now();
-
-          if (now - timestamp < CACHE_DURATION) {
-            fetchedSimilarTitles.push(data);
-            console.log("cached data retrieved, parsed, time checked", data);
-            continue;
-          } else {
-            localStorage.removeItem(`similarTitles-${similarTitleId}`);
-            // console.log("Cached Data Expired and Removed");
-          }
-        } else {
-          console.log("no cached data found");
-        }
-
-        try {
-          const response = await fetchTitleDetails(similarTitleId);
-
-          if (!response.ok) {
-            throw new Error("Something went wrong");
-          }
-
-          const similarTitleData = await response.json();
-          // console.log('similarTitleData', similarTitleData);
-          const similarTitleDetails = {
-            id: similarTitleData.id,
-            title: similarTitleData.title,
-            type: similarTitleData.type,
-            plot_overview: similarTitleData.plot_overview,
-            poster: similarTitleData.poster,
-            trailer:
-              similarTitleData.trailer &&
-              similarTitleData.trailer.includes("youtube")
-                ? similarTitleData.trailer.replace(/watch\?v=/, "embed/")
-                : similarTitleData.trailer,
-            trailer_thumbnail: similarTitleData.trailer_thumbnail,
-          };
-
-          fetchedSimilarTitles.push(similarTitleDetails);
-          // console.log(similarTitleDetails);
-
-          const cacheData = {
-            data: similarTitleDetails,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem(
-            `similarTitles-${similarTitleId}`,
-            JSON.stringify(cacheData)
-          );
-        } catch (err) {
-          console.error(err);
-        }
-      }
-      console.log("Fetched similar titles:", fetchedSimilarTitles);
-      setSimilarTitlesDetails(fetchedSimilarTitles);
-    };
-
-    getSimilarTitles();
   }, [selectedTitleDetails]);
 
   const handleTitleSelected = useTitleSelection();
@@ -617,8 +532,14 @@ const TitleDetails = () => {
         web_url: source.web_url,
         type: source.type,
       })),
-      similar_title_ids: title.selectedTitleDetails.similar_titles,
-      similar_title_data: similarTitlesDetails,
+      similar_title_data: selectedTitleDetails.similar_title_data.map(
+        (title) => ({
+          id: title.id,
+          title: title.title,
+          type: title.type,
+          poster: title.poster,
+        })
+      ),
     };
     // console.log("title to save", input);
     // const titleToSave = titleId;
@@ -647,556 +568,538 @@ const TitleDetails = () => {
 
   return (
     <>
-      {!loggedIn ? (
-        navigate("/")
-      ) : (
-        <main
-          style={{
-            backgroundImage: `url(${selectedTitleDetails.backdrop})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-            minHeight: "100vh",
-            minWidth: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}>
-          <Grid
-            container
-            justifyContent="center"
-            textAlign="center"
-            alignItems="center">
-            <Grid xs={2}></Grid>
-            <Grid xs={8}>
-              <PaperUnderlay sx={{ marginTop: "2rem" }}>
-                <h2
-                  style={{
-                    background:
-                      "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                    backgroundClip: "text",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    fontFamily: "monospace",
-                    fontWeight: "700",
-                    letterSpacing: ".2rem",
-                    fontSize: "2rem",
-                    marginTop: "0",
-                    marginBottom: "0",
-                    padding: ".25rem",
-                  }}>
-                  {selectedTitleDetails.title}
-                </h2>
-              </PaperUnderlay>
-            </Grid>
-            <Grid xs={2}></Grid>
-            {selectedTitleDetails.type && (
-              <>
-                <Grid xs={3}></Grid>
-                <Grid xs={6}>
-                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <h3
-                      style={{
-                        background:
-                          "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                        backgroundClip: "text",
-                        WebkitBackgroundClip: "text",
-                        color: "transparent",
-                        fontFamily: "monospace",
-                        fontWeight: "700",
-                        letterSpacing: ".2rem",
-                        fontSize: "1.5rem",
-                        marginTop: "0",
-                        marginBottom: "0",
-                        padding: ".5rem",
-                      }}>
-                      {selectedTitleDetails.type === "movie"
-                        ? "Movie"
-                        : selectedTitleDetails.type === "tv_series"
-                        ? "TV Series"
-                        : selectedTitleDetails.type === "tv_miniseries"
-                        ? "TV Miniseries"
-                        : selectedTitleDetails.type === "short_film"
-                        ? "Short Film"
-                        : "Unknown Type"}
-                    </h3>
-                  </PaperUnderlay>
-                </Grid>
-                <Grid xs={3}></Grid>
-              </>
-            )}
+      <main
+        style={{
+          backgroundImage: `url(${selectedTitleDetails.backdrop})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          minHeight: "100vh",
+          minWidth: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
+        <Grid
+          container
+          justifyContent="center"
+          textAlign="center"
+          alignItems="center">
+          <Grid xs={2}></Grid>
+          <Grid xs={8}>
+            <PaperUnderlay sx={{ marginTop: "2rem" }}>
+              <h2
+                style={{
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                  fontSize: "2rem",
+                  marginTop: "0",
+                  marginBottom: "0",
+                  padding: ".25rem",
+                }}>
+                {selectedTitleDetails.title}
+              </h2>
+            </PaperUnderlay>
+          </Grid>
+          <Grid xs={2}></Grid>
+          {selectedTitleDetails.type && (
+            <>
+              <Grid xs={3}></Grid>
+              <Grid xs={6}>
+                <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                  <h3
+                    style={{
+                      background:
+                        "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      color: "transparent",
+                      fontFamily: "monospace",
+                      fontWeight: "700",
+                      letterSpacing: ".2rem",
+                      fontSize: "1.5rem",
+                      marginTop: "0",
+                      marginBottom: "0",
+                      padding: ".5rem",
+                    }}>
+                    {selectedTitleDetails.type === "movie"
+                      ? "Movie"
+                      : selectedTitleDetails.type === "tv_series"
+                      ? "TV Series"
+                      : selectedTitleDetails.type === "tv_miniseries"
+                      ? "TV Miniseries"
+                      : selectedTitleDetails.type === "short_film"
+                      ? "Short Film"
+                      : "Unknown Type"}
+                  </h3>
+                </PaperUnderlay>
+              </Grid>
+              <Grid xs={3}></Grid>
+            </>
+          )}
 
-            {selectedTitleDetails.genre_names &&
-              selectedTitleDetails.genre_names.length > 0 && (
-                <Grid container xs={12} justifyContent="center">
-                  {selectedTitleDetails.genre_names.map((genre) => (
-                    <Grid key={genre} xs={12} md={3}>
-                      <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                        <h4
-                          style={{
-                            margin: "0",
-                            marginLeft: ".5rem",
-                            marginRight: ".5rem",
-                          }}
-                          key={genre}>
-                          {genre}
-                        </h4>
-                      </PaperUnderlay>
-                    </Grid>
-                  ))}
-                </Grid>
-              )}
-            <Grid xs={0} md={2}></Grid>
-            <Grid container xs={12} md={2}>
-              <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                <Grid container justifyContent="center" alignItems="center">
-                  {selectedTitleDetails.sources && (
-                    <Grid xs={12}>
-                      <h6 style={{ fontSize: "1rem" }}>Watch on:</h6>
-                    </Grid>
-                  )}
-                  {notAvailable && (
-                    <Grid xs={12}>
-                      <span>{notAvailable}</span>
-                    </Grid>
-                  )}
-                  {/* Netflix button */}
-                  {netflixUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={netflixUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Netflix
-                      </Button>
-                    </Grid>
-                  )}
-                  {/* Amazon Prime button */}
-                  {amazonPrimeUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={amazonPrimeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Prime Video
-                      </Button>
-                    </Grid>
-                  )}
-                  {/* Hulu button */}
-                  {huluUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={huluUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Watch on Hulu
-                      </Button>
-                    </Grid>
-                  )}
-                  {/* Max button */}
-                  {maxUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={maxUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Watch on Max
-                      </Button>
-                    </Grid>
-                  )}
-                  {/* Disney Plus button */}
-                  {disneyPlusUrl && (
-                    <Grid xs={12}>
-                      <a
-                        href={disneyPlusUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        <img
-                          style={{ height: "4rem" }}
-                          src={DisneyPlusLogo}
-                          alt="Disney+ Logo"
-                        />
-                      </a>
-                    </Grid>
-                  )}
-                  {/* Apple TV button */}
-                  {appleTvUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={appleTvUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Watch on Apple TV
-                      </Button>
-                    </Grid>
-                  )}
-                  {/* Peacock Button */}
-                  {peacockUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={peacockUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Watch on Peacock
-                      </Button>
-                    </Grid>
-                  )}
-
-                  {/* Paramount Plus Button */}
-                  {paramountPlusUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={paramountPlusUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Watch on Paramount+
-                      </Button>
-                    </Grid>
-                  )}
-                </Grid>
-              </PaperUnderlay>
-            </Grid>
-
-            {selectedTitleDetails.poster && (
-              <Grid xs={12} md={4} sx={{ marginTop: "2rem" }}>
-                <img
-                  className={styles.poster}
-                  src={selectedTitleDetails.poster}
-                  alt="show poster"
-                />
-                <Grid xs={12} sx={{ marginTop: ".5rem" }}>
-                  <Button
-                    disabled={savedTitleIds.includes(selectedTitleDetails.id)}
-                    variant="contained"
-                    onClick={() => handleSaveTitle(title)}>
-                    {savedTitleIds.includes(selectedTitleDetails.id)
-                      ? "Title Saved!"
-                      : "Save to Watchlist"}
-                  </Button>
-                </Grid>
+          {selectedTitleDetails.genre_names &&
+            selectedTitleDetails.genre_names.length > 0 && (
+              <Grid container xs={12} justifyContent="center">
+                {selectedTitleDetails.genre_names.map((genre) => (
+                  <Grid key={genre} xs={12} md={3}>
+                    <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                      <h4
+                        style={{
+                          margin: "0",
+                          marginLeft: ".5rem",
+                          marginRight: ".5rem",
+                        }}
+                        key={genre}>
+                        {genre}
+                      </h4>
+                    </PaperUnderlay>
+                  </Grid>
+                ))}
               </Grid>
             )}
-            <Grid container xs={12} md={2}>
-              <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                <Grid container justifyContent="center" alignItems="center">
-                  {/*purchase buttons*/}
-                  {selectedTitleDetails.buy_sources && (
-                    <Grid xs={12}>
-                      <h6 style={{ fontSize: "1rem" }}>Rent or Buy:</h6>
-                    </Grid>
-                  )}
+          <Grid xs={0} md={2}></Grid>
+          <Grid container xs={12} md={2}>
+            <PaperUnderlay sx={{ marginTop: "1rem" }}>
+              <Grid container justifyContent="center" alignItems="center">
+                {selectedTitleDetails.sources && (
+                  <Grid xs={12}>
+                    <h6 style={{ fontSize: "1rem" }}>Watch on:</h6>
+                  </Grid>
+                )}
+                {notAvailable && (
+                  <Grid xs={12}>
+                    <span>{notAvailable}</span>
+                  </Grid>
+                )}
+                {/* Netflix button */}
+                {netflixUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={netflixUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Netflix
+                    </Button>
+                  </Grid>
+                )}
+                {/* Amazon Prime button */}
+                {amazonPrimeUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={amazonPrimeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Prime Video
+                    </Button>
+                  </Grid>
+                )}
+                {/* Hulu button */}
+                {huluUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={huluUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Watch on Hulu
+                    </Button>
+                  </Grid>
+                )}
+                {/* Max button */}
+                {maxUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={maxUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Watch on Max
+                    </Button>
+                  </Grid>
+                )}
+                {/* Disney Plus button */}
+                {disneyPlusUrl && (
+                  <Grid xs={12}>
+                    <a
+                      href={disneyPlusUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <img
+                        style={{ height: "4rem" }}
+                        src={DisneyPlusLogo}
+                        alt="Disney+ Logo"
+                      />
+                    </a>
+                  </Grid>
+                )}
+                {/* Apple TV button */}
+                {appleTvUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={appleTvUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Watch on Apple TV
+                    </Button>
+                  </Grid>
+                )}
+                {/* Peacock Button */}
+                {peacockUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={peacockUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Watch on Peacock
+                    </Button>
+                  </Grid>
+                )}
 
-                  {/* Not Available} */}
-                  {buyNotAvailable && (
-                    <Grid xs={12}>
-                      <span>{buyNotAvailable}</span>
-                    </Grid>
-                  )}
-                  {/* Buy on Amazon Button */}
-                  {buyAmazonUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={buyAmazonUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Amazon
-                      </Button>
-                    </Grid>
-                  )}
+                {/* Paramount Plus Button */}
+                {paramountPlusUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={paramountPlusUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Watch on Paramount+
+                    </Button>
+                  </Grid>
+                )}
+              </Grid>
+            </PaperUnderlay>
+          </Grid>
 
-                  {/* Buy on iTunes Button */}
-                  {buyItunesUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={buyItunesUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        iTunes
-                      </Button>
-                    </Grid>
-                  )}
-                  {/* buy on google play button */}
-                  {buyGooglePlayUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={buyGooglePlayUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Google Play
-                      </Button>
-                    </Grid>
-                  )}
-                  {/* buy on youtube button */}
-                  {buyYouTubeUrl && (
-                    <Grid xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={buyYouTubeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        Youtube
-                      </Button>
-                    </Grid>
-                  )}
-                </Grid>
-              </PaperUnderlay>
+          {selectedTitleDetails.poster && (
+            <Grid xs={12} md={4} sx={{ marginTop: "2rem" }}>
+              <img
+                className={styles.poster}
+                src={selectedTitleDetails.poster}
+                alt="show poster"
+              />
+              <Grid xs={12} sx={{ marginTop: ".5rem" }}>
+                <Button
+                  disabled={savedTitleIds.includes(selectedTitleDetails.id)}
+                  variant="contained"
+                  onClick={() => handleSaveTitle(title)}>
+                  {savedTitleIds.includes(selectedTitleDetails.id)
+                    ? "Title Saved!"
+                    : "Save to Watchlist"}
+                </Button>
+              </Grid>
             </Grid>
-            <Grid xs={0} md={2}></Grid>
+          )}
+          <Grid container xs={12} md={2}>
+            <PaperUnderlay sx={{ marginTop: "1rem" }}>
+              <Grid container justifyContent="center" alignItems="center">
+                {/*purchase buttons*/}
+                {selectedTitleDetails.buy_sources && (
+                  <Grid xs={12}>
+                    <h6 style={{ fontSize: "1rem" }}>Rent or Buy:</h6>
+                  </Grid>
+                )}
 
-            {/* <Grid xs={12} sx={{ marginTop: ".5rem" }}>
-              <Button
-                disabled={savedTitleIds.includes(selectedTitleDetails.id)}
-                variant="contained"
-                onClick={() => handleSaveTitle(title)}>
-                {savedTitleIds.includes(selectedTitleDetails.id)
-                  ? "Title Saved!"
-                  : "Save to Watchlist"}
-              </Button>
-            </Grid> */}
+                {/* Not Available} */}
+                {buyNotAvailable && (
+                  <Grid xs={12}>
+                    <span>{buyNotAvailable}</span>
+                  </Grid>
+                )}
+                {/* Buy on Amazon Button */}
+                {buyAmazonUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={buyAmazonUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Amazon
+                    </Button>
+                  </Grid>
+                )}
 
-            {selectedTitleDetails.plot_overview && (
-              <>
-                <Grid xs={1}></Grid>
-                <Grid xs={10}>
-                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <p style={{ marginLeft: ".5rem", marginRight: ".5rem" }}>
-                      {selectedTitleDetails.plot_overview}
-                    </p>
-                  </PaperUnderlay>
-                </Grid>
-                <Grid xs={1}></Grid>
-              </>
-            )}
-            {selectedTitleDetails.us_rating && (
+                {/* Buy on iTunes Button */}
+                {buyItunesUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={buyItunesUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      iTunes
+                    </Button>
+                  </Grid>
+                )}
+                {/* buy on google play button */}
+                {buyGooglePlayUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={buyGooglePlayUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Google Play
+                    </Button>
+                  </Grid>
+                )}
+                {/* buy on youtube button */}
+                {buyYouTubeUrl && (
+                  <Grid xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={buyYouTubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Youtube
+                    </Button>
+                  </Grid>
+                )}
+              </Grid>
+            </PaperUnderlay>
+          </Grid>
+          <Grid xs={0} md={2}></Grid>
+
+          {selectedTitleDetails.plot_overview && (
+            <>
+              <Grid xs={1}></Grid>
+              <Grid xs={10}>
+                <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                  <p style={{ marginLeft: ".5rem", marginRight: ".5rem" }}>
+                    {selectedTitleDetails.plot_overview}
+                  </p>
+                </PaperUnderlay>
+              </Grid>
+              <Grid xs={1}></Grid>
+            </>
+          )}
+          {selectedTitleDetails.us_rating && (
+            <>
+              <Grid xs={5}></Grid>
+              <Grid xs={2}>
+                <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                  <h5
+                    style={{
+                      marginLeft: ".5rem",
+                      marginRight: ".5rem",
+                      marginTop: "0",
+                      marginBottom: "0",
+                    }}>
+                    Rated {selectedTitleDetails.us_rating}
+                  </h5>
+                </PaperUnderlay>
+              </Grid>
+              <Grid xs={5}></Grid>
+            </>
+          )}
+
+          {selectedTitleDetails.release_date && (
+            <>
+              <Grid xs={4}></Grid>
+              <Grid xs={4}>
+                <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                  <h5
+                    style={{
+                      marginLeft: ".5rem",
+                      marginRight: ".5rem",
+                      marginTop: "0",
+                      marginBottom: "0",
+                    }}>
+                    Released on {formatDate(selectedTitleDetails.release_date)}
+                  </h5>
+                </PaperUnderlay>
+              </Grid>
+              <Grid xs={4}></Grid>
+            </>
+          )}
+
+          <Grid xs={2}></Grid>
+          <Grid xs={8}>
+            <PaperUnderlay sx={{ marginTop: "1rem" }}>
+              <Grid
+                container
+                justifyContent={"center"}
+                alignItems={"center"}
+                textAlign={"center"}
+                xs={12}>
+                {moreDetails &&
+                  moreDetails.cast &&
+                  moreDetails.cast.length > 0 &&
+                  moreDetails.cast
+                    .slice(0, Math.min(10, moreDetails.cast.length))
+                    .map((castMember) => (
+                      <Grid
+                        xs={12}
+                        sm={6}
+                        // md={4}
+                        // lg={3}
+                        // xl={2}
+                        key={castMember.id}
+                        style={{ fontSize: "1rem" }}>
+                        <Button
+                          value={castMember.name}
+                          onClick={(e) => {
+                            console.log(
+                              "Button clicked:",
+                              e.currentTarget.value
+                            );
+                            handleActorNameClicked(e);
+                          }}
+                          style={{
+                            color: "black",
+                            textTransform: "none",
+                            fontSize: "1rem",
+                            marginTop: ".5rem",
+                          }}
+                          type="submit">
+                          <span style={{ display: "" }}>{castMember.name}</span>
+                        </Button>
+                        <span
+                          style={{
+                            display: "block",
+                            marginBottom: ".25rem",
+                          }}>
+                          as {castMember.character}
+                        </span>
+                      </Grid>
+                    ))}
+              </Grid>
+            </PaperUnderlay>
+          </Grid>
+          <Grid xs={2}></Grid>
+
+          {moreDetails &&
+            moreDetails.crew &&
+            moreDetails.crew.some(
+              (crewMember) => crewMember.job === "Director"
+            ) && (
               <>
                 <Grid xs={5}></Grid>
                 <Grid xs={2}>
                   <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <h5
-                      style={{
-                        marginLeft: ".5rem",
-                        marginRight: ".5rem",
-                        marginTop: "0",
-                        marginBottom: "0",
-                      }}>
-                      Rated {selectedTitleDetails.us_rating}
-                    </h5>
+                    <Grid xs={12} container>
+                      <Grid xs={12}>
+                        <h5 style={{ margin: "0" }}>Directed By:</h5>
+                      </Grid>
+                      {moreDetails.crew
+                        .filter((crewMember) => crewMember.job === "Director")
+                        .map((crewMember) => (
+                          <Grid xs={12} key={crewMember.id}>
+                            <h5 style={{ margin: "0" }} key={crewMember.id}>
+                              {crewMember.name}
+                            </h5>
+                          </Grid>
+                        ))}
+                    </Grid>
                   </PaperUnderlay>
                 </Grid>
                 <Grid xs={5}></Grid>
               </>
             )}
 
-            {selectedTitleDetails.release_date && (
-              <>
-                <Grid xs={4}></Grid>
-                <Grid xs={4}>
-                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <h5
-                      style={{
-                        marginLeft: ".5rem",
-                        marginRight: ".5rem",
-                        marginTop: "0",
-                        marginBottom: "0",
-                      }}>
-                      Released on{" "}
-                      {formatDate(selectedTitleDetails.release_date)}
-                    </h5>
-                  </PaperUnderlay>
-                </Grid>
-                <Grid xs={4}></Grid>
-              </>
-            )}
-
-            <Grid xs={2}></Grid>
-            <Grid xs={8}>
-              <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                <Grid
-                  container
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                  textAlign={"center"}
-                  xs={12}>
-                  {moreDetails &&
-                    moreDetails.cast &&
-                    moreDetails.cast.length > 0 &&
-                    moreDetails.cast
-                      .slice(0, Math.min(10, moreDetails.cast.length))
-                      .map((castMember) => (
-                        <Grid
-                          xs={12}
-                          sm={6}
-                          // md={4}
-                          // lg={3}
-                          // xl={2}
-                          key={castMember.id}
-                          style={{ fontSize: "1rem" }}>
-                          <Button
-                            value={castMember.name}
-                            onClick={(e) => {
-                              console.log(
-                                "Button clicked:",
-                                e.currentTarget.value
-                              );
-                              handleActorNameClicked(e);
-                            }}
-                            style={{
-                              color: "black",
-                              textTransform: "none",
-                              fontSize: "1rem",
-                              marginTop: ".5rem",
-                            }}
-                            type="submit">
-                            <span style={{ display: "" }}>
-                              {castMember.name}
-                            </span>
-                          </Button>
-                          <span
-                            style={{
-                              display: "block",
-                              marginBottom: ".25rem",
-                            }}>
-                            as {castMember.character}
-                          </span>
-                        </Grid>
-                      ))}
-                </Grid>
-              </PaperUnderlay>
-            </Grid>
-            <Grid xs={2}></Grid>
-
-            {moreDetails &&
-              moreDetails.crew &&
-              moreDetails.crew.some(
-                (crewMember) => crewMember.job === "Director"
-              ) && (
-                <>
-                  <Grid xs={5}></Grid>
-                  <Grid xs={2}>
-                    <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                      <Grid xs={12} container>
-                        <Grid xs={12}>
-                          <h5 style={{ margin: "0" }}>Directed By:</h5>
-                        </Grid>
-                        {moreDetails.crew
-                          .filter((crewMember) => crewMember.job === "Director")
-                          .map((crewMember) => (
-                            <Grid xs={12} key={crewMember.id}>
-                              <h5 style={{ margin: "0" }} key={crewMember.id}>
-                                {crewMember.name}
-                              </h5>
-                            </Grid>
-                          ))}
-                      </Grid>
-                    </PaperUnderlay>
-                  </Grid>
-                  <Grid xs={5}></Grid>
-                </>
+          {selectedTitleDetails.trailer && (
+            <Grid xs={12}>
+              {selectedTitleDetails.trailer.includes("youtube") ? (
+                <iframe
+                  width="560rem"
+                  height="315rem"
+                  src={selectedTitleDetails.trailer}
+                  title="YouTube video player"
+                  className={styles.trailerIframe}
+                  allowFullScreen={true}></iframe>
+              ) : (
+                <a
+                  href={selectedTitleDetails.trailer}
+                  target="_blank"
+                  rel="noreferrer">
+                  <img
+                    width="560"
+                    height="315"
+                    src={selectedTitleDetails.trailer_thumbnail}
+                    alt="trailer thumbnail"
+                  />
+                </a>
               )}
+            </Grid>
+          )}
+        </Grid>
 
-            {selectedTitleDetails.trailer && (
-              <Grid xs={12}>
-                {selectedTitleDetails.trailer.includes("youtube") ? (
-                  <iframe
-                    width="560rem"
-                    height="315rem"
-                    src={selectedTitleDetails.trailer}
-                    title="YouTube video player"
-                    className={styles.trailerIframe}
-                    allowFullScreen={true}></iframe>
-                ) : (
-                  <a
-                    href={selectedTitleDetails.trailer}
-                    target="_blank"
-                    rel="noreferrer">
-                    <img
-                      width="560"
-                      height="315"
-                      src={selectedTitleDetails.trailer_thumbnail}
-                      alt="trailer thumbnail"
-                    />
-                  </a>
-                )}
-              </Grid>
-            )}
-          </Grid>
+        <PaperUnderlay sx={{ marginTop: "3rem", marginBottom: "2rem" }}>
+          <h6 className={styles.swiperTitle}>You Might Also Like:</h6>
+        </PaperUnderlay>
 
-          <PaperUnderlay sx={{ marginTop: "3rem", marginBottom: "2rem" }}>
-            <h6 className={styles.swiperTitle}>You Might Also Like:</h6>
-          </PaperUnderlay>
-
-          <Swiper
-            style={{
-              "--swiper-navigation-color": "#000000",
-              marginBottom: "6rem",
-              marginTop: "1rem",
-            }}
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={"auto"}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            navigation={true}
-            modules={[EffectCoverflow, Navigation]}
-            className={styles.similarTitleSwiper}>
-            {similarTitlesDetails.map((similarTitle) => (
-              <SwiperSlide
-                key={similarTitle.id}
-                className={styles.similarTitleSlide}
-                style={{
-                  backgroundImage: `url(${similarTitle.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                }}
-                onClick={() => handleTitleSelected(similarTitle.id)}>
-                <h6 className={styles.similarTitleSlideTitle}>
-                  {similarTitle.title}
-                </h6>
-                <h6 className={styles.similarTitleSlideType}>
-                  {similarTitle.type === "movie"
-                    ? "Movie"
-                    : similarTitle.type === "tv_series"
-                    ? "TV Series"
-                    : similarTitle.type === "tv_miniseries"
-                    ? "TV Miniseries"
-                    : similarTitle.type === "short_film"
-                    ? "Short Film"
-                    : "Unknown Type"}
-                </h6>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </main>
-      )}
+        <Swiper
+          style={{
+            "--swiper-navigation-color": "#000000",
+            marginBottom: "6rem",
+            marginTop: "1rem",
+          }}
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          navigation={true}
+          modules={[EffectCoverflow, Navigation]}
+          className={styles.similarTitleSwiper}>
+          {selectedTitleDetails.similar_title_data.map((similarTitle) => (
+            <SwiperSlide
+              key={similarTitle.id}
+              className={styles.similarTitleSlide}
+              style={{
+                backgroundImage: `url(${similarTitle.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+              }}
+              onClick={() => handleTitleSelected(similarTitle.id)}>
+              <h6 className={styles.similarTitleSlideTitle}>
+                {similarTitle.title}
+              </h6>
+              <h6 className={styles.similarTitleSlideType}>
+                {similarTitle.type === "movie"
+                  ? "Movie"
+                  : similarTitle.type === "tv_series"
+                  ? "TV Series"
+                  : similarTitle.type === "tv_miniseries"
+                  ? "TV Miniseries"
+                  : similarTitle.type === "short_film"
+                  ? "Short Film"
+                  : "Unknown Type"}
+              </h6>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </main>
     </>
   );
 };

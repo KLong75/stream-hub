@@ -31,7 +31,6 @@ export const QUERY_ME = gql`
           web_url
           type
         }
-        similar_title_ids
         similar_title_data {
           id
           title

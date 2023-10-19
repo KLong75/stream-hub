@@ -27,8 +27,10 @@ export const useTitleSelection = () => {
       // console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
-        console.log("cached data retrieved for selectedTitleDetails, parsed, time checked", data);
-        // window.scrollTo(0, 0);
+        console.log(
+          "cached data retrieved for selectedTitleDetails, parsed, time checked",
+          data
+        );
         navigate("/title_details");
         window.scrollTo(0, 0);
       } else {
@@ -63,6 +65,53 @@ export const useTitleSelection = () => {
             }
           }
         });
+
+        // Fetch similar titles and update the state
+        const similarTitleIds = titleDetails.similar_titles
+          ? titleDetails.similar_titles.slice(0, 3)
+          : [];
+        const fetchedSimilarTitles = [];
+
+        for (const similarTitleId of similarTitleIds) {
+          // const cachedSimilarTitles = localStorage.getItem(
+          //   `similarTitles-${similarTitleId}`
+          // );
+          // if (cachedSimilarTitles) {           
+          // }
+
+          try {
+            const response = await fetchTitleDetails(similarTitleId);
+
+            if (!response.ok) {
+              throw new Error("Something went wrong");
+            }
+
+            const similarTitleData = await response.json();
+            // Process similar title data as needed
+
+            const similarTitleDetails = {
+              id: similarTitleData.id,
+              title: similarTitleData.title,
+              type: similarTitleData.type,
+              poster: similarTitleData.poster,
+            };
+
+            fetchedSimilarTitles.push(similarTitleDetails);
+
+            // Cache similar title data
+            const cacheData = {
+              data: similarTitleDetails,
+              timestamp: Date.now(),
+            };
+            localStorage.setItem(
+              `similarTitles-${similarTitleId}`,
+              JSON.stringify(cacheData)
+            );
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
         const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
@@ -76,10 +125,7 @@ export const useTitleSelection = () => {
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
           runtime: titleDetails.runtime,
-          similar_title_ids: titleDetails.similar_titles
-            ? titleDetails.similar_titles.slice(0, 3)
-            : [],
-          similar_title_data: [],
+          similar_title_data: fetchedSimilarTitles,
           sources: titleDetails.sources.filter(
             (source) => source.type === "sub"
           ),
@@ -103,7 +149,6 @@ export const useTitleSelection = () => {
           `titleDetails_${selectedTitleId}`,
           JSON.stringify(cacheData)
         );
-        // window.scrollTo(0, 0);
         navigate("/title_details");
         window.scrollTo(0, 0);
       } catch (error) {
