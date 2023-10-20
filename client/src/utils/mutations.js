@@ -147,7 +147,7 @@ export const REMOVE_TITLE = gql`
           web_url
           type
         }
-        similar_titles {
+        similar_title_data {
           id
           title
           type
