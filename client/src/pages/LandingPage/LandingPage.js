@@ -2,7 +2,9 @@ import TV from "../../components/TV";
 
 const LandingPage = () => {
   return (
-  <TV />
+    <main className="gradientBackground">
+      <TV />
+    </main>
   );
 };
 

@@ -31,26 +31,27 @@
 }
 
 
-/* @keyframes fadeIn {
+@keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1.5; }
 }
 
-@media (max-width: 1445px) {
+@media (max-width: 1500px) {
   .tvButtonContainer {
     right: 33% !important;
   }
 }
 
-@media (max-width: 1400px) {
+ @media (max-width: 1450px) {
   .tvButtonContainer {
     right: 32.5% !important;
   }
 }
 
-@media (max-width: 1300px) {
+ @media (max-width: 1400px) {
   .tvButtonContainer {
     right: 31% !important;
+    top: 51.75% !important;
   }
   .titleContainer {
     left: 46.8% !important;
@@ -59,9 +60,12 @@
     left: 47%!important;
   }
 }
-@media (max-width: 1200px) {
+
+
+ @media (max-width: 1300px) {
   .tvButtonContainer {
     right: 30% !important;
+    
   }
   .titleContainer {
     left: 46.5% !important;
@@ -70,19 +74,21 @@
     left: 46.4%!important;
   }
 }
-@media (max-width: 1100px) {
+
+@media (max-width: 1250px) {
   .tvButtonContainer {
-    right: 26% !important;
+    right: 30% !important;
   }
   .titleContainer {
-    left: 46.2% !important;
+    left: 46.75% !important;
   }
 
 }
-@media (max-width: 1000px) {
+
+ @media (max-width: 1200px) {
   .tvButtonContainer {
-    right: 26% !important;
-    top: 51% !important;
+    right: 28% !important;
+    /* top: 52.5% !important; */
   }
   .titleContainer {
     left: 46% !important;
@@ -92,21 +98,21 @@
   }
 }
 
-@media (max-width: 950px) {
+ @media (max-width: 1150px) {
   .landing-page-modal {
     top: 50%!important;
   }
   .tvButtonContainer {
-    right: 26% !important;
-    top: 51% !important;
+    right: 27% !important;
+    /* top: 52.5% !important; */
   }
   
 }
 
-@media (max-width: 920px) {
+  @media (max-width: 1100px) {
   .tvButtonContainer {
     right: 26% !important;
-    top: 51% !important;
+    /* top: 51% !important; */
   }
   .titleContainer {
     left: 45.2% !important;
@@ -117,196 +123,218 @@
 }
 
 
-@media (max-width: 900px) {
+ @media (max-width: 1025px) {
   .tvButtonContainer {
     right: 25% !important;
-    top: 51% !important;
+    /* top: 51% !important; */
   }
   .titleContainer {
-    left: 45% !important;
+    left: 46% !important;
   }
   .landingPageModal {
     left: 44.8%!important;
   }
 }
 
-@media (max-width: 850px) {
+ @media (max-width: 1000px) {
   .tvButtonContainer {
-    right: 24% !important;
-    top: 50.75% !important;
+    right: 24% !important; 
   }
   .titleContainer {
-    left: 44.8% !important;
+    left: 45.5% !important;
   }
   .landingPageModal {
     left: 44.6%!important;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 950px) {
   .tvScreen{
-    top: 55.8%;
+    /* top: 55.8%; */
   }
   .tvButtonContainer {
-    top: 51% !important;
+    right: 23% !important;
+    /* top: 51.75% !important; */
   }
   .titleContainer {
-    left: 44.6% !important;
+    left: 45.75% !important;
   }
   .landingPageModal {
     left: 44.4%!important;
   }
 }
 
-@media (max-width: 768px) {
+  @media (max-width: 900px) {
 
   .tvButtonContainer {
-    right: 21.5% !important;
-    top: 50.65% !important;
+    right: 21% !important;
+    /* top: 52.75% !important; */
   }
 }
 
-@media (max-width: 750px) {
+ @media (max-width: 850px) {
  
   .tvButtonContainer {
-    right: 21% !important;
-    top: 50.75% !important;
+    right: 19.5% !important;
+    /* top: 50.75% !important; */
   }
   .titleContainer {
-    left: 44.4% !important;
+    left: 45% !important;
   }
   .landingPageModal {
     left: 44.2%!important;
   }
 }
 
-@media (max-width: 700px) {
+ @media (max-width: 800px) {
   .tvButtonContainer {
-    right: 18% !important;
-    top: 50.75% !important;
-  }
-  .titleContainer {
-    left: 44.2% !important;
+    right: 17% !important; 
   }
   .landingPageModal {
     left: 44%!important;
   }
 }
 
+ @media (max-width: 750px) {
+  .tvButtonContainer {
+    right: 15% !important;
+    /* top: 50.75% !important; */
+  }
+  .titleContainer {
+    left: 44% !important;
+  }
+  .landingPageModal {
+    left: 43.8%!important;
+  }
+}
+
+@media (max-width: 700px) {
+  .tvButtonContainer {
+    right: 12% !important;
+    /* top: 51% !important; */
+  }
+  .titleContainer {
+    /* left: 44% !important; */
+  }
+  .landingPageModal {
+    left: 43.8%!important;
+  }
+}
+
+
 @media (max-width: 650px) {
   .tvButtonContainer {
-    right: 16% !important;
-    top: 50.75% !important;
-  }
-  .titleContainer {
-    left: 44% !important;
-  }
-  .landingPageModal {
-    left: 43.8%!important;
-  }
-}
-
-@media (max-width: 600px) {
-  .tvButtonContainer {
-    right: 13% !important;
-    top: 51% !important;
-  }
-  .titleContainer {
-    left: 44% !important;
-  }
-  .landingPageModal {
-    left: 43.8%!important;
-  }
-
-}
-
-
-@media (max-width: 550px) {
-  .tvButtonContainer {
-    right: 9% !important;
-    top: 51% !important;
+    right: 8% !important;
+    /* top: 51% !important; */
   }
   .titleContainer {
     left: 43.8% !important;
-  }
-  .landingPageModal {
-    left: 43.6%!important;
-  }
-}
-
-@media (max-width: 500px) {
-  .tvButtonContainer {
-    right: 6% !important;
-    top: 50.75% !important;
-  }
-  .titleContainer {
-    left: 43.6% !important;
-  }
-  .landingPageModal {
-    left: 43.4%!important;
-  }
-}
-
-@media (max-width: 450px) {
-  .tvButtonContainer {
-    right: -2% !important;
-    top: 50.75% !important;
-  }
-  .titleContainer {
-    left: 42.5% !important;
-  }
-  .landingPageModal {
-    left: 43.2%!important;
-  }
-}
-
-@media (max-width: 400px) {
-  .tvButtonContainer {
-    right: -5% !important;
-    top: 51% !important;
-  }
-  .titleContainer {
-    left: 42.2% !important;
   }
   .landingPageModal {
     left: 43%!important;
   }
 }
 
-@media (max-width: 375px){
+ @media (max-width: 600px) {
   .tvButtonContainer {
-    right: -8% !important;
-    top: 51.25% !important;
+    right: 5% !important;
+    /* top: 50.75% !important; */
+  }
+  .titleContainer {
+    left: 43% !important;
+  }
+  .landingPageModal {
+    left: 42%!important;
   }
 }
 
-@media (max-width: 350px){
+ @media (max-width: 550px) {
   .tvButtonContainer {
-    right: -12% !important;
+    right: 1% !important;
+    /* top: 50.75% !important; */
   }
- 
+  .titleContainer {
+    left: 42% !important;
+  }
+  .landingPageModal {
+    left: 41%!important;
+  }
 }
 
-@media (max-width: 320px){
+@media (max-width: 500px) {
   .tvButtonContainer {
-    right: -14% !important;
+    right: -4% !important;
+    /* top: 51% !important; */
+  }
+  .titleContainer {
+    left: 42.2% !important;
+  }
+  .landingPageModal {
+    left: 40%!important;
   }
 }
 
-@media (max-width: 300px){
+@media (max-width: 480px) {
   .tvButtonContainer {
-    top: 50.5% !important;
-    right: -15% !important;
+    right: -2% !important;
+    top: 52.5% !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .tvButtonContainer {
+    right: -2% !important;
+    top: 52.5% !important;
+  }
+  .landingPageModal {
+    left: 41%!important;
+  }
+}
+
+@media (max-width: 420px) {
+  .tvButtonContainer {
+    right: 2% !important;
+    top: 51.5% !important;
+  }
+  .landingPageModal {
+    left: 42.2%!important;
+  }
+}
+
+@media (max-width: 400px) {
+  .tvButtonContainer {
+    right: 0% !important;
+    /* top: 50.75% !important; */
+  }
+}
+
+ @media (max-width: 375px){
+  .tvButtonContainer {
+    right: -4% !important;
+    /* top: 51.25% !important; */
+  }
+}
+
+
+ @media (max-width: 320px){
+  .tvButtonContainer {
+    right: -3.5% !important;
+  }
+}
+
+ @media (max-width: 300px){
+  .tvButtonContainer {
+    /* top: 50.5% !important; */
+    right: -1% !important;
   }
 }
 
 @media (max-width: 280px){
   .tvButtonContainer {
-   
-    right: -16% !important;
+    right: -4% !important;
   }
 }
- */
+ 
 
 
 

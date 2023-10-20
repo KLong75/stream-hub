@@ -60,6 +60,16 @@ const typeDefs = gql`
     type: String
   }
 
+  type SimilarTitleData {
+    id: Int
+    title: String
+    type: String
+    poster: String
+    plot_overview: String
+    trailer: String
+    trailer_thumbnail: String
+  }
+
   input SourceInput {
     source_id: Int
     name: String
@@ -71,6 +81,16 @@ const typeDefs = gql`
     name: String
     web_url: String
     type: String
+  }
+
+  input SimilarTitleDataInput {
+    id: Int
+    title: String
+    type: String
+    poster: String
+    plot_overview: String
+    trailer: String
+    trailer_thumbnail: String
   }
 
   input TitleInput {

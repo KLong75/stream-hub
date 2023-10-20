@@ -1,10 +1,28 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
+import styled from "@emotion/styled";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import styles from "./LoginForm.module.css";
+
+const FormWrapper = styled.div`
+  font-size: 16px;
+
+ @media (max-width: 420px) {
+  font-size: 12px;
+}
+@media (max-width: 350px) {
+  font-size: 11px;
+}
+@media (max-width: 320px) {
+  font-size: 10px;
+}
+@media (max-width: 300px) {
+  font-size: 9px;
+}
+`;
 
 
 const LoginForm = ({ switchToSignup }) => {
@@ -33,7 +51,7 @@ const LoginForm = ({ switchToSignup }) => {
   };
 
   return (
-    <div>
+    <FormWrapper>
       <h2 className={styles.login_form_title}>Log In</h2>
       <form onSubmit={handleFormSubmit}>
         <div>
@@ -80,7 +98,7 @@ const LoginForm = ({ switchToSignup }) => {
           </>
         ) : null}
       </form>
-    </div>
+    </FormWrapper>
   );
 };
 

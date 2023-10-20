@@ -40,6 +40,7 @@ const HomePage = () => {
       </div>);
   }
 
+  
   return (
     <main className="gradientBackground">
       <section style={{marginBottom: '.5rem'}}>

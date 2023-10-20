@@ -77,7 +77,8 @@ const GenreSearchResults = () => {
               <Grid
                 container
                 justifyContent="center"
-                xs={6}
+                xs={12}
+                sm={6}
                 md={4}
                 lg={3}
                 key={result.id}

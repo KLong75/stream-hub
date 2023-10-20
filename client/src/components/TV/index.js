@@ -16,20 +16,28 @@ import styles from "./TV.module.css";
 const TVWrapper = styled.div`
 font-size: 16px;
 
-@media (max-width: 768px) {
-  font-size: 14px;
-}
 @media (max-width: 600px) {
-  font-size: 12px;
+  font-size: 16px;
 }
 @media (max-width: 480px) {
-  font-size: 10px;
+  font-size: 15px;
+}
+@media (max-width: 450px) {
+  font-size: 14px;
+}
+@media (max-width: 420px) {
+  font-size: 12px;
+}
+@media (max-width: 350px) {
+  font-size: 11px;
 }
 @media (max-width: 320px) {
+  font-size: 10px;
+}
+@media (max-width: 300px) {
   font-size: 9px;
 }
-
-`
+`;
 
 
 const TV = () => {

@@ -3,16 +3,16 @@ import  { useRef, useEffect, useState, useContext } from "react";
 // import from react-router
 import { useLocation, useNavigate } from "react-router-dom";
 // import context
-import { SearchResultsContext } from "../context/SearchResultsContext";
+import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
 import { ButtonBase } from "@mui/material";
 import { styled } from '@mui/material/styles';
 // import from utils
-import { useTitleSelectionTMDBId } from "../utils/useTitleSelectionTMDBId";
+import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
 
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 
 const GenreSourceTypeResults = () => {
   const navigate = useNavigate();
@@ -150,20 +150,97 @@ const GenreSourceTypeResults = () => {
 
 
   return (
-    <>
+    <main className="gradientBackground">
       {!loggedIn ? (
         navigate("/")
       ) : (
         <Grid container style={{textAlign: 'center'}}>
           <Grid xs={12}>
-          <h3>Genre Source Type Search Results</h3>
-          <h4>Results For: </h4>
-          <h5>Genre(s): {getGenreLabels(searchedGenres) || "None Selected"}</h5>
-          <h5>
+          <h3
+            style={{
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                  fontSize: "1.5rem",
+                  marginTop: "0",
+                  marginBottom: "0",
+                  padding: ".5rem",
+                }}
+          >Genre Source Type Search Results</h3>
+          <h4
+            style={{
+                  fontSize: "1.25rem",
+                  margin: "0",
+                  marginBottom: '-.5em',
+                  padding: ".5rem",
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                }}
+          >
+            Results For: 
+          </h4>
+          <h5
+            style={{
+                  fontSize: "1.25rem",
+                  margin: "0",
+                  marginBottom: '-.5em',
+                  padding: ".5rem",
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                }}
+          >Genre(s): {getGenreLabels(searchedGenres) || "None Selected"}</h5>
+          <h5
+            style={{
+                  fontSize: "1.25rem",
+                  margin: "0",
+                  marginBottom: '-.5em',
+                  padding: ".5rem",
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                }}
+          >
             Streaming Sources:{" "}
             {getStreamingSourceLabels(searchedSources) || "None Selected"}
           </h5>
-          <h5>Type: {getTypeLabels(searchedTypes) || "None Selected"}</h5>
+          <h5
+            style={{
+                  fontSize: "1.25rem",
+                  margin: "0",
+                  marginBottom: '0em',
+                  padding: ".5rem",
+                  background:
+                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "monospace",
+                  fontWeight: "700",
+                  letterSpacing: ".2rem",
+                }}
+          >Type: {getTypeLabels(searchedTypes) || "None Selected"}</h5>
           </Grid>
           <Grid
             container
@@ -174,7 +251,8 @@ const GenreSourceTypeResults = () => {
               <Grid 
               container
                 justifyContent="center"
-                xs={6}
+                xs={12}
+                sm={6}
                 md={4}
                 lg={3}
                 key={title.id}
@@ -223,7 +301,7 @@ const GenreSourceTypeResults = () => {
 
         </Grid>
       )}
-    </>
+    </main>
   );
 };
 

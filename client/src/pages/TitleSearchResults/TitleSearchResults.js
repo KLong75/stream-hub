@@ -109,12 +109,9 @@ const TitleSearchResults = () => {
               result.image_url !== "https://cdn.watchmode.com/profiles/"
           ) // Filter out titles with null year
 
-          .map((result) => (
-            
-            <Grid xs={12} sm={6} md={4} lg={3} key={result.id} sx={{marginBottom: '4rem'}}>
-            
+          .map((result) => (           
+            <Grid xs={12} sm={6} md={4} lg={3} key={result.id} sx={{marginBottom: '4rem'}}>           
               {result.title && <p>{result.title}</p>}
-
               {result.type && (
                 <p>
                   {result.type === "movie"

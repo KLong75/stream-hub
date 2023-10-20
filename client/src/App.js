@@ -14,7 +14,7 @@ import TitleDetails from "./pages/TitleDetails/TitleDetails";
 // import components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import GenreSourceTypeResults from "./pages/GenreSourceTypeResults";
+import GenreSourceTypeResults from "./pages/GenreSourceTypeSearchResults/GenreSourceTypeSearchResults";
 import ScrollToTop from "./components/ScrollToTop.js";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 // import context providers
