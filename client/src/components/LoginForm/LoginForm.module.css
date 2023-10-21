@@ -1,4 +1,4 @@
-.login_form_title {
+.loginFormTitle {
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -6,3 +6,20 @@
   font-size: 1.25rem;
 }
 
+.logInButton {
+  /* margin-top: .5rem; */
+  height: 2rem;
+}
+
+@media (max-width: 500px) {
+  .loginFormTitle{
+    display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .logInButton {
+    left: 32%;
+    height: 1.25rem;
+  }
+}

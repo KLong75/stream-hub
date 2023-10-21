@@ -28,6 +28,7 @@
 
 .landingPageModal {
   animation: fadeIn 2s;
+  top: 51%!important;
 }
 
 
@@ -270,7 +271,8 @@
     left: 42.2% !important;
   }
   .landingPageModal {
-    left: 40%!important;
+    left: 41.5%!important;
+    top: 52%!important;
   }
 }
 
@@ -287,7 +289,8 @@
     top: 52.5% !important;
   }
   .landingPageModal {
-    left: 41%!important;
+    left: 42%!important;
+    top: 50%!important;
   }
 }
 
@@ -297,7 +300,8 @@
     top: 51.5% !important;
   }
   .landingPageModal {
-    left: 42.2%!important;
+    top: 50%!important;
+    left: 42.5%!important;
   }
 }
 
@@ -327,6 +331,8 @@
     /* top: 50.5% !important; */
     right: -1% !important;
   }
+
+
 }
 
 @media (max-width: 280px){

@@ -166,7 +166,7 @@ const TV = () => {
             <TVButton modalType={modalType} setModal={setModal} type="">
               <img
                 src={tvIcon}
-                style={{ width: "auto", height: "3rem" }}
+                style={{ width: "auto", height: "80%" }}
                 alt="tv icon"
               />
             </TVButton>

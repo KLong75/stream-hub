@@ -52,10 +52,11 @@ const LoginForm = ({ switchToSignup }) => {
 
   return (
     <FormWrapper>
-      <h2 className={styles.login_form_title}>Log In</h2>
+      <h2 className={styles.loginFormTitle}>Log In</h2>
       <form onSubmit={handleFormSubmit}>
         <div>
           <TextField
+            variant="standard"
             color="formOutline"      
             size="small"
             required
@@ -65,11 +66,11 @@ const LoginForm = ({ switchToSignup }) => {
             type="email"
             value={formState.email}
             onChange={handleChanges}
-            variant="outlined" 
           />
         </div>
         <div style={{marginTop: '.5rem'}}>
           <TextField
+            variant="standard"
             color="formOutline"  
             size="small"
             required
@@ -81,7 +82,7 @@ const LoginForm = ({ switchToSignup }) => {
             onChange={handleChanges}
           />
         </div>
-        <Button sx={{marginTop: '.25rem'}} className={styles.submitButton}size='small' variant="contained" type="submit">
+        <Button sx={{marginTop: '.2rem'}}className={styles.logInButton} size='small' variant="contained" type="submit">
           Log In
         </Button>
         {/* <Button onClick={switchToSignup}>Sign Up</Button> */}

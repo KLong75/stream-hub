@@ -8,8 +8,24 @@
   margin-bottom: .25rem;
 }
 
+.signUpForm {
+  width: 99%;
+}
+
+.signUpButton {
+  margin-top: .5rem;
+  height: 2rem;
+}
+
 @media (max-width: 500px) {
   .signup_form_title{
     display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .signUpButton {
+    height: 1.5rem;
+    left: 25%;
   }
 }

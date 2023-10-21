@@ -34,11 +34,12 @@ const SignupForm = () => {
     <div>
       <h2 className={styles.signup_form_title}>Sign Up</h2>
       <form onSubmit={handleFormSubmit}
-        style={{width: ''}}>
+        className={styles.signUpForm}>
         <div>
           <TextField
             color="formOutline"  
             size="small"
+            variant="standard"
             required
             label="Username"
             id="username"
@@ -50,6 +51,7 @@ const SignupForm = () => {
         </div>
         <div style={{marginTop: '.5rem'}}>
           <TextField
+            variant="standard"
             color="formOutline"  
             size="small" 
             required
@@ -62,7 +64,8 @@ const SignupForm = () => {
           />
         </div>
         <div style={{marginTop: '.5rem'}}>
-          <TextField   
+          <TextField 
+            variant="standard"  
             color="formOutline"    
             size="small"
             required
@@ -74,7 +77,7 @@ const SignupForm = () => {
             onChange={handleChanges}
           />
         </div>
-        <Button sx={{marginTop: '.5rem'}} size='small' variant="contained" type="submit">
+        <Button sx={{marginTop: '.2rem'}}className={styles.signUpButton} variant="contained" type="submit">
           Sign Up
         </Button>
         {/* <Button onClick={switchToLogin}>Login</Button> */}

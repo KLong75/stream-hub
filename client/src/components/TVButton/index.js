@@ -25,12 +25,12 @@ const TVButton = ({
         children
       )}
       {/* Render icon if iconSrc prop is provided */}
-      {iconSrc && (
+      {iconSrc && (     
         <img
+        className={styles.tvIcon}
           src={iconSrc}
-          style={{ width: "auto", height: "3em" }}
           alt="tv icon"
-        />
+        />     
       )}
     </button>
   );
