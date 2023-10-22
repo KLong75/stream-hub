@@ -141,6 +141,8 @@ const typeDefs = gql`
     sources: [SourceInput]
     buy_sources: [BuySourceInput]
     similar_title_data: [SimilarTitleDataInput]
+    cast: [CastDataInput]
+    crew: [CrewDataInput]
   }
 
   type Mutation {
