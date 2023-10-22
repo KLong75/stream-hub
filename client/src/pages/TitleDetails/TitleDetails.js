@@ -1002,9 +1002,7 @@ const TitleDetails = () => {
             <Grid xs={2}></Grid>
 
           { selectedTitleDetails.crew &&
-            selectedTitleDetails.crew[0].some(
-              (crewMember) => crewMember.job === "Director"
-            ) && (
+             (
               <>
                 <Grid xs={5}></Grid>
                 <Grid xs={2}>
@@ -1013,7 +1011,7 @@ const TitleDetails = () => {
                       <Grid xs={12}>
                         <h5 style={{ margin: "0" }}>Directed By:</h5>
                       </Grid>
-                      {moreDetails.crew
+                      {selectedTitleDetails.crew[0]
                         .filter((crewMember) => crewMember.job === "Director")
                         .map((crewMember) => (
                           <Grid xs={12} key={crewMember.id}>

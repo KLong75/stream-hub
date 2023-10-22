@@ -125,7 +125,7 @@ export const useTitleSelection = () => {
             crew: moreMovieDetailsFetched.crew,
           };  
           console.log(moreMovieDetailsFetched) 
-          castData.push(castAndCrew.cast);
+          castData.push(castAndCrew.cast.slice(0,8));
           crewData.push(castAndCrew.crew); 
           console.log(castAndCrew);   
         }
