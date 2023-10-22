@@ -29,6 +29,7 @@
 .landingPageModal {
   animation: fadeIn 2s;
   top: 51%!important;
+  left: 47%!important;
 }
 
 

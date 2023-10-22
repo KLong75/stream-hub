@@ -27,6 +27,8 @@ const typeDefs = gql`
     sources: [Source]
     buy_sources: [BuySource]
     similar_title_data: [SimilarTitleData]
+    cast: [CastData]
+    crew: [CrewData]
   }
 
   type Actor {
@@ -68,6 +70,36 @@ const typeDefs = gql`
     plot_overview: String
     trailer: String
     trailer_thumbnail: String
+  }
+
+  type CastData {
+    id: Int
+    name: String
+    character: String
+    known_for_department: String
+  }
+
+  type CrewData {
+    id: Int
+    name: String
+    job: String
+    department: String
+    known_for_department: String
+  }
+
+  input CastDataInput {
+    id: Int
+    name: String
+    character: String
+    known_for_department: String
+  }
+
+  input CrewDataInput {
+    id: Int
+    name: String
+    job: String
+    department: String
+    known_for_department: String
   }
 
   input SourceInput {

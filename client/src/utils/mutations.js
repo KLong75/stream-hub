@@ -70,7 +70,20 @@ export const DELETE_USER = gql`
           title
           type
           poster
-        }  
+        } 
+        cast {
+          id
+          name 
+          character
+          known_for_department
+        } 
+        crew {
+          id
+          name
+          job
+          department
+          known_for_department
+        } 
       }
     }
   }
@@ -111,7 +124,20 @@ export const SAVE_TITLE = gql`
           title
           type
           poster
-        }  
+        }
+        cast {
+          id
+          name 
+          character
+          known_for_department
+        } 
+        crew {
+          id
+          name
+          job
+          department
+          known_for_department
+        }
     }
   }
 }
@@ -152,6 +178,19 @@ export const REMOVE_TITLE = gql`
           title
           type
           poster
+      }
+      cast {
+        id
+        name 
+        character
+        known_for_department
+      } 
+      crew {
+        id
+        name
+        job
+        department
+        known_for_department
       }
     }
   }

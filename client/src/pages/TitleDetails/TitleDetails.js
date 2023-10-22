@@ -287,58 +287,58 @@ const TitleDetails = () => {
   }, [selectedTitleDetails]);
 
   useEffect(() => {
-    const getMoreDetailsMovie = async () => {
-      const imdbId = selectedTitleDetails.imdb_id;
-      // console.log(imdbId);
+    // const getMoreDetailsMovie = async () => {
+    //   const imdbId = selectedTitleDetails.imdb_id;
+    //   // console.log(imdbId);
 
-      const cachedMoreDetailsMovie = localStorage.getItem(
-        `moreDetailsMovie-${imdbId}`
-      );
-      // console.log("cached data retrieved", cachedMoreDetailsMovie);
+    //   const cachedMoreDetailsMovie = localStorage.getItem(
+    //     `moreDetailsMovie-${imdbId}`
+    //   );
+    //   // console.log("cached data retrieved", cachedMoreDetailsMovie);
 
-      if (cachedMoreDetailsMovie) {
-        const { data, timestamp } = JSON.parse(cachedMoreDetailsMovie);
+    //   if (cachedMoreDetailsMovie) {
+    //     const { data, timestamp } = JSON.parse(cachedMoreDetailsMovie);
 
-        const now = Date.now();
+    //     const now = Date.now();
 
-        if (now - timestamp < CACHE_DURATION) {
-          setMoreDetails(data);
-          console.log("cached data retrieved, parsed, time checked", data);
-          return;
-        } else {
-          localStorage.removeItem(`moreDetailsMovie-${imdbId}`);
-          // console.log("Cached Data Expired and Removed");
-        }
-      }
+    //     if (now - timestamp < CACHE_DURATION) {
+    //       setMoreDetails(data);
+    //       console.log("cached data retrieved, parsed, time checked", data);
+    //       return;
+    //     } else {
+    //       localStorage.removeItem(`moreDetailsMovie-${imdbId}`);
+    //       // console.log("Cached Data Expired and Removed");
+    //     }
+    //   }
 
-      if (!cachedMoreDetailsMovie) {
-        console.log("no cached data found");
-        try {
-          const response = await fetchMoreTitleDetailsMovie(imdbId);
-          // console.log(response);
+    //   if (!cachedMoreDetailsMovie) {
+    //     console.log("no cached data found");
+    //     try {
+    //       const response = await fetchMoreTitleDetailsMovie(imdbId);
+    //       // console.log(response);
 
-          if (!response.ok) {
-            throw new Error("Something went wrong");
-          }
+    //       if (!response.ok) {
+    //         throw new Error("Something went wrong");
+    //       }
 
-          const moreDetailsFetched = await response.json();
-          setMoreDetails(moreDetailsFetched);
+    //       const moreDetailsFetched = await response.json();
+    //       setMoreDetails(moreDetailsFetched);
 
-          console.log(moreDetailsFetched);
+    //       console.log(moreDetailsFetched);
 
-          const cacheData = {
-            data: moreDetailsFetched,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem(
-            `moreDetailsMovie-${imdbId}`,
-            JSON.stringify(cacheData)
-          );
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    };
+    //       const cacheData = {
+    //         data: moreDetailsFetched,
+    //         timestamp: Date.now(),
+    //       };
+    //       localStorage.setItem(
+    //         `moreDetailsMovie-${imdbId}`,
+    //         JSON.stringify(cacheData)
+    //       );
+    //     } catch (err) {
+    //       console.error(err);
+    //     }
+    //   }
+    // };
 
     const getMoreDetailsTV = async () => {
       const tvShowTitle = selectedTitleDetails.title;
@@ -403,9 +403,9 @@ const TitleDetails = () => {
         }
       }
     };
-    if (selectedTitleDetails.imdb_id && selectedTitleDetails.type === "movie") {
-      getMoreDetailsMovie();
-    }
+    // if (selectedTitleDetails.imdb_id && selectedTitleDetails.type === "movie") {
+    //   getMoreDetailsMovie();
+    // }
     if (
       selectedTitleDetails.imdb_id &&
       selectedTitleDetails.type === "tv_series"
@@ -538,8 +538,20 @@ const TitleDetails = () => {
           title: title.title,
           type: title.type,
           poster: title.poster,
-        })
-      ),
+      })),
+      cast: selectedTitleDetails.cast.map((actor) => ({
+        id: actor.id,
+        name: actor.name,
+        character: actor.character,
+        known_for_department: actor.known_for_department,
+      })),
+      crew: selectedTitleDetails.crew.map((crewPerson) => ({
+        id: crewPerson.id,
+        name: crewPerson.name,
+        job: crewPerson.job,
+        known_for_department: crewPerson.known_for_department,
+        department: crewPerson.department,
+      })),
     };
     // console.log("title to save", input);
     // const titleToSave = titleId;
@@ -940,61 +952,57 @@ const TitleDetails = () => {
           <Grid xs={2}></Grid>
           <Grid xs={8}>
             <PaperUnderlay sx={{ marginTop: "1rem" }}>
-              <Grid
+              <Grid          
                 container
                 justifyContent={"center"}
                 alignItems={"center"}
                 textAlign={"center"}
                 xs={12}>
-                {moreDetails &&
-                  moreDetails.cast &&
-                  moreDetails.cast.length > 0 &&
-                  moreDetails.cast
-                    .slice(0, Math.min(10, moreDetails.cast.length))
-                    .map((castMember) => (
-                      <Grid
-                        xs={12}
-                        sm={6}
-                        // md={4}
-                        // lg={3}
-                        // xl={2}
-                        key={castMember.id}
-                        style={{ fontSize: "1rem" }}>
-                        <Button
-                          value={castMember.name}
-                          onClick={(e) => {
-                            console.log(
-                              "Button clicked:",
-                              e.currentTarget.value
-                            );
-                            handleActorNameClicked(e);
-                          }}
-                          style={{
-                            color: "black",
-                            textTransform: "none",
-                            fontSize: "1rem",
-                            marginTop: ".5rem",
-                          }}
-                          type="submit">
-                          <span style={{ display: "" }}>{castMember.name}</span>
-                        </Button>
-                        <span
-                          style={{
-                            display: "block",
-                            marginBottom: ".25rem",
-                          }}>
-                          as {castMember.character}
-                        </span>
-                      </Grid>
-                    ))}
-              </Grid>
-            </PaperUnderlay>
-          </Grid>
-          <Grid xs={2}></Grid>
+                  {selectedTitleDetails.cast &&
+                  selectedTitleDetails.cast.length > 0 &&
+                  selectedTitleDetails.cast[0]
+                  .map((castMember) => (
+                    <Grid      
+                      xs={12}
+                      sm={6}
+                      key={castMember.id}
+                      style={{ fontSize: "1rem" }}>
+                      <Button
+                            value={castMember.name}
+                            onClick={(e) => {
+                              console.log(
+                                "Button clicked:",
+                                e.currentTarget.value
+                              );
+                              handleActorNameClicked(e);
+                            }}
+                            style={{
+                              color: "black",
+                              textTransform: "none",
+                              fontSize: "1rem",
+                              marginTop: ".5rem",
+                            }}
+                            type="submit">
+                            <span style={{ display: "" }}>
+                              {castMember.name}
+                            </span>
+                          </Button>
+                          <span
+                            style={{
+                              display: "block",
+                              marginBottom: ".25rem",
+                            }}>
+                            as {castMember.character}
+                          </span>
+                        </Grid>
+                      ))}
+                </Grid>
+              </PaperUnderlay>
+            </Grid>
+            <Grid xs={2}></Grid>
 
-          {moreDetails &&
-            moreDetails.crew &&
-            moreDetails.crew.some(
+          { selectedTitleDetails.crew &&
+            selectedTitleDetails.crew[0].some(
               (crewMember) => crewMember.job === "Director"
             ) && (
               <>

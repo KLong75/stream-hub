@@ -1,6 +1,13 @@
 import { useContext } from "react";
 import { TitleDetailsContext } from "../context/TitleDetailsContext";
-import { fetchTitleDetails } from "./apiCalls";
+// import { fetchTitleDetails } from "./apiCalls";
+import {
+  fetchMoreTitleDetailsMovie,
+  fetchTitleDetails,
+  searchByName,
+  fetchMoreTitleDetailsTV,
+  fetchTvTitle,
+} from "./apiCalls";
 import { CACHE_DURATION } from "./utils";
 import { useNavigate } from "react-router-dom";
 
@@ -66,6 +73,9 @@ export const useTitleSelection = () => {
           }
         });
 
+        const castData = [];
+        const crewData = [];
+
         // Fetch similar titles and update the state
         const similarTitleIds = titleDetails.similar_titles
           ? titleDetails.similar_titles.slice(0, 3)
@@ -73,22 +83,14 @@ export const useTitleSelection = () => {
         const fetchedSimilarTitles = [];
 
         for (const similarTitleId of similarTitleIds) {
-          // const cachedSimilarTitles = localStorage.getItem(
-          //   `similarTitles-${similarTitleId}`
-          // );
-          // if (cachedSimilarTitles) {           
-          // }
-
           try {
             const response = await fetchTitleDetails(similarTitleId);
 
             if (!response.ok) {
               throw new Error("Something went wrong");
             }
-
             const similarTitleData = await response.json();
             // Process similar title data as needed
-
             const similarTitleDetails = {
               id: similarTitleData.id,
               title: similarTitleData.title,
@@ -99,18 +101,38 @@ export const useTitleSelection = () => {
             fetchedSimilarTitles.push(similarTitleDetails);
 
             // Cache similar title data
-            const cacheData = {
-              data: similarTitleDetails,
-              timestamp: Date.now(),
-            };
-            localStorage.setItem(
-              `similarTitles-${similarTitleId}`,
-              JSON.stringify(cacheData)
-            );
+            // const cacheData = {
+            //   data: similarTitleDetails,
+            //   timestamp: Date.now(),
+            // };
+            // localStorage.setItem(
+            //   `similarTitles-${similarTitleId}`,
+            //   JSON.stringify(cacheData)
+            // );
           } catch (err) {
             console.error(err);
           }
         }
+
+        try {
+          const getMoreDetailsMovie = await fetchMoreTitleDetailsMovie(titleDetails.imdb_id);
+          if (!getMoreDetailsMovie.ok) {
+            throw new Error("Something went wrong fetching cast and crew");
+          }
+          const moreMovieDetailsFetched = await getMoreDetailsMovie.json();
+          const castAndCrew = {
+            cast: moreMovieDetailsFetched.cast,
+            crew: moreMovieDetailsFetched.crew,
+          };  
+          console.log(moreMovieDetailsFetched) 
+          castData.push(castAndCrew.cast);
+          crewData.push(castAndCrew.crew); 
+          console.log(castAndCrew);   
+        }
+        
+        catch (err) {
+          console.error(err);
+        };
 
         const titleDetailsData = {
           id: titleDetails.id,
@@ -135,11 +157,13 @@ export const useTitleSelection = () => {
               ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
               : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
+          cast: castData,
+          crew: crewData,
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
         };
-        // console.log(titleDetailsData);
+        console.log(titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);
         const cacheData = {
           data: titleDetailsData,
@@ -154,7 +178,9 @@ export const useTitleSelection = () => {
       } catch (error) {
         console.log(error);
       }
+      
     }
+    
   };
   return handleTitleSelected;
 };

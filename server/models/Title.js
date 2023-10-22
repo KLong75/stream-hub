@@ -57,6 +57,16 @@ const titleSchema = new Schema({
       type: Object,
     },
   ],
+  cast: [
+    {
+      type: Object,
+    },
+  ],
+  crew: [
+    {
+      type: Object,
+    },
+  ],
 });
 
 module.exports = titleSchema;
