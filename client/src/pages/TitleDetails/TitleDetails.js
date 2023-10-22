@@ -286,7 +286,7 @@ const TitleDetails = () => {
     // watch the line below. is selectedTitleDetails needed in dependency array?
   }, [selectedTitleDetails]);
 
-  useEffect(() => {
+  // useEffect(() => {
     // const getMoreDetailsMovie = async () => {
     //   const imdbId = selectedTitleDetails.imdb_id;
     //   // console.log(imdbId);
@@ -340,79 +340,79 @@ const TitleDetails = () => {
     //   }
     // };
 
-    const getMoreDetailsTV = async () => {
-      const tvShowTitle = selectedTitleDetails.title;
-      // console.log(tvShowTitle);
+    // const getMoreDetailsTV = async () => {
+    //   const tvShowTitle = selectedTitleDetails.title;
+    //   // console.log(tvShowTitle);
 
-      const cachedMoreDetailsTV = localStorage.getItem(
-        `moreDetailsTV-${tvShowTitle}`
-      );
-      // console.log("cached data retrieved: cachedMoreDetailsTV");
+    //   const cachedMoreDetailsTV = localStorage.getItem(
+    //     `moreDetailsTV-${tvShowTitle}`
+    //   );
+    //   // console.log("cached data retrieved: cachedMoreDetailsTV");
 
-      if (cachedMoreDetailsTV) {
-        const { data, timestamp } = JSON.parse(cachedMoreDetailsTV);
+    //   if (cachedMoreDetailsTV) {
+    //     const { data, timestamp } = JSON.parse(cachedMoreDetailsTV);
 
-        const now = Date.now();
+    //     const now = Date.now();
 
-        if (now - timestamp < CACHE_DURATION) {
-          setMoreDetails(data);
-          // console.log("cached data retrieved, parsed, time checked", data);
-          return;
-        } else {
-          localStorage.removeItem(`moreDetailsTV-${tvShowTitle}`);
-          // console.log("Cached Data Expired and Removed");
-        }
-      }
+    //     if (now - timestamp < CACHE_DURATION) {
+    //       setMoreDetails(data);
+    //       // console.log("cached data retrieved, parsed, time checked", data);
+    //       return;
+    //     } else {
+    //       localStorage.removeItem(`moreDetailsTV-${tvShowTitle}`);
+    //       // console.log("Cached Data Expired and Removed");
+    //     }
+    //   }
 
-      if (!cachedMoreDetailsTV) {
-        // console.log("no cached data found");
-        try {
-          const response = await fetchTvTitle(tvShowTitle);
-          // console.log(response);
+    //   if (!cachedMoreDetailsTV) {
+    //     // console.log("no cached data found");
+    //     try {
+    //       const response = await fetchTvTitle(tvShowTitle);
+    //       // console.log(response);
 
-          if (!response.ok) {
-            throw new Error("Something went wrong");
-          }
+    //       if (!response.ok) {
+    //         throw new Error("Something went wrong");
+    //       }
 
-          const moreTitleData = await response.json();
+    //       const moreTitleData = await response.json();
 
-          const titleTmdbId = moreTitleData.results[0].id;
-          // console.log(titleTmdbId);
+    //       const titleTmdbId = moreTitleData.results[0].id;
+    //       // console.log(titleTmdbId);
 
-          const response2 = await fetchMoreTitleDetailsTV(titleTmdbId);
-          // console.log(response2);
+    //       const response2 = await fetchMoreTitleDetailsTV(titleTmdbId);
+    //       // console.log(response2);
 
-          if (!response2.ok) {
-            throw new Error("Something went wrong");
-          }
+    //       if (!response2.ok) {
+    //         throw new Error("Something went wrong");
+    //       }
 
-          const moreTvDetailsFetched = await response2.json();
-          // console.log(moreTvDetailsFetched);
-          setMoreDetails(moreTvDetailsFetched);
+    //       const moreTvDetailsFetched = await response2.json();
+    //       // console.log(moreTvDetailsFetched);
+    //       setMoreDetails(moreTvDetailsFetched);
 
-          const cacheData = {
-            data: moreTvDetailsFetched,
-            timestamp: Date.now(),
-          };
-          localStorage.setItem(
-            `moreDetailsTV-${tvShowTitle}`,
-            JSON.stringify(cacheData)
-          );
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    };
+    //       const cacheData = {
+    //         data: moreTvDetailsFetched,
+    //         timestamp: Date.now(),
+    //       };
+    //       localStorage.setItem(
+    //         `moreDetailsTV-${tvShowTitle}`,
+    //         JSON.stringify(cacheData)
+    //       );
+    //     } catch (err) {
+    //       console.error(err);
+    //     }
+    //   }
+    // };
     // if (selectedTitleDetails.imdb_id && selectedTitleDetails.type === "movie") {
     //   getMoreDetailsMovie();
     // }
-    if (
-      selectedTitleDetails.imdb_id &&
-      selectedTitleDetails.type === "tv_series"
-    ) {
-      getMoreDetailsTV();
-    }
-  }, [selectedTitleDetails]);
+  //   if (
+  //     selectedTitleDetails.imdb_id &&
+  //     selectedTitleDetails.type === "tv_series"
+  //   ) {
+  //     getMoreDetailsTV();
+  //   }
+  // }, [selectedTitleDetails]);
 
   const handleTitleSelected = useTitleSelection();
 
@@ -540,13 +540,13 @@ const TitleDetails = () => {
           poster: title.poster,
         })
       ),
-      cast: selectedTitleDetails.cast.map((actor) => ({
+      cast: selectedTitleDetails.cast[0].map((actor) => ({
         id: actor.id,
         name: actor.name,
         character: actor.character,
         known_for_department: actor.known_for_department,
       })),
-      crew: selectedTitleDetails.crew.map((crewPerson) => ({
+      crew: selectedTitleDetails.crew[0].map((crewPerson) => ({
         id: crewPerson.id,
         name: crewPerson.name,
         job: crewPerson.job,

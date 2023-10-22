@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { TitleDetailsContext } from "../context/TitleDetailsContext";
-// import { fetchTitleDetails } from "./apiCalls";
 import {
   fetchMoreTitleDetailsMovie,
   fetchTitleDetails,
@@ -13,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 export const useTitleSelection = () => {
   const navigate = useNavigate();
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
-
   const handleTitleSelected = async (id, event) => {
     if (event) event.preventDefault();
     // const selectedTitleId = event.target.value;
@@ -22,15 +20,9 @@ export const useTitleSelection = () => {
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
     );
-    // console.log(
-    //   "Cached Data Retrieved: cachedTitleDetails",
-    //   cachedTitleDetails
-    // );
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
-      // console.log(CACHE_DURATION);
       const now = Date.now();
-      // console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
         console.log(
@@ -41,7 +33,6 @@ export const useTitleSelection = () => {
         window.scrollTo(0, 0);
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
-        // console.log("Cached Data Expired and Removed");
       }
     }
     if (!cachedTitleDetails) {
@@ -51,7 +42,6 @@ export const useTitleSelection = () => {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
-        // console.log("New Data Retrieved:", titleDetails);
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
@@ -71,8 +61,7 @@ export const useTitleSelection = () => {
             }
           }
         });
-
-        // Fetch similar titles and update the state
+        // Fetch similar titles and update 
         const similarTitleIds = titleDetails.similar_titles
           ? titleDetails.similar_titles.slice(0, 3)
           : [];
@@ -81,30 +70,17 @@ export const useTitleSelection = () => {
         for (const similarTitleId of similarTitleIds) {
           try {
             const response = await fetchTitleDetails(similarTitleId);
-
             if (!response.ok) {
               throw new Error("Something went wrong");
             }
             const similarTitleData = await response.json();
-            // Process similar title data as needed
             const similarTitleDetails = {
               id: similarTitleData.id,
               title: similarTitleData.title,
               type: similarTitleData.type,
               poster: similarTitleData.poster,
             };
-
             fetchedSimilarTitles.push(similarTitleDetails);
-
-            // Cache similar title data
-            // const cacheData = {
-            //   data: similarTitleDetails,
-            //   timestamp: Date.now(),
-            // };
-            // localStorage.setItem(
-            //   `similarTitles-${similarTitleId}`,
-            //   JSON.stringify(cacheData)
-            // );
           } catch (err) {
             console.error(err);
           }
@@ -128,12 +104,10 @@ export const useTitleSelection = () => {
           castData.push(castAndCrew.cast.slice(0,8));
           crewData.push(castAndCrew.crew); 
           console.log(castAndCrew);   
-        }
-        
+        }     
         catch (err) {
           console.error(err);
         };
-      // } else if (titleDetails.type === "tv_series" || titleDetails.type === "tv_miniseries") {
       } else if (titleDetails.type.includes("tv")) {
         try {
           const tvShowTitle = titleDetails.title;
@@ -160,10 +134,7 @@ export const useTitleSelection = () => {
           console.error(err);
         };
       }
-
-
-
-        const titleDetailsData = {
+       const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
           type: titleDetails.type,
@@ -206,10 +177,8 @@ export const useTitleSelection = () => {
         window.scrollTo(0, 0);
       } catch (error) {
         console.log(error);
-      }
-      
+      }     
     }
-    
   };
   return handleTitleSelected;
 };
