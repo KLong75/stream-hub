@@ -538,7 +538,8 @@ const TitleDetails = () => {
           title: title.title,
           type: title.type,
           poster: title.poster,
-      })),
+        })
+      ),
       cast: selectedTitleDetails.cast.map((actor) => ({
         id: actor.id,
         name: actor.name,
@@ -952,80 +953,84 @@ const TitleDetails = () => {
           <Grid xs={2}></Grid>
           <Grid xs={8}>
             <PaperUnderlay sx={{ marginTop: "1rem" }}>
-              <Grid          
+              <Grid
                 container
                 justifyContent={"center"}
                 alignItems={"center"}
                 textAlign={"center"}
                 xs={12}>
-                  {selectedTitleDetails.cast &&
+                {selectedTitleDetails.cast &&
                   selectedTitleDetails.cast.length > 0 &&
-                  selectedTitleDetails.cast[0]
-                  .map((castMember) => (
-                    <Grid      
+                  selectedTitleDetails.cast[0].map((castMember) => (
+                    <Grid
                       xs={12}
                       sm={6}
                       key={castMember.id}
                       style={{ fontSize: "1rem" }}>
                       <Button
-                            value={castMember.name}
-                            onClick={(e) => {
-                              console.log(
-                                "Button clicked:",
-                                e.currentTarget.value
-                              );
-                              handleActorNameClicked(e);
-                            }}
-                            style={{
-                              color: "black",
-                              textTransform: "none",
-                              fontSize: "1rem",
-                              marginTop: ".5rem",
-                            }}
-                            type="submit">
-                            <span style={{ display: "" }}>
-                              {castMember.name}
-                            </span>
-                          </Button>
-                          <span
-                            style={{
-                              display: "block",
-                              marginBottom: ".25rem",
-                            }}>
-                            as {castMember.character}
-                          </span>
-                        </Grid>
-                      ))}
-                </Grid>
-              </PaperUnderlay>
-            </Grid>
-            <Grid xs={2}></Grid>
+                        value={castMember.name}
+                        onClick={(e) => {
+                          console.log("Button clicked:", e.currentTarget.value);
+                          handleActorNameClicked(e);
+                        }}
+                        style={{
+                          color: "black",
+                          textTransform: "none",
+                          fontSize: "1rem",
+                          marginTop: ".5rem",
+                        }}
+                        type="submit">
+                        <span style={{ display: "" }}>{castMember.name}</span>
+                      </Button>
+                      <span
+                        style={{
+                          display: "block",
+                          marginBottom: ".25rem",
+                        }}>
+                        as {castMember.character}
+                      </span>
+                    </Grid>
+                  ))}
+              </Grid>
+            </PaperUnderlay>
+          </Grid>
+          <Grid xs={2}></Grid>
 
-          { selectedTitleDetails.crew &&
-             (
-              <>
-                <Grid xs={5}></Grid>
-                <Grid xs={2}>
-                  <PaperUnderlay sx={{ marginTop: "1rem" }}>
-                    <Grid xs={12} container>
-                      <Grid xs={12}>
-                        <h5 style={{ margin: "0" }}>Directed By:</h5>
-                      </Grid>
-                      {selectedTitleDetails.crew[0]
+          {selectedTitleDetails.crew && (
+            <>
+              <Grid xs={5}></Grid>
+              <Grid xs={2}>
+                {/* <PaperUnderlay sx={{ marginTop: "1rem" }}>
+                  <Grid xs={12} container>
+                    <Grid xs={12}>
+                      <h5 style={{ margin: "0" }}>Directed By:</h5>
+                    </Grid> */}
+                    {selectedTitleDetails.crew &&
+                      selectedTitleDetails.crew.length > 0 &&
+                      selectedTitleDetails.crew[0]
                         .filter((crewMember) => crewMember.job === "Director")
                         .map((crewMember) => (
-                          <Grid xs={12} key={crewMember.id}>
-                            <h5 style={{ margin: "0" }} key={crewMember.id}>
-                              {crewMember.name}
-                            </h5>
-                          </Grid>
+                          <PaperUnderlay
+                            key={crewMember.id}
+                            sx={{ marginTop: "1rem" }}>
+                            <Grid xs={12} container>
+                              <Grid xs={12}>
+                                <h5 style={{ margin: "0" }}>Directed By:</h5>
+                              </Grid>
+                              <Grid xs={12} key={crewMember.id}>
+                                <h5 style={{ margin: "0" }} key={crewMember.id}>
+                                  {crewMember.name}
+                                </h5>
+                              </Grid>
+                            </Grid>
+                          </PaperUnderlay>
                         ))}
-                    </Grid>
-                  </PaperUnderlay>
-                </Grid>
-                <Grid xs={5}></Grid>
-              </>
-            )}
+                  </Grid>
+                {/* </PaperUnderlay>
+              </Grid> */}
+              <Grid xs={5}></Grid>
+            </>
+          )}
 
           {selectedTitleDetails.trailer && (
             <Grid xs={12}>

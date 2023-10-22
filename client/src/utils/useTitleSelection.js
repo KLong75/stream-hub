@@ -4,7 +4,6 @@ import { TitleDetailsContext } from "../context/TitleDetailsContext";
 import {
   fetchMoreTitleDetailsMovie,
   fetchTitleDetails,
-  searchByName,
   fetchMoreTitleDetailsTV,
   fetchTvTitle,
 } from "./apiCalls";
@@ -73,9 +72,6 @@ export const useTitleSelection = () => {
           }
         });
 
-        const castData = [];
-        const crewData = [];
-
         // Fetch similar titles and update the state
         const similarTitleIds = titleDetails.similar_titles
           ? titleDetails.similar_titles.slice(0, 3)
@@ -114,6 +110,10 @@ export const useTitleSelection = () => {
           }
         }
 
+        const castData = [];
+        const crewData = [];
+        
+        if (titleDetails.type === "movie" || titleDetails.type === "short_film") {
         try {
           const getMoreDetailsMovie = await fetchMoreTitleDetailsMovie(titleDetails.imdb_id);
           if (!getMoreDetailsMovie.ok) {
@@ -133,6 +133,35 @@ export const useTitleSelection = () => {
         catch (err) {
           console.error(err);
         };
+      // } else if (titleDetails.type === "tv_series" || titleDetails.type === "tv_miniseries") {
+      } else if (titleDetails.type.includes("tv")) {
+        try {
+          const tvShowTitle = titleDetails.title;
+          const tvTitleResponse = await fetchTvTitle(tvShowTitle);
+          if (!tvTitleResponse.ok) {
+            throw new Error("Something went wrong fetching cast and crew");
+          }
+          const moreTitleData = await tvTitleResponse.json();
+          const tvTitleImdbId = moreTitleData.results[0].id;
+          const tvTitleResponse2 = await fetchMoreTitleDetailsTV(tvTitleImdbId);
+          if (!tvTitleResponse2.ok) {
+            throw new Error("Something went wrong fetching cast and crew");
+          }
+          const moreTitleData2 = await tvTitleResponse2.json();
+          const castAndCrew = {
+            cast: moreTitleData2.cast,
+            crew: moreTitleData2.crew,
+          };
+          castData.push(castAndCrew.cast.slice(0,8));
+          crewData.push(castAndCrew.crew);
+          console.log(castAndCrew);
+        }
+        catch (err) {
+          console.error(err);
+        };
+      }
+
+
 
         const titleDetailsData = {
           id: titleDetails.id,
