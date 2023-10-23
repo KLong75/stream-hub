@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 // import from utils
-import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
+import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
 // import styles
 import styles from "./VerticalCardSwipeGallery.module.css";
 

@@ -20,7 +20,7 @@ import "swiper/css/pagination";
 import imageNotAvailable from "../../assets/images/no_image_available.jpg";
 // import from utils
 import Auth from "../../utils/auth";
-import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
+import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
 // import styles
 import styles from "./ActorSearchResults.module.css";
 

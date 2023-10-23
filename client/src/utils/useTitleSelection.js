@@ -10,6 +10,8 @@ import { CACHE_DURATION } from "./utils";
 import { useNavigate } from "react-router-dom";
 
 export const useTitleSelection = () => {
+  let cast;
+  let crew;
   const navigate = useNavigate();
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
   const handleTitleSelected = async (id, event) => {
@@ -85,9 +87,6 @@ export const useTitleSelection = () => {
             console.error(err);
           }
         }
-
-        const castData = [];
-        const crewData = [];
         
         if (titleDetails.type === "movie" || titleDetails.type === "short_film") {
         try {
@@ -96,14 +95,8 @@ export const useTitleSelection = () => {
             throw new Error("Something went wrong fetching cast and crew");
           }
           const moreMovieDetailsFetched = await getMoreDetailsMovie.json();
-          const castAndCrew = {
-            cast: moreMovieDetailsFetched.cast,
-            crew: moreMovieDetailsFetched.crew,
-          };  
-          console.log(moreMovieDetailsFetched) 
-          castData.push(castAndCrew.cast.slice(0,8));
-          crewData.push(castAndCrew.crew); 
-          console.log(castAndCrew);   
+          cast = moreMovieDetailsFetched.cast;
+          crew = moreMovieDetailsFetched.crew;  
         }     
         catch (err) {
           console.error(err);
@@ -122,13 +115,10 @@ export const useTitleSelection = () => {
             throw new Error("Something went wrong fetching cast and crew");
           }
           const moreTitleData2 = await tvTitleResponse2.json();
-          const castAndCrew = {
-            cast: moreTitleData2.cast,
-            crew: moreTitleData2.crew,
-          };
-          castData.push(castAndCrew.cast.slice(0,8));
-          crewData.push(castAndCrew.crew);
-          console.log(castAndCrew);
+          cast = moreTitleData2.cast;
+            crew = moreTitleData2.crew;
+            console.log('cast', cast);
+            console.log('crew', crew);
         }
         catch (err) {
           console.error(err);
@@ -157,8 +147,8 @@ export const useTitleSelection = () => {
               ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
               : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
-          cast: castData,
-          crew: crewData,
+          cast: cast.slice(0,8),
+          crew: crew.filter((member) => member.job === "Director"),
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,

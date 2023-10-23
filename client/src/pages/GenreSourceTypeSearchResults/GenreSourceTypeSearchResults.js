@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import { ButtonBase } from "@mui/material";
 import { styled } from '@mui/material/styles';
 // import from utils
-import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
+import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
 
 import Auth from "../../utils/auth";
 

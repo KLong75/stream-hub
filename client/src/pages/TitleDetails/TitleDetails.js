@@ -11,12 +11,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  EffectCoverflow,
-  Navigation,
-  // Pagination,
-  // Parallax,
-} from "swiper/modules";
+import {EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -63,7 +58,6 @@ const TitleDetails = () => {
   // console.log("selectedTitleDetails", selectedTitleDetails);
   const { setActorSearchResults } = useContext(SearchResultsContext);
   const [saveTitle] = useMutation(SAVE_TITLE);
-  const [moreDetails, setMoreDetails] = useState({});
   const [appleTvUrl, setAppleTvUrl] = useState("");
   const [netflixUrl, setNetflixUrl] = useState("");
   const [huluUrl, setHuluUrl] = useState("");
@@ -102,7 +96,6 @@ const TitleDetails = () => {
   useEffect(() => {
     if (selectedTitleDetails) {
       const sources = selectedTitleDetails.sources || [];
-      // console.log(sources);
       const appleTv = sources.filter((source) => source.source_id === 371);
       const netflix = sources.filter((source) => source.source_id === 203);
       const hulu = sources.filter((source) => source.source_id === 157);
@@ -293,7 +286,6 @@ const TitleDetails = () => {
     event.preventDefault();
     const searchedName = event.currentTarget.value;
     // console.log("searched name", searchedName);
-
     const cachedActorSearchResults = localStorage.getItem(
       `actorSearchResults_${searchedName}`
     );
@@ -316,14 +308,11 @@ const TitleDetails = () => {
       try {
         const response = await searchByName(searchedName);
         // console.log(searchByName(searchedName));
-
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-
         const results = await response.json();
         console.log(results);
-
         const actorSearchData = results.results
           .filter((actor) => {
             if (
@@ -870,7 +859,6 @@ const TitleDetails = () => {
                     {selectedTitleDetails.crew &&
                       selectedTitleDetails.crew.length > 0 &&
                       selectedTitleDetails.crew
-                        .filter((crewMember) => crewMember.job === "Director")
                         .map((crewMember) => (
                           <PaperUnderlay
                             key={crewMember.id}
@@ -888,8 +876,6 @@ const TitleDetails = () => {
                           </PaperUnderlay>
                         ))}
                   </Grid>
-                {/* </PaperUnderlay>
-              </Grid> */}
               <Grid xs={5}></Grid>
             </>
           )}
@@ -976,5 +962,4 @@ const TitleDetails = () => {
     </>
   );
 };
-
 export default TitleDetails;

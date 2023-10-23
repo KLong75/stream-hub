@@ -161,7 +161,7 @@ export const useTitleSelectionTMDBId = () => {
               : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           cast: cast.slice(0,8),
-          crew: crew,
+          crew: crew.filter((member) => member.job === "Director"),
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,

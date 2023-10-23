@@ -15,7 +15,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 // import from utils
-import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
+import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
 import Auth from "../../utils/auth";
 import { genreList } from "../../utils/utils";
 // import styles
