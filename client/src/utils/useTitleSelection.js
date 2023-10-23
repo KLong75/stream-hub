@@ -7,18 +7,39 @@ import {
   fetchTvTitle,
 } from "./apiCalls";
 import { CACHE_DURATION } from "./utils";
+import { QUERY_ME } from "../utils/queries";
 import { useNavigate } from "react-router-dom";
+// import from @apollo/client
+import { useQuery } from "@apollo/client";
+
 
 export const useTitleSelection = () => {
+  const { data } = useQuery(QUERY_ME);
+  const userData = data?.me || {};
+  const savedTitles = userData.savedTitles || [];
+  console.log('savedTitleSelection savedTitles',savedTitles)
+
   let cast;
   let crew;
   const navigate = useNavigate();
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
+  
   const handleTitleSelected = async (id, event) => {
     if (event) event.preventDefault();
     // const selectedTitleId = event.target.value;
     const selectedTitleId = id;
     // console.log(selectedTitleId);
+
+    for (let i = 0; i < savedTitles.length; i++) {
+      if (savedTitles[i].id === selectedTitleId) {
+        setSelectedTitleDetails(savedTitles[i])
+        console.log('title data pulled from database')
+        navigate("/title_details");
+        window.scrollTo(0, 0);
+        return;
+      }  
+    }
+
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
     );
@@ -38,12 +59,14 @@ export const useTitleSelection = () => {
       }
     }
     if (!cachedTitleDetails) {
+      // I want to query my database for the title details before making a fetch request
       try {
         const response = await fetchTitleDetails(selectedTitleId);
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
+        console.log('New titleDetailsfetched', titleDetails)
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
@@ -130,9 +153,7 @@ export const useTitleSelection = () => {
           type: titleDetails.type,
           year: titleDetails.year,
           backdrop: titleDetails.backdrop,
-          critic_score: titleDetails.critic_score,
           genre_names: titleDetails.genre_names,
-          network_names: titleDetails.network_names,
           plot_overview: titleDetails.plot_overview,
           poster: titleDetails.poster,
           release_date: titleDetails.release_date,
@@ -149,9 +170,8 @@ export const useTitleSelection = () => {
           trailer_thumbnail: titleDetails.trailer_thumbnail,
           cast: cast.slice(0,8),
           crew: crew.filter((member) => member.job === "Director"),
-          us_rating: titleDetails.us_rating,
-          user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
+          tmdb_id: titleDetails.tmdb_id
         };
         console.log(titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);

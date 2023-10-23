@@ -39,8 +39,11 @@ const titleSchema = new Schema({
   release_date: {
     type: String,
   },
-  us_rating: {
+  imdb_id: {
     type: String,
+  },
+  tmdb_id: {
+    type: Number
   },
   sources: [
     {

@@ -12,17 +12,39 @@ import {
   fetchTvTitle, } from "./apiCalls";
 // impor from utils
 import { CACHE_DURATION } from "./utils";
+import { QUERY_ME } from "../utils/queries";
+// import from @apollo/client
+import { useQuery } from "@apollo/client";
 
-// export custom hook
+
 export const useTitleSelectionTMDBId = () => {
+  const { data } = useQuery(QUERY_ME);
+  const userData = data?.me || {};
+  const savedTitles = userData.savedTitles || [];
+  console.log('useIMDBId savedTitles', savedTitles)
+  let cast;
+  let crew;
   const navigate = useNavigate();
-  
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
 
   const handleTitleSelectedTMDBId = async (id, event) => {
     if (event) event.preventDefault();
     const selectedTitleId = id;
     console.log(selectedTitleId);
+    const numericPartOfId = selectedTitleId.match(/\d+/)[0];
+    const tmdbIdNumber = parseInt(numericPartOfId);
+    console.log(tmdbIdNumber);
+
+    for (let i = 0; i < savedTitles.length; i++) {
+      console.log(savedTitles[i].tmdb_id)
+      if (savedTitles[i].tmdb_id === tmdbIdNumber) {
+        setSelectedTitleDetails(savedTitles[i])
+        console.log('title data pulled from database', savedTitles[i])
+        navigate("/title_details");
+        window.scrollTo(0, 0);
+        return;
+      }   
+    }
     
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
@@ -96,9 +118,6 @@ export const useTitleSelectionTMDBId = () => {
           }
         }
 
-        let cast;
-        let crew;
-
         if (titleDetails.type === "movie" || titleDetails.type === "short_film") {
           try {
             const getMoreDetailsMovie = await fetchMoreTitleDetailsMovie(titleDetails.imdb_id);
@@ -165,6 +184,7 @@ export const useTitleSelectionTMDBId = () => {
           us_rating: titleDetails.us_rating,
           user_rating: titleDetails.user_rating,
           imdb_id: titleDetails.imdb_id,
+          tmdb_id: titleDetails.tmdb_id,
         };
         console.log('titleDetailsData', titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);

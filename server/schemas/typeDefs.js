@@ -29,6 +29,8 @@ const typeDefs = gql`
     similar_title_data: [SimilarTitleData]
     cast: [CastData]
     crew: [CrewData]
+    imdb_id: String
+    tmdb_id: Int
   }
 
   type Actor {
@@ -143,6 +145,8 @@ const typeDefs = gql`
     similar_title_data: [SimilarTitleDataInput]
     cast: [CastDataInput]
     crew: [CrewDataInput]
+    imdb_id: String
+    tmdb_id: Int
   }
 
   type Mutation {

@@ -26,13 +26,13 @@ export const ADD_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-mutation updateUser($username: String, $email: String, $password: String) {
-  updateUser(username: $username, email: $email, password: $password) {
-    _id
-    username
-    email
+  mutation updateUser($username: String, $email: String, $password: String) {
+    updateUser(username: $username, email: $email, password: $password) {
+      _id
+      username
+      email
+    }
   }
-}
 `;
 
 export const DELETE_USER = gql`
@@ -53,7 +53,8 @@ export const DELETE_USER = gql`
         trailer
         trailer_thumbnail
         release_date
-        us_rating
+        imdb_id
+        tmdb_id
         sources {
           source_id
           name
@@ -70,20 +71,20 @@ export const DELETE_USER = gql`
           title
           type
           poster
-        } 
+        }
         cast {
           id
-          name 
+          name
           character
           known_for_department
-        } 
+        }
         crew {
           id
           name
           job
           department
           known_for_department
-        } 
+        }
       }
     }
   }
@@ -107,7 +108,8 @@ export const SAVE_TITLE = gql`
         trailer
         trailer_thumbnail
         release_date
-        us_rating
+        imdb_id
+        tmdb_id
         sources {
           source_id
           name
@@ -127,10 +129,10 @@ export const SAVE_TITLE = gql`
         }
         cast {
           id
-          name 
+          name
           character
           known_for_department
-        } 
+        }
         crew {
           id
           name
@@ -138,9 +140,9 @@ export const SAVE_TITLE = gql`
           department
           known_for_department
         }
+      }
     }
   }
-}
 `;
 
 export const REMOVE_TITLE = gql`
@@ -161,7 +163,8 @@ export const REMOVE_TITLE = gql`
         trailer
         trailer_thumbnail
         release_date
-        us_rating
+        imdb_id
+        tmdb_id
         sources {
           source_id
           name
@@ -178,21 +181,21 @@ export const REMOVE_TITLE = gql`
           title
           type
           poster
-      }
-      cast {
-        id
-        name 
-        character
-        known_for_department
-      } 
-      crew {
-        id
-        name
-        job
-        department
-        known_for_department
+        }
+        cast {
+          id
+          name
+          character
+          known_for_department
+        }
+        crew {
+          id
+          name
+          job
+          department
+          known_for_department
+        }
       }
     }
   }
-}
 `;

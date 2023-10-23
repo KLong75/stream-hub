@@ -19,7 +19,8 @@ export const QUERY_ME = gql`
         trailer
         trailer_thumbnail
         release_date
-        us_rating
+        imdb_id
+        tmdb_id
         sources {
           source_id
           name
