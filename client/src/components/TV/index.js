@@ -73,7 +73,7 @@ const TV = () => {
         >
           <Grid>
             <h1 className={styles.appTitle}>
-              streamHub
+              WatchTV
             </h1>
           </Grid>
         </Grid>
@@ -93,7 +93,7 @@ const TV = () => {
           }}
         >
           <Grid>
-            <h1 className={styles.appTitle}>streamHub</h1>
+            <h1 className={styles.appTitle}>WatchTV</h1>
           </Grid>
         </Grid>
       )}
