@@ -9,7 +9,7 @@ WatchTV retrieves data from two server-side APIs (WatchMode and The Movie Databa
 
 
 ## Status
-Basic functionality is in place. I am currently working on style, layout, and code optimization. Style and layout will be kept fairly minimal initially just enough to make it a usable app.
+Basic functionality is in place. I am currently working on style, layout, and code optimization.
 
 
 ## Screenshots
