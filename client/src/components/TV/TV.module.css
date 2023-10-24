@@ -280,14 +280,14 @@
 @media (max-width: 480px) {
   .tvButtonContainer {
     right: -2% !important;
-    top: 52.5% !important;
+    top: 52% !important;
   }
 }
 
 @media (max-width: 450px) {
   .tvButtonContainer {
     right: -2% !important;
-    top: 52.5% !important;
+    top: 52% !important;
   }
   .landingPageModal {
     left: 42%!important;
@@ -324,6 +324,7 @@
  @media (max-width: 320px){
   .tvButtonContainer {
     right: -3.5% !important;
+    top: 51% !important;
   }
 }
 
@@ -331,6 +332,7 @@
   .tvButtonContainer {
     /* top: 50.5% !important; */
     right: -1% !important;
+    top: 50.75% !important;
   }
 
 
