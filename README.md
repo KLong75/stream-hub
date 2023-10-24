@@ -4,6 +4,8 @@
 
 WatchTV is a full-stack application that allows users to search for any TV show or movie and find where it is available online to stream, rent, or buy from any source. WatchTV links directly to all online sources for viewing. Search all steaming subscription services in one place. Users can save titles to a watch list for future viewing. Sources include Netflix, Hulu, Prime Video, Disney+, Max, AppleTV, ParamountPlus, Showtime, BritBox, Google Play, YouTube, iTunes, and many more. If it is available online we'll let you know where. If it is not available we'll let you know that too. Users can search by title, genre, source, or any combination of the above.
 
+WatchTV retrieves data from two server-side APIs (WatchMode and The Movie Database). 
+
 
 ## Status
 Basic functionality is in place. I am currently working on style, layout, and code optimization. Style and layout will be kept fairly minimal initially just enough to make it a usable app.
