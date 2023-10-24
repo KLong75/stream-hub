@@ -301,15 +301,14 @@
     top: 51.5% !important;
   }
   .landingPageModal {
-    top: 50%!important;
-    left: 42.5%!important;
+    top: 50.5%!important;
+    left: 43.5%!important;
   }
 }
 
 @media (max-width: 400px) {
   .tvButtonContainer {
     right: 0% !important;
-    /* top: 50.75% !important; */
   }
 }
 
