@@ -1,19 +1,20 @@
-# streamHub
-
-"streamHub" is my working title for this application while it is in production. It will be given a proper name prior to release.
+# WatchTV
 
 ## Description
+REACT | NODE | EXPRESS | MONGODB | JAVASCRIPT | HTML | CSS 
+<br></br>
+WatchTV is a full-stack application that allows users to search for any TV show or movie and find where it is available online to stream, rent, or buy from any source. WatchTV links directly to all online sources for viewing. Search all steaming subscription services in one place. Users can save titles to a watch list for future viewing. Sources include Netflix, Hulu, Prime Video, Disney+, Max, AppleTV, ParamountPlus, Showtime, BritBox, Google Play, YouTube, iTunes, and many more. If it is available online we'll let you know where. If it is not available we'll let you know that too. Users can search by title, genre, source, or any combination of the above.
 
-streamHub (working title) is a full-stack application that allows users to search for any TV show or movie and find where it is available online to stream, rent, or buy from any source. streamHub links directly to all online sources for viewing. Search all steaming subscription services in one place. Users can save titles to a watch list for future viewing. Sources include Netflix, Hulu, Prime Video, Disney+, Max, AppleTV, ParamountPlus, Showtime, BritBox, Google Play, YouTube, iTunes, and many more. If it is available online we'll let you know where. If it is not available we'll let you know that too. Users can search by title, genre, source, or any combination of the above.
+WatchTV retrieves data from two server-side APIs (WatchMode and The Movie Database). 
 
 
 ## Status
-Basic functionality is in place. I am currently working on style, layout, and code optimization. Style and layout will be kept fairly minimal initially just enough to make it a usable app.
+Basic functionality is in place. I am currently working on style, layout, and code optimization.
 
 
 ## Screenshots
+![watchTVLandingMobile](https://github.com/KLong75/stream-hub/assets/98487770/c0b85f7f-1397-4a09-bcde-490ac4bae0dd)
 ![Screenshot (362)](https://github.com/KLong75/stream-hub/assets/98487770/cd7f8ae0-747c-4639-b214-2c88b14d1c12)
-![Screenshot (363)](https://github.com/KLong75/stream-hub/assets/98487770/d6058c92-cbae-4bf5-9fc3-8800362b0de0)
 ![dune](https://github.com/KLong75/stream-hub/assets/98487770/abd261fd-3433-4d9a-8c03-7b93fb8e7140)
 ![Screenshot (365)](https://github.com/KLong75/stream-hub/assets/98487770/96eef6d7-4f9d-4836-9042-9f29d6ffd845)
 ![Screenshot (372)](https://github.com/KLong75/stream-hub/assets/98487770/9820fe5e-0c8a-4433-9685-9fe44d37848c)
