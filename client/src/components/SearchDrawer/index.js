@@ -71,16 +71,6 @@ const SearchDrawer = ({ isOpen, onClose }) => {
           <ListItemButton>
             <ListItemIcon>
               <SearchIcon />
-              <GenreSearch onSubmit={handleSearchSubmit} />
-            </ListItemIcon>
-            <ListItemText />
-          </ListItemButton>
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <ListItemButton>
-            <ListItemIcon>
-              <SearchIcon />
               <TitleSearch onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
@@ -112,6 +102,16 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             <ListItemIcon>
               <SearchIcon />
               <SearchByGenreSourceType onSubmit={handleSearchSubmit} />
+            </ListItemIcon>
+            <ListItemText />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <ListItemButton>
+            <ListItemIcon>
+              <SearchIcon />
+              <GenreSearch onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
           </ListItemButton>
