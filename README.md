@@ -3,14 +3,19 @@
 ## Description
 REACT | NODE | EXPRESS | MONGODB | JAVASCRIPT | HTML | CSS 
 <br></br>
-WatchTV is a full-stack application that allows users to search for any TV show or movie and find where it is available online to stream, rent, or buy from any source. WatchTV links directly to all online sources for viewing. Search all steaming subscription services in one place. Users can save titles to a watch list for future viewing. Sources include Netflix, Hulu, Prime Video, Disney+, Max, AppleTV, ParamountPlus, Showtime, BritBox, Google Play, YouTube, iTunes, and many more. If it is available online we'll let you know where. If it is not available we'll let you know that too. Users can search by title, genre, source, or any combination of the above.
+React. Node. MongoDB. Express. Full stack application. (MERN) Serves as a central hub for all of a user's subscription streaming accounts. Search for any TV show or movie and link to where it is available online to stream, rent, or buy. Multiple search methods enable users to find what they want to watch and where they can watch it. Users can search all sources or just the ones they are subscribed to. Save titles to a watchlist for later viewing. The watchlist can be filtered by source, type, and genre. Sources include Netflix, Hulu, Prime Video, Disney+, Max, AppleTV, ParamountPlus, Showtime, BritBox, Google Play, YouTube, iTunes, and many more. If it is available online we'll let you know where. If it is not available we'll let you know that too. Users can search by title, genre, source, or any combination of the above.
 
-WatchTV retrieves data from two server-side APIs (WatchMode and The Movie Database). 
+WatchTV retrieves data from two server-side APIs (WatchMode and The Movie Database).
 
+## Click to Visit <a href='https://streamhub-e4fc2af8fdfc.herokuapp.com/'>WatchTV</a>
+Guest credentials for login: 
+<br/>
+email: guest@email.com 
+<br/>
+password: Guest#1
 
 ## Status
 Basic functionality is in place. I am currently working on style, layout, and code optimization.
-
 
 ## Screenshots
 ![watchTVLandingMobile](https://github.com/KLong75/stream-hub/assets/98487770/c0b85f7f-1397-4a09-bcde-490ac4bae0dd)
@@ -20,8 +25,6 @@ Basic functionality is in place. I am currently working on style, layout, and co
 ![Screenshot (372)](https://github.com/KLong75/stream-hub/assets/98487770/9820fe5e-0c8a-4433-9685-9fe44d37848c)
 ![Screenshot (374)](https://github.com/KLong75/stream-hub/assets/98487770/1e325180-64fe-42b0-9393-3da942d6fe28)
 ![Screenshot (375)](https://github.com/KLong75/stream-hub/assets/98487770/6859ae5c-e073-4b05-ba48-1852c2169dfc)
-
-
 
 ## Table of Contents
 - [Description](#description)
