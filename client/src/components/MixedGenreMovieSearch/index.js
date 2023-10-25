@@ -154,7 +154,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
       <h3
         variant="contained"
         onClick={() => handleMixedGenreMovieSearchClick()}>
-        Search Movies by a Combination of Genres
+        Search Movies<br/>by Genre(s)<br/>From All Available Sources
       </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
         <DialogTitle style={{ fontSize: "1.5rem" }}>

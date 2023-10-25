@@ -257,7 +257,7 @@ const GenreSearch = ({ onSubmit }) => {
   return (
     <>
       <h3 variant="contained" onClick={() => handleGenreSearchClick()}>
-      Search Movies and TV Shows by Genre From All Available Sources
+      Search Movies and TV Shows<br/>by Genre<br/>from All Available Sources 
       </h3>
       <Dialog open={isModalOpen} onClose={handleCloseModal}>
         <DialogTitle>Search by Genre From All Available Sources</DialogTitle>

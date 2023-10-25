@@ -152,7 +152,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
   return (
     <>
       <h3 variant="contained" onClick={() => handleMixedGenreTvSearchClick()}>
-        Search TV Shows by a Combination of Genres
+      Search TV Shows<br/>by Genre(s)<br/>From All Available Sources
       </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
         <DialogTitle style={{ fontSize: "1.5rem" }}>

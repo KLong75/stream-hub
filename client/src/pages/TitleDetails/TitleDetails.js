@@ -439,9 +439,10 @@ const TitleDetails = () => {
   return (
     <>
       <main
+        className={styles.titleDetailsMain}
         style={{
           backgroundImage: `url(${selectedTitleDetails.backdrop})`,
-          backgroundSize: "cover",
+          // backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
