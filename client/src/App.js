@@ -59,6 +59,18 @@ const client = new ApolloClient({
 });
 
 const theme = createTheme({
+
+  typography: {
+    fontFamily: [
+      // 'Playfair Display',
+      // 'Bebas Neue',
+      // 'Railway',
+      // 'sans-serif',
+    ].join(','),
+    
+  },
+
+
   palette: {
     formOutline: {
       main: "#000000",

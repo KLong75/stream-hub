@@ -1,5 +1,5 @@
 // import from react
-import  { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 // import from react-router
 import { useLocation, useNavigate } from "react-router-dom";
 // import context
@@ -8,7 +8,7 @@ import { SearchResultsContext } from "../../context/SearchResultsContext";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import Paper from "@mui/material/Paper";
 import { ButtonBase } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 // import from utils
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
 
@@ -22,9 +22,15 @@ const GenreSourceTypeResults = () => {
   const locationStateRef = useRef(location.state);
 
   const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
-  const [searchedGenres, setSearchedGenres] = useState(searchDataFromRouter.genres || "");
-  const [searchedTypes, setSearchedTypes] = useState(searchDataFromRouter.types || "");
-  const [searchedSources, setSearchedSources] = useState(searchDataFromRouter.sources || "");
+  const [searchedGenres, setSearchedGenres] = useState(
+    searchDataFromRouter.genres || ""
+  );
+  const [searchedTypes, setSearchedTypes] = useState(
+    searchDataFromRouter.types || ""
+  );
+  const [searchedSources, setSearchedSources] = useState(
+    searchDataFromRouter.sources || ""
+  );
   const watchModeGenreList = {
     1: "Action",
     39: "Action & Adventure",
@@ -132,124 +138,124 @@ const GenreSourceTypeResults = () => {
   const TitleBox = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(4),
     margin: theme.spacing(4),
-    textAlign: 'center',
-    color: 'black',
+    textAlign: "center",
+    color: "black",
     marginBottom: "4rem",
     width: "12rem",
     height: "12rem",
     borderRadius: "20%",
-    fontSize: '1rem',
-    fontWeight: 'bold',
+    fontSize: "1rem",
+    fontWeight: "bold",
     backgroundImage: "linear-gradient(315deg, #185a9d 0%, #43cea2 100%)",
-          "&:hover": {
-            backgroundImage:
-              "linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)",
-            transform: 'scale(1.05)',
-          },
+    "&:hover": {
+      backgroundImage: "linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)",
+      transform: "scale(1.05)",
+    },
   }));
-
 
   return (
     <main className="gradientBackground">
       {!loggedIn ? (
         navigate("/")
       ) : (
-        <Grid container style={{textAlign: 'center'}}>
+        <Grid container style={{ textAlign: "center" }}>
           <Grid xs={12}>
-          <h3
-            style={{
-                  background:
-                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  fontFamily: "monospace",
-                  fontWeight: "700",
-                  letterSpacing: ".2rem",
-                  fontSize: "1.5rem",
-                  marginTop: "0",
-                  marginBottom: "0",
-                  padding: ".5rem",
-                }}
-          >Genre Source Type Search Results</h3>
-          <h4
-            style={{
-                  fontSize: "1.25rem",
-                  margin: "0",
-                  marginBottom: '-.5em',
-                  padding: ".5rem",
-                  background:
-                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  fontFamily: "monospace",
-                  fontWeight: "700",
-                  letterSpacing: ".2rem",
-                }}
-          >
-            Results For: 
-          </h4>
-          <h5
-            style={{
-                  fontSize: "1.25rem",
-                  margin: "0",
-                  marginBottom: '-.5em',
-                  padding: ".5rem",
-                  background:
-                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  fontFamily: "monospace",
-                  fontWeight: "700",
-                  letterSpacing: ".2rem",
-                }}
-          >Genre(s): {getGenreLabels(searchedGenres) || "None Selected"}</h5>
-          <h5
-            style={{
-                  fontSize: "1.25rem",
-                  margin: "0",
-                  marginBottom: '-.5em',
-                  padding: ".5rem",
-                  background:
-                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  fontFamily: "monospace",
-                  fontWeight: "700",
-                  letterSpacing: ".2rem",
-                }}
-          >
-            Streaming Sources:{" "}
-            {getStreamingSourceLabels(searchedSources) || "None Selected"}
-          </h5>
-          <h5
-            style={{
-                  fontSize: "1.25rem",
-                  margin: "0",
-                  marginBottom: '0em',
-                  padding: ".5rem",
-                  background:
-                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  fontFamily: "monospace",
-                  fontWeight: "700",
-                  letterSpacing: ".2rem",
-                }}
-          >Type: {getTypeLabels(searchedTypes) || "None Selected"}</h5>
+            <h3
+              style={{
+                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                color: "black",
+                fontFamily: "Raleway",
+                fontWeight: "700",
+                letterSpacing: ".2rem",
+                fontSize: "1.5rem",
+                marginTop: "0",
+                marginBottom: "0",
+                padding: ".5rem",
+              }}>
+              Genre | Source | Type
+              <br />
+              Search Results
+            </h3>
+            <h4
+              style={{
+                fontSize: "1.25rem",
+                margin: "0",
+                marginBottom: "-.5em",
+                padding: ".5rem",
+                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                color: "black",
+                fontFamily: "Raleway",
+                fontWeight: "700",
+                letterSpacing: ".2rem",
+              }}>
+              Results For:
+            </h4>
+            <h5
+              style={{
+                fontSize: "1.25rem",
+                margin: "0",
+                marginBottom: "-.5em",
+                padding: ".5rem",
+                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                color: "black",
+                fontFamily: "Raleway",
+                fontWeight: "700",
+                letterSpacing: ".2rem",
+              }}>
+              Genre(s):{" "}
+              <span style={{ fontFamily: "Bebas Neue" }}>
+                {getGenreLabels(searchedGenres) || "None Selected"}
+              </span>
+            </h5>
+            <h5
+              style={{
+                fontSize: "1.25rem",
+                margin: "0",
+                marginBottom: "-.5em",
+                padding: ".5rem",
+                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                color: "black",
+                fontFamily: "Raleway",
+                fontWeight: "700",
+                letterSpacing: ".2rem",
+              }}>
+              Source(s):{" "}
+              <span style={{ fontFamily: "Bebas Neue" }}>
+                {getStreamingSourceLabels(searchedSources) || "None Selected"}
+              </span>
+            </h5>
+            <h5
+              style={{
+                fontSize: "1.25rem",
+                margin: "0",
+                marginBottom: "0em",
+                padding: ".5rem",
+                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                color: "black",
+                fontFamily: "Raleway",
+                fontWeight: "700",
+                letterSpacing: ".2rem",
+              }}>
+              Type:{" "}
+              <span style={{ fontFamily: "Bebas Neue" }}>
+                {getTypeLabels(searchedTypes) || "None Selected"}
+              </span>
+            </h5>
           </Grid>
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Grid container justifyContent="center" alignItems="center">
             {genreSourceTypeSearchResults.map((title) => (
-              <Grid 
-              container
+              <Grid
+                container
                 justifyContent="center"
                 xs={12}
                 sm={6}
@@ -257,34 +263,34 @@ const GenreSourceTypeResults = () => {
                 lg={3}
                 key={title.id}
                 alignItems="center">
-                <ButtonBase onClick={(event) => handleTitleSelected(title.id, event)} value={title.id}>
-                  <TitleBox
-                  elevation={12}
-                  >
-                {title.title && <p>{title.title}</p>}
-                {title.genres && (
-                  <p>
-                    {title.genres
-                      .map((id) => watchModeGenreList[id])
-                      .filter(Boolean)
-                      .join(", ")}
-                  </p>
-                )}
-                {title.type && (
-                  <p>
-                    {title.type === "movie"
-                      ? "Movie"
-                      : title.type === "tv_series"
-                      ? "TV Series"
-                      : title.type === "tv_miniseries"
-                      ? "TV Miniseries"
-                      : title.type === "short_film"
-                      ? "Short Film"
-                      : "Unknown Type"}
-                  </p>
-                )}
-                {title.year && <p>{title.year}</p>}
-                {/* <Button
+                <ButtonBase
+                  onClick={(event) => handleTitleSelected(title.id, event)}
+                  value={title.id}>
+                  <TitleBox elevation={12}>
+                    {title.title && <p>{title.title}</p>}
+                    {title.genres && (
+                      <p>
+                        {title.genres
+                          .map((id) => watchModeGenreList[id])
+                          .filter(Boolean)
+                          .join(", ")}
+                      </p>
+                    )}
+                    {title.type && (
+                      <p>
+                        {title.type === "movie"
+                          ? "Movie"
+                          : title.type === "tv_series"
+                          ? "TV Series"
+                          : title.type === "tv_miniseries"
+                          ? "TV Miniseries"
+                          : title.type === "short_film"
+                          ? "Short Film"
+                          : "Unknown Type"}
+                      </p>
+                    )}
+                    {title.year && <p>{title.year}</p>}
+                    {/* <Button
                   variant="contained"
                   // value={title.type + '-' + title.id}
                   value={title.id}
@@ -292,13 +298,11 @@ const GenreSourceTypeResults = () => {
                 >
                   More Details
                 </Button> */}
-                </TitleBox>
+                  </TitleBox>
                 </ButtonBase>
-                </Grid>
-           
+              </Grid>
             ))}
           </Grid>
-
         </Grid>
       )}
     </main>

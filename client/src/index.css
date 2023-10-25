@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Commissioner&family=Concert+One&family=Courgette&family=Expletus+Sans:wght@400;700&family=Libre+Bodoni:wght@600&family=Nothing+You+Could+Do&family=Permanent+Marker&family=Pinyon+Script&family=Playfair+Display:wght@900&family=Press+Start+2P&family=Radio+Canada:wght@600&family=Raleway:wght@600&family=Roboto+Condensed:wght@500&family=Roboto+Flex&display=swap");
+
+.bebasNeue {
+  font-family: "Bebas Neue";
+}
+
+.playfairDisplay {
+  font-family: "Playfair Display";
+  letter-spacing: 0.2rem;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -20,7 +31,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   min-height: 100%;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   /* background-color: black!important; */
 }
 
@@ -31,7 +42,7 @@ code {
 
 /* styles.css */
 .gradientBackground {
-  background: linear-gradient(315deg, #2c3e50  5%, #bdc3c7 75%);
+  background: linear-gradient(315deg, #2c3e50 5%, #bdc3c7 75%);
   /* background: linear-gradient(315deg, #185a9d 15%, #43cea2 85%); */
 }
 
@@ -41,33 +52,32 @@ code {
   backdrop-filter: blur(3px);
 }
 
-
 main {
   min-height: 100vh;
 }
 
 h2 {
-  margin: .25rem;
+  margin: 0.25rem;
 }
 
 h3 {
-  margin: .25rem;
+  margin: 0.25rem;
 }
 
 h6 {
-  margin: .25rem;
+  margin: 0.25rem;
 }
 
 .category-links {
   color: black;
   font-size: 1rem;
   text-decoration: none;
-  font-family: monospace;
+  font-family: 'Raleway';
   font-weight: 700;
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
 }
 
-.category-links:hover{
+.category-links:hover {
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -75,14 +85,13 @@ h6 {
 }
 
 .swiper-button-next {
-  margin-top: -4rem!important;
+  margin-top: -4rem !important;
 }
 
 .swiper-button-prev {
-  margin-top: -4rem!important;
+  margin-top: -4rem !important;
   color: black;
 }
-
 
 @media (max-width: 920px) {
   .category-links {
@@ -92,8 +101,6 @@ h6 {
     display: none;
   }
 }
-
-
 
 /* @media (max-width: 768px) {
    html {
@@ -275,7 +282,3 @@ h6 {
   
 }
  */
-
-
-
-

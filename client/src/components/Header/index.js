@@ -31,6 +31,7 @@ const Header = () => {
             <img className={styles.tvIcon} src={tvIcon} alt="TV icon" />
           </Grid>
           <Grid xs={6} md={4} >
+            {/* <h1 className={styles.appTitle}>WatchTV</h1> */}
             <h1 className={styles.appTitle}>WatchTV</h1>
           </Grid>
           <Grid xs={0} md={3}></Grid>

@@ -58,8 +58,8 @@ const MixedGenreSearchResults = () => {
                     "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
                   backgroundClip: "text",
                   WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  fontFamily: "monospace",
+                  color: "black",
+                  fontFamily: "Raleway",
                   fontWeight: "700",
                   letterSpacing: ".2rem",
                   fontSize: "2rem",
@@ -67,7 +67,7 @@ const MixedGenreSearchResults = () => {
                   marginBottom: "0",
                   padding: ".5rem",
                 }}>
-                Mixed Genre Search Results
+                Genre Search Results
               </h3>
               <h4
                 style={{
@@ -79,8 +79,8 @@ const MixedGenreSearchResults = () => {
                     "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
                   backgroundClip: "text",
                   WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  fontFamily: "monospace",
+                  color: "black",
+                  fontFamily: "Bebas Neue",
                   fontWeight: "700",
                   letterSpacing: ".2rem",
                 }}>

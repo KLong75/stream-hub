@@ -38,6 +38,19 @@ export const QUERY_ME = gql`
           type
           poster
         }
+        cast {
+          id
+          name
+          character
+          known_for_department
+        }
+        crew {
+          id
+          name
+          job
+          department
+          known_for_department
+        }
       }
     }
   }

@@ -1,13 +1,14 @@
 .appTitle {
+  font-family: "Raleway";
   font-size: 2.5rem;
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: black;
   -webkit-text-stroke: 1.5px black;
-  font-family: monospace;
-  font-weight: 700;
-  letter-spacing: .2rem;
+  /* font-family: monospace; */
+  /* font-weight: 700; */
+  /* letter-spacing: .2rem; */
   margin-left: -9rem;
   margin-top: .5rem;
   margin-bottom: .5rem;
@@ -22,18 +23,64 @@
   height: 3.25rem;
   width: auto;
   margin-left: 2rem;
-  margin-top: .25rem;
+  /* margin-top: 0rem; */
+}
+
+@media (max-width: 1450px) {
+  .appTitle {
+    font-size: 2.25rem;
+    margin-left: -8rem;
+  }
+}
+
+@media (max-width: 1350px) {
+  .appTitle {
+    font-size: 2.25rem;
+    margin-left: -7rem;
+  }
+}
+
+@media (max-width: 1250px) {
+  .appTitle {
+    font-size: 2.25rem;
+    margin-left: -5rem;
+  }
+}
+
+@media (max-width: 1150px) {
+  .appTitle {
+    
+    margin-left: -4rem;
+  }
 }
 
 @media (max-width: 920px) {
   .appTitle {
     font-size: 2.25rem;
-    margin-left: -.75rem;
+    margin-left: -6rem;
   }
   .tvIcon {
     height: 3rem;
     width: auto;
     margin-left: 1rem;
+  }
+}
+
+@media (max-width: 750px) {
+  .appTitle {
+    margin-left: -5rem; 
+  }
+}
+
+@media (max-width: 650px) {
+  .appTitle {
+    margin-left: -4rem; 
+  }
+}
+
+@media (max-width: 550px) {
+  .appTitle {
+    margin-left: -2rem; 
   }
 }
 
