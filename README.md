@@ -9,6 +9,7 @@ WatchTV retrieves data from two server-side APIs (WatchMode and The Movie Databa
 
 ## Visit WatchTV
 Guest credentials for login: 
+<br/>
 email: guest@email.com, password: Guest#1
 
 ## Status
