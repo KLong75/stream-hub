@@ -18,6 +18,7 @@
 }
 
 .appTitle {
+  font-family: 'Raleway';
   font-size: 3em;
   background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
   -webkit-background-clip: text;
