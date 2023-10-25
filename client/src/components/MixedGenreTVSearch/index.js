@@ -166,13 +166,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
             Enter One or More Genres
           </span>
         </DialogTitle>
-
         <DialogContent>
-          <span style={{ fontSize: "1rem", padding: "1.5" }}>
-            Looking for a sc-fi adventure series to binge? A family comedy? A
-            news documentary? We got you.
-          </span>
-          <br />
           <form onSubmit={handleSubmit}>
             <FormGroup>
               <FormLabel>Select Genre(s)</FormLabel>
