@@ -12,12 +12,12 @@
 }
 
 .gallerySection{
-  margin-top: 0em;
-  margin-bottom: 3em;
+  margin-top: 0rem;
+  margin-bottom: 3rem;
 }
 
 @media (max-width: 768px) {
   .gallerySection{
-    margin-top: -8em;
+    margin-top: 2rem;
   }
 }

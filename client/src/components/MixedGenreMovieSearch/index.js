@@ -162,12 +162,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
           <br />
           <span style={{fontSize: '1rem'}}>Enter One or More Genres</span>
         </DialogTitle>
-
         <DialogContent>
-        <p style={{ fontSize: "1rem", padding: "1.5" }}>
-            Looking for an extra-terrestrial romance? A crime thriller? A
-            hilarious horror movie? We've got you covered.
-          </p>
           <form onSubmit={handleSubmit}>
             <FormGroup>
               <FormLabel>Select Genre</FormLabel>
