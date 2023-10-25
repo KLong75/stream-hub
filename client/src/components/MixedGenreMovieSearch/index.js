@@ -165,7 +165,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <FormGroup>
-              <FormLabel>Select Genre</FormLabel>
+              <FormLabel>Select Genre(s)</FormLabel>
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
