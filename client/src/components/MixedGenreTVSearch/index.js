@@ -18,7 +18,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import {
   FormLabel,
   Dialog,
@@ -152,19 +152,27 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
   return (
     <>
       <h3 variant="contained" onClick={() => handleMixedGenreTvSearchClick()}>
-      Search TV Shows<br/>by Genre(s)<br/>From All Available Sources
+        Search TV Shows
+        <br />
+        by Genre(s)
+        <br />
+        From All Available Sources
       </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
-        <DialogTitle style={{ fontSize: "1.5rem" }}>
-          Mixed Genre TV Search
+        <DialogTitle style={{ fontSize: "1.25rem" }}>
+          Search TV Shows by Genre(s) From All Available Sources
           <br />
-          <p style={{ fontSize: "1.25rem", padding: "1.5" }}>
-            Looking for a sc-fi adventure series to binge? A family comedy? A
-            news documentary? We'll find what you want.
-          </p>
+          <span style={{ fontSize: "1rem", padding: "1.5" }}>
+            Enter One or More Genres
+          </span>
         </DialogTitle>
 
         <DialogContent>
+          <span style={{ fontSize: "1rem", padding: "1.5" }}>
+            Looking for a sc-fi adventure series to binge? A family comedy? A
+            news documentary? We got you.
+          </span>
+          <br />
           <form onSubmit={handleSubmit}>
             <FormGroup>
               <FormLabel>Select Genre(s)</FormLabel>

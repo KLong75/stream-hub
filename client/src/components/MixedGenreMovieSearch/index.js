@@ -157,16 +157,17 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
         Search Movies<br/>by Genre(s)<br/>From All Available Sources
       </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
-        <DialogTitle style={{ fontSize: "1.5rem" }}>
-          Mixed Genre Movie Search
+        <DialogTitle style={{ fontSize: "1.25rem" }}>
+          Search Movies by Genre(s) From All Available Sources
           <br />
-          <p style={{ fontSize: "1.25rem", padding: "1.5" }}>
-            Looking for an extra-terrestrial romance? A crime thriller? A
-            hilarious horror movie? We've got you covered.
-          </p>
+          <span style={{fontSize: '1rem'}}>Enter One or More Genres</span>
         </DialogTitle>
 
         <DialogContent>
+        <p style={{ fontSize: "1rem", padding: "1.5" }}>
+            Looking for an extra-terrestrial romance? A crime thriller? A
+            hilarious horror movie? We've got you covered.
+          </p>
           <form onSubmit={handleSubmit}>
             <FormGroup>
               <FormLabel>Select Genre</FormLabel>
