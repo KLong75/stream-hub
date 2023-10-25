@@ -17,7 +17,7 @@ import Auth from "../../utils/auth";
 // import components
 import GenreSearch from "../../components/GenreSearch";
 import TitleSearch from "../../components/TitleSearch";
-import ActorSearch from "../../components/ActorSearch";
+// import ActorSearch from "../../components/ActorSearch";
 import SearchByGenreSourceType from "../../components/SearchByGenreSourceType";
 import MixedGenreMovieSearch from "../../components/MixedGenreMovieSearch";
 import MixedGenreTVSearch from "../../components/MixedGenreTVSearch";
@@ -117,7 +117,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
           </ListItemButton>
         </ListItem>
         <Divider />
-        <ListItem>
+        {/* <ListItem>
           <ListItemButton>
             <ListItemIcon>
               <SearchIcon />
@@ -126,7 +126,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
             <ListItemText />
           </ListItemButton>
         </ListItem>
-        <Divider />
+        <Divider /> */}
       </List>
       </Box>
     </Drawer>

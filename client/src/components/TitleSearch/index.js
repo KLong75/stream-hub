@@ -155,16 +155,17 @@ const TitleSearch = ({ onSubmit }) => {
   return (
     <>
       <h3 onClick={() => handleTitleSearchClick()}>
-        Search Movies and TV Shows by Title From All Available Sources
+        Search Movies and TV Shows<br/>by Title<br/>From All Available Sources
       </h3>
       <Dialog open={modalOpen} onClose={handleCloseModal} >
-        <DialogTitle>Search by Title From All Available Sources</DialogTitle>
-        <DialogContent sx={{width: '100%'}}  >
-          <h5 style={{fontSize: '1.25rem'}}>
-            Don't see your title in the menu? Enter it anyway! If it exists,
-            we'll find it.
-          </h5>
-          <form onSubmit={searchByUserInput} style={{overflowX: 'hidden'}}>
+        <DialogTitle>Search Movies and TV Shows by Title From All Available Sources
+         
+          </DialogTitle>
+          <DialogContent >
+          <p style={{ fontSize: "1rem", padding: "1.5" }}>
+            Don't see your title in the menu? Enter it anyway! We'll find it!
+          </p>
+          <form onSubmit={searchByUserInput} style={{overflowX: 'hidden'}}> 
             <FormControl>
               <Autocomplete
                 size="small"
@@ -219,17 +220,17 @@ const TitleSearch = ({ onSubmit }) => {
                 renderOption={(props, option) => (
                   <li {...props}>{option.title}</li>
                 )}
-
                 freeSolo
                 renderInput={(params) => (
                   <TextField
-                  sx={{ width: '20rem', marginTop: '1rem' }}
+                  sx={{ width: '16rem', marginTop: '1rem' }}
                     {...params}
                     required
-                    label="Enter Title of Movie or TV Show"
+                    label="Enter Title"
                   />
                 )}
               />
+             
               <DialogActions>
                 <Button
                   type="submit"
