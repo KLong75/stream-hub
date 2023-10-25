@@ -7,7 +7,7 @@ React. Node. MongoDB. Express. Full stack application. (MERN) Serves as a centra
 
 WatchTV retrieves data from two server-side APIs (WatchMode and The Movie Database).
 
-## <a href='https://streamhub-e4fc2af8fdfc.herokuapp.com/'> Visit WatchTV</a>
+## Visit <a href='https://streamhub-e4fc2af8fdfc.herokuapp.com/'>WatchTV</a>
 Guest credentials for login: 
 <br/>
 email: guest@email.com 
