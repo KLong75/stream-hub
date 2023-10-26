@@ -64,7 +64,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
       <Box className={styles.searchDrawer}>
       <List className={styles.searchDrawer}>
         <CloseIcon className={styles.closeIcon} onClick={onClose} />
-        <h2 style={{fontSize: '1.5rem', textAlign: 'center'}}  >Search Options:</h2>
+        <h2 style={{fontSize: '1.25rem', textAlign: 'center'}}  >Search Options:</h2>
         <Divider />
         <ListItem>
           <ListItemButton>

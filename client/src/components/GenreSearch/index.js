@@ -256,7 +256,7 @@ const GenreSearch = ({ onSubmit }) => {
 
   return (
     <>
-      <h3 variant="contained" onClick={() => handleGenreSearchClick()}>
+      <h3 style ={{fontSize: '1.1rem'}} onClick={() => handleGenreSearchClick()}>
       Search Movies and TV Shows<br/>by Genre<br/>from All Available Sources 
       </h3>
       <Dialog open={isModalOpen} onClose={handleCloseModal}>

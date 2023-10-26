@@ -152,7 +152,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
     <>
       {/* <h4>Search Movies by a Combination of Genres</h4> */}
       <h3
-        variant="contained"
+        style ={{fontSize: '1.1rem'}}
         onClick={() => handleMixedGenreMovieSearchClick()}>
         Search Movies<br/>by Genre(s)<br/>From All Available Sources
       </h3>
