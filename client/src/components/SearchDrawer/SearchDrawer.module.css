@@ -3,8 +3,10 @@
   padding: 2rem;
   overflow-y: hidden;
   height: 100vh;
+  color: black;
 }
 
 .closeIcon {
   cursor: pointer;
+  margin-left: .5rem;
 }

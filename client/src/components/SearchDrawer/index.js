@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 // import from mui
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -61,15 +61,16 @@ const SearchDrawer = ({ isOpen, onClose }) => {
 
   return (
     <Drawer anchor="top" open={isOpen} onClose={onClose}>
-      <Box className={styles.searchDrawer}>
+      {/* <Box className={''}> */}
+      {/* <CloseIcon className={styles.closeIcon} onClick={onClose} /> */}
       <List className={styles.searchDrawer}>
         <CloseIcon className={styles.closeIcon} onClick={onClose} />
-        <h2 style={{fontSize: '1.25rem', textAlign: 'center'}}  >Search Options:</h2>
+        <h2 style={{fontSize: '1.2rem', textAlign: 'center', marginTop: '-.5rem', marginBottom: '.75rem'}}  >Search Options:</h2>
         <Divider />
         <ListItem>
           <ListItemButton>
             <ListItemIcon>
-              <SearchIcon />
+              <SearchIcon sx={{color: 'black'}}/>
               <TitleSearch onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
@@ -79,7 +80,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         <ListItem>
           <ListItemButton>
             <ListItemIcon>
-              <SearchIcon />
+              <SearchIcon sx={{color: 'black'}} />
               <MixedGenreMovieSearch onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
@@ -89,7 +90,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         <ListItem>
           <ListItemButton>
             <ListItemIcon>
-              <SearchIcon />
+              <SearchIcon sx={{color: 'black'}}/>
               <MixedGenreTVSearch onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
@@ -99,7 +100,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         <ListItem>
           <ListItemButton>
             <ListItemIcon>
-              <SearchIcon />
+              <SearchIcon sx={{color: 'black'}}/>
               <SearchByGenreSourceType onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
@@ -109,7 +110,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         <ListItem>
           <ListItemButton>
             <ListItemIcon>
-              <SearchIcon />
+              <SearchIcon sx={{color: 'black'}}/>
               <GenreSearch onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
@@ -119,7 +120,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         {/* <ListItem>
           <ListItemButton>
             <ListItemIcon>
-              <SearchIcon />
+              <SearchIcon sx={{color: 'black'}} />
               <ActorSearch onSubmit={handleSearchSubmit} />
             </ListItemIcon>
             <ListItemText />
@@ -127,7 +128,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
         </ListItem>
         <Divider /> */}
       </List>
-      </Box>
+      {/* </Box> */}
     </Drawer>
   );
 };

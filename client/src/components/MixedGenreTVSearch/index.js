@@ -151,7 +151,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
 
   return (
     <>
-      <h3 style ={{fontSize: '1.1rem'}} onClick={() => handleMixedGenreTvSearchClick()}>
+      <h3 style ={{fontSize: '1.1rem', color: 'black'}} onClick={() => handleMixedGenreTvSearchClick()}>
         Search TV Shows
         <br />
         by Genre(s)

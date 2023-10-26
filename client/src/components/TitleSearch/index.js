@@ -154,7 +154,7 @@ const TitleSearch = ({ onSubmit }) => {
 
   return (
     <>
-      <h3 style ={{fontSize: '1.1rem'}} onClick={() => handleTitleSearchClick()}>
+      <h3 style ={{fontSize: '1.1rem', color: 'black'}} onClick={() => handleTitleSearchClick()}>
         Search Movies and TV Shows<br/>by Title<br/>From All Available Sources
       </h3>
       <Dialog open={modalOpen} onClose={handleCloseModal} >
