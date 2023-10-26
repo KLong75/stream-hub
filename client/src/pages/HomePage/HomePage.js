@@ -45,7 +45,8 @@ const HomePage = () => {
       <section style={{ marginBottom: ".5rem" }}>
         <TrendingCategoryLinks />
       </section>
-      <h2 className={styles.greeting}>Welcome back {user.username}</h2>
+      <h2 className={styles.greeting}>Welcome back, {user.username}</h2>
+      <h2 className={styles.subGreeting}>What should we watch?</h2>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid xs={12}>
           <WatchListBackdropScroll />

@@ -6,31 +6,32 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 // import from mui
 import { Button, Box } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
+// import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import RemoveIcon from '@mui/icons-material/Remove';
 // import InfoIcon from '@mui/icons-material/Info';
-import ButtonBase from '@mui/material/ButtonBase';
+// import ButtonBase from "@mui/material/ButtonBase";
 // import DeleteIcon from '@mui/icons-material/Delete';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import IconButton from '@mui/material/IconButton';
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import IconButton from "@mui/material/IconButton";
 // import from utils
 import { QUERY_ME } from "../../utils/queries";
 import { REMOVE_TITLE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useTitleSelection } from "../../utils/useTitleSelection";
-import { sourceLogos } from "../../utils/sourceLogos";
-import { buySourceLogos } from "../../utils/buySourceLogos";
+
+// import { sourceLogos } from "../../utils/sourceLogos";
+// import { buySourceLogos } from "../../utils/buySourceLogos";
+// import { genreList } from "../../utils/utils";
 // import swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Parallax, Navigation } from "swiper/modules";
+import { Navigation, EffectCoverflow } from "swiper/modules";
 // import components
 import SearchDrawerIconButton from "../SearchDrawerIconButton";
 import FilterTitles from "../FilterTitles";
 // import styles
 import styles from "./Watchlist.module.css";
-
 
 const WatchList = () => {
   const loggedIn = Auth.loggedIn();
@@ -41,7 +42,7 @@ const WatchList = () => {
   const userData = data?.me || {};
   // console.log(userData)
   const handleTitleSelected = useTitleSelection();
- 
+
   const [removeTitle] = useMutation(REMOVE_TITLE);
 
   const handleDeleteTitle = async (id) => {
@@ -129,12 +130,15 @@ const WatchList = () => {
   }
   console.log("savedTitles", userData.savedTitles);
   console.log("filteredTitles", filteredTitles);
+  console.log("userData", userData);
 
   return (
     <>
       {loggedIn ? (
         <>
-          <h3 className={styles.yourWatchlist}>Your Watchlist</h3>
+          <h3 className={styles.yourWatchlist}>
+            {userData.username}'s Watchlist
+          </h3>
           <h4 className={styles.savedTitleCountDisplay}>
             {userData.savedTitles.length ? (
               `You have ${userData.savedTitles.length} saved ${
@@ -164,7 +168,62 @@ const WatchList = () => {
             </p>
           ) : null}
 
+          <h3 className={styles.category}>{userData.username}'s Watchlist</h3>
           <Swiper
+            style={{ "--swiper-navigation-color": "#000000" }}
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            navigation={true}
+            modules={[EffectCoverflow, Navigation]}
+            className={styles.swiper}>
+            {filteredTitles?.map((title) => (
+              <SwiperSlide
+                className={styles.slide}
+                key={title.id}
+                style={{
+                  backgroundImage: `url(${title.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                }}
+                onClick={() => handleTitleSelected(title.id)}>
+                <h4 className={styles.savedTitle}>{title.title}</h4>
+                
+                <h5 className={styles.genres}>
+                  {title.genre_names.map((genre, index) => (
+                    <span key={genre}>
+                      {genre}
+                      {index < title.genre_names.length - 1 && ", "}
+                    </span>
+                  ))}
+                </h5>
+                <h6 className={styles.releaseDate}>
+                  {title.type.includes("tv") ? "First aired on" : "Released on"}{" "}
+                  {title.release_date}
+                </h6>
+                <IconButton
+                  sx={{ color: "black", marginLeft: '14rem', padding: '.25rem', marginTop: '-4.25rem', zIndex: '1000' }}
+                  data-swiper-parallax="-100"
+                  variant="contained"
+                  onClick={() => handleDeleteTitle(title.id)}>
+                  <HighlightOffIcon
+                  sx={{zIndex: '1000'}}
+                    className={styles.removeButton}
+                  />
+                </IconButton>
+              </SwiperSlide>
+
+            ))}
+          </Swiper>
+          {/* <Swiper
             style={{
               "--swiper-navigation-color": "#000000",
             }}
@@ -201,7 +260,7 @@ const WatchList = () => {
                         {title.genre_names.join(", ")}
                       </h6>
                     </Grid>
-                    {/* {title.type && (
+                    {title.type && (
                       <Grid xs={12}>
                         <h6 className={styles.type}>
                           {title.type === "movie"
@@ -220,19 +279,23 @@ const WatchList = () => {
                       <h6 className={styles.year} data-swiper-parallax="-200">
                         {title.year}
                       </h6>
-                    </Grid> */}
+                    </Grid>
                   </Grid>
 
-                  <Grid xs={12} md={2} sx={{ position: "relative", marginTop: '.25rem' }}>
-                  <ButtonBase onClick={(event) => handleTitleSelected(title.id, event)} >
-                    <img
-                      className={styles.poster}
-                      src={title.poster}
-                      alt={title.title}
-                      data-swiper-parallax="-100"
-                    />
+                  <Grid
+                    xs={12}
+                    md={2}
+                    sx={{ position: "relative", marginTop: ".25rem" }}>
+                    <ButtonBase
+                      onClick={(event) => handleTitleSelected(title.id, event)}>
+                      <img
+                        className={styles.poster}
+                        src={title.poster}
+                        alt={title.title}
+                        data-swiper-parallax="-100"
+                      />
                     </ButtonBase>
-                  </Grid> 
+                  </Grid>
 
                   {title.sources && title.sources.length > 0 && (
                     <>
@@ -278,19 +341,19 @@ const WatchList = () => {
                             </a>
                           </Grid>
                         ))}
-                        {/* Render placeholders */}
+                        {/* Render placeholders 
                         {Array(4 - title.sources.length)
                           .fill()
                           .map((_, index) => (
                             <Grid
-                            className={styles.logoPlaceholderGrid}
+                              className={styles.logoPlaceholderGrid}
                               xs={12}
                               key={`placeholder-${index}`}
                               style={{
                                 height: "3.5rem",
                                 overflow: "hidden",
                                 zIndex: "100",
-                                padding: "0", 
+                                padding: "0",
                               }}>
                               <div
                                 style={{
@@ -309,7 +372,7 @@ const WatchList = () => {
 
                   {title.buy_sources && title.buy_sources.length > 0 && (
                     <Grid
-                      sx={{ padding: ".25rem",  }}
+                      sx={{ padding: ".25rem" }}
                       container
                       spacing={0}
                       xs={12}
@@ -353,22 +416,25 @@ const WatchList = () => {
                     </Grid>
                   )}
 
-                  <Grid container xs={12} >  
-                    <Grid xs={0} md={3}></Grid>                 
+                  <Grid container xs={12}>
+                    <Grid xs={0} md={3}></Grid>
                     <Grid xs={0} md={4}></Grid>
                     <Grid xs={12} md={4}>
                       <IconButton
-                        sx={{color: 'black'}}
+                        sx={{ color: "black" }}
                         data-swiper-parallax="-100"
                         variant="contained"
                         onClick={() => handleDeleteTitle(title.id)}>
-                        <HighlightOffIcon 
+                        <HighlightOffIcon
                           className={styles.removeButton}
-                          fontSize="large"/>
+                          fontSize="large"
+                        />
                       </IconButton>
-                      <p className={styles.removeLabel}>Remove from watchlist</p>
+                      <p className={styles.removeLabel}>
+                        Remove from watchlist
+                      </p>
                     </Grid>
-                    <Grid xs={0} md={1}></Grid> 
+                    <Grid xs={0} md={1}></Grid>
                   </Grid>
 
                   {title.backdrop && (
@@ -388,7 +454,7 @@ const WatchList = () => {
                 </Grid>
               </SwiperSlide>
             ))}
-          </Swiper>
+          </Swiper> */}
         </>
       ) : (
         <>
@@ -409,9 +475,3 @@ const WatchList = () => {
 };
 
 export default WatchList;
-
-
-
-
- 
-
