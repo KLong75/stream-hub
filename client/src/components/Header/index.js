@@ -27,15 +27,13 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <Grid container alignItems="center" justifyContent="center">
-          <Grid xs={3} md={2}>
+          <Grid xs={3} md={4} textAlign=''>
             <img className={styles.tvIcon} src={tvIcon} alt="TV icon" />
           </Grid>
-          <Grid xs={6} md={4} >
-            {/* <h1 className={styles.appTitle}>WatchTV</h1> */}
-            <h1 className={styles.appTitle}>WatchTV</h1>
+          <Grid xs={6} md={4} textAlign='center'>
+            <h1  className={styles.appTitle}>WatchTV</h1>
           </Grid>
-          <Grid xs={0} md={3}></Grid>
-          <Grid xs={3} md={3} sx={{marginBottom: '-.5rem', marginLeft: '-2rem'}}>
+          <Grid xs={3} md={4} sx={{marginBottom: '-.5rem', marginLeft: ''}} textAlign='center'>
             <Nav />
           </Grid>
         </Grid>
