@@ -168,9 +168,12 @@ const FilterTitles = ({ setFilters }) => {
           sx={{ marginTop: "-.85rem"}}
         >
           <IconButton onClick={handleOpen}>
-            <FilterIcon fontSize="large" />
+            <FilterIcon sx={{color: 'black', marginTop:'.25rem'}}fontSize="" />
           </IconButton>
+          <br />
+          
         </Grid>
+        {/* <Grid textAlign='center' xs={12}><h6>Filter WatchList</h6></Grid> */}
       </Grid>
 
       {activeFilters.length > 0 && (

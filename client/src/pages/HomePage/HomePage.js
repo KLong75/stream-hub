@@ -1,6 +1,8 @@
-import { useEffect }from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // import components
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import WatchListBackdropScroll from "../../components/WatchListBackdropScroll";
 import WatchList from "../../components/WatchList";
 import LoadingClapboard from "../../components/LoadingClapBoard";
 import WhatsHotGallery from "../../components/WhatsHotGallery";
@@ -10,10 +12,7 @@ import Auth from "../../utils/auth";
 import { QUERY_ME } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
-
-
 import styles from "./HomePage.module.css";
-
 
 const HomePage = () => {
   const loggedIn = Auth.loggedIn();
@@ -37,23 +36,27 @@ const HomePage = () => {
       <div>
         Loading...
         <LoadingClapboard />
-      </div>);
+      </div>
+    );
   }
 
-  
   return (
     <main className="gradientBackground">
-      <section style={{marginBottom: '.5rem'}}>
-        <TrendingCategoryLinks />  
-      </section>    
+      <section style={{ marginBottom: ".5rem" }}>
+        <TrendingCategoryLinks />
+      </section>
       <h2 className={styles.greeting}>Welcome back {user.username}</h2>
-        <section style={{marginTop: '0rem', marginBottom: '0rem'}}>
-          <WatchList 
-           />
-        </section>
-        <section className={styles.gallerySection} >
-          <WhatsHotGallery />
-        </section> 
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid xs={12}>
+          <WatchListBackdropScroll />
+        </Grid>
+      </Grid>
+      <section style={{ marginTop: "0rem", marginBottom: "0rem" }}>
+        <WatchList />
+      </section>
+      <section className={styles.gallerySection}>
+        <WhatsHotGallery />
+      </section>
     </main>
   );
 };

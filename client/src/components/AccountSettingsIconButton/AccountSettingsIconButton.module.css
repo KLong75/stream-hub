@@ -5,6 +5,10 @@
 .settingsButton:hover {
   color: white !important;
 }
+.settingsLabel:hover {
+  color: white !important;
+  cursor: pointer;
+}
 
 @media(max-width: 920px) {
   .settingsLabel {

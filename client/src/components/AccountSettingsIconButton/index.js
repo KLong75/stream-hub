@@ -20,10 +20,10 @@ const AccountSettingsIconButton = () => {
         isOpen={isSettingsDrawerOpen}
         onClose={handleCloseSettingsDrawer}
       />
-      <Link className={styles.settingsButton} underline="none" >
+      <Link className={styles.settingsButton} underline="none" onClick={handleOpenSettingsDrawer} >
         <SettingsIcon
           className={styles.settingsButton}
-          onClick={handleOpenSettingsDrawer}
+          
           sx={{ marginBottom: "-.5rem", cursor: "pointer" }}
           fontSize="large"
         />

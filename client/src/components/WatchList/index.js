@@ -134,7 +134,8 @@ const WatchList = () => {
     <>
       {loggedIn ? (
         <>
-          <h3 className={styles.savedTitleCountDisplay}>
+          <h3 className={styles.yourWatchlist}>Your Watchlist</h3>
+          <h4 className={styles.savedTitleCountDisplay}>
             {userData.savedTitles.length ? (
               `You have ${userData.savedTitles.length} saved ${
                 userData.savedTitles.length === 1 ? "title." : "titles."
@@ -148,7 +149,7 @@ const WatchList = () => {
                 <SearchDrawerIconButton />
               </>
             )}
-          </h3>
+          </h4>
           {userData.savedTitles.length > 0 && (
             <Box sx={{ marginTop: "0rem" }}>
               <FilterTitles setFilters={setFilters} />
