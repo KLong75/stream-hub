@@ -21,7 +21,6 @@ import TitleSearch from "../../components/TitleSearch";
 import SearchByGenreSourceType from "../../components/SearchByGenreSourceType";
 import MixedGenreMovieSearch from "../../components/MixedGenreMovieSearch";
 import MixedGenreTVSearch from "../../components/MixedGenreTVSearch";
-import Heading from "../../components/Heading";
 // import styles
 import styles from "./SearchDrawer.module.css";
 
@@ -65,7 +64,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
       <Box className={styles.searchDrawer}>
       <List className={styles.searchDrawer}>
         <CloseIcon className={styles.closeIcon} onClick={onClose} />
-        <Heading heading='Find Something To Watch' variant='h2'/>
+        <h2 style={{fontSize: '1.5rem', textAlign: 'center'}}  >Search Options:</h2>
         <Divider />
         <ListItem>
           <ListItemButton>
