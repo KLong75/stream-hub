@@ -443,6 +443,7 @@ const TitleDetails = () => {
         style={{
           backgroundImage: `url(${selectedTitleDetails.backdrop})`,
           // backgroundSize: "cover",
+          // backgroundPosition: "center",
           backgroundPosition: "top",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
