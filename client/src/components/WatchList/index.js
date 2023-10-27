@@ -155,7 +155,7 @@ const WatchList = () => {
             )}
           </h4>
           {userData.savedTitles.length > 0 && (
-            <Box sx={{ marginTop: "0rem" }}>
+            <Box sx={{ marginBottom: ".45rem" }}>
               <FilterTitles setFilters={setFilters} />
             </Box>
           )}
@@ -168,7 +168,7 @@ const WatchList = () => {
             </p>
           ) : null}
 
-          <h3 className={styles.category}>{userData.username}'s Watchlist</h3>
+          {/* <h3 className={styles.category}>{userData.username}'s Watchlist</h3> */}
           <Swiper
             style={{ "--swiper-navigation-color": "#000000" }}
             effect={"coverflow"}
@@ -190,13 +190,27 @@ const WatchList = () => {
                 className={styles.slide}
                 key={title.id}
                 style={{
-                  backgroundImage: `url(${title.poster}), linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
+                  backgroundImage: ` linear-gradient(315deg, #43cea2 0%,  #185a9d 85%)`,
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                 }}
-                onClick={() => handleTitleSelected(title.id)}>
+                // onClick={() => handleTitleSelected(title.id)}
+              >
                 <h4 className={styles.savedTitle}>{title.title}</h4>
-                
+                <div>
+                  <img
+                  className={styles.watchlistPoster}
+                    onClick={() => handleTitleSelected(title.id)}
+                    src={title.poster}
+                    alt={title.title}
+                    style={{
+                      width: "200px",
+                      height: "300px",
+                      marginLeft: "28px",
+                      marginTop: "10px",
+                    }}
+                  />
+                </div>
                 <h5 className={styles.genres}>
                   {title.genre_names.map((genre, index) => (
                     <span key={genre}>
@@ -210,17 +224,22 @@ const WatchList = () => {
                   {title.release_date}
                 </h6>
                 <IconButton
-                  sx={{ color: "black", marginLeft: '14rem', padding: '.25rem', marginTop: '-4.25rem', zIndex: '1000' }}
+                  sx={{
+                    color: "black",
+                    marginLeft: "14rem",
+                    padding: ".25rem",
+                    marginTop: "",
+                    zIndex: "1000",
+                  }}
                   data-swiper-parallax="-100"
                   variant="contained"
                   onClick={() => handleDeleteTitle(title.id)}>
                   <HighlightOffIcon
-                  sx={{zIndex: '1000'}}
+                    sx={{ zIndex: "1000" }}
                     className={styles.removeButton}
                   />
                 </IconButton>
               </SwiperSlide>
-
             ))}
           </Swiper>
           {/* <Swiper

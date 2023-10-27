@@ -18,6 +18,7 @@ import "swiper/css/effect-fade";
 import { Autoplay } from "swiper/modules";
 
 
+
 export default function WatchListBackdropScroll() {
   const { username: userParam } = useParams();
   const { data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
@@ -52,12 +53,12 @@ export default function WatchListBackdropScroll() {
               <Grid xs={12}>      
               <ButtonBase onClick={(event) => handleTitleSelected(title.id, event)} >
                 <img
-                  style={{ width: "90%", height: "auto" }}
+                  style={{ width: "80%", height: "auto" }}
                   src={title.backdrop}
                   alt={title.title}>
                 </img>
               </ButtonBase>
-                <h2 style={{fontFamily: 'Raleway', fontSize:'.95rem', marginTop: '0'}}>{title.title}</h2>
+                {/* <h2 style={{fontFamily: 'Raleway', fontSize:'.95rem', marginTop: '0'}}>{title.title}</h2> */}
               </Grid>
             </Grid>
           </SwiperSlide>

@@ -20,10 +20,10 @@ const HomePage = () => {
 
   const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
+  const { loading } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
     variables: { username: userParam },
   });
-  const user = data?.me || {};
+  // const user = data?.me || {};
 
   useEffect(() => {
     if (!loggedIn) {
@@ -45,14 +45,15 @@ const HomePage = () => {
       <section style={{ marginBottom: ".5rem" }}>
         <TrendingCategoryLinks />
       </section>
-      <h2 className={styles.greeting}>Welcome back, {user.username}</h2>
-      <h2 className={styles.subGreeting}>What should we watch?</h2>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+      
+      {/* <h2 className={styles.greeting}>What do you want to watch?</h2> */}
+      {/* <h2 className={styles.subGreeting}>What should we watch?</h2> */}
+      <Grid container justifyContent="center" alignItems="center" sx={{marginTop: '.65rem'}}>
         <Grid xs={12}>
           <WatchListBackdropScroll />
         </Grid>
       </Grid>
-      <section style={{ marginTop: "0rem", marginBottom: "0rem" }}>
+      <section style={{ marginTop: "2rem", marginBottom: "-3rem" }}>
         <WatchList />
       </section>
       <section className={styles.gallerySection}>

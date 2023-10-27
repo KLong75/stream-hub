@@ -22,7 +22,7 @@
 
 .swiper {
   width: 100%;
-  height: 100%;
+  height: auto;
   /* background: #000; */
 }
 
@@ -113,7 +113,7 @@
 .slide {
   width: 16rem;
   height: 24rem;
-  margin-bottom: .5rem;
+  margin-bottom: 5rem;
   cursor: pointer;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -156,7 +156,7 @@
 .genres{
   font-size: .8rem;
   margin-bottom: 0;
-  margin-top: 19.4rem;
+  margin-top: -.35rem;
   padding-left: .3rem;
   margin-left: .6rem;
   white-space: nowrap;
@@ -167,10 +167,16 @@
 .releaseDate {
   font-size: .8rem;
   margin-bottom: 0;
-  margin-top: -.2rem;
+  margin-top: 0rem;
   padding-bottom: .5rem;
   padding-left: .3rem;
   margin-left: .6rem;
+}
+
+.watchlistPoster:hover {
+  /* opacity: .6; */
+  transform: scale(1.01);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
 }
 
 
@@ -195,9 +201,11 @@
   }
 } */
 
-@media(max-width: 500px) {
-  .backdropBox {
-    /* height: 30vh; */
+/* media queries */
+@media (max-width: 500px ) {
+  .slide {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
