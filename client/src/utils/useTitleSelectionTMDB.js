@@ -29,7 +29,7 @@ export const useTitleSelectionTMDBId = () => {
 
   const handleTitleSelectedTMDBId = async (id, event) => {
     if (event) event.preventDefault();
-    const selectedTitleId = id;
+    const selectedTitleId = String(id);
     console.log(selectedTitleId);
     const numericPartOfId = selectedTitleId.match(/\d+/)[0];
     const tmdbIdNumber = parseInt(numericPartOfId);
