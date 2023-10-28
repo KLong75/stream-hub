@@ -33,7 +33,7 @@ const UpdateUserEmailModal = ({ onClose, onSuccessfulUpdate }) => {
       });
 
       if (data && data.updateUser) {
-        console.log("Email updated successfully:", data.updateUser);
+        // console.log("Email updated successfully:", data.updateUser);
         onClose();
        
         // Notify the parent component of the successful update
@@ -42,7 +42,7 @@ const UpdateUserEmailModal = ({ onClose, onSuccessfulUpdate }) => {
           
         }
       } else {
-        console.log("Update failed:", data);
+        // console.log("Update failed:", data);
       }
     } catch (e) {
       console.error("An error occurred while updating the user:", e);

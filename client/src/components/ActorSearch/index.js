@@ -47,16 +47,16 @@ const ActorSearch = ({onSubmit}) => {
 
     if (cachedSortedActors) {
       const { data, timestamp } = JSON.parse(cachedSortedActors);
-      console.log("Stored Data Retrieved:", data);
+      // console.log("Stored Data Retrieved:", data);
 
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setTopActors(data);
-        console.log("Using Cached Data:", data);
+        // console.log("Using Cached Data:", data);
         return;
       } else {
         localStorage.removeItem("sortedActorList");
-        console.log("Cached sortedActorList Expired and Removed");
+        // console.log("Cached sortedActorList Expired and Removed");
       }
     }
 
@@ -64,13 +64,13 @@ const ActorSearch = ({onSubmit}) => {
       try {
         const response = await fetchTopPeoplePageOne();
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         const actors = data.results.map((person) => ({
           name: person.name,
           id: person.id,
         }));
         setTopActors(actors);
-        console.log(actors);
+        // console.log(actors);
       } catch (error) {
         console.log(error);
       }
@@ -80,30 +80,30 @@ const ActorSearch = ({onSubmit}) => {
       try {
         const response = await fetchTopPeoplePageTwo();
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         const newActors = data.results.map((person) => ({
           name: person.name,
           id: person.id,
         }));
         setTopActors((prevActors) => [...prevActors, ...newActors]);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
-      console.log('topActors', topActors);
+      // console.log('topActors', topActors);
     };
 
     const topPeopleNamesPageThree = async () => {
       try {
         const response = await fetchTopPeoplePageThree();
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         const newActors = data.results.map((person) => ({
           name: person.name,
           id: person.id,
         }));
         setTopActors((prevActors) => [...prevActors, ...newActors]);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
       // console.log(topActors);
     };
@@ -112,7 +112,7 @@ const ActorSearch = ({onSubmit}) => {
       try {
         const response = await fetchTopPeoplePageFour();
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         const newActors = data.results.map((person) => ({
           name: person.name,
           id: person.id,
@@ -128,7 +128,7 @@ const ActorSearch = ({onSubmit}) => {
       try {
         const response = await fetchTopPeoplePageFive();
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         const newActors = data.results.map((person) => ({
           name: person.name,
           id: person.id,
@@ -157,7 +157,7 @@ const ActorSearch = ({onSubmit}) => {
     const sorted = [...topActors].sort((a, b) =>
       a.name.localeCompare(b.name)
     );
-    console.log(sorted)
+    // console.log(sorted)
     setSortedActors(sorted);
 
     const cacheData = {
@@ -178,17 +178,17 @@ const ActorSearch = ({onSubmit}) => {
 
     if (cachedActorSearchResults) {
       const { data, timestamp } = JSON.parse(cachedActorSearchResults);
-      console.log("Stored Data Retrieved:", data);
+      // console.log("Stored Data Retrieved:", data);
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setActorSearchResults(data);
         handleCloseModal();
-        console.log("Using Cached Data:", data);
+        // console.log("Using Cached Data:", data);
         navigate('/actor_search_results', { state: { data, searchTerm: searchedName },});
         setSearchTerm("");
       } else {
         localStorage.removeItem(`actorSearchResults_${searchedName}`);
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
       onSubmit();
     }
@@ -196,14 +196,14 @@ const ActorSearch = ({onSubmit}) => {
     if (!cachedActorSearchResults) {
       try {
         const response = await searchByName(searchedName);
-        console.log(response);
+        // console.log(response);
 
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
 
         const results = await response.json();
-        console.log('actor search results', results);
+        // console.log('actor search results', results);
 
         const actorSearchData = results.results.filter((actor) => {
           if (actor.known_for_department !== "Acting") {
@@ -227,7 +227,7 @@ const ActorSearch = ({onSubmit}) => {
           poster_url: actor.known_for.length > 0 ? "https://image.tmdb.org/t/p/w500/" + actor.known_for[0].poster_path : "",
           image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
         }));
-        console.log(actorSearchData);
+        // console.log(actorSearchData);
         setSearchTerm("");
         setActorSearchResults(actorSearchData);
         const cacheData = {
@@ -238,7 +238,7 @@ const ActorSearch = ({onSubmit}) => {
           `actorSearchResults_${searchedName}`,
           JSON.stringify(cacheData)
         );
-        console.log(searchedName);
+        // console.log(searchedName);
         handleCloseModal();
         navigate('/actor_search_results', {state: {data: actorSearchData, searchTerm: searchedName},});
       } catch (err) {

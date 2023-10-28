@@ -35,13 +35,13 @@ const UpdateUsernameModal = ({ onClose, onSuccessfulUpdate }) => {
         },
       });
       if (data && data.updateUser) {
-        console.log("Username updated successfully:", data.updateUser);
+        // console.log("Username updated successfully:", data.updateUser);
         onClose();
         if (onSuccessfulUpdate) {
           onSuccessfulUpdate();
         }
       } else {
-        console.log("Update failed:", data);
+        // console.log("Update failed:", data);
       }
     } catch (e) {
       console.error("An error occurred while updating the user:", e);

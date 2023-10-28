@@ -46,12 +46,12 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
   };
 
   useEffect(() => {
-    console.log("State has changed: ", userInput);
+    // console.log("State has changed: ", userInput);
   }, [userInput]);
 
   const handleGenreChange = (event) => {
     const { value, checked } = event.target;
-    console.log("Genre checkbox change: ", { value, checked });
+    // console.log("Genre checkbox change: ", { value, checked });
     setUserInput((prevUserInput) => {
       // Check if the checkbox was checked or unchecked
       if (checked) {
@@ -69,7 +69,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("User input: ", userInput);
+    // console.log("User input: ", userInput);
 
     const searchedGenres = userInput.genres.join(",");
 
@@ -85,7 +85,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setMixedGenreSearchResults(data);
-        console.log("Using cached mixed genre movie search results", data);
+        // console.log("Using cached mixed genre movie search results", data);
         navigate("/mixed_genre_search_results", {
           state: { titles: data, genres: userInput.genres },
         });
@@ -95,7 +95,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
         localStorage.removeItem(
           `mixedGenreMovieSearchResults_${searchedGenres}`
         );
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
 
@@ -108,7 +108,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
         }
 
         const searchResults = await response.json();
-        console.log("Mixed Genre Movie Search Results: ", searchResults);
+        // console.log("Mixed Genre Movie Search Results: ", searchResults);
 
         const searchResultsTitleData = searchResults.results.map((movie) => ({
           id: movie.id,
@@ -122,10 +122,10 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
           genres: movie.genre_ids,
         }));
 
-        console.log(
-          "Mixed Genre Movie Search Title Data: ",
-          searchResultsTitleData
-        );
+        // console.log(
+        //   "Mixed Genre Movie Search Title Data: ",
+        //   searchResultsTitleData
+        // );
 
         setMixedGenreSearchResults(searchResultsTitleData);
 

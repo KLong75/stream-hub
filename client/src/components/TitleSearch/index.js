@@ -85,7 +85,7 @@ const TitleSearch = ({ onSubmit }) => {
 
   const searchByUserInput = async (event) => {
     event.preventDefault();
-    console.log(value.title);
+    // console.log(value.title);
     const userInput = value.title;
     setValue(userInput);
 
@@ -95,32 +95,32 @@ const TitleSearch = ({ onSubmit }) => {
 
     if (cachedTitleSearchResults) {
       const { data, timestamp } = JSON.parse(cachedTitleSearchResults);
-      console.log(data);
+      // console.log(data);
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setTitleSearchResults(data);
-        console.log("Using Cached Data:", data);
+        // console.log("Using Cached Data:", data);
         navigate("/title_search_results", { state: { data, searchedTitle: userInput } });
         setModalOpen(false);
         onSubmit();
         // return;
       } else {
         localStorage.removeItem(`titleSearchResults_${userInput}`);
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
 
     if (!cachedTitleSearchResults) {
       try {
         const response = await searchByTitle(userInput);
-        console.log(response);
+        // console.log(response);
 
         if (!response.ok) {
           alert("Something went wrong. Please try again.");
         }
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         const titleSearchData = data.results.map((titles) => ({
           id: titles.id,
@@ -130,7 +130,7 @@ const TitleSearch = ({ onSubmit }) => {
           image_url: titles.image_url,
         }));
 
-        console.log(titleSearchData);
+        // console.log(titleSearchData);
         setTitleSearchResults(titleSearchData);
 
         const cacheData = {

@@ -24,7 +24,7 @@ const GenreSearchResults = () => {
   const searchedGenreLabel = location.state?.genre;
   const { genreSearchResults } = useContext(SearchResultsContext); // Get the data from context
   // useEffect(() => {}, [genreSearchResults]);
-  console.log(genreSearchResults);
+  // console.log(genreSearchResults);
   const handleTitleSelected = useTitleSelection();
 
   const TitleBox = styled(Paper)(({ theme }) => ({

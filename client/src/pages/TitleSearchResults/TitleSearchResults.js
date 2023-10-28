@@ -12,11 +12,11 @@ import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from utils
 import { useTitleSelection } from "../../utils/useTitleSelection";
 import Auth from "../../utils/auth";
-import { QUERY_ME } from "../../utils/queries";
+// import { QUERY_ME } from "../../utils/queries";
 // import from apollo
-import { useQuery } from "@apollo/client";
+// import { useQuery } from "@apollo/client";
 // import components
-import LoadingClapBoard from "../../components/LoadingClapBoard";
+// import LoadingClapBoard from "../../components/LoadingClapBoard";
 // import styles
 import styles from "./TitleSearchResults.module.css";
 
@@ -27,14 +27,15 @@ const TitleSearchResults = () => {
 
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
-  const { data, loading } = useQuery(QUERY_ME);
+  // const { data, loading } = useQuery(QUERY_ME);
+  // const { loading } = useQuery(QUERY_ME);
 
-  const savedTitleIds = data?.me.savedTitles.map((title) => title.id) || [];
-  console.log("savedTitleIds", savedTitleIds);
+  // const savedTitleIds = data?.me.savedTitles.map((title) => title.id) || [];
+  // console.log("savedTitleIds", savedTitleIds);
 
   const searchedTitle = location.state?.searchedTitle;
   const { titleSearchResults } = useContext(SearchResultsContext); // Get the data from context
-  console.log(titleSearchResults);
+  // console.log(titleSearchResults);
   const handleTitleSelected = useTitleSelection();
 
   useEffect(() => {
@@ -54,9 +55,9 @@ const TitleSearchResults = () => {
     return <div>Please login or signup</div>;
   }
 
-  if (loading) {
-    return <LoadingClapBoard />;
-  }
+  // if (loading) {
+  //   return <LoadingClapBoard />;
+  // }
 
   
   return (

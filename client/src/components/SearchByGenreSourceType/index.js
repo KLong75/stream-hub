@@ -50,12 +50,12 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
   const { setGenreSourceTypeSearchResults } = useContext(SearchResultsContext);
 
   useEffect(() => {
-    console.log("State has changed: ", userInput);
+    // console.log("State has changed: ", userInput);
   }, [userInput]);
 
   const handleGenreChange = (event) => {
     const { value, checked } = event.target;
-    console.log("Genre checkbox change: ", { value, checked });
+    // console.log("Genre checkbox change: ", { value, checked });
     setUserInput((prevUserInput) => {
       // Check if the checkbox was checked or unchecked
       if (checked) {
@@ -73,7 +73,7 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
 
   const handleTypeChange = (event) => {
     const { value, checked } = event.target;
-    console.log("Type checkbox change: ", { value, checked });
+    // console.log("Type checkbox change: ", { value, checked });
     setUserInput((prevUserInput) => {
       if (checked) {
         return { ...prevUserInput, type: [...prevUserInput.type, value] };
@@ -103,7 +103,7 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Perform any necessary actions with the selected values
-    console.log(userInput.genres, userInput.type, userInput.source); // Example: Output selected options to the console
+    // console.log(userInput.genres, userInput.type, userInput.source); // Example: Output selected options to the console
 
     // Convert arrays to comma-separated strings for the API call
     const genres = userInput.genres.join(",");
@@ -122,7 +122,7 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setGenreSourceTypeSearchResults(data);
-        console.log("Using cached data", data);
+        // console.log("Using cached data", data);
         navigate("/genre_source_type_search_results", {
           state: {
             titles: data,
@@ -142,7 +142,7 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
         localStorage.removeItem(
           `genreSourceType_${genres}_${sources}_${types}`
         );
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
 
@@ -160,7 +160,7 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
 
         const { titles } = await response.json();
 
-        console.log(titles);
+        // console.log(titles);
 
         if (titles.length === 0) {
           alert("No results found. Please try again.");
@@ -180,8 +180,8 @@ const SearchByGenreSourceType = ({ onSubmit }) => {
 
         setGenreSourceTypeSearchResults(titleData);
 
-        console.log(titleData);
-        console.log(`genres: ${genres}, sources: ${sources}, types: ${types}`);
+        // console.log(titleData);
+        // console.log(`genres: ${genres}, sources: ${sources}, types: ${types}`);
 
         const cacheData = {
           data: titleData,

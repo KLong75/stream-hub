@@ -53,7 +53,7 @@ const TitleDetails = () => {
   // console.log("savedTitleIds", savedTitleIds);
 
   const title = useContext(TitleDetailsContext);
-  console.log("title", title);
+  // console.log("title", title);
   const { selectedTitleDetails } = useContext(TitleDetailsContext);
   // console.log("selectedTitleDetails", selectedTitleDetails);
   const { setActorSearchResults } = useContext(SearchResultsContext);
@@ -131,7 +131,7 @@ const TitleDetails = () => {
       const fuboTv = sources.filter((source) => source.source_id === 373);
 
       const buy_sources = selectedTitleDetails.buy_sources || [];
-      console.log(buy_sources);
+      // console.log(buy_sources);
       const buyAmazon = buy_sources.filter((source) => source.source_id === 24);
       const buyItunes = buy_sources.filter(
         (source) => source.source_id === 349
@@ -154,7 +154,7 @@ const TitleDetails = () => {
       if (appleTv.length >= 1) {
         const appleTvUrl = appleTv[0].web_url;
         setAppleTvUrl(appleTvUrl);
-        console.log(appleTvUrl);
+        // console.log(appleTvUrl);
       }
       if (netflix.length >= 1) {
         const netflixUrl = netflix[0].web_url;
@@ -300,7 +300,7 @@ const TitleDetails = () => {
         return;
       } else {
         localStorage.removeItem(`actorSearchResults_${searchedName}`);
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
 
@@ -312,7 +312,7 @@ const TitleDetails = () => {
           throw new Error("Something went wrong");
         }
         const results = await response.json();
-        console.log(results);
+        // console.log(results);
         const actorSearchData = results.results
           .filter((actor) => {
             if (
@@ -421,8 +421,8 @@ const TitleDetails = () => {
       await saveTitle({
         variables: { input },
       });
-      console.log(`Title ${input.title} saved successfully`, input);
-      console.log(input.id);
+      // console.log(`Title ${input.title} saved successfully`, input);
+      // console.log(input.id);
     } catch (err) {
       console.error(err);
     }
@@ -829,7 +829,7 @@ const TitleDetails = () => {
                       <Button
                         value={castMember.name}
                         onClick={(e) => {
-                          console.log("Button clicked:", e.currentTarget.value);
+                          // console.log("Button clicked:", e.currentTarget.value);
                           handleActorNameClicked(e);
                         }}
                         style={{

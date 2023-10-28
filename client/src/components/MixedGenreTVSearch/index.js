@@ -50,12 +50,12 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
   };
 
   useEffect(() => {
-    console.log("State has changed: ", userInput);
+    // console.log("State has changed: ", userInput);
   }, [userInput]);
 
   const handleGenreChange = (event) => {
     const { value, checked } = event.target;
-    console.log("Genre checkbox change: ", { value, checked });
+    // console.log("Genre checkbox change: ", { value, checked });
     setUserInput((prevUserInput) => {
       // Check if the checkbox was checked or unchecked
       if (checked) {
@@ -73,10 +73,10 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("User input: ", userInput);
+    // console.log("User input: ", userInput);
 
     const searchedGenres = userInput.genres.join(",");
-    console.log("Searched Genres: ", searchedGenres);
+    // console.log("Searched Genres: ", searchedGenres);
 
     const cachedMixedGenreTvSearchResults = localStorage.getItem(
       `mixedGenreTvSearchResults_${searchedGenres}`
@@ -88,7 +88,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setMixedGenreSearchResults(data);
-        console.log("Using cached mixed genre tv search results", data);
+        // console.log("Using cached mixed genre tv search results", data);
         navigate("/mixed_genre_search_results", {
           state: { titles: data, genres: userInput.genres },
         });
@@ -96,7 +96,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
         onSubmit();
       } else {
         localStorage.removeItem(`mixedGenreTvSearchResults_${searchedGenres}`);
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
 
@@ -109,7 +109,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
         }
 
         const searchResults = await response.json();
-        console.log("Mixed Genre TV Search Results: ", searchResults);
+        // console.log("Mixed Genre TV Search Results: ", searchResults);
 
         const searchResultsTitleData = searchResults.results.map((tvShow) => ({
           id: tvShow.id,
@@ -123,10 +123,10 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
           genres: tvShow.genre_ids,
         }));
 
-        console.log(
-          "Mixed Genre Tv Search Title Data: ",
-          searchResultsTitleData
-        );
+        // console.log(
+        //   "Mixed Genre Tv Search Title Data: ",
+        //   searchResultsTitleData
+        // );
 
         setMixedGenreSearchResults(searchResultsTitleData);
 

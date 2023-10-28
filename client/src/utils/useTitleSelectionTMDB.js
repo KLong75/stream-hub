@@ -21,7 +21,7 @@ export const useTitleSelectionTMDBId = () => {
   const { data } = useQuery(QUERY_ME);
   const userData = data?.me || {};
   const savedTitles = userData.savedTitles || [];
-  console.log('useIMDBId savedTitles', savedTitles)
+  // console.log('useIMDBId savedTitles', savedTitles)
   let cast;
   let crew;
   const navigate = useNavigate();
@@ -30,16 +30,16 @@ export const useTitleSelectionTMDBId = () => {
   const handleTitleSelectedTMDBId = async (id, event) => {
     if (event) event.preventDefault();
     const selectedTitleId = String(id);
-    console.log(selectedTitleId);
+    // console.log(selectedTitleId);
     const numericPartOfId = selectedTitleId.match(/\d+/)[0];
     const tmdbIdNumber = parseInt(numericPartOfId);
-    console.log(tmdbIdNumber);
+    // console.log(tmdbIdNumber);
 
     for (let i = 0; i < savedTitles.length; i++) {
-      console.log(savedTitles[i].tmdb_id)
+      // console.log(savedTitles[i].tmdb_id)
       if (savedTitles[i].tmdb_id === tmdbIdNumber) {
         setSelectedTitleDetails(savedTitles[i])
-        console.log('title data pulled from database', savedTitles[i])
+        // console.log('title data pulled from database', savedTitles[i])
         navigate("/title_details");
         window.scrollTo(0, 0);
         return;
@@ -49,23 +49,23 @@ export const useTitleSelectionTMDBId = () => {
     const cachedTitleDetails = localStorage.getItem(
       `titleDetails_${selectedTitleId}`
     );
-    console.log(
-      "Cached Data Retrieved: cachedTitleDetails",
-      cachedTitleDetails
-    );
+    // console.log(
+    //   "Cached Data Retrieved: cachedTitleDetails",
+    //   cachedTitleDetails
+    // );
     if (cachedTitleDetails) {
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
-      console.log(CACHE_DURATION);
+      // console.log(CACHE_DURATION);
       const now = Date.now();
-      console.log(now - timestamp);
+      // console.log(now - timestamp);
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
-        console.log("cached data retrieved, parsed, time checked", data);
+        // console.log("cached data retrieved, parsed, time checked", data);
         navigate("/title_details");
         window.scrollTo(0, 0);
       } else {
         localStorage.removeItem(`titleDetails_${selectedTitleId}`);
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
     if (!cachedTitleDetails) {
@@ -75,7 +75,7 @@ export const useTitleSelectionTMDBId = () => {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
-        console.log("New Data Retrieved:", titleDetails);
+        // console.log("New Data Retrieved:", titleDetails);
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
@@ -145,11 +145,11 @@ export const useTitleSelectionTMDBId = () => {
               throw new Error("Something went wrong fetching cast and crew");
             }
             const moreTitleData2 = await tvTitleResponse2.json();
-            console.log('moreTitleData2', moreTitleData2);
+            // console.log('moreTitleData2', moreTitleData2);
             cast = moreTitleData2.cast;
             crew = moreTitleData2.crew;
-            console.log('cast', cast);
-            console.log('crew', crew);
+            // console.log('cast', cast);
+            // console.log('crew', crew);
           }
           catch (err) {
             console.error(err);
@@ -186,7 +186,7 @@ export const useTitleSelectionTMDBId = () => {
           imdb_id: titleDetails.imdb_id,
           tmdb_id: titleDetails.tmdb_id,
         };
-        console.log('titleDetailsData', titleDetailsData);
+        // console.log('titleDetailsData', titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);
         const cacheData = {
           data: titleDetailsData,
@@ -198,7 +198,7 @@ export const useTitleSelectionTMDBId = () => {
         ); 
         navigate("/title_details");
         window.scrollTo(0, 0);
-        console.log('navitgated to title details')
+        // console.log('navitgated to title details')
       } catch (error) {
         console.log(error);
       }

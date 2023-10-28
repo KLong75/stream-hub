@@ -14,7 +14,7 @@ export const ComingSoonProvider = ({ children }) => {
 
       if (cachedMoviesComingSoon) {
         const { data, timestamp } = JSON.parse(cachedMoviesComingSoon);
-        console.log("Cached Data Retrieved: cachedMoviesComingSoon", data);
+        // console.log("Cached Data Retrieved: cachedMoviesComingSoon", data);
         const now = Date.now();
         if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
           setComingSoon(data);
@@ -28,7 +28,7 @@ export const ComingSoonProvider = ({ children }) => {
         try {
           const responseOne = await fetchMoviesComingSoon();
           const comingSoonDataOne = await responseOne.json();
-          console.log(comingSoonDataOne);
+          // console.log(comingSoonDataOne);
 
           const responseTwo = await fetchMoviesComingSoonPageTwo();
           const comingSoonDataTwo = await responseTwo.json();
@@ -45,7 +45,7 @@ export const ComingSoonProvider = ({ children }) => {
           const combinedData = [...comingSoonDataOne.results, ...comingSoonDataTwo.results, ...comingSoonDataThree.results, ...comingSoonDataFour.results, ...comingSoonDataFive.results];
           const currentDate = new Date();
           currentDate.setHours(0,0,0,0)
-          console.log(currentDate);
+          // console.log(currentDate);
 
           const moviesComingSoon = combinedData
           // .filter(movie => new Date(movie.release_date) > currentDate)
@@ -64,7 +64,7 @@ export const ComingSoonProvider = ({ children }) => {
             genre: movie.genre_ids,
           }));
 
-          console.log(moviesComingSoon)
+          // console.log(moviesComingSoon)
 
           setComingSoon(moviesComingSoon);
 

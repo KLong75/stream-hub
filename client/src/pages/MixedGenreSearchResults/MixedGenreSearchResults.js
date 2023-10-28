@@ -30,7 +30,7 @@ const MixedGenreSearchResults = () => {
   const [searchedGenres] = useState(searchedGenresFromRouter);
 
   useEffect(() => {}, [mixedGenreSearchResults]);
-  console.log(mixedGenreSearchResults);
+  // console.log(mixedGenreSearchResults);
 
   const handleTitleSelected = useTitleSelectionTMDBId();
 

@@ -46,7 +46,7 @@ const WatchList = () => {
   const [removeTitle] = useMutation(REMOVE_TITLE);
 
   const handleDeleteTitle = async (id) => {
-    console.log(id);
+    // console.log(id);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
@@ -86,7 +86,7 @@ const WatchList = () => {
           return [type];
         })
         .flat();
-      console.log(typeFilter);
+      // console.log(typeFilter);
 
       if (!typeFilter.includes(title.type)) {
         return false;

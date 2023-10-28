@@ -176,10 +176,10 @@ const GenreSearch = ({ onSubmit }) => {
     const cachedGenreSearchResults = localStorage.getItem(
       `genreSearchResults_${selectedGenreCode}`
     );
-    console.log(
-      "Cached Genre Search Results Retrieved:",
-      cachedGenreSearchResults
-    );
+    // console.log(
+    //   "Cached Genre Search Results Retrieved:",
+    //   cachedGenreSearchResults
+    // );
 
     if (cachedGenreSearchResults) {
       const { data, timestamp } = JSON.parse(cachedGenreSearchResults);
@@ -189,27 +189,27 @@ const GenreSearch = ({ onSubmit }) => {
       )?.label;
 
 
-      console.log("Stored Data Retrieved:", data);
-      console.log("Stored Timestamp:", timestamp);
-      console.log("Current Time:", Date.now());
+      // console.log("Stored Data Retrieved:", data);
+      // console.log("Stored Timestamp:", timestamp);
+      // console.log("Current Time:", Date.now());
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setGenreSearchResults(data);
-        console.log("Using Cached Data:", data);
+        // console.log("Using Cached Data:", data);
         navigate("/search_results", { state: { titles: data, genre: selectedGenreLabel } }); // <- navigate with useNavigate
         setSelectedGenre("");
         setModalOpen(false);
         onSubmit();
       } else {
         localStorage.removeItem(`genreSearchResults_${selectedGenreCode}`);
-        console.log("Cached Data Expired and Removed");
+        // console.log("Cached Data Expired and Removed");
       }
     }
 
     if (!cachedGenreSearchResults) {
       try {
         const response = await searchByGenre(selectedGenreCode);
-        console.log(searchByGenre(selectedGenreCode));
+        // console.log(searchByGenre(selectedGenreCode));
 
         if (!response.ok) {
           // throw new Error("Something went wrong");
@@ -217,7 +217,7 @@ const GenreSearch = ({ onSubmit }) => {
         }
         const { titles } = await response.json();
 
-        console.log(titles);
+        // console.log(titles);
 
         const titleData = titles.map((titles) => ({
           id: titles.id,
@@ -226,7 +226,7 @@ const GenreSearch = ({ onSubmit }) => {
           year: titles.year,
         }));
 
-        console.log(titleData);
+        // console.log(titleData);
 
         setGenreSearchResults(titleData);
         setSelectedGenre("");

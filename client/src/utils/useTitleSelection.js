@@ -17,7 +17,7 @@ export const useTitleSelection = () => {
   const { data } = useQuery(QUERY_ME);
   const userData = data?.me || {};
   const savedTitles = userData.savedTitles || [];
-  console.log('savedTitleSelection savedTitles',savedTitles)
+  // console.log('savedTitleSelection savedTitles',savedTitles)
 
   let cast;
   let crew;
@@ -33,7 +33,7 @@ export const useTitleSelection = () => {
     for (let i = 0; i < savedTitles.length; i++) {
       if (savedTitles[i].id === selectedTitleId) {
         setSelectedTitleDetails(savedTitles[i])
-        console.log('title data pulled from database')
+        // console.log('title data pulled from database')
         navigate("/title_details");
         window.scrollTo(0, 0);
         return;
@@ -48,10 +48,10 @@ export const useTitleSelection = () => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
-        console.log(
-          "cached data retrieved for selectedTitleDetails, parsed, time checked",
-          data
-        );
+        // console.log(
+        //   "cached data retrieved for selectedTitleDetails, parsed, time checked",
+        //   data
+        // );
         navigate("/title_details");
         window.scrollTo(0, 0);
       } else {
@@ -66,7 +66,7 @@ export const useTitleSelection = () => {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
-        console.log('New titleDetailsfetched', titleDetails)
+        // console.log('New titleDetailsfetched', titleDetails)
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
@@ -99,7 +99,7 @@ export const useTitleSelection = () => {
               throw new Error("Something went wrong");
             }
             const similarTitleData = await response.json();
-            console.log('similarTitleData', similarTitleData)
+            // console.log('similarTitleData', similarTitleData)
             const similarTitleDetails = {
               id: similarTitleData.id,
               title: similarTitleData.title,
@@ -141,8 +141,8 @@ export const useTitleSelection = () => {
           const moreTitleData2 = await tvTitleResponse2.json();
           cast = moreTitleData2.cast;
             crew = moreTitleData2.crew;
-            console.log('cast', cast);
-            console.log('crew', crew);
+            // console.log('cast', cast);
+            // console.log('crew', crew);
         }
         catch (err) {
           console.error(err);
@@ -174,7 +174,7 @@ export const useTitleSelection = () => {
           imdb_id: titleDetails.imdb_id,
           tmdb_id: titleDetails.tmdb_id
         };
-        console.log(titleDetailsData);
+        // console.log(titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);
         const cacheData = {
           data: titleDetailsData,

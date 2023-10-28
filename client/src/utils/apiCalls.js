@@ -4,7 +4,7 @@ export const fetchGenres = () => {
     fetch(`https://api.watchmode.com/v1/genres/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
+      // console.log(data)
       
     })
     .catch((err) => {
@@ -34,15 +34,15 @@ export const fetchSources = () => {
     fetch(`https://api.watchmode.com/v1/sources/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
+      // console.log(data)
       const subSources = data.filter((source => source.type === 'sub'))
-      console.log(subSources)
+      // console.log(subSources)
       const purchaseSources = data.filter((source => source.type === 'purchase'))
-      console.log(purchaseSources)
+      // console.log(purchaseSources)
       const freeSources = data.filter((source => source.type === 'free'))
-      console.log(freeSources)
+      // console.log(freeSources)
       const rentalSources = data.filter((source => source.type === 'rental'))
-      console.log(rentalSources)
+      // console.log(rentalSources)
     })
     .catch((err) => {
       console.log(err.message);
@@ -54,7 +54,7 @@ export const fetchTitlesBySource= () => {
   fetch(`https://api.watchmode.com/v1/list-titles/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}&source_ids=203&genre=15&types=movie&sort_by=popularity_desc`)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data)
+    // console.log(data)
     
   })
   .catch((err) => {
@@ -364,7 +364,7 @@ export const discoverTrendingActionMovies = () => {
   fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=14&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data)
+    // console.log(data)
   })
   .catch((err) => {
     console.log(err.message);
@@ -375,7 +375,7 @@ export const trendingTvTest = () => {
   fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=10759&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
   .then((response) => response.json())
   .then((data) => {
-    console.log('trending tv test', data)
+    // console.log('trending tv test', data)
   })
   .catch((err) => {
     console.log(err.message);
@@ -392,7 +392,7 @@ export const searchTmdbMoviesByGenre = () => {
   fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=28,878&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data)
+    // console.log(data)
   })
   .catch((err) => {
     console.log(err.message);

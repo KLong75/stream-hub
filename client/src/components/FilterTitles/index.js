@@ -104,9 +104,9 @@ const FilterTitles = ({ setFilters }) => {
       [event.target.name]: event.target.checked,
     });
   };
-  console.log("genreFilter: ", genreFilter);
-  console.log("typeFilter: ", typeFilter);
-  console.log("sourceFilter: ", sourceFilter);
+  // console.log("genreFilter: ", genreFilter);
+  // console.log("typeFilter: ", typeFilter);
+  // console.log("sourceFilter: ", sourceFilter);
 
   useEffect(() => {
     const typeArray = Object.keys(typeFilter).filter((key) => typeFilter[key]);

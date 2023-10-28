@@ -54,7 +54,7 @@ export const PopularTvProvider = ({ children }) => {
             ...dataFour.results,
             ...dataFive.results,
           ];
-          console.log(combinedData);
+          // console.log(combinedData);
 
           const popularTvShows = combinedData.map((tvShow) => ({
             id: tvShow.id,

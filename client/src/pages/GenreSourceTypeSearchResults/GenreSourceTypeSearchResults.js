@@ -108,10 +108,10 @@ const GenreSourceTypeResults = () => {
       setSearchedSources(newSearchData.sources || "");
     }
   }, [location.state]);
-  console.log(genreSourceTypeSearchResults);
+  // console.log(genreSourceTypeSearchResults);
   const handleTitleSelected = useTitleSelectionTMDBId();
-  console.log(searchDataFromRouter);
-  console.log(searchedGenres, searchedTypes, searchedSources);
+  // console.log(searchDataFromRouter);
+  // console.log(searchedGenres, searchedTypes, searchedSources);
 
   const getGenreLabels = (searchedGenres) => {
     const genreArray = searchedGenres.split(",");

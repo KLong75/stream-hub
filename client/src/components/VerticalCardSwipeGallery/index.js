@@ -19,7 +19,7 @@ const VerticalCardSwipeGallery = ({
   genreList,
 }) => {
   const rawData = useContext(context);
-  console.log(`${categoryTitle}: `, rawData);
+  // console.log(`${categoryTitle}: `, rawData);
 
   const uniqueIds = new Set();
   const filteredData = rawData.filter((item) => {

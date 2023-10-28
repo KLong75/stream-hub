@@ -30,9 +30,9 @@ const ActorSearchResults = () => {
   const navigate = useNavigate();
   const { actorSearchResults } = useContext(SearchResultsContext); // Get the data from context
   // const [actorSearchResults, setActorSearchResults] = useState([]);
-  console.log(actorSearchResults);
+  // console.log(actorSearchResults);
   useEffect(() => {}, [actorSearchResults]);
-  console.log(actorSearchResults);
+  // console.log(actorSearchResults);
   const handleTitleSelected = useTitleSelectionTMDBId();
 
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
