@@ -44,7 +44,7 @@ export default function WatchListBackdropScroll() {
         modules={[Autoplay]}
         className="mySwiper">
         {userData.savedTitles.map((title) => (
-          <SwiperSlide key={title._id}>
+          <SwiperSlide key={title.id}>
             <Grid
               container
               justifyContent="center"

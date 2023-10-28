@@ -99,6 +99,7 @@ export const useTitleSelection = () => {
               throw new Error("Something went wrong");
             }
             const similarTitleData = await response.json();
+            console.log('similarTitleData', similarTitleData)
             const similarTitleDetails = {
               id: similarTitleData.id,
               title: similarTitleData.title,

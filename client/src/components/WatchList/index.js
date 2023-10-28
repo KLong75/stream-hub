@@ -128,9 +128,9 @@ const WatchList = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  console.log("savedTitles", userData.savedTitles);
-  console.log("filteredTitles", filteredTitles);
-  console.log("userData", userData);
+  // console.log("savedTitles", userData.savedTitles);
+  // console.log("filteredTitles", filteredTitles);
+  // console.log("userData", userData);
 
   return (
     <>
