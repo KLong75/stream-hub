@@ -31,6 +31,7 @@ export default function WatchListBackdropScroll() {
   return (
     <>
       <Swiper
+        loop={true}
         speed={1000}
         autoplay={{
           delay: 2500,
