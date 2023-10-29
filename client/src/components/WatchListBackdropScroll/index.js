@@ -55,7 +55,7 @@ export default function WatchListBackdropScroll() {
               <ButtonBase onClick={(event) => handleTitleSelected(title.id, event)} >
                 <img
                   style={{ width: "80%", height: "auto" }}
-                  src={title.backdrop}
+                  src={title.backdrop || title.poster}
                   alt={title.title}>
                 </img>
               </ButtonBase>

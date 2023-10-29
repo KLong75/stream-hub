@@ -226,9 +226,9 @@ const WatchList = () => {
                 <IconButton
                   sx={{
                     color: "black",
-                    marginLeft: "14rem",
+                    marginLeft: "14.15rem",
                     padding: ".25rem",
-                    marginTop: "",
+                    marginTop: "-4.25rem",
                     zIndex: "1000",
                   }}
                   data-swiper-parallax="-100"

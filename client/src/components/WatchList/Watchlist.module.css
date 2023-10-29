@@ -187,9 +187,7 @@
   .logoPlaceholderGrid {
     display: none;
   }
-  .removeButton {
-    margin-top: -.75em;
-  }
+ 
   .removeLabel {
     display: block;
   } 
