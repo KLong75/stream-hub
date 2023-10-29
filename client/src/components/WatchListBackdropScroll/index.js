@@ -7,7 +7,7 @@ import { QUERY_ME } from "../../utils/queries";
 import { useTitleSelection } from "../../utils/useTitleSelection";
 // import from mui
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import ButtonBase from '@mui/material/ButtonBase';
+import ButtonBase from "@mui/material/ButtonBase";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -16,8 +16,6 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 // import swiper modules
 import { Autoplay } from "swiper/modules";
-
-
 
 export default function WatchListBackdropScroll() {
   const { username: userParam } = useParams();
@@ -44,26 +42,30 @@ export default function WatchListBackdropScroll() {
         }}
         modules={[Autoplay]}
         className="mySwiper">
-        {userData.savedTitles.map((title) => (
-          <SwiperSlide key={title.id}>
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              textAlign="center">
-              <Grid xs={12}>      
-              <ButtonBase onClick={(event) => handleTitleSelected(title.id, event)} >
-                <img
-                  style={{ width: "80%", height: "auto" }}
-                  src={title.backdrop || title.poster}
-                  alt={title.title}>
-                </img>
-              </ButtonBase>
-                {/* <h2 style={{fontFamily: 'Raleway', fontSize:'.95rem', marginTop: '0'}}>{title.title}</h2> */}
+        {userData.savedTitles
+          .filter(
+            (title) => title.backdrop !== null && title.backdrop !== undefined
+          )
+          .map((title) => (
+            <SwiperSlide key={title.id}>
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                textAlign="center">
+                <Grid xs={12}>
+                  <ButtonBase
+                    onClick={(event) => handleTitleSelected(title.id, event)}>
+                    <img
+                      style={{ width: "80%", height: "auto" }}
+                      src={title.backdrop || title.poster}
+                      alt={title.title}></img>
+                  </ButtonBase>
+                  {/* <h2 style={{fontFamily: 'Raleway', fontSize:'.95rem', marginTop: '0'}}>{title.title}</h2> */}
+                </Grid>
               </Grid>
-            </Grid>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );
