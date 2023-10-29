@@ -27,9 +27,12 @@ import { useMutation, useQuery } from "@apollo/client";
 import LoadingClapBoard from "../../components/LoadingClapBoard";
 import { PaperUnderlay } from "../../components/PaperUnderlay";
 // import source logos
-import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
+// import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
+import { sourceLogos } from "../../utils/sourceLogos";
+import { buySourceLogos } from "../../utils/buySourceLogos";
 // import styles
 import styles from "./TitleDetails.module.css";
+console.log('sourceLogos', sourceLogos);
 
 const TitleDetails = () => {
   const navigate = useNavigate();
@@ -613,7 +616,7 @@ const TitleDetails = () => {
                       rel="noopener noreferrer">
                       <img
                         style={{ height: "4rem" }}
-                        src={DisneyPlusLogo}
+                        src={sourceLogos["Disney+"]}
                         alt="Disney+ Logo"
                       />
                     </a>
@@ -622,14 +625,16 @@ const TitleDetails = () => {
                 {/* Apple TV button */}
                 {appleTvUrl && (
                   <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
+                    <a
                       href={appleTvUrl}
                       target="_blank"
                       rel="noopener noreferrer">
-                      Watch on Apple TV
-                    </Button>
+                      <img
+                        style={{ width: '113.78px', height: 'auto' }}
+                        src={sourceLogos["AppleTV+"]}
+                        alt="AppleTV Logo"
+                      />
+                    </a>
                   </Grid>
                 )}
                 {/* Peacock Button */}
@@ -701,28 +706,32 @@ const TitleDetails = () => {
                 {/* Buy on Amazon Button */}
                 {buyAmazonUrl && (
                   <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
+                    <a
                       href={buyAmazonUrl}
                       target="_blank"
                       rel="noopener noreferrer">
-                      Amazon
-                    </Button>
+                      <img
+                        style={{ height: "4rem" }}
+                        src={buySourceLogos["Amazon"]}
+                        alt="Amazon Logo"
+                      />
+                    </a>
                   </Grid>
                 )}
 
                 {/* Buy on iTunes Button */}
                 {buyItunesUrl && (
                   <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
+                    <a
                       href={buyItunesUrl}
                       target="_blank"
                       rel="noopener noreferrer">
-                      iTunes
-                    </Button>
+                      <img
+                        style={{ height: "auto", maxWidth: '113.78px' }}
+                        src={buySourceLogos["iTunes"]}
+                        alt="iTunes Logo"
+                      />
+                    </a>
                   </Grid>
                 )}
                 {/* buy on google play button */}

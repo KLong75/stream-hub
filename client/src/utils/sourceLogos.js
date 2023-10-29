@@ -11,6 +11,7 @@ import StarzLogo from "../assets/icons/StarzLogo.png";
 import FuboTVLogo from "../assets/icons/FuboTVLogo.png";
 import DirecTVLogo from "../assets/icons/DirecTVLogo.png";
 
+
 export const sourceLogos = {
   'AppleTV+': AppleTVLogo,
   'Prime Video': PrimeVideoLogo,
