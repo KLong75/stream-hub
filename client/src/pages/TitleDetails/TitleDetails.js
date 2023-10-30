@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
-import {EffectCoverflow, Navigation } from "swiper/modules";
+import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -24,6 +24,7 @@ import { QUERY_ME } from "../../utils/queries";
 // import from apollo client
 import { useMutation, useQuery } from "@apollo/client";
 // import components
+import SourceLink from "../../components/SourceLink";
 import LoadingClapBoard from "../../components/LoadingClapBoard";
 import { PaperUnderlay } from "../../components/PaperUnderlay";
 // import source logos
@@ -32,7 +33,8 @@ import { sourceLogos } from "../../utils/sourceLogos";
 import { buySourceLogos } from "../../utils/buySourceLogos";
 // import styles
 import styles from "./TitleDetails.module.css";
-console.log('sourceLogos', sourceLogos);
+// console.log('sourceLogos', sourceLogos);
+
 
 const TitleDetails = () => {
   const navigate = useNavigate();
@@ -61,222 +63,9 @@ const TitleDetails = () => {
   // console.log("selectedTitleDetails", selectedTitleDetails);
   const { setActorSearchResults } = useContext(SearchResultsContext);
   const [saveTitle] = useMutation(SAVE_TITLE);
-  const [appleTvUrl, setAppleTvUrl] = useState("");
-  const [netflixUrl, setNetflixUrl] = useState("");
-  const [huluUrl, setHuluUrl] = useState("");
-  const [amazonPrimeUrl, setAmazonPrimeUrl] = useState("");
-  const [maxUrl, setMaxUrl] = useState("");
-  const [disneyPlusUrl, setDisneyPlusUrl] = useState("");
-  const [peacockUrl, setPeacockUrl] = useState("");
-  const [hayuUrl, setHayuUrl] = useState("");
-  const [paramountPlusUrl, setParamountPlusUrl] = useState("");
-  const [showtimeUrl, setShowtimeUrl] = useState("");
-  const [craveUrl, setCraveUrl] = useState("");
-  const [craveStarzUrl, setCraveStarzUrl] = useState("");
-  const [stanUrl, setStanUrl] = useState("");
-  const [starzUrl, setStarzUrl] = useState("");
-  const [foxtelNowUrl, setFoxtelNowUrl] = useState("");
-  const [skyGoUrl, setSkyGoUrl] = useState("");
-  const [mgmPlusUrl, setMgmPlusUrl] = useState("");
-  const [nowTvUrl, setNowTvUrl] = useState("");
-  const [bingeUrl, setBingeUrl] = useState("");
-  const [britboxUrl, setBritboxUrl] = useState("");
-  const [kanopyUrl, setKanopyUrl] = useState("");
-  const [huluWithShowtimeUrl, setHuluWithShowtimeUrl] = useState("");
-  const [youTubePremiumUrl, setYouTubePremiumUrl] = useState("");
-  const [showtimeAmazonPrimeUrl, setShowtimeAmazonPrimeUrl] = useState("");
-  const [fuboTvUrl, setFuboTvUrl] = useState("");
-  const [notAvailable, setNotAvailable] = useState("");
-  const [buyAmazonUrl, setBuyAmazonUrl] = useState("");
-  const [buyItunesUrl, setBuyItunesUrl] = useState("");
-  const [buyGooglePlayUrl, setBuyGooglePlayUrl] = useState("");
-  const [buyYouTubeUrl, setBuyYouTubeUrl] = useState("");
-  const [buyNotAvailable, setBuyNotAvailable] = useState("");
-
   // eslint-disable-next-line no-unused-vars
   const [selectedActorName, setSelectedActorName] = useState("");
 
-  useEffect(() => {
-    if (selectedTitleDetails) {
-      const sources = selectedTitleDetails.sources || [];
-      const appleTv = sources.filter((source) => source.source_id === 371);
-      const netflix = sources.filter((source) => source.source_id === 203);
-      const hulu = sources.filter((source) => source.source_id === 157);
-      const amazonPrime = sources.filter((source) => source.source_id === 26);
-      const max = sources.filter((source) => source.source_id === 387);
-      const disneyPlus = sources.filter((source) => source.source_id === 372);
-      const peacock = sources.filter((source) => source.source_id === 389);
-      const hayu = sources.filter((source) => source.source_id === 392);
-      const paramountPlus = sources.filter(
-        (source) => source.source_id === 444
-      );
-      const showtime = sources.filter((source) => source.source_id === 248);
-      const crave = sources.filter((source) => source.source_id === 393);
-      const craveStarz = sources.filter((source) => source.source_id === 395);
-      const stan = sources.filter((source) => source.source_id === 425);
-      const starz = sources.filter((source) => source.source_id === 232);
-      const foxtelNow = sources.filter((source) => source.source_id === 424);
-      const skyGo = sources.filter((source) => source.source_id === 408);
-      const mgmPlus = sources.filter((source) => source.source_id === 108);
-      const nowTv = sources.filter((source) => source.source_id === 406);
-      const binge = sources.filter((source) => source.source_id === 423);
-      const britbox = sources.filter((source) => source.source_id === 419);
-      const kanopy = sources.filter((source) => source.source_id === 367);
-      const huluWithShowtime = sources.filter(
-        (source) => source.source_id === 159
-      );
-      const youTubePremium = sources.filter(
-        (source) => source.source_id === 368
-      );
-      const showtimeAmazonPrime = sources.filter(
-        (source) => source.source_id === 249
-      );
-      const fuboTv = sources.filter((source) => source.source_id === 373);
-
-      const buy_sources = selectedTitleDetails.buy_sources || [];
-      // console.log(buy_sources);
-      const buyAmazon = buy_sources.filter((source) => source.source_id === 24);
-      const buyItunes = buy_sources.filter(
-        (source) => source.source_id === 349
-      );
-      const buyGooglePlay = buy_sources.filter(
-        (source) => source.source_id === 140
-      );
-      const buyYouTube = buy_sources.filter(
-        (source) => source.source_id === 344
-      );
-
-      if (sources.length === 0) {
-        const notAvailable = "Not Available on Subscription Streaming Services";
-        setNotAvailable(notAvailable);
-      }
-      if (buy_sources.length === 0) {
-        const buyNotAvailable = "Not Available for Purchase or Rent";
-        setBuyNotAvailable(buyNotAvailable);
-      }
-      if (appleTv.length >= 1) {
-        const appleTvUrl = appleTv[0].web_url;
-        setAppleTvUrl(appleTvUrl);
-        // console.log(appleTvUrl);
-      }
-      if (netflix.length >= 1) {
-        const netflixUrl = netflix[0].web_url;
-        setNetflixUrl(netflixUrl);
-      }
-      if (hulu.length >= 1) {
-        const huluUrl = hulu[0].web_url;
-        setHuluUrl(huluUrl);
-      }
-      if (amazonPrime.length >= 1) {
-        const amazonPrimeUrl = amazonPrime[0].web_url;
-        setAmazonPrimeUrl(amazonPrimeUrl);
-      }
-      if (max.length >= 1) {
-        const maxUrl = max[0].web_url;
-        setMaxUrl(maxUrl);
-      }
-      if (disneyPlus.length >= 1) {
-        const disneyPlusUrl = disneyPlus[0].web_url;
-        setDisneyPlusUrl(disneyPlusUrl);
-      }
-      if (peacock.length >= 1) {
-        const peacockUrl = peacock[0].web_url;
-        setPeacockUrl(peacockUrl);
-      }
-      if (hayu.length >= 1) {
-        const hayuUrl = hayu[0].web_url;
-        setHayuUrl(hayuUrl);
-      }
-      if (paramountPlus.length >= 1) {
-        const paramountPlusUrl = paramountPlus[0].web_url;
-        setParamountPlusUrl(paramountPlusUrl);
-      }
-      if (showtime.length >= 1) {
-        const showtimeUrl = showtime[0].web_url;
-        setShowtimeUrl(showtimeUrl);
-      }
-      if (crave.length >= 1) {
-        const craveUrl = crave[0].web_url;
-        setCraveUrl(craveUrl);
-      }
-      if (craveStarz.length >= 1) {
-        const craveStarzUrl = craveStarz[0].web_url;
-        setCraveStarzUrl(craveStarzUrl);
-      }
-      if (stan.length >= 1) {
-        const stanUrl = stan[0].web_url;
-        setStanUrl(stanUrl);
-      }
-      if (starz.length >= 1) {
-        const starzUrl = starz[0].web_url;
-        setStarzUrl(starzUrl);
-      }
-      if (foxtelNow.length >= 1) {
-        const foxtelNowUrl = foxtelNow[0].web_url;
-        setFoxtelNowUrl(foxtelNowUrl);
-      }
-      if (skyGo.length >= 1) {
-        const skyGoUrl = skyGo[0].web_url;
-        setSkyGoUrl(skyGoUrl);
-      }
-      if (mgmPlus.length >= 1) {
-        const mgmPlusUrl = mgmPlus[0].web_url;
-        setMgmPlusUrl(mgmPlusUrl);
-      }
-      if (nowTv.length >= 1) {
-        const nowTvUrl = nowTv[0].web_url;
-        setNowTvUrl(nowTvUrl);
-      }
-      if (binge.length >= 1) {
-        const bingeUrl = binge[0].web_url;
-        setBingeUrl(bingeUrl);
-      }
-      if (britbox.length >= 1) {
-        const britboxUrl = britbox[0].web_url;
-        setBritboxUrl(britboxUrl);
-      }
-      if (kanopy.length >= 1) {
-        const kanopyUrl = kanopy[0].web_url;
-        setKanopyUrl(kanopyUrl);
-      }
-      if (huluWithShowtime.length >= 1) {
-        const huluWithShowtimeUrl = huluWithShowtime[0].web_url;
-        setHuluWithShowtimeUrl(huluWithShowtimeUrl);
-      }
-      if (youTubePremium.length >= 1) {
-        const youTubePremiumUrl = youTubePremium[0].web_url;
-        setYouTubePremiumUrl(youTubePremiumUrl);
-      }
-      if (showtimeAmazonPrime.length >= 1) {
-        const showtimeAmazonPrimeUrl = showtimeAmazonPrime[0].web_url;
-        setShowtimeAmazonPrimeUrl(showtimeAmazonPrimeUrl);
-      }
-      if (fuboTv.length >= 1) {
-        const fuboTvUrl = fuboTv[0].web_url;
-        setFuboTvUrl(fuboTvUrl);
-      }
-      // purchase sources
-      if (buyAmazon.length >= 1) {
-        const buyAmazonUrl = buyAmazon[0].web_url;
-        setBuyAmazonUrl(buyAmazonUrl);
-      }
-      if (buyItunes.length >= 1) {
-        const buyItunesUrl = buyItunes[0].web_url;
-        setBuyItunesUrl(buyItunesUrl);
-      }
-      if (buyGooglePlay.length >= 1) {
-        const buyGooglePlayUrl = buyGooglePlay[0].web_url;
-        setBuyGooglePlayUrl(buyGooglePlayUrl);
-      }
-      if (buyYouTube.length >= 1) {
-        const buyYouTubeUrl = buyYouTube[0].web_url;
-        setBuyYouTubeUrl(buyYouTubeUrl);
-      }
-    }
-    // watch the line below. is selectedTitleDetails needed in dependency array?
-  }, [selectedTitleDetails]);
-
-  
   const handleTitleSelected = useTitleSelection();
 
   useEffect(() => {
@@ -545,125 +334,24 @@ const TitleDetails = () => {
           <Grid container xs={12} md={2}>
             <PaperUnderlay sx={{ marginTop: "1rem" }}>
               <Grid container justifyContent="center" alignItems="center">
-                {selectedTitleDetails.sources && (
+                {selectedTitleDetails.sources && selectedTitleDetails.sources.length === 0 &&(
+                  <Grid xs={12}>
+                    <h6 style={{ fontSize: "1rem" }}>Not Available For Subscription Streaming</h6>
+                  </Grid>
+                )}
+                {selectedTitleDetails.sources && selectedTitleDetails.sources.length > 0 &&(
                   <Grid xs={12}>
                     <h6 style={{ fontSize: "1rem" }}>Watch on:</h6>
                   </Grid>
                 )}
-                {notAvailable && (
-                  <Grid xs={12}>
-                    <span>{notAvailable}</span>
+                {selectedTitleDetails.sources.map((source, index) => (
+                  <Grid key={index} xs={12}>
+                    <SourceLink
+                      url={source.web_url}
+                      logoSrc={sourceLogos[source.name]}
+                    />
                   </Grid>
-                )}
-                {/* Netflix button */}
-                {netflixUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={netflixUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Netflix
-                    </Button>
-                  </Grid>
-                )}
-                {/* Amazon Prime button */}
-                {amazonPrimeUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={amazonPrimeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Prime Video
-                    </Button>
-                  </Grid>
-                )}
-                {/* Hulu button */}
-                {huluUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={huluUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Watch on Hulu
-                    </Button>
-                  </Grid>
-                )}
-                {/* Max button */}
-                {maxUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={maxUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Watch on Max
-                    </Button>
-                  </Grid>
-                )}
-                {/* Disney Plus button */}
-                {disneyPlusUrl && (
-                  <Grid xs={12}>
-                    <a
-                      href={disneyPlusUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      <img
-                        style={{ height: "4rem" }}
-                        src={sourceLogos["Disney+"]}
-                        alt="Disney+ Logo"
-                      />
-                    </a>
-                  </Grid>
-                )}
-                {/* Apple TV button */}
-                {appleTvUrl && (
-                  <Grid xs={12}>
-                    <a
-                      href={appleTvUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      <img
-                        style={{ width: '113.78px', height: 'auto' }}
-                        src={sourceLogos["AppleTV+"]}
-                        alt="AppleTV Logo"
-                      />
-                    </a>
-                  </Grid>
-                )}
-                {/* Peacock Button */}
-                {peacockUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={peacockUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Watch on Peacock
-                    </Button>
-                  </Grid>
-                )}
-
-                {/* Paramount Plus Button */}
-                {paramountPlusUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={paramountPlusUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Watch on Paramount+
-                    </Button>
-                  </Grid>
-                )}
+                ))}
               </Grid>
             </PaperUnderlay>
           </Grid>
@@ -687,79 +375,28 @@ const TitleDetails = () => {
               </Grid>
             </Grid>
           )}
+
           <Grid container xs={12} md={2}>
             <PaperUnderlay sx={{ marginTop: "1rem" }}>
               <Grid container justifyContent="center" alignItems="center">
-                {/*purchase buttons*/}
-                {selectedTitleDetails.buy_sources && (
+                {selectedTitleDetails.buy_sources && selectedTitleDetails.buy_sources.length === 0 &&(
+                  <Grid xs={12}>
+                    <h6 style={{ fontSize: "1rem" }}>Not Available For Purchase or Rent</h6>
+                  </Grid>
+                )}
+                {selectedTitleDetails.buy_sources && selectedTitleDetails.buy_sources.length > 0 && (
                   <Grid xs={12}>
                     <h6 style={{ fontSize: "1rem" }}>Rent or Buy:</h6>
                   </Grid>
                 )}
-
-                {/* Not Available} */}
-                {buyNotAvailable && (
-                  <Grid xs={12}>
-                    <span>{buyNotAvailable}</span>
+                {selectedTitleDetails.buy_sources.map((source, index) => (
+                  <Grid key={index} xs={12}>
+                    <SourceLink
+                      url={source.web_url}
+                      logoSrc={buySourceLogos[source.name]}
+                    />
                   </Grid>
-                )}
-                {/* Buy on Amazon Button */}
-                {buyAmazonUrl && (
-                  <Grid xs={12}>
-                    <a
-                      href={buyAmazonUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      <img
-                        style={{ height: "4rem" }}
-                        src={buySourceLogos["Amazon"]}
-                        alt="Amazon Logo"
-                      />
-                    </a>
-                  </Grid>
-                )}
-
-                {/* Buy on iTunes Button */}
-                {buyItunesUrl && (
-                  <Grid xs={12}>
-                    <a
-                      href={buyItunesUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      <img
-                        style={{ height: "auto", maxWidth: '113.78px' }}
-                        src={buySourceLogos["iTunes"]}
-                        alt="iTunes Logo"
-                      />
-                    </a>
-                  </Grid>
-                )}
-                {/* buy on google play button */}
-                {buyGooglePlayUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={buyGooglePlayUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Google Play
-                    </Button>
-                  </Grid>
-                )}
-                {/* buy on youtube button */}
-                {buyYouTubeUrl && (
-                  <Grid xs={12}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={buyYouTubeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Youtube
-                    </Button>
-                  </Grid>
-                )}
+                ))}
               </Grid>
             </PaperUnderlay>
           </Grid>
@@ -797,7 +434,6 @@ const TitleDetails = () => {
               <Grid xs={5}></Grid>
             </>
           )}
-
           {selectedTitleDetails.release_date && (
             <>
               <Grid xs={4}></Grid>
@@ -817,7 +453,6 @@ const TitleDetails = () => {
               <Grid xs={4}></Grid>
             </>
           )}
-
           <Grid xs={2}></Grid>
           <Grid xs={8}>
             <PaperUnderlay sx={{ marginTop: "1rem" }}>
@@ -863,35 +498,32 @@ const TitleDetails = () => {
             </PaperUnderlay>
           </Grid>
           <Grid xs={2}></Grid>
-
           {selectedTitleDetails.crew && (
             <>
               <Grid xs={5}></Grid>
               <Grid xs={2}>
-                    {selectedTitleDetails.crew &&
-                      selectedTitleDetails.crew.length > 0 &&
-                      selectedTitleDetails.crew
-                        .map((crewMember) => (
-                          <PaperUnderlay
-                            key={crewMember.id}
-                            sx={{ marginTop: "1rem" }}>
-                            <Grid xs={12} container>
-                              <Grid xs={12}>
-                                <h5 style={{ margin: "0" }}>Directed By:</h5>
-                              </Grid>
-                              <Grid xs={12} key={crewMember.id}>
-                                <h5 style={{ margin: "0" }} key={crewMember.id}>
-                                  {crewMember.name}
-                                </h5>
-                              </Grid>
-                            </Grid>
-                          </PaperUnderlay>
-                        ))}
-                  </Grid>
+                {selectedTitleDetails.crew &&
+                  selectedTitleDetails.crew.length > 0 &&
+                  selectedTitleDetails.crew.map((crewMember) => (
+                    <PaperUnderlay
+                      key={crewMember.id}
+                      sx={{ marginTop: "1rem" }}>
+                      <Grid xs={12} container>
+                        <Grid xs={12}>
+                          <h5 style={{ margin: "0" }}>Directed By:</h5>
+                        </Grid>
+                        <Grid xs={12} key={crewMember.id}>
+                          <h5 style={{ margin: "0" }} key={crewMember.id}>
+                            {crewMember.name}
+                          </h5>
+                        </Grid>
+                      </Grid>
+                    </PaperUnderlay>
+                  ))}
+              </Grid>
               <Grid xs={5}></Grid>
             </>
           )}
-
           {selectedTitleDetails.trailer && (
             <Grid xs={12}>
               {selectedTitleDetails.trailer.includes("youtube") ? (
@@ -918,11 +550,9 @@ const TitleDetails = () => {
             </Grid>
           )}
         </Grid>
-
         <PaperUnderlay sx={{ marginTop: "3rem", marginBottom: "2rem" }}>
           <h6 className={styles.swiperTitle}>You Might Also Like:</h6>
         </PaperUnderlay>
-
         <Swiper
           style={{
             "--swiper-navigation-color": "#000000",
