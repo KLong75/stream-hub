@@ -19,7 +19,6 @@ Basic functionality is in place. I am currently working on style, layout, and co
 
 ## Screenshots
 ![watchTVLandingMobile](https://github.com/KLong75/stream-hub/assets/98487770/c0b85f7f-1397-4a09-bcde-490ac4bae0dd)
-![dune](https://github.com/KLong75/stream-hub/assets/98487770/abd261fd-3433-4d9a-8c03-7b93fb8e7140)
 ![Screenshot (365)](https://github.com/KLong75/stream-hub/assets/98487770/96eef6d7-4f9d-4836-9042-9f29d6ffd845)
 ![tronDesktop](https://github.com/KLong75/stream-hub/assets/98487770/2cf8d85a-7dae-4116-9cac-8faf206f2fe5)
 
