@@ -20,7 +20,8 @@ Basic functionality is in place. I am currently working on style, layout, and co
 ## Screenshots
 ![watchTVLandingMobile](https://github.com/KLong75/stream-hub/assets/98487770/c0b85f7f-1397-4a09-bcde-490ac4bae0dd)
 ![Screenshot (365)](https://github.com/KLong75/stream-hub/assets/98487770/96eef6d7-4f9d-4836-9042-9f29d6ffd845)
-![tronDesktop](https://github.com/KLong75/stream-hub/assets/98487770/a19fcdd7-2fe7-4f88-895f-260be75c07af)
+![tronDesktop](https://github.com/KLong75/stream-hub/assets/98487770/f3439a67-7ee9-49b8-b295-2c4533bdb44d)
+
 
 
 
