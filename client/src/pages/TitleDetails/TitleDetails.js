@@ -500,15 +500,15 @@ const TitleDetails = () => {
           <Grid xs={2}></Grid>
           {selectedTitleDetails.crew && (
             <>
-              <Grid xs={5}></Grid>
-              <Grid xs={2}>
+              <Grid xs={4}></Grid>
+              <Grid xs={4}>
                 {selectedTitleDetails.crew &&
                   selectedTitleDetails.crew.length > 0 &&
                   selectedTitleDetails.crew.map((crewMember) => (
                     <PaperUnderlay
                       key={crewMember.id}
                       sx={{ marginTop: "1rem" }}>
-                      <Grid xs={12} container>
+                      <Grid xs={12} container sx={{width: 'fit-content(20em)'}}>
                         <Grid xs={12}>
                           <h5 style={{ margin: "0" }}>Directed By:</h5>
                         </Grid>
@@ -521,7 +521,7 @@ const TitleDetails = () => {
                     </PaperUnderlay>
                   ))}
               </Grid>
-              <Grid xs={5}></Grid>
+              <Grid xs={4}></Grid>
             </>
           )}
           {selectedTitleDetails.trailer && (
