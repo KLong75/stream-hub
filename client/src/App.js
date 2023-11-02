@@ -7,10 +7,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import GenreSearchResults from "./pages/GenreSearchResults/GenreSearchResults";
 import MixedGenreSearchSearchResults from "./pages/MixedGenreSearchResults/MixedGenreSearchResults";
 import TitleSearchResults from "./pages/TitleSearchResults/TitleSearchResults";
-import ActorSearchResults from "./pages/ActorSearchResults/ActorSearchResults";
 import TitleDetails from "./pages/TitleDetails/TitleDetails";
-// import NowTrending from "./pages/NowTrending/NowTrending";
-// import AccountSettings from "./pages/AccountSettings";
 // import components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -59,7 +56,6 @@ const client = new ApolloClient({
 });
 
 const theme = createTheme({
-
   typography: {
     fontFamily: [
       // 'Playfair Display',
@@ -67,10 +63,7 @@ const theme = createTheme({
       // 'Railway',
       // 'sans-serif',
     ].join(','),
-    
   },
-
-
   palette: {
     formOutline: {
       main: "#000000",
@@ -82,30 +75,10 @@ const theme = createTheme({
       // primary: '#ffffff',
     },
   },
-  
   components: {
-    
-    MuiLink: {
-    //   styleOverrides: {
-    //     root: {
-    //       color: 'black', '&:hover': {
-    //         transform: 'scale(1.05)',
-    //         backgroundImage: 'linear-gradient(315deg, #3bb77a 0%, #144874 75%)',
-    //         "-webkit-background-clip": "text",
-    //         "background-clip": "text",
-    //         color: "transparent",
-    //       }
-    //     },
-    // },
-    },
     MuiButton: {
       styleOverrides: {
         root: {
-          // backgroundImage: 'linear-gradient(315deg, #43cea2 0%,  #185a9d 75%)',
-          // '&:hover': {
-          //   backgroundImage: 'linear-gradient(315deg, #185a9d 0%, #43cea2 100%)',
-          //   color: 'white'
-          // },
           backgroundImage: "linear-gradient(315deg, #185a9d 0%, #43cea2 100%)",
           "&:hover": {
             backgroundImage:
@@ -156,10 +129,6 @@ const App = () => {
                               <Route
                                 path="/title_search_results"
                                 element={<TitleSearchResults />}
-                              />
-                              <Route
-                                path="/actor_search_results"
-                                element={<ActorSearchResults />}
                               />
                               <Route
                                 path="/title_details"

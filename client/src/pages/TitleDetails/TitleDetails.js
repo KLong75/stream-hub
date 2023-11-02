@@ -141,7 +141,6 @@ const TitleDetails = () => {
                 : "",
             image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
           }));
-        console.log(actorSearchData);
         // setSearchTerm("");
         setActorSearchResults(actorSearchData);
         const cacheData = {
