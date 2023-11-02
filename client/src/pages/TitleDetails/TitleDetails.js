@@ -27,6 +27,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import SourceLink from "../../components/SourceLink";
 import LoadingClapBoard from "../../components/LoadingClapBoard";
 import { PaperUnderlay } from "../../components/PaperUnderlay";
+import ActorSearchResultsModal from "../../components/ActorSearchResultsModal";
 // import source logos
 // import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
 import { sourceLogos } from "../../utils/sourceLogos";
@@ -38,6 +39,8 @@ import styles from "./TitleDetails.module.css";
 
 const TitleDetails = () => {
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+  // const [selectedActorData, setSelectedActorData] = useState(null);
   const [showRedirectMessage, setShowRedirectMessage] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
   useEffect(() => {
@@ -87,8 +90,10 @@ const TitleDetails = () => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setSelectedActorName(data);
-        // console.log("cached data retrieved, parsed, time checked", data);
-        navigate("/actor_search_results", { state: { data } });
+        setActorSearchResults(data);
+        console.log("cached data retrieved, parsed, time checked", data);
+        // navigate("/actor_search_results", { state: { data } });
+        setModalOpen(true);
         return;
       } else {
         localStorage.removeItem(`actorSearchResults_${searchedName}`);
@@ -104,12 +109,13 @@ const TitleDetails = () => {
           throw new Error("Something went wrong");
         }
         const results = await response.json();
-        // console.log(results);
+        console.log(results);
         const actorSearchData = results.results
           .filter((actor) => {
             if (
               actor.known_for_department !== "Acting" ||
-              actor.name !== searchedName
+              actor.name !== searchedName ||
+              (actor.profile_path === null)
             ) {
               return false;
             }
@@ -123,6 +129,7 @@ const TitleDetails = () => {
             return true;
           })
           .slice(0, 8)
+          
           .map((actor) => ({
             id: actor.id,
             name: actor.name,
@@ -135,7 +142,7 @@ const TitleDetails = () => {
                 : "",
             image_url: "https://image.tmdb.org/t/p/w200" + actor.profile_path,
           }));
-        // console.log(actorSearchData);
+        console.log(actorSearchData);
         // setSearchTerm("");
         setActorSearchResults(actorSearchData);
         const cacheData = {
@@ -147,12 +154,19 @@ const TitleDetails = () => {
           JSON.stringify(cacheData)
         );
         // console.log(searchedName);
-        navigate("/actor_search_results", { state: { data: actorSearchData } });
+        // navigate("/actor_search_results", { state: { data: actorSearchData } });
+        setModalOpen(true);
       } catch (err) {
         console.log(err.message);
       }
     }
   };
+
+  const handleCloseActorModal = () => {
+    setSelectedActorName("");
+    setModalOpen(false);
+  };
+
 
   const handleSaveTitle = async (title) => {
     // console.log(title);
@@ -600,6 +614,7 @@ const TitleDetails = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+        <ActorSearchResultsModal open={modalOpen} onClose={handleCloseActorModal} />
       </main>
     </>
   );

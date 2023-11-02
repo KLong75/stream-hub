@@ -1,0 +1,34 @@
+.actorName {
+  font-size: 2rem;
+  margin-bottom: 0;
+  margin-top: 2rem;
+  padding: .5rem;
+  color: black;
+  font-family: "Raleway", sans-serif;
+  letter-spacing: .2em;
+}
+
+/* titles actor known for swiper */
+.knownForSwiper {
+  width: 100%;
+  height: auto;
+  /* padding-bottom: 3rem; */
+  --swiper-navigation-color: black;
+}
+
+.knownForSlide {
+  width: 16em;
+  height: 24em;
+  margin-top: 4em;
+  margin-bottom: 8em;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+ 
+}
+
+.knownForSlide:hover {
+  transform: scale(1.25); 
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
+}
+

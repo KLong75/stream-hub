@@ -120,8 +120,7 @@ const ActorSearchResults = () => {
                   ))}
                 </Swiper>
               </Grid>
-            </Grid>
-            
+            </Grid>     
           ))}
       </Grid>
     </main>
