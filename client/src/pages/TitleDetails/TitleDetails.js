@@ -90,7 +90,7 @@ const TitleDetails = () => {
       if (now - timestamp < CACHE_DURATION) {
         setSelectedActorName(data);
         setActorSearchResults(data);
-        console.log("cached data retrieved, parsed, time checked", data);
+        // console.log("cached data retrieved, parsed, time checked", data);
         // navigate("/actor_search_results", { state: { data } });
         setModalOpen(true);
         return;
