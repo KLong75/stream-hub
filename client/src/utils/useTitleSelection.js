@@ -88,7 +88,7 @@ export const useTitleSelection = () => {
         });
         // Fetch similar titles and update 
         const similarTitleIds = titleDetails.similar_titles
-          ? titleDetails.similar_titles.slice(0, 3)
+          ? titleDetails.similar_titles.slice(0, 10)
           : [];
         const fetchedSimilarTitles = [];
 
@@ -140,9 +140,7 @@ export const useTitleSelection = () => {
           }
           const moreTitleData2 = await tvTitleResponse2.json();
           cast = moreTitleData2.cast;
-            crew = moreTitleData2.crew;
-            // console.log('cast', cast);
-            // console.log('crew', crew);
+          crew = moreTitleData2.crew;
         }
         catch (err) {
           console.error(err);
