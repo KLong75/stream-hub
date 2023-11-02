@@ -29,12 +29,11 @@ import LoadingClapBoard from "../../components/LoadingClapBoard";
 import { PaperUnderlay } from "../../components/PaperUnderlay";
 import ActorSearchResultsModal from "../../components/ActorSearchResultsModal";
 // import source logos
-// import DisneyPlusLogo from "../../assets/icons/DisneyPlusLogo.png";
 import { sourceLogos } from "../../utils/sourceLogos";
 import { buySourceLogos } from "../../utils/buySourceLogos";
 // import styles
 import styles from "./TitleDetails.module.css";
-// console.log('sourceLogos', sourceLogos);
+
 
 
 const TitleDetails = () => {
@@ -109,7 +108,7 @@ const TitleDetails = () => {
           throw new Error("Something went wrong");
         }
         const results = await response.json();
-        console.log(results);
+        // console.log(results);
         const actorSearchData = results.results
           .filter((actor) => {
             if (
@@ -169,7 +168,6 @@ const TitleDetails = () => {
 
 
   const handleSaveTitle = async (title) => {
-    // console.log(title);
     const input = {
       id: title.selectedTitleDetails.id,
       title: title.selectedTitleDetails.title,
@@ -217,8 +215,6 @@ const TitleDetails = () => {
         department: crewPerson.department,
       })),
     };
-    // console.log("title to save", input);
-    // const titleToSave = titleId;
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;

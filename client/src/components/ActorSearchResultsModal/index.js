@@ -4,19 +4,11 @@ import { useContext } from "react";
 import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
 import Button from "@mui/material/Button";
-import {
-  Dialog,
-  DialogContent,
-} from "@mui/material";
+import { Dialog, DialogContent } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from swiper.js
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  EffectCoverflow,
-  Navigation,
-  // Pagination,
-  // Parallax,
-} from "swiper/modules";
+import { EffectCoverflow,Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -27,6 +19,7 @@ import imageNotAvailable from "../../assets/images/no_image_available.jpg";
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
 // import styles
 import styles from "./ActorSearchResultsModal.module.css";
+
 
 const ActorSearchResultsModal = ( { open, onClose }) => {
   const { actorSearchResults } = useContext(SearchResultsContext); 
@@ -91,10 +84,8 @@ const ActorSearchResultsModal = ( { open, onClose }) => {
                           handleTitleSelected(
                             titleKnownFor.media_type.includes("tv")
                               ? `tv-${titleKnownFor.id}`
-                              : `movie-${titleKnownFor.id}`
-                              
+                              : `movie-${titleKnownFor.id}`  
                           )
-                          
                         }>
                         <p>{titleKnownFor.title}</p>
                       </SwiperSlide>
