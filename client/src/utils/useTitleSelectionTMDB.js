@@ -96,7 +96,7 @@ export const useTitleSelectionTMDBId = () => {
           }
         });
         const similarTitleIds = titleDetails.similar_titles
-          ? titleDetails.similar_titles.slice(0, 3)
+          ? titleDetails.similar_titles.slice(0, 10)
           : [];
         const fetchedSimilarTitles = [];
         for (const similarTitleId of similarTitleIds) {     
