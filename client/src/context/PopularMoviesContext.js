@@ -1,13 +1,19 @@
 import { createContext, useState, useEffect } from "react";
 
-import { fetchPopularMoviesPageOne, fetchPopularMoviesPageTwo, fetchPopularMoviesPageThree, fetchPopularMoviesPageFour, fetchPopularMoviesPageFive  } from "../utils/apiCalls";
+import {
+  fetchPopularMoviesPageOne,
+  fetchPopularMoviesPageTwo,
+  fetchPopularMoviesPageThree,
+  fetchPopularMoviesPageFour,
+  fetchPopularMoviesPageFive,
+} from "../utils/apiCalls";
 import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const PopularMoviesContext = createContext();
 
 export const PopularMoviesProvider = ({ children }) => {
   const [popularMovies, setPopularMovies] = useState([]);
-  
+
   useEffect(() => {
     const getPopularMovies = async () => {
       const cachedPopularMovies = localStorage.getItem("popularMovies");
@@ -41,7 +47,13 @@ export const PopularMoviesProvider = ({ children }) => {
           const responseFive = await fetchPopularMoviesPageFive();
           const dataFive = await responseFive.json();
           // console.log(dataFive);
-          const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
+          const combinedData = [
+            ...dataOne.results,
+            ...dataTwo.results,
+            ...dataThree.results,
+            ...dataFour.results,
+            ...dataFive.results,
+          ];
           // console.log(combinedData);
 
           const popMovies = combinedData.map((movie) => ({
@@ -66,9 +78,9 @@ export const PopularMoviesProvider = ({ children }) => {
         }
       }
     };
-    getPopularMovies() 
+    getPopularMovies();
   }, []);
-  
+
   return (
     <PopularMoviesContext.Provider value={popularMovies}>
       {children}

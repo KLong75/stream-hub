@@ -6,6 +6,16 @@ import {
   fetchTrendingMoviesPageThree,
   fetchTrendingMoviesPageFour,
   fetchTrendingMoviesPageFive,
+  fetchTrendingMoviesPageSix,
+  fetchTrendingMoviesPageSeven,
+  fetchTrendingMoviesPageEight,
+  fetchTrendingMoviesPageNine,
+  fetchTrendingMoviesPageTen,
+  fetchTrendingMoviesPageEleven,
+  fetchTrendingMoviesPageTwelve,
+  fetchTrendingMoviesPageThirteen,
+  fetchTrendingMoviesPageFourteen,
+  fetchTrendingMoviesPageFifteen,
 } from "../utils/apiCalls";
 import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 import {
@@ -14,6 +24,16 @@ import {
   fetchPopularMoviesPageThree,
   fetchPopularMoviesPageFour,
   fetchPopularMoviesPageFive,
+  fetchPopularMoviesPageSix,
+  fetchPopularMoviesPageSeven,
+  fetchPopularMoviesPageEight,
+  fetchPopularMoviesPageNine,
+  fetchPopularMoviesPageTen,
+  fetchPopularMoviesPageEleven,
+  fetchPopularMoviesPageTwelve,
+  fetchPopularMoviesPageThirteen,
+  fetchPopularMoviesPageFourteen,
+  fetchPopularMoviesPageFifteen,
 } from "../utils/apiCalls";
 
 export const TrendingMoviesContext = createContext();
@@ -42,25 +62,51 @@ export const TrendingMoviesProvider = ({ children }) => {
         try {
           const responseOne = await fetchTrendingMoviesPageOne();
           const dataOne = await responseOne.json();
-          // console.log(dataOne);
           const responseTwo = await fetchTrendingMoviesPageTwo();
           const dataTwo = await responseTwo.json();
-          // console.log(dataTwo);
           const responseThree = await fetchTrendingMoviesPageThree();
           const dataThree = await responseThree.json();
-          // console.log(dataThree);
           const responseFour = await fetchTrendingMoviesPageFour();
           const dataFour = await responseFour.json();
-          // console.log(dataFour);
           const responseFive = await fetchTrendingMoviesPageFive();
           const dataFive = await responseFive.json();
-          // console.log(dataFive);
+          const responseSix = await fetchTrendingMoviesPageSix();
+          const dataSix = await responseSix.json();
+          const responseSeven = await fetchTrendingMoviesPageSeven();
+          const dataSeven = await responseSeven.json();
+          const responseEight = await fetchTrendingMoviesPageEight();
+          const dataEight = await responseEight.json();
+          const responseNine = await fetchTrendingMoviesPageNine();
+          const dataNine = await responseNine.json();
+          const responseTen = await fetchTrendingMoviesPageTen();
+          const dataTen = await responseTen.json();
+          const responseEleven = await fetchTrendingMoviesPageEleven();
+          const dataEleven = await responseEleven.json();
+          const responseTwelve = await fetchTrendingMoviesPageTwelve();
+          const dataTwelve = await responseTwelve.json();
+          const responseThirteen = await fetchTrendingMoviesPageThirteen();
+          const dataThirteen = await responseThirteen.json();
+          const responseFourteen = await fetchTrendingMoviesPageFourteen();
+          const dataFourteen = await responseFourteen.json();
+          const responseFifteen = await fetchTrendingMoviesPageFifteen();
+          const dataFifteen = await responseFifteen.json();
+
           const combinedData = [
             ...dataOne.results,
             ...dataTwo.results,
             ...dataThree.results,
             ...dataFour.results,
             ...dataFive.results,
+            ...dataSix.results,
+            ...dataSeven.results,
+            ...dataEight.results,
+            ...dataNine.results,
+            ...dataTen.results,
+            ...dataEleven.results,
+            ...dataTwelve.results,
+            ...dataThirteen.results,
+            ...dataFourteen.results,
+            ...dataFifteen.results,
           ];
           // console.log(combinedData);
 
@@ -103,25 +149,51 @@ export const TrendingMoviesProvider = ({ children }) => {
         try {
           const responseOne = await fetchPopularMoviesPageOne();
           const dataOne = await responseOne.json();
-          // console.log(dataOne);
           const responseTwo = await fetchPopularMoviesPageTwo();
           const dataTwo = await responseTwo.json();
-          // console.log(dataTwo);
           const responseThree = await fetchPopularMoviesPageThree();
           const dataThree = await responseThree.json();
-          // console.log(dataThree);
           const responseFour = await fetchPopularMoviesPageFour();
           const dataFour = await responseFour.json();
-          // console.log(dataFour);
           const responseFive = await fetchPopularMoviesPageFive();
           const dataFive = await responseFive.json();
-          // console.log(dataFive);
+          const responseSix = await fetchPopularMoviesPageSix();
+          const dataSix = await responseSix.json();
+          const responseSeven = await fetchPopularMoviesPageSeven();
+          const dataSeven = await responseSeven.json();
+          const responseEight = await fetchPopularMoviesPageEight();
+          const dataEight = await responseEight.json();
+          const responseNine = await fetchPopularMoviesPageNine();
+          const dataNine = await responseNine.json();
+          const responseTen = await fetchPopularMoviesPageTen();
+          const dataTen = await responseTen.json();
+          const responseEleven = await fetchPopularMoviesPageEleven();
+          const dataEleven = await responseEleven.json();
+          const responseTwelve = await fetchPopularMoviesPageTwelve();
+          const dataTwelve = await responseTwelve.json();
+          const responseThirteen = await fetchPopularMoviesPageThirteen();
+          const dataThirteen = await responseThirteen.json();
+          const responseFourteen = await fetchPopularMoviesPageFourteen();
+          const dataFourteen = await responseFourteen.json();
+          const responseFifteen = await fetchPopularMoviesPageFifteen();
+          const dataFifteen = await responseFifteen.json();
+
           const combinedData = [
             ...dataOne.results,
             ...dataTwo.results,
             ...dataThree.results,
             ...dataFour.results,
             ...dataFive.results,
+            ...dataSix.results,
+            ...dataSeven.results,
+            ...dataEight.results,
+            ...dataNine.results,
+            ...dataTen.results,
+            ...dataEleven.results,
+            ...dataTwelve.results,
+            ...dataThirteen.results,
+            ...dataFourteen.results,
+            ...dataFifteen.results,
           ];
           // console.log(combinedData);
 
@@ -158,9 +230,10 @@ export const TrendingMoviesProvider = ({ children }) => {
         uniqueMovieIds.delete(movie.id);
         return true;
       }
-      return false;
+      return false; 
     }
   );
+  // console.log(popularTrendingCombined);
 
   return (
     <TrendingMoviesContext.Provider value={popularTrendingCombined}>

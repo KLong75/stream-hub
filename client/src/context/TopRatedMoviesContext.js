@@ -1,13 +1,29 @@
 import { createContext, useState, useEffect } from "react";
 
-import { fetchTopMoviesPageOne, fetchTopMoviesPageTwo, fetchTopMoviesPageThree, fetchTopMoviesPageFour, fetchTopMoviesPageFive  } from "../utils/apiCalls";
+import {
+  fetchTopMoviesPageOne,
+  fetchTopMoviesPageTwo,
+  fetchTopMoviesPageThree,
+  fetchTopMoviesPageFour,
+  fetchTopMoviesPageFive,
+  fetchTopMoviesPageSix,
+  fetchTopMoviesPageSeven,
+  fetchTopMoviesPageEight,
+  fetchTopMoviesPageNine,
+  fetchTopMoviesPageTen,
+  fetchTopMoviesPageEleven,
+  fetchTopMoviesPageTwelve,
+  fetchTopMoviesPageThirteen,
+  fetchTopMoviesPageFourteen,
+  fetchTopMoviesPageFifteen,
+} from "../utils/apiCalls";
 import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const TopRatedMoviesContext = createContext();
 
 export const TopRatedMoviesProvider = ({ children }) => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
-  
+
   useEffect(() => {
     const getTopRatedMovies = async () => {
       const cachedTopRatedMovies = localStorage.getItem("topRatedMovies");
@@ -28,21 +44,53 @@ export const TopRatedMoviesProvider = ({ children }) => {
         try {
           const responseOne = await fetchTopMoviesPageOne();
           const dataOne = await responseOne.json();
-          // console.log(dataOne);
           const responseTwo = await fetchTopMoviesPageTwo();
           const dataTwo = await responseTwo.json();
-          // console.log(dataTwo);
           const responseThree = await fetchTopMoviesPageThree();
           const dataThree = await responseThree.json();
-          // console.log(dataThree);
           const responseFour = await fetchTopMoviesPageFour();
           const dataFour = await responseFour.json();
-          // console.log(dataFour);
           const responseFive = await fetchTopMoviesPageFive();
           const dataFive = await responseFive.json();
-          // console.log(dataFive);
-          const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
-          // console.log(combinedData);
+          const responseSix = await fetchTopMoviesPageSix();
+          const dataSix = await responseSix.json();
+          const responseSeven = await fetchTopMoviesPageSeven();
+          const dataSeven = await responseSeven.json();
+          const responseEight = await fetchTopMoviesPageEight();
+          const dataEight = await responseEight.json();
+          const responseNine = await fetchTopMoviesPageNine();
+          const dataNine = await responseNine.json();
+          const responseTen = await fetchTopMoviesPageTen();
+          const dataTen = await responseTen.json();
+          const responseEleven = await fetchTopMoviesPageEleven();
+          const dataEleven = await responseEleven.json();
+          const responseTwelve = await fetchTopMoviesPageTwelve();
+          const dataTwelve = await responseTwelve.json();
+          const responseThirteen = await fetchTopMoviesPageThirteen();
+          const dataThirteen = await responseThirteen.json();
+          const responseFourteen = await fetchTopMoviesPageFourteen();
+          const dataFourteen = await responseFourteen.json();
+          const responseFifteen = await fetchTopMoviesPageFifteen();
+          const dataFifteen = await responseFifteen.json();
+
+          const combinedData = [
+            ...dataOne.results,
+            ...dataTwo.results,
+            ...dataThree.results,
+            ...dataFour.results,
+            ...dataFive.results,
+            ...dataSix.results,
+            ...dataSeven.results,
+            ...dataEight.results,
+            ...dataNine.results,
+            ...dataTen.results,
+            ...dataEleven.results,
+            ...dataTwelve.results,
+            ...dataThirteen.results,
+            ...dataFourteen.results,
+            ...dataFifteen.results,
+          ];
+          console.log(combinedData);
 
           const topRatedMovies = combinedData.map((movie) => ({
             id: movie.id,
@@ -65,12 +113,10 @@ export const TopRatedMoviesProvider = ({ children }) => {
           console.log(error);
         }
       }
-
-
     };
-    getTopRatedMovies() 
+    getTopRatedMovies();
   }, []);
-  
+
   return (
     <TopRatedMoviesContext.Provider value={topRatedMovies}>
       {children}

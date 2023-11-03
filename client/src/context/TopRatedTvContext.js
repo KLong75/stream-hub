@@ -1,13 +1,29 @@
 import { createContext, useState, useEffect } from "react";
 
-import { fetchTopTvPageOne, fetchTopTvPageTwo, fetchTopTvPageThree, fetchTopTvPageFour, fetchTopTvPageFive  } from "../utils/apiCalls";
+import {
+  fetchTopTvPageOne,
+  fetchTopTvPageTwo,
+  fetchTopTvPageThree,
+  fetchTopTvPageFour,
+  fetchTopTvPageFive,
+  fetchTopTvPageSix,
+  fetchTopTvPageSeven,
+  fetchTopTvPageEight,
+  fetchTopTvPageNine,
+  fetchTopTvPageTen,
+  fetchTopTvPageEleven,
+  fetchTopTvPageTwelve,
+  fetchTopTvPageThirteen,
+  fetchTopTvPageFourteen,
+  fetchTopTvPageFifteen,
+} from "../utils/apiCalls";
 import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const TopRatedTvContext = createContext();
 
 export const TopRatedTvProvider = ({ children }) => {
   const [topRatedTv, setTopRatedTv] = useState([]);
-  
+
   useEffect(() => {
     const getTopRatedTv = async () => {
       const cachedTopRatedTv = localStorage.getItem("topRatedTv");
@@ -28,21 +44,54 @@ export const TopRatedTvProvider = ({ children }) => {
         try {
           const responseOne = await fetchTopTvPageOne();
           const dataOne = await responseOne.json();
-          // console.log(dataOne);
           const responseTwo = await fetchTopTvPageTwo();
-          const dataTwo = await responseTwo.json();
-          // console.log(dataTwo);
+          const dataTwo = await responseTwo.json();;
           const responseThree = await fetchTopTvPageThree();
           const dataThree = await responseThree.json();
-          // console.log(dataThree);
           const responseFour = await fetchTopTvPageFour();
           const dataFour = await responseFour.json();
-          // console.log(dataFour);
           const responseFive = await fetchTopTvPageFive();
           const dataFive = await responseFive.json();
-          // console.log(dataFive);
-          const combinedData = [...dataOne.results, ...dataTwo.results, ...dataThree.results, ...dataFour.results, ...dataFive.results];
-          // console.log(combinedData);
+          const responseSix = await fetchTopTvPageSix();
+          const dataSix = await responseSix.json();
+          const responseSeven = await fetchTopTvPageSeven();
+          const dataSeven = await responseSeven.json();
+          const responseEight = await fetchTopTvPageEight();
+          const dataEight = await responseEight.json();
+          const responseNine = await fetchTopTvPageNine();
+          const dataNine = await responseNine.json();
+          const responseTen = await fetchTopTvPageTen();
+          const dataTen = await responseTen.json();
+          const responseEleven = await fetchTopTvPageEleven();
+          const dataEleven = await responseEleven.json();
+          const responseTwelve = await fetchTopTvPageTwelve();
+          const dataTwelve = await responseTwelve.json();
+          const responseThirteen = await fetchTopTvPageThirteen();
+          const dataThirteen = await responseThirteen.json();
+          const responseFourteen = await fetchTopTvPageFourteen();
+          const dataFourteen = await responseFourteen.json();
+          const responseFifteen = await fetchTopTvPageFifteen();
+          const dataFifteen = await responseFifteen.json();
+
+
+          const combinedData = [
+            ...dataOne.results,
+            ...dataTwo.results,
+            ...dataThree.results,
+            ...dataFour.results,
+            ...dataFive.results,
+            ...dataSix.results,
+            ...dataSeven.results,
+            ...dataEight.results,
+            ...dataNine.results,
+            ...dataTen.results,
+            ...dataEleven.results,
+            ...dataTwelve.results,
+            ...dataThirteen.results,
+            ...dataFourteen.results,
+            ...dataFifteen.results,
+          ];
+          console.log(combinedData);
 
           const topTvShows = combinedData.map((tvShow) => ({
             id: tvShow.id,
@@ -66,9 +115,9 @@ export const TopRatedTvProvider = ({ children }) => {
         }
       }
     };
-    getTopRatedTv() 
+    getTopRatedTv();
   }, []);
-  
+
   return (
     <TopRatedTvContext.Provider value={topRatedTv}>
       {children}
