@@ -132,6 +132,16 @@ export const fetchMixedGenreTVPageFour = (genre) => { return fetch(`https://api.
 
 export const fetchMixedGenreTVPageFive = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_false=true&language=en-US&page=5&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
 
+export const fetchMixedGenreTVPageSix = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_false=true&language=en-US&page=6&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
+
+export const fetchMixedGenreTVPageSeven = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_false=true&language=en-US&page=7&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
+
+export const fetchMixedGenreTVPageEight = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_false=true&language=en-US&page=8&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
+
+export const fetchMixedGenreTVPageNine = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_false=true&language=en-US&page=9&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
+
+export const fetchMixedGenreTVPageTen = (genre) => { return fetch(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_false=true&language=en-US&page=10&sort_by=popularity.desc&with_genres=${genre}&api_key=${process.env.REACT_APP_TMDB_API_KEY}`)}
+
 
 // search actors by name
 export const searchByName = (query) => { return fetch(`https://api.themoviedb.org/3/search/person?query=${query}&api_key=${process.env.REACT_APP_TMDB_API_KEY}&include_adult=false&language=en-US&page=1`);

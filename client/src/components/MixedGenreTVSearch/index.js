@@ -33,6 +33,11 @@ import {
   fetchMixedGenreTVPageThree,
   fetchMixedGenreTVPageFour,
   fetchMixedGenreTVPageFive,
+  fetchMixedGenreTVPageSix,
+  fetchMixedGenreTVPageSeven,
+  fetchMixedGenreTVPageEight,
+  fetchMixedGenreTVPageNine,
+  fetchMixedGenreTVPageTen,
 } from "../../utils/apiCalls";
 import { formatDate, CACHE_DURATION } from "../../utils/utils";
 
@@ -134,6 +139,33 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
           throw new Error("Something went wrong!");
         }
         const searchResultsFive = await responseFive.json();
+        const responseSix = await fetchMixedGenreTVPageSix(searchedGenres);
+        if (!responseSix.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsSix = await responseSix.json();
+        const responseSeven = await fetchMixedGenreTVPageSeven(
+          searchedGenres
+        );
+        if (!responseSeven.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsSeven = await responseSeven.json();
+        const responseEight = await fetchMixedGenreTVPageEight(searchedGenres);
+        if (!responseEight.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsEight = await responseEight.json();
+        const responseNine = await fetchMixedGenreTVPageNine(searchedGenres);
+        if (!responseNine.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsNine = await responseNine.json();
+        const responseTen = await fetchMixedGenreTVPageTen(searchedGenres);
+        if (!responseTen.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsTen = await responseTen.json();
 
         const combineSearchData = [
           ...searchResults.results,
@@ -141,6 +173,11 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
           ...searchResultsThree.results,
           ...searchResultsFour.results,
           ...searchResultsFive.results,
+          ...searchResultsSix.results,
+          ...searchResultsSeven.results,
+          ...searchResultsEight.results,
+          ...searchResultsNine.results,
+          ...searchResultsTen.results,
         ]
 
         const searchResultsTitleData = combineSearchData.map((tvShow) => ({
