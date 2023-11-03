@@ -14,7 +14,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import {
   FormLabel,
   Dialog,
@@ -23,7 +23,13 @@ import {
   DialogActions,
 } from "@mui/material";
 // import from utils
-import { fetchMixedGenreMovies } from "../../utils/apiCalls";
+import {
+  fetchMixedGenreMovies,
+  fetchMixedGenreMoviesPageTwo,
+  fetchMixedGenreMoviesPageThree,
+  fetchMixedGenreMoviesPageFour,
+  fetchMixedGenreMoviesPageFive,
+} from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
 
 const MixedGenreMovieSearch = ({ onSubmit }) => {
@@ -102,15 +108,57 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
     if (!cachedMixedGenreMovieSearchResults) {
       try {
         const response = await fetchMixedGenreMovies(searchedGenres);
+        const searchResultsPageOne = await response.json();
 
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }
 
-        const searchResults = await response.json();
-        // console.log("Mixed Genre Movie Search Results: ", searchResults);
+        const responseTwo = await fetchMixedGenreMoviesPageTwo(searchedGenres);
+        const searchResultsPageTwo = await responseTwo.json();
 
-        const searchResultsTitleData = searchResults.results.map((movie) => ({
+        if (!responseTwo.ok) {
+          throw new Error("Something went wrong!");
+        }
+
+        const responseThree = await fetchMixedGenreMoviesPageThree(
+          searchedGenres
+        );
+        const searchResultsPageThree = await responseThree.json();
+
+        if (!responseThree.ok) {
+          throw new Error("Something went wrong!");
+        }
+        
+        const responseFour = await fetchMixedGenreMoviesPageFour(
+          searchedGenres
+        );
+        const searchResultsPageFour = await responseFour.json();
+
+        if (!responseFour.ok) {
+          throw new Error("Something went wrong!");
+        }
+
+        const responseFive = await fetchMixedGenreMoviesPageFive(
+          searchedGenres
+        );
+        const searchResultsPageFive = await responseFive.json();
+
+        if (!responseFive.ok) {
+          throw new Error("Something went wrong!");
+        }
+
+        const combinedSearchData = [ 
+          ...searchResultsPageOne.results,
+          ...searchResultsPageTwo.results,
+          ...searchResultsPageThree.results,
+          ...searchResultsPageFour.results,
+          ...searchResultsPageFive.results,
+        ];
+
+        console.log("Mixed Genre Movie Search Results: ", combinedSearchData);
+
+        const searchResultsTitleData = combinedSearchData.map((movie) => ({
           id: movie.id,
           title: movie.title,
           year: movie.release_date.slice(0, 4),
@@ -142,6 +190,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
         });
         handleModalClose();
         onSubmit();
+        window.location.reload();
       } catch (error) {
         console.log(error);
       }
@@ -152,15 +201,19 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
     <>
       {/* <h4>Search Movies by a Combination of Genres</h4> */}
       <h3
-        style ={{fontSize: '1.1rem', color: 'black'}}
+        style={{ fontSize: "1.1rem", color: "black" }}
         onClick={() => handleMixedGenreMovieSearchClick()}>
-        Search Movies<br/>by Genre(s)<br/>From All Available Sources
+        Search Movies
+        <br />
+        by Genre(s)
+        <br />
+        From All Available Sources
       </h3>
       <Dialog open={modalOpen} onClose={handleModalClose}>
         <DialogTitle style={{ fontSize: "1.25rem" }}>
           Search Movies by Genre(s) From All Available Sources
           <br />
-          <span style={{fontSize: '1rem'}}>Enter One or More Genres</span>
+          <span style={{ fontSize: "1rem" }}>Enter One or More Genres</span>
         </DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>

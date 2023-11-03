@@ -27,7 +27,13 @@ import {
   DialogActions,
 } from "@mui/material";
 // import from utils
-import { fetchMixedGenreTV } from "../../utils/apiCalls";
+import {
+  fetchMixedGenreTV,
+  fetchMixedGenreTVPageTwo,
+  fetchMixedGenreTVPageThree,
+  fetchMixedGenreTVPageFour,
+  fetchMixedGenreTVPageFive,
+} from "../../utils/apiCalls";
 import { formatDate, CACHE_DURATION } from "../../utils/utils";
 
 const MixedGenreTVSearch = ({ onSubmit }) => {
@@ -50,7 +56,6 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
   };
 
   useEffect(() => {
-    // console.log("State has changed: ", userInput);
   }, [userInput]);
 
   const handleGenreChange = (event) => {
@@ -103,15 +108,42 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
     if (!cachedMixedGenreTvSearchResults) {
       try {
         const response = await fetchMixedGenreTV(searchedGenres);
-
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }
-
         const searchResults = await response.json();
-        // console.log("Mixed Genre TV Search Results: ", searchResults);
+        const responseTwo = await fetchMixedGenreTVPageTwo(searchedGenres);
+        if (!responseTwo.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsTwo = await responseTwo.json();
+        const responseThree = await fetchMixedGenreTVPageThree(
+          searchedGenres
+        );
+        if (!responseThree.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsThree = await responseThree.json();
+        const responseFour = await fetchMixedGenreTVPageFour(searchedGenres);
+        if (!responseFour.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsFour = await responseFour.json();
+        const responseFive = await fetchMixedGenreTVPageFive(searchedGenres);
+        if (!responseFive.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const searchResultsFive = await responseFive.json();
 
-        const searchResultsTitleData = searchResults.results.map((tvShow) => ({
+        const combineSearchData = [
+          ...searchResults.results,
+          ...searchResultsTwo.results,
+          ...searchResultsThree.results,
+          ...searchResultsFour.results,
+          ...searchResultsFive.results,
+        ]
+
+        const searchResultsTitleData = combineSearchData.map((tvShow) => ({
           id: tvShow.id,
           title: tvShow.name,
           year: formatDate(tvShow.first_air_date),
@@ -123,10 +155,10 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
           genres: tvShow.genre_ids,
         }));
 
-        // console.log(
-        //   "Mixed Genre Tv Search Title Data: ",
-        //   searchResultsTitleData
-        // );
+        console.log(
+          "Mixed Genre Tv Search Title Data: ",
+          searchResultsTitleData
+        );
 
         setMixedGenreSearchResults(searchResultsTitleData);
 
@@ -143,6 +175,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
         });
         handleModalClose();
         onSubmit();
+        window.location.reload();
       } catch (error) {
         console.log(error);
       }
@@ -151,7 +184,9 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
 
   return (
     <>
-      <h3 style ={{fontSize: '1.1rem', color: 'black'}} onClick={() => handleMixedGenreTvSearchClick()}>
+      <h3
+        style={{ fontSize: "1.1rem", color: "black" }}
+        onClick={() => handleMixedGenreTvSearchClick()}>
         Search TV Shows
         <br />
         by Genre(s)

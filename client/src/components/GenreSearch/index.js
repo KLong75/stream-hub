@@ -196,7 +196,7 @@ const GenreSearch = ({ onSubmit }) => {
       if (now - timestamp < CACHE_DURATION) {
         setGenreSearchResults(data);
         // console.log("Using Cached Data:", data);
-        navigate("/search_results", { state: { titles: data, genre: selectedGenreLabel } }); // <- navigate with useNavigate
+        navigate("/search_results", { state: { titles: data, genre: selectedGenreLabel } });
         setSelectedGenre("");
         setModalOpen(false);
         onSubmit();

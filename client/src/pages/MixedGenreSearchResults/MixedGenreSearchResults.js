@@ -26,11 +26,12 @@ const MixedGenreSearchResults = () => {
   const loggedIn = Auth.loggedIn();
   const location = useLocation();
   const searchedGenresFromRouter = location.state?.genres || [];
+  console.log(searchedGenresFromRouter);
   const { mixedGenreSearchResults } = useContext(SearchResultsContext);
   const [searchedGenres] = useState(searchedGenresFromRouter);
 
   useEffect(() => {}, [mixedGenreSearchResults]);
-  // console.log(mixedGenreSearchResults);
+  console.log(mixedGenreSearchResults);
 
   const handleTitleSelected = useTitleSelectionTMDBId();
 
