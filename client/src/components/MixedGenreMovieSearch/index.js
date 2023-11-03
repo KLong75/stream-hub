@@ -29,6 +29,11 @@ import {
   fetchMixedGenreMoviesPageThree,
   fetchMixedGenreMoviesPageFour,
   fetchMixedGenreMoviesPageFive,
+  fetchMixedGenreMoviesPageSix,
+  fetchMixedGenreMoviesPageSeven,
+  fetchMixedGenreMoviesPageEight,
+  fetchMixedGenreMoviesPageNine,
+  fetchMixedGenreMoviesPageTen
 } from "../../utils/apiCalls";
 import { CACHE_DURATION } from "../../utils/utils";
 
@@ -109,44 +114,71 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
       try {
         const response = await fetchMixedGenreMovies(searchedGenres);
         const searchResultsPageOne = await response.json();
-
         if (!response.ok) {
           throw new Error("Something went wrong!");
         }
-
         const responseTwo = await fetchMixedGenreMoviesPageTwo(searchedGenres);
         const searchResultsPageTwo = await responseTwo.json();
-
         if (!responseTwo.ok) {
           throw new Error("Something went wrong!");
         }
-
         const responseThree = await fetchMixedGenreMoviesPageThree(
           searchedGenres
         );
         const searchResultsPageThree = await responseThree.json();
-
         if (!responseThree.ok) {
           throw new Error("Something went wrong!");
         }
-        
         const responseFour = await fetchMixedGenreMoviesPageFour(
           searchedGenres
         );
         const searchResultsPageFour = await responseFour.json();
-
         if (!responseFour.ok) {
           throw new Error("Something went wrong!");
         }
-
         const responseFive = await fetchMixedGenreMoviesPageFive(
           searchedGenres
         );
         const searchResultsPageFive = await responseFive.json();
-
         if (!responseFive.ok) {
           throw new Error("Something went wrong!");
         }
+        const responseSix = await fetchMixedGenreMoviesPageSix(
+          searchedGenres
+        );
+        const searchResultsPageSix = await responseSix.json();
+        if (!responseSix.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const responseSeven = await fetchMixedGenreMoviesPageSeven(
+          searchedGenres
+        );
+        const searchResultsPageSeven = await responseSeven.json();
+        if (!responseSeven.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const responseEight = await fetchMixedGenreMoviesPageEight(
+          searchedGenres
+        );
+        const searchResultsPageEight = await responseEight.json();
+        if (!responseEight.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const responseNine = await fetchMixedGenreMoviesPageNine(
+          searchedGenres
+        );
+        const searchResultsPageNine = await responseNine.json();
+        if (!responseNine.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const responseTen = await fetchMixedGenreMoviesPageTen(
+          searchedGenres
+        );
+        const searchResultsPageTen = await responseTen.json();
+        if (!responseTen.ok) {
+          throw new Error("Something went wrong!");
+        }
+
 
         const combinedSearchData = [ 
           ...searchResultsPageOne.results,
@@ -154,6 +186,11 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
           ...searchResultsPageThree.results,
           ...searchResultsPageFour.results,
           ...searchResultsPageFive.results,
+          ...searchResultsPageSix.results,
+          ...searchResultsPageSeven.results,
+          ...searchResultsPageEight.results,
+          ...searchResultsPageNine.results,
+          ...searchResultsPageTen.results
         ];
 
         console.log("Mixed Genre Movie Search Results: ", combinedSearchData);

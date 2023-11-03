@@ -26,7 +26,7 @@ const MixedGenreSearchResults = () => {
   const loggedIn = Auth.loggedIn();
   const location = useLocation();
   const searchedGenresFromRouter = location.state?.genres || [];
-  console.log(searchedGenresFromRouter);
+  // console.log(searchedGenresFromRouter);
   const { mixedGenreSearchResults } = useContext(SearchResultsContext);
   const [searchedGenres] = useState(searchedGenresFromRouter);
 
