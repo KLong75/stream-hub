@@ -7,7 +7,7 @@ import {
   fetchTrendingMoviesPageFour,
   fetchTrendingMoviesPageFive,
 } from "../utils/apiCalls";
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../utils/utils";
+import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 import {
   fetchPopularMoviesPageOne,
   fetchPopularMoviesPageTwo,
@@ -30,7 +30,7 @@ export const TrendingMoviesProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedTrendingMovies);
         // console.log("Cached Data Retrieved: cachedTrendingMovies", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setTrendingMovies(data);
           return;
         } else {
@@ -91,7 +91,7 @@ export const TrendingMoviesProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedPopularMovies);
         // console.log("Cached Data Retrieved: cachedPopularMovies", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setPopularMovies(data);
           return;
         } else {

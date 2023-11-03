@@ -14,7 +14,7 @@ import {
   fetchPopularTvPageFour,
   fetchPopularTvPageFive,
 } from "../utils/apiCalls";
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../utils/utils";
+import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const TrendingTvContext = createContext();
 
@@ -30,7 +30,7 @@ export const TrendingTvProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedTrendingTv);
         // console.log("Cached Data Retrieved: cachedTrendingTv", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setTrendingTv(data);
           return;
         } else {
@@ -93,7 +93,7 @@ export const TrendingTvProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedPopularTv);
         // console.log("Cached Data Retrieved: cachedPopularTv", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setPopularTv(data);
           return;
         } else {

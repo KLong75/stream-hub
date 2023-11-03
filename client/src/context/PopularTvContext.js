@@ -7,7 +7,7 @@ import {
   fetchPopularTvPageFour,
   fetchPopularTvPageFive,
 } from "../utils/apiCalls";
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../utils/utils";
+import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const PopularTvContext = createContext();
 
@@ -22,7 +22,7 @@ export const PopularTvProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedPopularTv);
         // console.log("Cached Data Retrieved: cachedPopularTv", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setPopularTv(data);
           return;
         } else {

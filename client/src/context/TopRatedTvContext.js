@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 
 import { fetchTopTvPageOne, fetchTopTvPageTwo, fetchTopTvPageThree, fetchTopTvPageFour, fetchTopTvPageFive  } from "../utils/apiCalls";
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../utils/utils";
+import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const TopRatedTvContext = createContext();
 
@@ -16,7 +16,7 @@ export const TopRatedTvProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedTopRatedTv);
         // console.log("Cached Data Retrieved: cachedTopRAtedTv", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setTopRatedTv(data);
           return;
         } else {

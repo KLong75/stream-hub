@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 
 import { fetchTopMoviesPageOne, fetchTopMoviesPageTwo, fetchTopMoviesPageThree, fetchTopMoviesPageFour, fetchTopMoviesPageFive  } from "../utils/apiCalls";
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../utils/utils";
+import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const TopRatedMoviesContext = createContext();
 
@@ -16,7 +16,7 @@ export const TopRatedMoviesProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedTopRatedMovies);
         // console.log("Cached Data Retrieved: cachedTopRatedMovies", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setTopRatedMovies(data);
           return;
         } else {

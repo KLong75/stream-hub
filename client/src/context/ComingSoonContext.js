@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 
 import { fetchMoviesComingSoon, fetchMoviesComingSoonPageTwo, fetchMoviesComingSoonPageThree, fetchMoviesComingSoonPageFour, fetchMoviesComingSoonPageFive  } from "../utils/apiCalls";
-import { CACHE_DURATION_ONE_WEEK, formatDate } from "../utils/utils";
+import { CACHE_DURATION_ONE_DAY, formatDate } from "../utils/utils";
 
 export const ComingSoonContext = createContext();
 
@@ -16,7 +16,7 @@ export const ComingSoonProvider = ({ children }) => {
         const { data, timestamp } = JSON.parse(cachedMoviesComingSoon);
         // console.log("Cached Data Retrieved: cachedMoviesComingSoon", data);
         const now = Date.now();
-        if (now - timestamp < CACHE_DURATION_ONE_WEEK) {
+        if (now - timestamp < CACHE_DURATION_ONE_DAY) {
           setComingSoon(data);
           return;
         } else {
