@@ -25,8 +25,6 @@ const ActorSearchResultsModal = ({ open, onClose }) => {
   const { actorSearchResults } = useContext(SearchResultsContext);
   const handleTitleSelected = useTitleSelectionTMDBId();
 
-  console.log("actorSearchResults: ", actorSearchResults);
-
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogContent className="gradientBackground">
