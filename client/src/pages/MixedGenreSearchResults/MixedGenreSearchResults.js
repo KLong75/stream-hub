@@ -1,16 +1,12 @@
 // import from react
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 // import context
 import { SearchResultsContext } from "../../context/SearchResultsContext";
 // import from mui
-// import Paper from "@mui/material/Paper";
 import { ButtonBase } from "@mui/material";
-// import { styled } from '@mui/material/styles';
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import from swiper.js
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Parallax } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -20,6 +16,8 @@ import Auth from "../../utils/auth";
 import { genreList } from "../../utils/utils";
 // import styles
 import styles from "./MixedGenreSearchResults.module.css";
+// import images
+import notAvailable from "../../assets/images/no_image_available.jpg";
 
 
 const MixedGenreSearchResults = () => {
@@ -29,14 +27,10 @@ const MixedGenreSearchResults = () => {
   // console.log(searchedGenresFromRouter);
   const { mixedGenreSearchResults } = useContext(SearchResultsContext);
   const [searchedGenres] = useState(searchedGenresFromRouter);
-
-  useEffect(() => {}, [mixedGenreSearchResults]);
-  // console.log(mixedGenreSearchResults);
-
   const handleTitleSelected = useTitleSelectionTMDBId();
 
   return (
-    <main className="gradientBackground" >
+    <main className="gradientBackground">
       {!loggedIn ? (
         <div>
           <h2>Welcome to streamHub</h2>
@@ -51,171 +45,82 @@ const MixedGenreSearchResults = () => {
         </div>
       ) : (
         <>
-          <Grid container sx={{ textAlign: "center" }}>
+          <Grid container sx={{ textAlign: "center", marginBottom: "4rem" }}>
             <Grid xs={12}>
               <h3
                 style={{
-                  background:
-                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
                   color: "black",
                   fontFamily: "Raleway",
                   fontWeight: "700",
                   letterSpacing: ".2rem",
                   fontSize: "2rem",
-                  marginTop: "0",
-                  marginBottom: "0",
-                  padding: ".5rem",
+                  padding: ".75rem",
                 }}>
                 Genre Search Results
               </h3>
+            </Grid>
+            <Grid xs={12}>
               <h4
                 style={{
                   fontSize: "1.75rem",
                   margin: "0",
-                  marginBottom: '-1em',
                   padding: ".5rem",
-                  background:
-                    "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
                   color: "black",
-                  fontFamily: "Bebas Neue",
+                  fontFamily: "Raleway",
                   fontWeight: "700",
                   letterSpacing: ".2rem",
                 }}>
+                Searched For:
+                <br />'
                 {searchedGenres
                   .map((id) => genreList[id])
                   .filter(Boolean)
                   .join(", ")}
+                '
               </h4>
             </Grid>
-          </Grid>
-          <div>
-            <Swiper
-              style={{
-                "--swiper-navigation-color": "#000000",
-                "--swiper-pagination-color": "#000000",
-                marginBottom: "6rem",
-                marginTop: "2rem",
-              }}
-              speed={1000}
-              parallax={true}
-              navigation={true}
-              // pagination={true}
-              modules={[Parallax, Navigation, Pagination]}>
+            <Grid xs={12} container sx={{ marginTop: "2rem" }}>
               {mixedGenreSearchResults.map((title) => (
-                <SwiperSlide
+                <Grid
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
                   key={title.id}
-                  style={{
-                    marginBottom: "4rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}>
-                 
-                  <div
-                    style={{
-                      width: "55%", // or any width you find appropriate
-                      height: "100%",
-                      marginBottom: '-36rem'
-                    }}>
-                    {title.backdrop_url && (
+                  sx={{ marginBottom: "4rem" }}>
+                  {title.title && <p>{title.title}</p>}
+                  {title.type && (
+                    <p>
+                      {title.type === "movie"
+                        ? "Movie"
+                        : title.type === "tv"
+                        ? "TV Series"
+                        : title.type === "tv_miniseries"
+                        ? "TV Miniseries"
+                        : title.type === "short_film"
+                        ? "Short Film"
+                        : "Unknown Type"}
+                    </p>
+                  )}
+                  {title.year && <p>{title.year}</p>}
+                  {title.poster_url && (
+                    <ButtonBase
+                      onClick={(event) => handleTitleSelected(title.id, event)}>
                       <img
-                        data-swiper-parallax="-900"
-                        className={styles.backdrop}
-                        src={title.backdrop_url}
+                        className={styles.poster}
+                        src={
+                          title.poster_url.includes("null")
+                            ? notAvailable
+                            : title.poster_url
+                        }
                         alt={title.title}
                       />
-                    )}
-                  </div>
-
-                  <Grid
-                    className={styles.titleDetailsContainer}
-                    container
-                    spacing={1}
-                    justifyContent="center"
-                    alignItems="end"
-                    textAlign="center"
-                  >                   
-                    {title.title && (
-                      <Grid xs={12}>
-                        <h4 position='relative' style={{ fontSize: "1.5rem", margin: "0", fontWeight: 'bold', zIndex: '100' }}
-                         data-swiper-parallax="-800">
-                          {title.title}
-                        </h4>
-                      </Grid>
-                    )}
-                    {title.genres && (
-                      <Grid xs={12}>
-                        <h5 style={{ fontSize: "1.25rem", margin: "0" }}
-                         data-swiper-parallax="-700"
-                        >
-                          {title.genres
-                            .map((id) => genreList[id])
-                            .filter(Boolean)
-                            .join(", ")}
-                        </h5>
-                      </Grid>
-                    )}
-
-                    {title.poster_url && (
-                      <Grid xs={12}>
-                        <ButtonBase                
-                          onClick={() =>
-                            handleTitleSelected(
-                              `${title.type + "-" + title.id}`
-                            )
-                          }>
-                          <img  data-swiper-parallax="-600" className={styles.poster}  src={title.poster_url} alt={title.title} />
-                        </ButtonBase>
-                      </Grid>
-                    )}
-
-                    {title.type && (
-                      <Grid xs={12}>
-                        <h6  data-swiper-parallax="-500" style={{ fontSize: "1.2rem", margin: "0" }}>
-                          {title.type.charAt(0).toUpperCase() +
-                            title.type.slice(1)}
-                        </h6>
-                      </Grid>
-                    )}
-                    {title.year && (
-                      <Grid xs={12} sx={{marginBottom: '0'}}>
-                        <h6  data-swiper-parallax="-400" style={{ fontSize: "1.1rem", margin: "0" }}>
-                          {title.year}
-                        </h6>
-                        
-                      </Grid>
-                    )}
-                    {title.overview && (
-                      <>
-                      <Grid xs={3}></Grid>
-                      <Grid xs={6}>
-                        <p data-swiper-parallax="-300" style={{marginBottom: '0'}}>{title.overview}</p>
-                      </Grid>
-                      <Grid xs={3}></Grid>
-                      </>
-                    )}
-                     
-                    {/* {title.backdrop_url && (
-                      <Grid xs={12}>
-                        <Grid container justifyContent="center">
-                          <Grid xs={12}>
-                            <img src={title.backdrop_url} alt={title.title} />
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    )} */}
-                    
-                  </Grid>
-                  
-                </SwiperSlide>
+                    </ButtonBase>
+                  )}
+                </Grid>
               ))}
-            </Swiper>
-          </div>
+            </Grid>
+          </Grid>
         </>
       )}
     </main>
@@ -223,4 +128,3 @@ const MixedGenreSearchResults = () => {
 };
 
 export default MixedGenreSearchResults;
-

@@ -41,6 +41,7 @@ import {
 } from "../../utils/apiCalls";
 import { formatDate, CACHE_DURATION } from "../../utils/utils";
 
+
 const MixedGenreTVSearch = ({ onSubmit }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -104,6 +105,7 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
         });
         handleModalClose();
         onSubmit();
+        window.location.reload();
       } else {
         localStorage.removeItem(`mixedGenreTvSearchResults_${searchedGenres}`);
         // console.log("Cached Data Expired and Removed");
@@ -210,8 +212,8 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
         navigate("/mixed_genre_search_results", {
           state: { titles: searchResultsTitleData, genres: userInput.genres },
         });
-        handleModalClose();
         onSubmit();
+        handleModalClose();
         window.location.reload();
       } catch (error) {
         console.log(error);

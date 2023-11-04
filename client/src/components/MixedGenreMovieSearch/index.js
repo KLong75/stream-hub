@@ -102,6 +102,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
         });
         handleModalClose();
         onSubmit();
+        window.location.reload();
       } else {
         localStorage.removeItem(
           `mixedGenreMovieSearchResults_${searchedGenres}`
@@ -179,7 +180,6 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
           throw new Error("Something went wrong!");
         }
 
-
         const combinedSearchData = [ 
           ...searchResultsPageOne.results,
           ...searchResultsPageTwo.results,
@@ -192,8 +192,7 @@ const MixedGenreMovieSearch = ({ onSubmit }) => {
           ...searchResultsPageNine.results,
           ...searchResultsPageTen.results
         ];
-
-        console.log("Mixed Genre Movie Search Results: ", combinedSearchData);
+        // console.log("Mixed Genre Movie Search Results: ", combinedSearchData);
 
         const searchResultsTitleData = combinedSearchData.map((movie) => ({
           id: movie.id,
