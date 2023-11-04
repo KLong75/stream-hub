@@ -94,8 +94,12 @@ const ActorSearchResultsModal = ({ open, onClose }) => {
                           <img
                             className={styles.titleKnownForPoster}
                             onClick={() =>
-                              handleTitleSelected(titleKnownFor.id)
-                            }
+                          onClose() &
+                          handleTitleSelected(
+                            titleKnownFor.media_type.includes("tv")
+                              ? `tv-${titleKnownFor.id}`
+                              : `movie-${titleKnownFor.id}`
+                          )}
                             src={`https://image.tmdb.org/t/p/w200/${titleKnownFor.poster_path}`}
                             alt={titleKnownFor.title}
                             style={{
