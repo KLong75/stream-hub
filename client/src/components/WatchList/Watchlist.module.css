@@ -131,10 +131,6 @@
   margin-bottom: 2rem;
   margin-top: 2rem;
   padding: .5rem;
-  background: linear-gradient(315deg, #185a9d 0%, #43cea2 85%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  /* color: transparent; */
   color: black;
 }
 
@@ -150,8 +146,6 @@
   text-overflow: ellipsis;
   max-width: 90%;
 }
-
-
 
 .genres{
   font-size: .8rem;

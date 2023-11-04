@@ -264,6 +264,7 @@ const GenreSearch = ({ onSubmit }) => {
         <DialogContent>
         <DialogActions>
           <TextField
+            color="formOutline"
             fullWidth
             required
             id="genre-select"

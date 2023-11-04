@@ -11,7 +11,7 @@ import { TopRatedTvContext } from "../../context/TopRatedTvContext";
 import { TrendingTvContext } from "../../context/TrendingTvContext";
 import { PopularTvContext } from "../../context/PopularTvContext";
 // import from material-ui
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
@@ -100,7 +100,9 @@ const TitleSearch = ({ onSubmit }) => {
       if (now - timestamp < CACHE_DURATION) {
         setTitleSearchResults(data);
         // console.log("Using Cached Data:", data);
-        navigate("/title_search_results", { state: { data, searchedTitle: userInput } });
+        navigate("/title_search_results", {
+          state: { data, searchedTitle: userInput },
+        });
         setModalOpen(false);
         onSubmit();
         // return;
@@ -154,18 +156,24 @@ const TitleSearch = ({ onSubmit }) => {
 
   return (
     <>
-      <h3 style ={{fontSize: '1.1rem', color: 'black'}} onClick={() => handleTitleSearchClick()}>
-        Search Movies and TV Shows<br/>by Title<br/>From All Available Sources
+      <h3
+        style={{ fontSize: "1.1rem", color: "black" }}
+        onClick={() => handleTitleSearchClick()}>
+        Search Movies and TV Shows
+        <br />
+        by Title
+        <br />
+        From All Available Sources
       </h3>
-      <Dialog open={modalOpen} onClose={handleCloseModal} >
-        <DialogTitle>Search Movies and TV Shows by Title From All Available Sources
-         
-          </DialogTitle>
-          <DialogContent >
+      <Dialog open={modalOpen} onClose={handleCloseModal}>
+        <DialogTitle>
+          Search Movies and TV Shows by Title From All Available Sources
+        </DialogTitle>
+        <DialogContent>
           <p style={{ fontSize: "1rem", padding: "1.5" }}>
             Don't see your title in the menu? Enter it anyway! We'll find it!
           </p>
-          <form onSubmit={searchByUserInput} style={{overflowX: 'hidden'}}> 
+          <form onSubmit={searchByUserInput} style={{ overflowX: "hidden" }}>
             <FormControl>
               <Autocomplete
                 size="small"
@@ -223,14 +231,14 @@ const TitleSearch = ({ onSubmit }) => {
                 freeSolo
                 renderInput={(params) => (
                   <TextField
-                  sx={{ width: '16rem', marginTop: '1rem' }}
+                    color="formOutline"
+                    sx={{ width: "16rem", marginTop: "1rem" }}
                     {...params}
                     required
                     label="Enter Title"
                   />
                 )}
               />
-             
               <DialogActions>
                 <Button
                   type="submit"
@@ -242,7 +250,10 @@ const TitleSearch = ({ onSubmit }) => {
             </FormControl>
           </form>
         </DialogContent>
-        <Button variant="contained" onClick={handleCloseModal} sx={{borderRadius: '4px'}}>
+        <Button
+          variant="contained"
+          onClick={handleCloseModal}
+          sx={{ borderRadius: "4px" }}>
           Close
         </Button>
       </Dialog>

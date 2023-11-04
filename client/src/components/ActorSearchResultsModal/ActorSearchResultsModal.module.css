@@ -20,11 +20,10 @@
   width: 16em;
   height: 24em;
   margin-top: 4em;
-  margin-bottom: 8em;
+  margin-bottom: 5em;
   cursor: pointer;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
- 
 }
 
 .knownForSlide:hover {
@@ -32,3 +31,41 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
 }
 
+.knownForTitle{
+  font-size: 1.2rem;
+  margin-bottom: 0;
+  margin-top: 0rem;
+  /* margin-left: .5rem; */
+  padding: .3rem;
+  padding-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* max-width: 90%; */
+}
+
+.genres{
+  font-size: .8rem;
+  margin-bottom: 0;
+  margin-top: -.35rem;
+  /* padding-left: .3rem; */
+  /* margin-left: .6rem; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.releaseDate {
+  font-size: .8rem;
+  margin-bottom: 0;
+  margin-top: 0rem;
+  padding-bottom: .5rem;
+  /* padding-left: .3rem; */
+  /* margin-left: .6rem; */
+}
+
+.titleKnownForPoster:hover {
+  /* opacity: .6; */
+  transform: scale(1.01);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
+}
