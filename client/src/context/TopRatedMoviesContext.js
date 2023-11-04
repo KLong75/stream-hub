@@ -90,7 +90,7 @@ export const TopRatedMoviesProvider = ({ children }) => {
             ...dataFourteen.results,
             ...dataFifteen.results,
           ];
-          console.log(combinedData);
+          // console.log(combinedData);
 
           const topRatedMovies = combinedData.map((movie) => ({
             id: movie.id,

@@ -91,7 +91,7 @@ export const TopRatedTvProvider = ({ children }) => {
             ...dataFourteen.results,
             ...dataFifteen.results,
           ];
-          console.log(combinedData);
+          // console.log(combinedData);
 
           const topTvShows = combinedData.map((tvShow) => ({
             id: tvShow.id,
