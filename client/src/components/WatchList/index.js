@@ -18,6 +18,7 @@ import { QUERY_ME } from "../../utils/queries";
 import { REMOVE_TITLE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useTitleSelection } from "../../utils/useTitleSelection";
+import { formatDate } from "../../utils/utils";
 
 // import { sourceLogos } from "../../utils/sourceLogos";
 // import { buySourceLogos } from "../../utils/buySourceLogos";
@@ -221,7 +222,7 @@ const WatchList = () => {
                 </h5>
                 <h6 className={styles.releaseDate}>
                   {title.type.includes("tv") ? "First aired on" : "Released on"}{" "}
-                  {title.release_date}
+                  {formatDate(title.release_date)}
                 </h6>
                 <IconButton
                   sx={{

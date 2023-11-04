@@ -1,6 +1,5 @@
 // import from utils
 import { genreList } from "../../utils/utils";
-// import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDBId";
 // import components
 import VerticalCardSwipeGallery from "../VerticalCardSwipeGallery";
 // import context
@@ -19,16 +18,6 @@ const WhatsHotGallery = () => {
     { context: ComingSoonContext, categoryTitle: "Coming Soon" },
   ];
 
-  // const titleSelectionHandler = useTitleSelectionTMDBId();
-  // const handleTitleSelected = useTitleSelectionTMDBId();
-  // const handleTitleSelected = (id) => {
-  //   const customEvent = {
-  //     preventDefault: () => {},
-  //     target: { value: id },
-  //   };
-  //   titleSelectionHandler(customEvent);
-  // };
-  
 
   return (
     <>
@@ -37,7 +26,6 @@ const WhatsHotGallery = () => {
           key={index}
           context={context}
           categoryTitle={categoryTitle}
-          // handleTitleSelected={handleTitleSelected}
           genreList={genreList}
         />
       ))}
