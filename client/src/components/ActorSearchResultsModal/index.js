@@ -27,7 +27,7 @@ const ActorSearchResultsModal = ( { open, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogContent>
+      <DialogContent className="gradientBackground">
         <Grid
           container
           justifyContent="center"

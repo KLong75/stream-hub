@@ -5,7 +5,6 @@ export const fetchGenres = () => {
     .then((response) => response.json())
     .then((data) => {
       // console.log(data)
-      
     })
     .catch((err) => {
       console.log(err.message);
@@ -13,24 +12,24 @@ export const fetchGenres = () => {
 }
 
 // fetch sources
-export const fetchSources = () => {
-    fetch(`https://api.watchmode.com/v1/sources/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}`)
-    .then((response) => response.json())
-    .then((data) => {
+// export const fetchSources = () => {
+//     fetch(`https://api.watchmode.com/v1/sources/?apiKey=${process.env.REACT_APP_WMODE_API_KEY}`)
+//     .then((response) => response.json())
+//     .then((data) => {
       // console.log(data)
-      const subSources = data.filter((source => source.type === 'sub'))
+      // const subSources = data.filter((source => source.type === 'sub'))
       // console.log(subSources)
-      const purchaseSources = data.filter((source => source.type === 'purchase'))
+      // const purchaseSources = data.filter((source => source.type === 'purchase'))
       // console.log(purchaseSources)
-      const freeSources = data.filter((source => source.type === 'free'))
+      // const freeSources = data.filter((source => source.type === 'free'))
       // console.log(freeSources)
-      const rentalSources = data.filter((source => source.type === 'rental'))
+      // const rentalSources = data.filter((source => source.type === 'rental'))
       // console.log(rentalSources)
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-}
+//     })
+//     .catch((err) => {
+//       console.log(err.message);
+//     });
+// }
 
 
 export const fetchTitlesBySource= () => {
@@ -480,7 +479,6 @@ export const trendingTvTest = () => {
 
 export const fetchActionTv = () => { return fetch (`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&genre=10759watch_region=us`);
 }
-
 
 
 export const searchTmdbMoviesByGenre = () => {
