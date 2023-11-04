@@ -68,10 +68,6 @@
   margin: 0;
 }
 
-/* .poster {
-  
-} */
-
 .poster:hover {
   opacity: .6;
   transform: scale(1.1);
@@ -187,28 +183,10 @@
   } 
 }
 
-/* @media(max-width: 768px) {
-  .backdropBox {
-   
-  }
-} */
-
 /* media queries */
 @media (max-width: 500px ) {
   .slide {
     margin-left: 0;
     margin-right: 0;
-  }
-}
-
-@media(max-width: 400px) {
-  .backdropBox {
-    /* height: 30vh; */
-  }
-}
-
-@media(max-width: 300px) {
-  .backdropBox {
-    /* height: 20vh; */
   }
 }
