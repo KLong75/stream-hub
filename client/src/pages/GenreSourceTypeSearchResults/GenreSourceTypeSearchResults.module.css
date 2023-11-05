@@ -3,7 +3,7 @@
   overflow: hidden;
   /* text-overflow: ellipsis; */
   /* text-wrap: wrap; */
-  margin: 0;
+  margin: .5rem;
   font-size: 1.2rem;
 }
 
