@@ -171,6 +171,7 @@ const WatchList = () => {
 
           {/* <h3 className={styles.category}>{userData.username}'s Watchlist</h3> */}
           <Swiper
+          loop={true}
             style={{ "--swiper-navigation-color": "#000000" }}
             effect={"coverflow"}
             grabCursor={true}
