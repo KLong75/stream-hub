@@ -21,9 +21,7 @@ const GenreSourceTypeResults = () => {
   const location = useLocation();
   const searchDataFromRouter = location.state || {};
   const locationStateRef = useRef(location.state);
-
   const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
-  console.log(genreSourceTypeSearchResults);
   const [searchedGenres, setSearchedGenres] = useState(
     searchDataFromRouter.genres || ""
   );
