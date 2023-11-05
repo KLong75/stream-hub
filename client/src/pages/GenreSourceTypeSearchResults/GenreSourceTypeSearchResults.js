@@ -11,8 +11,9 @@ import { ButtonBase } from "@mui/material";
 import { styled } from "@mui/material/styles";
 // import from utils
 import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
-
 import Auth from "../../utils/auth";
+// import styles
+import styles from "./GenreSourceTypeSearchResults.module.css";
 
 const GenreSourceTypeResults = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const GenreSourceTypeResults = () => {
   const locationStateRef = useRef(location.state);
 
   const { genreSourceTypeSearchResults } = useContext(SearchResultsContext);
+  console.log(genreSourceTypeSearchResults);
   const [searchedGenres, setSearchedGenres] = useState(
     searchDataFromRouter.genres || ""
   );
@@ -136,15 +138,15 @@ const GenreSourceTypeResults = () => {
   };
 
   const TitleBox = styled(Paper)(({ theme }) => ({
+    display: "flex", // make TitleBox a flex container
+    flexDirection: "column", // stack children vertically
+    alignItems: "center", // center children horizontally
+    justifyContent: "center", // center children vertically
     padding: theme.spacing(4),
     margin: theme.spacing(4),
-    textAlign: "center",
-    color: "black",
-    marginBottom: "4rem",
-    width: "12rem",
-    height: "12rem",
+    width: "14rem",
+    height: "14rem",
     borderRadius: "20%",
-    fontSize: "1rem",
     fontWeight: "bold",
     backgroundImage: "linear-gradient(315deg, #185a9d 0%, #43cea2 100%)",
     "&:hover": {
@@ -162,9 +164,6 @@ const GenreSourceTypeResults = () => {
           <Grid xs={12}>
             <h3
               style={{
-                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
                 color: "black",
                 fontFamily: "Raleway",
                 fontWeight: "700",
@@ -184,9 +183,6 @@ const GenreSourceTypeResults = () => {
                 margin: "0",
                 marginBottom: "-.5em",
                 padding: ".5rem",
-                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
                 color: "black",
                 fontFamily: "Raleway",
                 fontWeight: "700",
@@ -200,9 +196,6 @@ const GenreSourceTypeResults = () => {
                 margin: "0",
                 marginBottom: "-.5em",
                 padding: ".5rem",
-                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
                 color: "black",
                 fontFamily: "Raleway",
                 fontWeight: "700",
@@ -219,9 +212,6 @@ const GenreSourceTypeResults = () => {
                 margin: "0",
                 marginBottom: "-.5em",
                 padding: ".5rem",
-                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
                 color: "black",
                 fontFamily: "Raleway",
                 fontWeight: "700",
@@ -238,9 +228,6 @@ const GenreSourceTypeResults = () => {
                 margin: "0",
                 marginBottom: "0em",
                 padding: ".5rem",
-                background: "linear-gradient(315deg, #185a9d 0%, #43cea2 85%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
                 color: "black",
                 fontFamily: "Raleway",
                 fontWeight: "700",
@@ -267,17 +254,11 @@ const GenreSourceTypeResults = () => {
                   onClick={(event) => handleTitleSelected(title.id, event)}
                   value={title.id}>
                   <TitleBox elevation={12}>
-                    {title.title && <p>{title.title}</p>}
-                    {title.genres && (
-                      <p>
-                        {title.genres
-                          .map((id) => watchModeGenreList[id])
-                          .filter(Boolean)
-                          .join(", ")}
-                      </p>
-                    )}
+                    {title.title && <h6 className={
+                              styles.resultTitle
+                            }>{title.title}</h6>}
                     {title.type && (
-                      <p>
+                      <h6 className={styles.resultType}>
                         {title.type === "movie"
                           ? "Movie"
                           : title.type === "tv_series"
@@ -287,9 +268,11 @@ const GenreSourceTypeResults = () => {
                           : title.type === "short_film"
                           ? "Short Film"
                           : "Unknown Type"}
-                      </p>
+                      </h6>
                     )}
-                    {title.year && <p>{title.year}</p>}
+                    {title.year && <h6 className={
+                              styles.resultYear
+                            }>{title.year}</h6>}
                     {/* <Button
                   variant="contained"
                   // value={title.type + '-' + title.id}
