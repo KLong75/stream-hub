@@ -1,9 +1,9 @@
 .resultTitle {
-  white-space: nowrap;
-  /* overflow: hidden; */
-  text-overflow: ellipsis;
-  text-wrap: wrap;
-  margin: .5rem;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+  /* text-wrap: wrap; */
+  margin: 0;
   font-size: 1.2rem;
 }
 

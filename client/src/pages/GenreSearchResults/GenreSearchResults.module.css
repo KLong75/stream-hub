@@ -1,8 +1,8 @@
 .resultTitle {
-  white-space: nowrap;
-  /* overflow: hidden; */
-  text-overflow: ellipsis;
-  text-wrap: wrap;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+  /* text-wrap: wrap; */
   margin: 0;
   font-size: 1.2rem;
 }
