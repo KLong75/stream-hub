@@ -9,6 +9,7 @@
   font-weight: 800;
   letter-spacing: .2rem;
 }
+
 .savedTitleCountDisplay {
   font-size: 1.25rem;
   text-align: center;
@@ -23,88 +24,7 @@
 .swiper {
   width: 100%;
   height: auto;
-  /* background: #000; */
 }
-
-.swiperSlide { 
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 40px 60px;
-  height: 100vh;
-  width: auto;
-  position: relative;
-}
-
-.parallax-bg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 130%;
-  height: 100%;
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.year {
-  font-size: .85rem;
-  margin: 0;
-}
-
-.genre {
-  font-size: .85rem;
-  margin: 0;
-}
-
-.type {
-  font-size: .85rem;
-  margin: 0;
-}
-
-.poster:hover {
-  opacity: .6;
-  transform: scale(1.1);
-}
-
-.sourceLogos:hover {
-  opacity: 0.5;
-  /* filter: brightness(180%) contrast(90%); */
-}
-
-.buySourceLogos:hover {
-  opacity: 0.5;
-  /* filter: brightness(120%) contrast(90%); */
-}
-
-.removeButton:hover {
-  transform: scale(1.1);
-}
-
-.backdropBox{ 
- /* background-image: linear-gradient(315deg, #43cea2 0%,  #185a9d 75%); */
- height: 100vh;
-}
-
-.backdrop {
-  height: 100%;
-  width: 100%;
-  opacity: 0.6;
-    /* filter: blur(3px); */
-  padding: 12rem;
-  position: relative;
-}
-
-.removeLabel {
-  margin-top: -.5rem;
-  display: none;
-} 
 
 .slide {
   width: 16rem;
@@ -120,16 +40,6 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
 }
 
-.category {
-  font-family: 'Raleway';
-  font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-  padding: .5rem;
-  color: black;
-}
-
 .savedTitle{
   font-size: 1.2rem;
   margin-bottom: 0;
@@ -141,6 +51,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 90%;
+}
+
+.watchlistPoster:hover {
+  /* opacity: .6; */
+  transform: scale(1.01);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
 }
 
 .genres{
@@ -163,12 +79,9 @@
   margin-left: .6rem;
 }
 
-.watchlistPoster:hover {
-  /* opacity: .6; */
-  transform: scale(1.01);
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, .75); 
+.removeButton:hover {
+  transform: scale(1.1);
 }
-
 
 @media(max-width: 900px) {
   .backdrop {

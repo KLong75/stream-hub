@@ -228,11 +228,9 @@ const TitleDetails = () => {
       console.error(err);
     }
   };
-
   if (showRedirectMessage) {
     return <div>Please login or signup</div>;
   }
-
   if (loading) {
     return <LoadingClapBoard />;
   }

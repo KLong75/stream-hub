@@ -32,8 +32,6 @@ export const SearchResultsProvider = ({ children }) => {
   }, [genreSearchResults, actorSearchResults, mixedGenreSearchResults, mixedGenreMovieSearchResults, titleSearchResults, genreSourceTypeSearchResults]);
 
 
-
-
   return (
     <SearchResultsContext.Provider
       value={{
