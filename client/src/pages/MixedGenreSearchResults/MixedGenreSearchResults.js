@@ -26,6 +26,7 @@ const MixedGenreSearchResults = () => {
   const searchedGenresFromRouter = location.state?.genres || [];
   // console.log(searchedGenresFromRouter);
   const { mixedGenreSearchResults } = useContext(SearchResultsContext);
+  console.log(mixedGenreSearchResults);
   const [searchedGenres] = useState(searchedGenresFromRouter);
   const handleTitleSelected = useTitleSelectionTMDBId();
 
@@ -105,7 +106,11 @@ const MixedGenreSearchResults = () => {
                   {title.year && <p>{title.year}</p>}
                   {title.poster_url && (
                     <ButtonBase
-                      onClick={(event) => handleTitleSelected(title.id, event)}>
+                      onClick={(event) => handleTitleSelected(
+                        title.type === "tv"
+                        ? `tv-${title.id}`
+                        : `movie-${title.id}`
+                        , event)}>         
                       <img
                         className={styles.poster}
                         src={
