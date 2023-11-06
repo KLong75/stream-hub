@@ -75,7 +75,7 @@ export const useTitleSelectionTMDBId = () => {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
-        console.log("New Data Retrieved:", titleDetails);
+        // console.log("New Data Retrieved:", titleDetails);
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
