@@ -11,7 +11,6 @@ import { useTitleSelectionTMDBId } from "../../utils/useTitleSelectionTMDB";
 // import styles
 import styles from "./VerticalCardSwipeGallery.module.css";
 
-
 const VerticalCardSwipeGallery = ({
   context,
   categoryTitle,
@@ -29,14 +28,15 @@ const VerticalCardSwipeGallery = ({
     }
     return false;
   });
-  console.log(filteredData)
+  // console.log(filteredData);
 
   const handleTitleSelected = useTitleSelectionTMDBId();
 
-
   return (
-    <>      
-      <h3 id={categoryTitle} className={styles.category}>{categoryTitle}</h3>   
+    <>
+      <h3 id={categoryTitle} className={styles.category}>
+        {categoryTitle}
+      </h3>
       <Swiper
         loop={true}
         style={{ "--swiper-navigation-color": "#000000" }}
@@ -53,8 +53,7 @@ const VerticalCardSwipeGallery = ({
         }}
         navigation={true}
         modules={[EffectCoverflow, Navigation]}
-        className={styles.swiper}
-      >
+        className={styles.swiper}>
         {filteredData.map((item) => (
           <SwiperSlide
             className={styles.slide}
@@ -70,18 +69,17 @@ const VerticalCardSwipeGallery = ({
                   ? `tv-${item.id}`
                   : `movie-${item.id}`
               )
-            }
-          >
+            }>
             <h4 className={styles.title}>{item.title}</h4>
-            {/* <h5 className={styles.genres}>
-              {item.genre
+            <h5 className={styles.genres}>
+              {(item.genre || [])
                 .map((id) => genreList[id])
                 .slice(0, 3)
                 .join(", ")}
-            </h5> */}
-            
+            </h5>
             <h6 className={styles.releaseDate}>
-            {categoryTitle.includes("TV") ? "First aired on" : "Released on"} {item.release_date}
+              {categoryTitle.includes("TV") ? "First aired on" : "Released on"}{" "}
+              {item.release_date}
             </h6>
           </SwiperSlide>
         ))}
