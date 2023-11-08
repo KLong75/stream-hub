@@ -29,6 +29,7 @@ const VerticalCardSwipeGallery = ({
     }
     return false;
   });
+  console.log(filteredData)
 
   const handleTitleSelected = useTitleSelectionTMDBId();
 
@@ -72,12 +73,13 @@ const VerticalCardSwipeGallery = ({
             }
           >
             <h4 className={styles.title}>{item.title}</h4>
-            <h5 className={styles.genres}>
+            {/* <h5 className={styles.genres}>
               {item.genre
                 .map((id) => genreList[id])
                 .slice(0, 3)
                 .join(", ")}
-            </h5>
+            </h5> */}
+            
             <h6 className={styles.releaseDate}>
             {categoryTitle.includes("TV") ? "First aired on" : "Released on"} {item.release_date}
             </h6>
