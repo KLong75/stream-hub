@@ -1,7 +1,7 @@
 {
   "short_name": "WatchTV",
   "name": "WatchTV",
-  "description": "A central hub for all of your TV Streaming Subscriptions. Find it here. Watch it there.",
+  "description": "A central hub for all of your TV Streaming Subscriptions. Netflix, Hulu, Disney+, AppleTV, Max, Paramount+, Peacock, Starz, and More! Search them all on WatchTV. Find it here. Watch it there.",
   "icons": [
     {
       "src": "tvIcon-16x16.png",
@@ -47,7 +47,8 @@
       "src": "watchlist.png",
       "sizes": "1605x699",
       "type": "image/png",
-      "label": "WatchTV Watchlist"
+      "label": "WatchTV Watchlist",
+      "form_factor": "wide"
     },
     {
       "src": "watchTV-landingMobile.png",
