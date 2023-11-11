@@ -1,4 +1,5 @@
 # WatchTV
+REACT | NODE | EXPRESS | MONGODB | JAVASCRIPT | HTML | CSS 
 
 ## Table of Contents
 - [Description](#description)
@@ -9,8 +10,6 @@
 - [Questions](#questions)
 
 ## Description
-REACT | NODE | EXPRESS | MONGODB | JAVASCRIPT | HTML | CSS 
-<br></br>
 React. React-Router. React-Context. Node. MongoDB. Express. Full stack application. (MERN) Serves as a central hub for all of a user's subscription streaming accounts. Search for any TV show or movie and link to where it is available online to stream, rent, or buy. Multiple search methods enable users to find what they want to watch and where they can watch it. Users can search all sources or just the ones they are subscribed to. Save titles to a watchlist for later viewing. The watchlist can be filtered by source, type, and genre. Sources include Netflix, Hulu, Prime Video, Disney+, Max, AppleTV, ParamountPlus, Showtime, BritBox, Google Play, YouTube, iTunes, and many more. If it is available online we'll let you know where. If it is not available we'll let you know that too. Users can search by title, genre, source, or any combination of the above.
 
 WatchTV consumes data from two server-side APIs (WatchMode and The Movie Database).
