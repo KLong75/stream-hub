@@ -40,8 +40,8 @@
       "src": "watchTVDesktop.png",
       "sizes": "1150x830",
       "type": "image/png",
-      "form_factor": "wide",
-      "label": "WatchTV Desktop View"
+      "label": "WatchTV Desktop View",
+      "form_factor": "wide"
     },
     {
       "src": "watchlist.png",

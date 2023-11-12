@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 // import from @apollo/client
 import { useQuery } from "@apollo/client";
 
-
 export const useTitleSelection = () => {
   const { data } = useQuery(QUERY_ME);
   const userData = data?.me || {};
@@ -48,10 +47,6 @@ export const useTitleSelection = () => {
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setSelectedTitleDetails(data);
-        // console.log(
-        //   "cached data retrieved for selectedTitleDetails, parsed, time checked",
-        //   data
-        // );
         navigate("/title_details");
         window.scrollTo(0, 0);
       } else {
@@ -59,7 +54,6 @@ export const useTitleSelection = () => {
       }
     }
     if (!cachedTitleDetails) {
-      // I want to query my database for the title details before making a fetch request
       try {
         const response = await fetchTitleDetails(selectedTitleId);
         if (!response.ok) {

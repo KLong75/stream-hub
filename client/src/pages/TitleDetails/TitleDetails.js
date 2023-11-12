@@ -34,8 +34,6 @@ import { buySourceLogos } from "../../utils/buySourceLogos";
 // import styles
 import styles from "./TitleDetails.module.css";
 
-
-
 const TitleDetails = () => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
@@ -164,7 +162,6 @@ const TitleDetails = () => {
     setSelectedActorName("");
     setModalOpen(false);
   };
-
 
   const handleSaveTitle = async (title) => {
     const input = {
