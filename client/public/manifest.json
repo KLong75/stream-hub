@@ -47,8 +47,7 @@
       "src": "watchlist.png",
       "sizes": "1605x699",
       "type": "image/png",
-      "label": "WatchTV Watchlist",
-      "form_factor": "wide"
+      "label": "WatchTV Watchlist"
     },
     {
       "src": "watchTV-landingMobile.png",

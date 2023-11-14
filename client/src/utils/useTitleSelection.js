@@ -17,9 +17,6 @@ export const useTitleSelection = () => {
   const userData = data?.me || {};
   const savedTitles = userData.savedTitles || [];
   // console.log('savedTitleSelection savedTitles',savedTitles)
-
-  let cast;
-  let crew;
   const navigate = useNavigate();
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
   
@@ -105,7 +102,8 @@ export const useTitleSelection = () => {
             console.error(err);
           }
         }
-        
+        let cast;
+        let crew;
         if (titleDetails.type === "movie" || titleDetails.type === "short_film") {
         try {
           const getMoreDetailsMovie = await fetchMoreTitleDetailsMovie(titleDetails.imdb_id);
