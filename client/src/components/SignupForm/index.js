@@ -32,7 +32,7 @@ const SignupForm = () => {
       const { data } = await addUser({
         variables: { ...formState },
       });
-      alert("Your account has been created. We are logging you in.");
+      // alert("Your account has been created. We are logging you in.");
       Auth.login(data.addUser.token);
     } catch (e) {
       let errorMessage =
