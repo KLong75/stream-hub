@@ -37,23 +37,25 @@
   ],
   "screenshots": [
     {
-      "src": "watchTVDesktop.png",
-      "sizes": "1150x830",
+      "src": "watchtv_home_desktop.png",
+      "sizes": "1348x836",
       "type": "image/png",
-      "label": "WatchTV Desktop View",
+      "label": "WatchTV Home Page Desktop View",
       "form_factor": "wide"
     },
     {
-      "src": "watchlist.png",
-      "sizes": "1605x699",
+      "src": "watchtv_landing_desktop.png",
+      "sizes": "1368x830",
       "type": "image/png",
-      "label": "WatchTV Watchlist"
+      "label": "WatchTV Landing Page Desktop View",
+      "form_factor": "wide"
     },
     {
       "src": "watchTV-landingMobile.png",
       "sizes": "381x829",
       "type": "image/png",
-      "label": "WatchTV Mobile View"
+      "label": "WatchTV Mobile View",
+      "form_factor": "narrow"
     }
   ],
   
