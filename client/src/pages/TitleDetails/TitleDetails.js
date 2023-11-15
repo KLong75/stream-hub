@@ -345,7 +345,7 @@ const TitleDetails = () => {
                 )}
                 {selectedTitleDetails.sources && selectedTitleDetails.sources.length > 0 &&(
                   <Grid xs={12}>
-                    <h6 style={{ fontSize: "1rem" }}>Watch on:</h6>
+                    <h6 style={{ fontSize: "1rem", marginBottom: '1rem' }}>Watch on:</h6>
                   </Grid>
                 )}
                 {selectedTitleDetails.sources.map((source, index) => (
@@ -390,7 +390,7 @@ const TitleDetails = () => {
                 )}
                 {selectedTitleDetails.buy_sources && selectedTitleDetails.buy_sources.length > 0 && (
                   <Grid xs={12}>
-                    <h6 style={{ fontSize: "1rem" }}>Rent or Buy:</h6>
+                    <h6 style={{ fontSize: "1rem", marginBottom: '1rem' }}>Rent or Buy:</h6>
                   </Grid>
                 )}
                 {selectedTitleDetails.buy_sources.map((source, index) => (
