@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import styles from "./LoginForm.module.css";
+// import from mui
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const FormWrapper = styled.div`
   font-size: 16px;
@@ -25,12 +28,14 @@ const FormWrapper = styled.div`
 `;
 
 
-const LoginForm = ({ switchToSignup }) => {
+const LoginForm = () => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [formState, setFormState] = useState({
     email: "",
     password: "",
   });
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login] = useMutation(LOGIN_USER);
 
   const handleChanges = (event) => {
     const { name, value } = event.target;
@@ -47,8 +52,27 @@ const LoginForm = ({ switchToSignup }) => {
       Auth.login(token);
     } catch (e) {
       console.log(e);
+      const errorMessage = "Incorrect credentials. Please try again or Sign Up.";
+      setSnackbarMessage(errorMessage);
+      setOpenSnackbar(true);
     }
   };
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnackbar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
 
   return (
     <FormWrapper>
@@ -85,8 +109,7 @@ const LoginForm = ({ switchToSignup }) => {
         <Button sx={{marginTop: '.2rem'}}className={styles.logInButton} size='small' variant="contained" type="submit">
           Log In
         </Button>
-        {/* <Button onClick={switchToSignup}>Sign Up</Button> */}
-        {error ? (
+        {/* {error ? (
           <>
             <p className="error-text font-link" id="log-in-error">
               Log In failed.
@@ -97,8 +120,15 @@ const LoginForm = ({ switchToSignup }) => {
               <button>Sign Up</button>
             </Link>
           </>
-        ) : null}
+        ) : null} */}
       </form>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        action={action}
+        />
     </FormWrapper>
   );
 };

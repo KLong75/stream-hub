@@ -4,9 +4,10 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import styles from "./SignupForm.module.css";
+// import from mui
 import Snackbar from "@mui/material/Snackbar";
-
-
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const SignupForm = () => {
@@ -35,7 +36,7 @@ const SignupForm = () => {
       Auth.login(data.addUser.token);
     } catch (e) {
       let errorMessage =
-        "Please try again. Your password must include at least one number, one lowercase letter, one uppercase letter, and one special character.";
+        "Please try again. Password must include at least one number, one lowercase letter, one uppercase letter, and one special character.";
       if (e.message.includes("minimum allowed length")) {
         errorMessage = "Password must be at least 6 characters long.";
       } else if (e.message.includes("duplicate key error" && "email")) {
@@ -43,8 +44,6 @@ const SignupForm = () => {
       } else if (e.message.includes("duplicate key error" && "username")) {
         errorMessage = "An account with that username already exists.";
       }
-
-      console.log(e);
       setSnackbarMessage(errorMessage);
       setOpenSnackbar(true);
     }
@@ -53,6 +52,19 @@ const SignupForm = () => {
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
+
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnackbar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
 
   return (
     <div>
@@ -114,6 +126,7 @@ const SignupForm = () => {
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
+        action={action}
         />
     </div>
   );
