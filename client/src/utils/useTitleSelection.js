@@ -19,7 +19,7 @@ export const useTitleSelection = () => {
   // console.log('savedTitleSelection savedTitles',savedTitles)
   const navigate = useNavigate();
   const { setSelectedTitleDetails } = useContext(TitleDetailsContext);
-  
+
   const handleTitleSelected = async (id, event) => {
     if (event) event.preventDefault();
     // const selectedTitleId = event.target.value;
@@ -28,12 +28,12 @@ export const useTitleSelection = () => {
 
     for (let i = 0; i < savedTitles.length; i++) {
       if (savedTitles[i].id === selectedTitleId) {
-        setSelectedTitleDetails(savedTitles[i])
+        setSelectedTitleDetails(savedTitles[i]);
         // console.log('title data pulled from database')
         navigate("/title_details");
         window.scrollTo(0, 0);
         return;
-      }  
+      }
     }
 
     const cachedTitleDetails = localStorage.getItem(
@@ -77,7 +77,7 @@ export const useTitleSelection = () => {
             }
           }
         });
-        // Fetch similar titles and update 
+        // Fetch similar titles and update
         const similarTitleIds = titleDetails.similar_titles
           ? titleDetails.similar_titles.slice(0, 10)
           : [];
@@ -102,43 +102,48 @@ export const useTitleSelection = () => {
             console.error(err);
           }
         }
-        let cast;
-        let crew;
-        if (titleDetails.type === "movie" || titleDetails.type === "short_film") {
-        try {
-          const getMoreDetailsMovie = await fetchMoreTitleDetailsMovie(titleDetails.imdb_id);
-          if (!getMoreDetailsMovie.ok) {
-            throw new Error("Something went wrong fetching cast and crew");
+        let cast = [];
+        let crew = [];
+        if (
+          titleDetails.type === "movie" ||
+          titleDetails.type === "short_film"
+        ) {
+          try {
+            const getMoreDetailsMovie = await fetchMoreTitleDetailsMovie(
+              titleDetails.imdb_id
+            );
+            if (!getMoreDetailsMovie.ok) {
+              throw new Error("Something went wrong fetching cast and crew");
+            }
+            const moreMovieDetailsFetched = await getMoreDetailsMovie.json();
+            cast = moreMovieDetailsFetched.cast;
+            crew = moreMovieDetailsFetched.crew;
+          } catch (err) {
+            console.error(err);
           }
-          const moreMovieDetailsFetched = await getMoreDetailsMovie.json();
-          cast = moreMovieDetailsFetched.cast;
-          crew = moreMovieDetailsFetched.crew;  
-        }     
-        catch (err) {
-          console.error(err);
-        };
-      } else if (titleDetails.type.includes("tv")) {
-        try {
-          const tvShowTitle = titleDetails.title;
-          const tvTitleResponse = await fetchTvTitle(tvShowTitle);
-          if (!tvTitleResponse.ok) {
-            throw new Error("Something went wrong fetching cast and crew");
+        } else if (titleDetails.type.includes("tv")) {
+          try {
+            const tvShowTitle = titleDetails.title;
+            const tvTitleResponse = await fetchTvTitle(tvShowTitle);
+            if (!tvTitleResponse.ok) {
+              throw new Error("Something went wrong fetching cast and crew");
+            }
+            const moreTitleData = await tvTitleResponse.json();
+            const tvTitleImdbId = moreTitleData.results[0].id;
+            const tvTitleResponse2 = await fetchMoreTitleDetailsTV(
+              tvTitleImdbId
+            );
+            if (!tvTitleResponse2.ok) {
+              throw new Error("Something went wrong fetching cast and crew");
+            }
+            const moreTitleData2 = await tvTitleResponse2.json();
+            cast = moreTitleData2.cast;
+            crew = moreTitleData2.crew;
+          } catch (err) {
+            console.error(err);
           }
-          const moreTitleData = await tvTitleResponse.json();
-          const tvTitleImdbId = moreTitleData.results[0].id;
-          const tvTitleResponse2 = await fetchMoreTitleDetailsTV(tvTitleImdbId);
-          if (!tvTitleResponse2.ok) {
-            throw new Error("Something went wrong fetching cast and crew");
-          }
-          const moreTitleData2 = await tvTitleResponse2.json();
-          cast = moreTitleData2.cast;
-          crew = moreTitleData2.crew;
         }
-        catch (err) {
-          console.error(err);
-        };
-      }
-       const titleDetailsData = {
+        const titleDetailsData = {
           id: titleDetails.id,
           title: titleDetails.title,
           type: titleDetails.type,
@@ -159,10 +164,14 @@ export const useTitleSelection = () => {
               ? titleDetails.trailer.replace(/watch\?v=/, "embed/")
               : titleDetails.trailer,
           trailer_thumbnail: titleDetails.trailer_thumbnail,
-          cast: cast.slice(0,8),
-          crew: crew.filter((member) => member.job === "Director"),
+          // cast: cast.slice(0,8),
+          // crew: crew.filter((member) => member.job === "Director"),
+          cast: cast.length ? cast.slice(0, 8) : [], // Only slice if cast is not empty
+          crew: crew.length
+            ? crew.filter((member) => member.job === "Director")
+            : [],
           imdb_id: titleDetails.imdb_id,
-          tmdb_id: titleDetails.tmdb_id
+          tmdb_id: titleDetails.tmdb_id,
         };
         // console.log(titleDetailsData);
         setSelectedTitleDetails(titleDetailsData);
@@ -178,7 +187,7 @@ export const useTitleSelection = () => {
         window.scrollTo(0, 0);
       } catch (error) {
         console.log(error);
-      }     
+      }
     }
   };
   return handleTitleSelected;

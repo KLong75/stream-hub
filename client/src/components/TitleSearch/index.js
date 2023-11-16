@@ -23,6 +23,9 @@ import {
 } from "@mui/material";
 // import FormLabel from '@mui/material/FormLabel';
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 // import from utils
 import { searchByTitle } from "../../utils/apiCalls";
 
@@ -31,6 +34,8 @@ import { CACHE_DURATION } from "../../utils/utils";
 const filter = createFilterOptions();
 
 const TitleSearch = ({ onSubmit }) => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const { setTitleSearchResults } = useContext(SearchResultsContext); // <- get the context
@@ -118,6 +123,10 @@ const TitleSearch = ({ onSubmit }) => {
         // console.log(response);
 
         if (!response.ok) {
+          const errorMessage =
+            "We were unable to find your title. Please try again.";
+          setSnackbarMessage(errorMessage);
+          setOpenSnackbar(true);
           alert("Something went wrong. Please try again.");
         }
 
@@ -132,7 +141,7 @@ const TitleSearch = ({ onSubmit }) => {
           image_url: titles.image_url,
         }));
 
-        // console.log(titleSearchData);
+        console.log(titleSearchData);
         setTitleSearchResults(titleSearchData);
 
         const cacheData = {
@@ -153,6 +162,25 @@ const TitleSearch = ({ onSubmit }) => {
       }
     }
   };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
+  const snackBarAction = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnackbar}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
+
+
 
   return (
     <>
@@ -257,6 +285,13 @@ const TitleSearch = ({ onSubmit }) => {
           Close
         </Button>
       </Dialog>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        action={snackBarAction}
+        />
     </>
   );
 };

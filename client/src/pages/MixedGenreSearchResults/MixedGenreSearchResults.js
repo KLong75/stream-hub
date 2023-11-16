@@ -25,6 +25,7 @@ const MixedGenreSearchResults = () => {
   const location = useLocation();
   const searchedGenresFromRouter = location.state?.genres || [];
   const { mixedGenreSearchResults } = useContext(SearchResultsContext);
+  // console.log(mixedGenreSearchResults);
   const [searchedGenres] = useState(searchedGenresFromRouter);
   const handleTitleSelected = useTitleSelectionTMDBId();
 
