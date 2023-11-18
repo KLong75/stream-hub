@@ -24,6 +24,7 @@ import { TrendingTvProvider } from "./context/TrendingTvContext";
 import { PopularTvProvider } from "./context/PopularTvContext";
 import { TopRatedTvProvider } from "./context/TopRatedTvContext";
 import { ComingSoonProvider } from "./context/ComingSoonContext";
+import { SavedTitlesProvider } from "./context/SavedTitlesContext";
 // import from apollo
 import {
   ApolloProvider,
@@ -62,7 +63,7 @@ const theme = createTheme({
       // 'Bebas Neue',
       // 'Railway',
       // 'sans-serif',
-    ].join(','),
+    ].join(","),
   },
   palette: {
     formOutline: {
@@ -107,38 +108,43 @@ const App = () => {
                       <PopularTvProvider>
                         <TopRatedTvProvider>
                           <ComingSoonProvider>
-                          <CssBaseline />
-                          <Router>
-                            <ScrollToTop />
-                            <Header />
-                            <Routes>
-                              <Route path="/" element={<LandingPage />} />
-                              <Route path="/home_page" element={<HomePage />} />
-                              <Route
-                                path="/search_results"
-                                element={<GenreSearchResults />}
-                              />
-                              <Route
-                                path="/mixed_genre_search_results"
-                                element={<MixedGenreSearchSearchResults />}
-                              />
-                              <Route
-                                path="/genre_source_type_search_results"
-                                element={<GenreSourceTypeResults />}
-                              />
-                              <Route
-                                path="/title_search_results"
-                                element={<TitleSearchResults />}
-                              />
-                              <Route
-                                path="/title_details"
-                                element={<TitleDetails />}
-                              />
-                              <Route path="*" element={<LandingPage />} />
-                            </Routes>
-                            <ScrollToTopButton />
-                            <Footer />
-                          </Router>
+                            <SavedTitlesProvider>
+                              <CssBaseline />
+                              <Router>
+                                <ScrollToTop />
+                                <Header />
+                                <Routes>
+                                  <Route path="/" element={<LandingPage />} />
+                                  <Route
+                                    path="/home_page"
+                                    element={<HomePage />}
+                                  />
+                                  <Route
+                                    path="/search_results"
+                                    element={<GenreSearchResults />}
+                                  />
+                                  <Route
+                                    path="/mixed_genre_search_results"
+                                    element={<MixedGenreSearchSearchResults />}
+                                  />
+                                  <Route
+                                    path="/genre_source_type_search_results"
+                                    element={<GenreSourceTypeResults />}
+                                  />
+                                  <Route
+                                    path="/title_search_results"
+                                    element={<TitleSearchResults />}
+                                  />
+                                  <Route
+                                    path="/title_details"
+                                    element={<TitleDetails />}
+                                  />
+                                  <Route path="*" element={<LandingPage />} />
+                                </Routes>
+                                <ScrollToTopButton />
+                                <Footer />
+                              </Router>
+                            </SavedTitlesProvider>
                           </ComingSoonProvider>
                         </TopRatedTvProvider>
                       </PopularTvProvider>
