@@ -191,7 +191,7 @@ const WatchList = () => {
                 <h4 className={styles.savedTitle}>{title.title}</h4>
                 <div>
                   <img
-                  className={styles.watchlistPoster}
+                    className={styles.watchlistPoster}
                     onClick={() => handleTitleSelected(title.id)}
                     src={title.poster}
                     alt={title.title}
