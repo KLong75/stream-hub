@@ -38,7 +38,7 @@ const VerticalCardSwipeGallery = ({
         {categoryTitle}
       </h3>
       <Swiper
-        loop={true}
+        // loop={true}
         style={{ "--swiper-navigation-color": "#000000" }}
         effect={"coverflow"}
         grabCursor={true}

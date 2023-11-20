@@ -1,7 +1,9 @@
 // import from react
-import { useState } from "react";
+import { useState, useContext } from "react";
 // import from react-router-dom
 import { Link, useParams } from "react-router-dom";
+// import context
+
 // import from @apollo/client
 import { useQuery, useMutation } from "@apollo/client";
 // import from mui
@@ -25,7 +27,11 @@ import FilterTitles from "../FilterTitles";
 // import styles
 import styles from "./Watchlist.module.css";
 
+// console.log(SavedTitlesContext);
+
+
 const WatchList = () => {
+  // const { savedTitles } = useContext(SavedTitlesContext);
   const loggedIn = Auth.loggedIn();
   const { username: userParam } = useParams();
   const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
@@ -161,7 +167,7 @@ const WatchList = () => {
 
           {/* <h3 className={styles.category}>{userData.username}'s Watchlist</h3> */}
           <Swiper
-            loop={true}
+            // loop={true}
             style={{ "--swiper-navigation-color": "#000000" }}
             effect={"coverflow"}
             grabCursor={true}
