@@ -194,10 +194,10 @@ const MixedGenreTVSearch = ({ onSubmit }) => {
           genres: tvShow.genre_ids,
         }));
 
-        console.log(
-          "Mixed Genre Tv Search Title Data: ",
-          searchResultsTitleData
-        );
+        // console.log(
+        //   "Mixed Genre Tv Search Title Data: ",
+        //   searchResultsTitleData
+        // );
 
         setMixedGenreSearchResults(searchResultsTitleData);
 
