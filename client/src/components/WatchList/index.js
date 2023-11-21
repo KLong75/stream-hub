@@ -27,14 +27,11 @@ import FilterTitles from "../FilterTitles";
 // import styles
 import styles from "./Watchlist.module.css";
 
-// console.log(SavedTitlesContext);
-
 
 const WatchList = () => {
-  // const { savedTitles } = useContext(SavedTitlesContext);
   const loggedIn = Auth.loggedIn();
   const { username: userParam } = useParams();
-  const { loading, data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
+  const { data } = useQuery(userParam ? QUERY_ME : QUERY_ME, {
     variables: { username: userParam },
   });
   const userData = data?.me || {};
@@ -122,9 +119,9 @@ const WatchList = () => {
     return true;
   });
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
   // console.log("savedTitles", userData.savedTitles);
   // console.log("filteredTitles", filteredTitles);
   // console.log("userData", userData);

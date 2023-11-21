@@ -141,7 +141,7 @@ const TitleSearch = ({ onSubmit }) => {
           image_url: titles.image_url,
         }));
 
-        console.log(titleSearchData);
+        // console.log(titleSearchData);
         setTitleSearchResults(titleSearchData);
 
         const cacheData = {

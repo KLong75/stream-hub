@@ -1,31 +1,33 @@
-import { createContext, useState, useEffect, useMemo } from "react";
+import { createContext, useMemo } from "react";
 import { useQuery } from "@apollo/client";
 // import from utils
 import { QUERY_ME } from "../utils/queries";
+// import components
+import LoadingClapBoard from "../components/LoadingClapBoard";
 
-export const UserContext = createContext();
+export const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({});
 
-  const { data } = useQuery(QUERY_ME);
+  const { data, loading, error } = useQuery(QUERY_ME);
 
+  console.log(data)
 
   // Memoize 'userData' to only update when 'data' changes
   const userData = useMemo(() => {
-    return data?.me || {};
+    return data?.me || { savedTitles: [] };
   }, [data]);
+  
 
-  useEffect(() => {
-    // Now 'userData' is stable unless 'data' changes
-    setUserInfo(userData);
-  }, [userData]);
+  console.log('userData', userData)
+  
+  const value = useMemo(() => ({ userData }), [userData]);
 
-  console.log("UserContext.js: userInfo", userInfo);
-
-  const value = useMemo(() => ({ userInfo, setUserInfo }), [userInfo]);
+  if(loading) return <LoadingClapBoard />
+  if(error) return <p>ERROR</p>
 
   return (
+    
     <UserContext.Provider value={value}>
       {children}
     </UserContext.Provider>
