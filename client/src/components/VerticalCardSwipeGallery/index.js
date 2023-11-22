@@ -31,6 +31,7 @@ const VerticalCardSwipeGallery = ({
   // console.log(filteredData);
 
   const handleTitleSelected = useTitleSelectionTMDBId();
+  const now = new Date();
 
   return (
     <>
@@ -78,7 +79,11 @@ const VerticalCardSwipeGallery = ({
                 .join(", ")}
             </h5>
             <h6 className={styles.releaseDate}>
-              {categoryTitle.includes("TV") ? "First aired on" : "Released on"}{" "}
+              {new Date(item.release_date) > now
+                ? "Coming on"
+                : categoryTitle.includes("TV")
+                ? "First aired on"
+                : "Released on"}{" "}
               {item.release_date}
             </h6>
           </SwiperSlide>
