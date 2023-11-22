@@ -183,19 +183,12 @@ const GenreSearch = ({ onSubmit }) => {
 
     if (cachedGenreSearchResults) {
       const { data, timestamp } = JSON.parse(cachedGenreSearchResults);
-
       const selectedGenreLabel = genreOptions.find(
         (option) => option.value === selectedGenreCode
       )?.label;
-
-
-      // console.log("Stored Data Retrieved:", data);
-      // console.log("Stored Timestamp:", timestamp);
-      // console.log("Current Time:", Date.now());
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {
         setGenreSearchResults(data);
-        // console.log("Using Cached Data:", data);
         navigate("/search_results", { state: { titles: data, genre: selectedGenreLabel } });
         setSelectedGenre("");
         setModalOpen(false);
@@ -210,27 +203,21 @@ const GenreSearch = ({ onSubmit }) => {
       try {
         const response = await searchByGenre(selectedGenreCode);
         // console.log(searchByGenre(selectedGenreCode));
-
         if (!response.ok) {
           // throw new Error("Something went wrong");
           alert("Something went wrong. Please try again.");
         }
         const { titles } = await response.json();
-
         // console.log(titles);
-
         const titleData = titles.map((titles) => ({
           id: titles.id,
           title: titles.title,
           type: titles.type,
           year: titles.year,
         }));
-
         // console.log(titleData);
-
         setGenreSearchResults(titleData);
         setSelectedGenre("");
-
         const cacheData = {
           data: titleData,
           timestamp: Date.now(),

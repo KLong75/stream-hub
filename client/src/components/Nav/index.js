@@ -91,7 +91,7 @@ const Nav = () => {
                   <Divider />
                   <ListItem
                     sx={{ textAlign: "center", justifyContent: "center" }}>
-                    <SearchDrawerIconButton />
+                    <SearchDrawerIconButton handleDrawerClose={handleDrawerClose}/>
                   </ListItem>
                   <Divider />
                   <Divider />

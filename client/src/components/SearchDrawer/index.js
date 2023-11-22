@@ -24,7 +24,7 @@ import MixedGenreTVSearch from "../../components/MixedGenreTVSearch";
 // import styles
 import styles from "./SearchDrawer.module.css";
 
-const SearchDrawer = ({ isOpen, onClose }) => {
+const SearchDrawer = ({ isOpen, onClose, handleDrawerClose }) => {
   const loggedIn = Auth.loggedIn();
   const navigate = useNavigate();
 
@@ -40,6 +40,7 @@ const SearchDrawer = ({ isOpen, onClose }) => {
 
   const handleSearchSubmit = () => {
     onClose();
+    handleDrawerClose();
   };
 
   useEffect(() => {
