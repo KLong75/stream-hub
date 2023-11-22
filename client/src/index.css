@@ -54,7 +54,7 @@ code {
 }
 
 main {
-  min-height: calc(100vh - env(safe-area-inset-bottom));
+  /* min-height: calc(100vh - env(safe-area-inset-bottom)); */
 }
 
 h2 {
