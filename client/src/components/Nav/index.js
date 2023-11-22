@@ -15,7 +15,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import AccountSettingsIconButton from "../AccountSettingsIconButton";
 import SearchDrawerIconButton from "../SearchDrawerIconButton";
 import LogOutButton from "../LogOutButton";
-// import WhatsHotModal from "../WhatsHotModal";
 import HomeIconLink from "../HomeIconLink";
 
 const Nav = () => {
@@ -84,7 +83,7 @@ const Nav = () => {
                     <>
                       <ListItem
                         sx={{ textAlign: "center", justifyContent: "center" }}>
-                        <HomeIconLink />
+                        <HomeIconLink onNavigate={handleDrawerClose}/>
                       </ListItem>
                       <Divider />
                     </>
