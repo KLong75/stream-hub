@@ -108,43 +108,41 @@ const App = () => {
                       <PopularTvProvider>
                         <TopRatedTvProvider>
                           <ComingSoonProvider>
-                            
-                              <CssBaseline />
-                              <Router>
-                                <ScrollToTop />
-                                <Header />
-                                <Routes>
-                                  <Route path="/" element={<LandingPage />} />
-                                  <Route
-                                    path="/home_page"
-                                    element={<HomePage />}
-                                  />
-                                  <Route
-                                    path="/search_results"
-                                    element={<GenreSearchResults />}
-                                  />
-                                  <Route
-                                    path="/mixed_genre_search_results"
-                                    element={<MixedGenreSearchSearchResults />}
-                                  />
-                                  <Route
-                                    path="/genre_source_type_search_results"
-                                    element={<GenreSourceTypeResults />}
-                                  />
-                                  <Route
-                                    path="/title_search_results"
-                                    element={<TitleSearchResults />}
-                                  />
-                                  <Route
-                                    path="/title_details"
-                                    element={<TitleDetails />}
-                                  />
-                                  <Route path="*" element={<LandingPage />} />
-                                </Routes>
-                                <ScrollToTopButton />
-                                <Footer />
-                              </Router>
-                           
+                            <CssBaseline />
+                            <Router>
+                              <ScrollToTop />
+                              <Header />
+                              <Routes>
+                                <Route path="/" element={<LandingPage />} />
+                                <Route
+                                  path="/home_page"
+                                  element={<HomePage />}
+                                />
+                                <Route
+                                  path="/search_results"
+                                  element={<GenreSearchResults />}
+                                />
+                                <Route
+                                  path="/mixed_genre_search_results"
+                                  element={<MixedGenreSearchSearchResults />}
+                                />
+                                <Route
+                                  path="/genre_source_type_search_results"
+                                  element={<GenreSourceTypeResults />}
+                                />
+                                <Route
+                                  path="/title_search_results"
+                                  element={<TitleSearchResults />}
+                                />
+                                <Route
+                                  path="/title_details"
+                                  element={<TitleDetails />}
+                                />
+                                <Route path="*" element={<LandingPage />} />
+                              </Routes>
+                              <ScrollToTopButton />
+                              <Footer />
+                            </Router>
                           </ComingSoonProvider>
                         </TopRatedTvProvider>
                       </PopularTvProvider>
