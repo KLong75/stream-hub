@@ -9,7 +9,7 @@ import { Link } from "@mui/material";
 import styles from './SearchDrawerIconButton.module.css';
 
 
-const SearchDrawerIconButton = () => {
+const SearchDrawerIconButton = ( {handleDrawerClose}) => {
   const [isSearchDrawerOpen, setSearchDrawerOpen] = useState(false);
   const handleOpenSearchDrawer = () => {
     setSearchDrawerOpen(true);
@@ -24,6 +24,7 @@ const SearchDrawerIconButton = () => {
       <SearchDrawer
         isOpen={isSearchDrawerOpen}
         onClose={handleCloseSearchDrawer}
+        handleDrawerClose={handleDrawerClose}
       />
       <Link className={styles.searchButton} underline="none" component="button" onClick={handleOpenSearchDrawer}>
         <SearchIcon
