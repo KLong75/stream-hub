@@ -17,7 +17,7 @@ export function formatDate(release_date) {
   let monthIndex = date.getMonth();
   let year = date.getFullYear();
 
-  return `${monthNames[monthIndex]}, ${day}, ${year}`;
+  return `${monthNames[monthIndex]} ${day}, ${year}`;
 }
 
 
