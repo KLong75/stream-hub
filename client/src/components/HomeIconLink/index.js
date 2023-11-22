@@ -5,10 +5,10 @@ import HomeIcon from "@mui/icons-material/Home";
 // import styles
 import styles from "./HomeIconLink.module.css";
 
-const HomeIconLink = () => {
+const HomeIconLink = ( {onNavigate} ) => {
   return (
     <>
-      <Link className={styles.homeIconLink} underline="none" to="/home_page">
+      <Link className={styles.homeIconLink} underline="none" to="/home_page" onClick={onNavigate} >
         <HomeIcon fontSize="large" sx={{ marginBottom: "-.5rem" }} />
         <h6 className={styles.homeLabel}>Home</h6>
       </Link>
