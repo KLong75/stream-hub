@@ -19,7 +19,6 @@ const VerticalCardSwipeGallery = ({
 }) => {
   const rawData = useContext(context);
   // console.log(`${categoryTitle}: `, rawData);
-
   const uniqueIds = new Set();
   const filteredData = rawData.filter((item) => {
     if (!uniqueIds.has(item.id)) {
@@ -29,7 +28,6 @@ const VerticalCardSwipeGallery = ({
     return false;
   });
   // console.log(filteredData);
-
   const handleTitleSelected = useTitleSelectionTMDBId();
   const now = new Date();
 
