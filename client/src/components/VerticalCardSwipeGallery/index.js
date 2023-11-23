@@ -18,7 +18,7 @@ const VerticalCardSwipeGallery = ({
   genreList,
 }) => {
   const rawData = useContext(context);
-  // console.log(`${categoryTitle}: `, rawData);
+  console.log(`${categoryTitle}: `, rawData);
 
   const uniqueIds = new Set();
   const filteredData = rawData.filter((item) => {
@@ -70,7 +70,8 @@ const VerticalCardSwipeGallery = ({
                   ? `tv-${item.id}`
                   : `movie-${item.id}`
               )
-            }>
+            }
+          >
             <h4 className={styles.title}>{item.title}</h4>
             <h5 className={styles.genres}>
               {(item.genre || [])
