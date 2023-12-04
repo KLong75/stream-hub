@@ -1,5 +1,5 @@
 // import from react
-import { useState, useContext } from "react";
+import { useState } from "react";
 // import from react-router-dom
 import { Link, useParams } from "react-router-dom";
 // import context
@@ -161,8 +161,6 @@ const WatchList = () => {
               criteria.
             </p>
           ) : null}
-
-          {/* <h3 className={styles.category}>{userData.username}'s Watchlist</h3> */}
           <Swiper
             // loop={true}
             style={{ "--swiper-navigation-color": "#000000" }}
