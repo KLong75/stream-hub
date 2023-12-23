@@ -6,7 +6,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 // import components
 import Nav from "../Nav";
 // import images
-import tvIcon from "../../assets/images/TvIcon.png";
+import tvIcon from "../../assets/images/TvNew2.png";
 // import styles
 import styles from "./Header.module.css";
 

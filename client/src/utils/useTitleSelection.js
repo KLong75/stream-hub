@@ -57,7 +57,7 @@ export const useTitleSelection = () => {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
-        // console.log('New titleDetails fetched', titleDetails)
+        console.log('New titleDetails fetched', titleDetails)
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
@@ -156,7 +156,7 @@ export const useTitleSelection = () => {
           runtime: titleDetails.runtime,
           similar_title_data: fetchedSimilarTitles,
           sources: titleDetails.sources.filter(
-            (source) => source.type === "sub"
+            (source) => source.type === "sub" && source.region === "US"
           ),
           buy_sources: uniqueBuySources,
           trailer:
