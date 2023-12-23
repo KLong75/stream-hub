@@ -60,7 +60,7 @@ const TitleDetails = () => {
   const title = useContext(TitleDetailsContext);
   // console.log("title", title);
   const { selectedTitleDetails } = useContext(TitleDetailsContext);
-  console.log("selectedTitleDetails", selectedTitleDetails);
+  // console.log("selectedTitleDetails", selectedTitleDetails);
   const { setActorSearchResults } = useContext(SearchResultsContext);
   const [saveTitle] = useMutation(SAVE_TITLE);
   // eslint-disable-next-line no-unused-vars

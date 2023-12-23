@@ -58,7 +58,7 @@ export const useTitleSelection = () => {
           throw new Error("Something went wrong");
         }
         const titleDetails = await response.json();
-        console.log('New titleDetails fetched', titleDetails)
+        // console.log('New titleDetails fetched', titleDetails)
         const rentBuySourceNamesToInclude = [
           "iTunes",
           "Google Play",
