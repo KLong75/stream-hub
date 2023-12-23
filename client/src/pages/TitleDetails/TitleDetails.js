@@ -112,7 +112,7 @@ const TitleDetails = () => {
             if (
               actor.known_for_department !== "Acting" ||
               actor.name !== searchedName ||
-              (actor.profile_path === null)
+              actor.profile_path === null
             ) {
               return false;
             }
@@ -126,7 +126,7 @@ const TitleDetails = () => {
             return true;
           })
           .slice(0, 8)
-          
+
           .map((actor) => ({
             id: actor.id,
             name: actor.name,
@@ -338,24 +338,39 @@ const TitleDetails = () => {
           <Grid container xs={12} md={2}>
             <PaperUnderlay sx={{ marginTop: "1rem" }}>
               <Grid container justifyContent="center" alignItems="center">
-                {selectedTitleDetails.sources && selectedTitleDetails.sources.length === 0 &&(
-                  <Grid xs={12}>
-                    <h6 style={{ fontSize: "1rem" }}>Not Available For Subscription Streaming</h6>
-                  </Grid>
-                )}
-                {selectedTitleDetails.sources && selectedTitleDetails.sources.length > 0 &&(
-                  <Grid xs={12}>
-                    <h6 style={{ fontSize: "1rem", marginBottom: '1rem' }}>Watch on:</h6>
-                  </Grid>
-                )}
-                {selectedTitleDetails.sources.map((source, index) => (
+                {selectedTitleDetails.sources &&
+                  selectedTitleDetails.sources.length === 0 && (
+                    <Grid xs={12}>
+                      <h6 style={{ fontSize: "1rem" }}>
+                        Not Available For Subscription Streaming
+                      </h6>
+                    </Grid>
+                  )}
+                {selectedTitleDetails.sources &&
+                  selectedTitleDetails.sources.length > 0 && (
+                    <Grid xs={12}>
+                      <h6 style={{ fontSize: "1rem", marginBottom: "1rem" }}>
+                        Watch on:
+                      </h6>
+                    </Grid>
+                  )}
+                {/* {selectedTitleDetails.sources.map((source, index) => (
                   <Grid key={index} xs={12}>
                     <SourceLink
                       url={source.web_url}
                       logoSrc={sourceLogos[source.name]}
                     />
                   </Grid>
-                ))}
+                ))} */}
+                {selectedTitleDetails.sources.map((source, index) => {
+                  const logoSrc = sourceLogos[source.name];
+                  // Only render SourceLink if logoSrc is not undefined or null
+                  return logoSrc ? (
+                    <Grid key={index} xs={12}>
+                      <SourceLink url={source.web_url} logoSrc={logoSrc} />
+                    </Grid>
+                  ) : null;
+                })}
               </Grid>
             </PaperUnderlay>
           </Grid>
@@ -383,16 +398,22 @@ const TitleDetails = () => {
           <Grid container xs={12} md={2}>
             <PaperUnderlay sx={{ marginTop: "1rem" }}>
               <Grid container justifyContent="center" alignItems="center">
-                {selectedTitleDetails.buy_sources && selectedTitleDetails.buy_sources.length === 0 &&(
-                  <Grid xs={12}>
-                    <h6 style={{ fontSize: "1rem" }}>Not Available For Purchase or Rent</h6>
-                  </Grid>
-                )}
-                {selectedTitleDetails.buy_sources && selectedTitleDetails.buy_sources.length > 0 && (
-                  <Grid xs={12}>
-                    <h6 style={{ fontSize: "1rem", marginBottom: '1rem' }}>Rent or Buy:</h6>
-                  </Grid>
-                )}
+                {selectedTitleDetails.buy_sources &&
+                  selectedTitleDetails.buy_sources.length === 0 && (
+                    <Grid xs={12}>
+                      <h6 style={{ fontSize: "1rem" }}>
+                        Not Available For Purchase or Rent
+                      </h6>
+                    </Grid>
+                  )}
+                {selectedTitleDetails.buy_sources &&
+                  selectedTitleDetails.buy_sources.length > 0 && (
+                    <Grid xs={12}>
+                      <h6 style={{ fontSize: "1rem", marginBottom: "1rem" }}>
+                        Rent or Buy:
+                      </h6>
+                    </Grid>
+                  )}
                 {selectedTitleDetails.buy_sources.map((source, index) => (
                   <Grid key={index} xs={12}>
                     <SourceLink
@@ -512,7 +533,10 @@ const TitleDetails = () => {
                     <PaperUnderlay
                       key={crewMember.id}
                       sx={{ marginTop: "1rem" }}>
-                      <Grid xs={12} container sx={{width: 'fit-content(20em)'}}>
+                      <Grid
+                        xs={12}
+                        container
+                        sx={{ width: "fit-content(20em)" }}>
                         <Grid xs={12}>
                           <h5 style={{ margin: "0" }}>Directed By:</h5>
                         </Grid>
@@ -604,7 +628,10 @@ const TitleDetails = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <ActorSearchResultsModal open={modalOpen} onClose={handleCloseActorModal} />
+        <ActorSearchResultsModal
+          open={modalOpen}
+          onClose={handleCloseActorModal}
+        />
       </main>
     </>
   );

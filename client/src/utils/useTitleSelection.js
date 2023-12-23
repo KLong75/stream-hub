@@ -40,6 +40,7 @@ export const useTitleSelection = () => {
       `titleDetails_${selectedTitleId}`
     );
     if (cachedTitleDetails) {
+      console.log("Cached Data Retrieved: cachedTitleDetails");
       const { data, timestamp } = JSON.parse(cachedTitleDetails);
       const now = Date.now();
       if (now - timestamp < CACHE_DURATION) {

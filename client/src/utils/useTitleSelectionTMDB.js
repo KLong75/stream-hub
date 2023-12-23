@@ -171,7 +171,7 @@ export const useTitleSelectionTMDBId = () => {
           runtime: titleDetails.runtime,
           similar_title_data: fetchedSimilarTitles,
           sources: titleDetails.sources.filter(
-            (source) => source.type === "sub"
+            (source) => source.type === "sub" && source.region === "US"
           ),
           buy_sources: uniqueBuySources,
           trailer:

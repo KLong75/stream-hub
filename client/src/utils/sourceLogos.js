@@ -19,7 +19,7 @@ export const sourceLogos = {
   'DirecTV On Demand': DirecTVLogo,
   'Hulu': HuluLogo,
   'Netflix': NetflixLogo,
-  'Max': MaxLogo,
+  'MAX': MaxLogo,
   'Peacock Premium': PeacockLogo,
   // 'Hayu': HayuLogo,
   'Paramount+': ParamountPlusLogo,
@@ -38,4 +38,5 @@ export const sourceLogos = {
   // 'YouTube Premium': YouTubePremiumLogo,
   // 'Showtime Amazon': ShowtimeAmazonLogo,
   'fuboTV': FuboTVLogo,
+  
 };
